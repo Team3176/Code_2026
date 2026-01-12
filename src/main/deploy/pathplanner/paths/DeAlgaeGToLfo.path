@@ -1,0 +1,70 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.670725806451613,
+        "y": 4.010827464788732
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.975225806451614,
+        "y": 4.049577464788731
+      },
+      "isLocked": false,
+      "linkedName": "StalkG"
+    },
+    {
+      "anchor": {
+        "x": 5.685387323943662,
+        "y": 7.185475352112676
+      },
+      "prevControl": {
+        "x": 7.329645026250285,
+        "y": 7.87833866063182
+      },
+      "nextControl": {
+        "x": 3.4319542253521123,
+        "y": 6.235915492957746
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.6036971830985902,
+        "y": 7.468926056338027
+      },
+      "prevControl": {
+        "x": 1.7945437544408689,
+        "y": 7.307440495971484
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "lfo"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -142.8152935467669
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "useDefaultConstraints": true
+}
