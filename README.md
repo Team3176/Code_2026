@@ -1,13 +1,11 @@
 # Robot Code for 2026 REBUILT FRC Game & Season
 
 ## How to use this code
-### WARNINGS
-* ***Do NOT attempt to execute ANY command involving the elevator.  You risk mechanically breaking the robot if you do so***
 
 ### Setup and Installs (Getting started)
 * Install [NI Game Tools 2026]( https://www.ni.com/en/support/downloads/drivers/download.frc-game-tools.html ) following these [instructions](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/frc-game-tools.html)
 
-* Install [WPILib](https://github.com/wpilibsuite/allwpilib/releases/tag/v2026.1.1) following these [instructions](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html)
+* Install [WPILib](https://github.com/wpilibsuite/allwpilib/releases/tag/v2026.2.1) following these [instructions](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html)
 
 * Image your RoboRIO 2 using these [instructions](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-3/roborio2-imaging.html)
 
@@ -39,7 +37,7 @@
 
 * Setup your Driverstation following these [instructions](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-4/running-test-program.html)
 
-* Install [Elastic](https://frc-elastic.gitbook.io/docs) from this [link to Elastic 2026.0.0 Beta 1]( https://github.com/Gold872/elastic_dashboard/releases/tag/v2026.0.0 )
+* Install [Elastic](https://frc-elastic.gitbook.io/docs) from this [link to Elastic 2026.0.0]( https://github.com/Gold872/elastic_dashboard/releases/tag/v2026.0.0 )
 
 * Connnect your computer to the robot via either usb or wireless and then "Build & Deploy" your code using the following [example](https://docs.wpilib.org/en/latest/docs/software/vscode-overview/deploying-robot-code.html)
 
