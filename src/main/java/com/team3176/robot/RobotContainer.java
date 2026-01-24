@@ -19,6 +19,7 @@ import com.pathplanner.lib.events.EventTrigger;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -35,7 +36,10 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
 import com.team3176.robot.generated.TunerConstants;
-import com.team3176.robot.commands.*;
+import com.team3176.robot.commands.AlignToReef;
+import com.team3176.robot.commands.VariableAutos;
+import com.team3176.robot.commands.DynamicsCommandFactory;
+import com.team3176.robot.commands.DriveCommands;
 import com.team3176.robot.commands.AlignToReef.FieldBranchSide;
 //import com.team3176.robot.commands.AlignReef.TargetLoc; // for enum TargetLoc
 import com.team3176.robot.subsystems.controller.Controller;
@@ -46,6 +50,8 @@ import com.team3176.robot.subsystems.superstructure.Superstructure;
 import com.team3176.robot.subsystems.vision.Vision;
 import com.team3176.robot.subsystems.vision.VisionIO;
 import com.team3176.robot.subsystems.vision.VisionIOPhotonVision;
+import com.team3176.robot.subsystems.turret.Turret;
+import com.team3176.robot.commands.AimTurretToShooterTag;
 import static com.team3176.robot.subsystems.vision.VisionConstants.*;
 //import com.team3176.robot.subsystems.tof.TimeOfFlightSystem;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
@@ -62,7 +68,10 @@ public class RobotContainer {
   // Subsystems
   private final Drive drive = Drive.getInstance();
 
-        private final Vision vision;
+    private final Vision vision;
+    private final Turret turret = new Turret();
+    // PID used for turret aiming when operator trigger is held
+    private final PIDController turretAimPid = new PIDController(0.02, 0.0, 0.001);
   // Controller
   // private final CommandXboxController controller = new CommandXboxController(0);
   private final Controller controller = Controller.getInstance();
@@ -239,6 +248,30 @@ public class RobotContainer {
 
     // Switch to X pattern when X button is pressed
     controller.transStick.button(4).whileTrue(Commands.runOnce(drive::stopWithX, drive));
+
+        // Aim turret to shooter tag while right trigger is held (threshold 0.5)
+        controller.operator
+                .rightTrigger(0.5)
+                .whileTrue(
+                        Commands.sequence(
+                                // Reset PID when the command starts
+                                Commands.runOnce(() -> turretAimPid.reset()),
+                                // Run aiming loop while held
+                                Commands.run(
+                                        () -> {
+                                            int cameraIndex = com.team3176.robot.Constants.Mechanism.SHOOTER_CAMERA_INDEX;
+                                            if (!vision.isCameraConnected(cameraIndex) || !vision.hasPoseObservations(cameraIndex)) {
+                                                turret.stop();
+                                                return;
+                                            }
+                                            Rotation2d tx = vision.getTargetX(cameraIndex);
+                                            double yawRad = tx.getRadians();
+                                            double output = turretAimPid.calculate(yawRad, 0.0);
+                                            double max = 0.35;
+                                            output = Math.max(-max, Math.min(max, output));
+                                            turret.setPercentOutput(output);
+                                        },
+                                        turret)));
 
     //BOOST ME BABY *2
     controller.rotStick.button(1).

@@ -24,6 +24,22 @@ public final class Constants {
   public static final Mode simMode = Mode.SIM;
   public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
 
+  /** CAN and mechanism constants. */
+  public static final class CAN {
+    // Turret Falcon/TalonFX motor CAN ID (placeholder - change to real ID as needed)
+    public static final int TURRET_MOTOR = 11;
+    // Add other CAN IDs here as needed
+  }
+
+  /** Mechanism ratios and indices. */
+  public static final class Mechanism {
+    // Motor rotations per turret rotation (motor spins 10 times for 1 turret rotation)
+    public static final double TURRET_MOTOR_TO_TURRET_GEAR_RATIO = 10.0;
+
+    // Shooter camera index in Vision (0-based). We append the shooter camera as the last camera.
+    public static final int SHOOTER_CAMERA_INDEX = 4;
+  }
+
   public static enum Mode {
     /** Running on a real robot. */
     REAL,
