@@ -62,15 +62,14 @@ public class RobotContainer {
   // Subsystems
   private final Drive drive = Drive.getInstance();
 
-  //private final Vision vision = new Vision(); //  Vision.getInstance();
+        private final Vision vision;
   // Controller
   // private final CommandXboxController controller = new CommandXboxController(0);
   private final Controller controller = Controller.getInstance();
 
-  // Superstructure
-//  private final Superstructure superstructure = Superstructure.getInstance();
-//  //private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); // TOF system
-//  private final Vision vision;
+        // Superstructure
+    //  private final Superstructure superstructure = Superstructure.getInstance();
+        //private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); // TOF system
 
   private Alliance currentAlliance = Alliance.Blue;
 //  private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchtime() < 20 );
@@ -86,13 +85,17 @@ public class RobotContainer {
   public PathPlannerAuto autocommand;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+    public RobotContainer() {
 
-//    vision = new Vision(drive::addVisionMeasurement,
-//        new VisionIOPhotonVision(camera1Name, robotToCamera1),
-//        new VisionIOPhotonVision(camera2Name, robotToCamera2),
-////       new VisionIOPhotonVision(camera3Name, robotToCamera3),
-//        new VisionIOPhotonVision(camera4Name, robotToCamera4));
+        // Initialize Vision subsystem with PhotonVision cameras
+        // Note: camera3 is left commented out — enable if that physical camera exists.
+        vision = new Vision(
+            drive::addVisionMeasurement,
+            new VisionIOPhotonVision(camera1Name, robotToCamera1),
+            new VisionIOPhotonVision(camera2Name, robotToCamera2),
+            new VisionIOPhotonVision(camera3Name, robotToCamera3),
+            new VisionIOPhotonVision(camera4Name, robotToCamera4),
+            new VisionIOPhotonVision(shooterCameraName, robotToShooterCamera));
     // switch (Constants.currentMode) {
     // case REAL:
     // Real robot, instantiate hardware IO implementations

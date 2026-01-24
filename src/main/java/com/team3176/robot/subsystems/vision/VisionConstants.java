@@ -31,6 +31,7 @@ public class VisionConstants {
   public static String camera2Name = "Camera2";
   public static String camera3Name = "Camera3";
   public static String camera4Name = "Camera4";
+  public static String shooterCameraName = "ShooterCamera";
 
   // Robot to camera transforms
   // (Not used by Limelight, configure in web UI instead)
@@ -73,6 +74,17 @@ public class VisionConstants {
             Units.degreesToRadians(0.0), 
             Units.degreesToRadians(-15), 
             Units.degreesToRadians(-135))
+    );
+
+  public static Transform3d robotToShooterCamera =
+      new Transform3d(
+        Units.inchesToMeters(0.0),
+        Units.inchesToMeters(0.0),
+        Units.inchesToMeters(10.0),
+        new Rotation3d(
+            Units.degreesToRadians(0.0),
+            Units.degreesToRadians(0.0),
+            Units.degreesToRadians(0.0))
     );
 
   // Basic filtering thresholds

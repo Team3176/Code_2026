@@ -64,6 +64,16 @@ public class Vision extends SubsystemBase {
     return inputs[cameraIndex].latestTargetObservation.tx();
   }
 
+  /** Returns true if the given camera index is connected to a camera/coprocessor. */
+  public boolean isCameraConnected(int cameraIndex) {
+    return inputs[cameraIndex].connected;
+  }
+
+  /** Returns true if the given camera index has at least one pose observation available. */
+  public boolean hasPoseObservations(int cameraIndex) {
+    return inputs[cameraIndex].poseObservations != null && inputs[cameraIndex].poseObservations.length > 0;
+  }
+
   @Override
   public void periodic() {
     for (int i = 0; i < io.length; i++) {
