@@ -1,4 +1,4 @@
-package team3176.robot.subsystems.superstructure.intake;
+package com.team3176.robot.subsystems.superstructure.intake;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.system.plant.DCMotor;
@@ -22,9 +22,5 @@ public class IntakeIOSim implements IntakeIO {
   @Override
   public void updateInputs(IntakeIOInputs inputs) {
     
-  }
-
-  @Override
-  public void setPivotVolts(double volts) {
   }
 }
