@@ -8,6 +8,14 @@ public class Hardwaremap {
   /*
    * Superstructer CIDs & CBNs
    */
+
+  public static final int genericTalon_CID = 10;
+  public static final int genericTalonCancoder_CID = 11;      
+
+
+
+
+
   public static final int indexerRoller_CID = 9;
   public static final int armRoller_CID = 28;  
   public static final int armPivot_CID = 29;
@@ -22,6 +30,12 @@ public class Hardwaremap {
   public static int TOF_LEFT_CID = 8;
   public static int TOF_RIGHT_CID = 7;
   public static int TOF_CENTER_CID = 9;
+
+
+
+  public static final String genericTalon_CBN = "rio";
+  
+
 
   public static final String conveyor_CBN = "rio";
   public static final String shooterWheelUpper_CBN = "rio";
