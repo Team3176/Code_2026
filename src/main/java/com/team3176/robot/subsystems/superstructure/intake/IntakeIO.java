@@ -18,5 +18,19 @@ public interface IntakeIO {
 
   /** Updates the set of loggable inputs. */
   public default void updateInputs(IntakeIOInputs inputs) {}
+
+  public default void setRollerVolts(double volts) {}
+
+  public default void setPivotVolts(double volts) {}
+
+  public default void setPivotPIDPosition(double position) {}
+
+  public default void setVelocityVoltage(double volts) {}
+
+  public default void setIntakePIDPosition(double rotations) {}
+
+  public default void setIntakeVoltage(double voltage) {}
+
+
 }
 
