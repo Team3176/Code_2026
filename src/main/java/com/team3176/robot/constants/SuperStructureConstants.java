@@ -30,7 +30,6 @@ public class SuperStructureConstants {
   public static final double GenericTalon_SIM_OFFSET = 63 + GenericTalon_ZERO_POS;
   public static final double GenericTalon_ENCODER_OFFSET = 0;
   public static final double GenericTalonAL_DISTANCE = 20;
-  public static final double GenericTalon_HF_POS = 0.30;
   public static final double GenericTalon_ALGAEZERO_POS = 0.0;
   public static final double GenericTalon_GRABALGAE_POS = 0.250;
   public static final double GenericTalon_SQUEEZE_POS = 0.10;
@@ -39,7 +38,6 @@ public class SuperStructureConstants {
   public static final double GenericTalon_L2_POS = 0.16;
   public static final double GenericTalon_L3_POS = 0.14;
   public static final double GenericTalon_L4_POS = 0.075;
-  public static final double GenericTalon_HF_VOLTS = 3;
   public static final double GenericTalon_L0_SHOOTINGVOLTS = 12;
   public static final double GenericTalon_L1_SHOOTINGVOLTS = 12;
   public static final double GenericTalon_L2_SHOOTINGVOLTS = 10;

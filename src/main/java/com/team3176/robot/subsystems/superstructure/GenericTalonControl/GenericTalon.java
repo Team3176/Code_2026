@@ -24,18 +24,16 @@ public class GenericTalon extends SubsystemBase {
  private static GenericTalon instance;
   private final GenericTalonIO io;
   private final GenericTalonIOInputsAutoLogged inputs = new GenericTalonIOInputsAutoLogged();
-  private final LoggedTunableNumber pivotTuneSetPoint;
-  private final LoggedTunableNumber HumanLoadTuneSetpoint, L0TuneSetpoint, L1TuneSetpoint, L2TuneSetpoint, L3TuneSetpoint, L4TuneSetpoint;
-  private final TunablePID pivotPID;
+  private final LoggedTunableNumber L0TuneSetpoint, L1TuneSetpoint, L2TuneSetpoint, L3TuneSetpoint, L4TuneSetpoint;
+  private final TunablePID positionMotorPID;
   private Timer deployTime = new Timer();
   private double positionSetpoint;
   private double position_offset = 0;
   private boolean ishomed = false;
   private double positionHome = SuperStructureConstants.GenericTalon_L0_POS;
-  private double HumanLoadSetpoint, L0Setpoint, L1Setpoint, L2Setpoint, L3Setpoint, L4Setpoint;
+  private double L0Setpoint, L1Setpoint, L2Setpoint, L3Setpoint, L4Setpoint;
   private double homePos = 0;
   public enum POS {
-    HF,
     L0,
     L1,
     L2,
@@ -57,18 +55,15 @@ public class GenericTalon extends SubsystemBase {
 
   private GenericTalon(GenericTalonIO io) {
     this.io = io;
-    this.pivotPID = new TunablePID("ArmPivot", 3.0, 0.0, 0.0);
-    this.pivotTuneSetPoint = new LoggedTunableNumber("Arm/pivotSetpoint", 0);
-    this.HumanLoadTuneSetpoint = new LoggedTunableNumber("Arm/HumanLoadSetpoint", SuperStructureConstants.GenericTalon_HF_POS);
-    this.L0TuneSetpoint = new LoggedTunableNumber("Arm/L0Setpoint", SuperStructureConstants.GenericTalon_L0_POS);
-    this.L1TuneSetpoint = new LoggedTunableNumber("Arm/L1Setpoint", SuperStructureConstants.GenericTalon_L1_POS);
-    this.L2TuneSetpoint = new LoggedTunableNumber("Arm/L2Setpoint", SuperStructureConstants.GenericTalon_L2_POS);
-    this.L3TuneSetpoint = new LoggedTunableNumber("Arm/L3Setpoint", SuperStructureConstants.GenericTalon_L3_POS);
-    this.L4TuneSetpoint = new LoggedTunableNumber("Arm/L4Setpoint", SuperStructureConstants.GenericTalon_L4_POS);
+    this.positionMotorPID = new TunablePID("ArmPivot", 3.0, 0.0, 0.0);
+    this.L0TuneSetpoint = new LoggedTunableNumber("GenericTalon/L0Setpoint", SuperStructureConstants.GenericTalon_L0_POS);
+    this.L1TuneSetpoint = new LoggedTunableNumber("GenericTalon/L1Setpoint", SuperStructureConstants.GenericTalon_L1_POS);
+    this.L2TuneSetpoint = new LoggedTunableNumber("GenericTalon/L2Setpoint", SuperStructureConstants.GenericTalon_L2_POS);
+    this.L3TuneSetpoint = new LoggedTunableNumber("GenericTalon/L3Setpoint", SuperStructureConstants.GenericTalon_L3_POS);
+    this.L4TuneSetpoint = new LoggedTunableNumber("GenericTalon/L4Setpoint", SuperStructureConstants.GenericTalon_L4_POS);
     this.positionHome = inputs.genericTalonPositionRot;
 
 
-    HumanLoadSetpoint = SuperStructureConstants.GenericTalon_HF_POS;
     L0Setpoint = SuperStructureConstants.GenericTalon_L0_POS;
     L1Setpoint = SuperStructureConstants.GenericTalon_L1_POS;
     L2Setpoint = SuperStructureConstants.GenericTalon_L2_POS;
@@ -83,7 +78,7 @@ public class GenericTalon extends SubsystemBase {
   }
 
   private void runGenericTalon(double volts) {
-    // this assumes positive voltage deploys the Arm and negative voltage retracts it.
+    // this assumes positive voltage deploys and negative voltage retracts it.
     // invert the motor if that is NOT true
     io.setGenericTalonVolts(volts);
   }
@@ -110,7 +105,7 @@ public class GenericTalon extends SubsystemBase {
         });
   }
 
-  public Command arm2Home() {
+  public Command genericTalon2Home() {
     return this.runOnce(
       () -> {
        setGenericTalonVoltagePos(positionHome); 
@@ -175,33 +170,33 @@ public class GenericTalon extends SubsystemBase {
       }); 
     }
 
-  public Command deployDeAlgea() {
+  public Command deployFromHomeCmd() {
     return this.runOnce(
       () -> {
-        deployArmToDeAlgea();
+        deployFromHome();
       }
     );
   }
-
+  //Used to reset home position based on what is read from sensor currently
   public void setCurrentHomePos() {
     this.homePos = inputs.genericTalonPositionRot;
   }
 
-  public void deployArmToDeAlgea() {
+  public void deployFromHome() {
     setCurrentHomePos();
     double deployPos = this.homePos + .25;
     setGenericTalonVoltagePos(deployPos);
   }
   
-  public Command retractDeAlgea() {
+  public Command retractTowardHome() {
     return this.runOnce(
       () -> {
-        retractArmToDeAlgea();
+        retractTowardHomePostion();
       }
     );
   }
 
-  public void retractArmToDeAlgea() {
+  public void retractTowardHomePostion () {
     setCurrentHomePos();
     double deployPos = this.homePos - .10;
     setGenericTalonVoltagePos(deployPos);
@@ -225,9 +220,6 @@ public class GenericTalon extends SubsystemBase {
   public void periodic() {
     
     io.updateInputs(inputs);
-    if (HumanLoadTuneSetpoint.hasChanged(hashCode())) {
-      HumanLoadSetpoint = HumanLoadTuneSetpoint.get();
-    }
     if (L0TuneSetpoint.hasChanged(hashCode())) {
       L0Setpoint = L0TuneSetpoint.get();
     }
@@ -253,7 +245,7 @@ public class GenericTalon extends SubsystemBase {
     
     Logger.recordOutput("GenericTalon/setpoint", this.positionSetpoint);
    
-    pivotPID.checkParemeterUpdate();
+    positionMotorPID.checkParemeterUpdate();
     
   }
 }
