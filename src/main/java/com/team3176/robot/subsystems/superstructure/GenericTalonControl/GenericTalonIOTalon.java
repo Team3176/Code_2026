@@ -77,7 +77,7 @@ public class GenericTalonIOTalon implements GenericTalonIO {
 
     //armPivotEncoder.getConfigurator().apply(pivotEncoderConfig);
 
-    genericTalonConfigs.Slot0.kP = 15; // An error of 1 rotation results in 2.4 V output
+    genericTalonConfigs.Slot0.kP = 3; // An error of 1 rotation results in 2.4 V output
     genericTalonConfigs.Slot0.kI = 0.1; // No output for integrated error
     genericTalonConfigs.Slot0.kD = 0; // A velocity of 1 rps results in 0.1 V output
 
@@ -86,7 +86,6 @@ public class GenericTalonIOTalon implements GenericTalonIO {
     genericTalonConfigs.Voltage.PeakReverseVoltage = SuperStructureConstants.GenericTalon_MAXNeg_OUTPUT_VOLTS;
 
     genericTalonConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-
     //TODO if position from Cancoder define which CanCoder / remote sensor to use for position feedback
     //genericTalonConfigs.Feedback.FeedbackRemoteSensorID = Hardwaremap.genericTalonCancoder_CID;
     //genericTalonConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
