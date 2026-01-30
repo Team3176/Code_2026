@@ -81,10 +81,13 @@ public class GenericTalonIOTalon implements GenericTalonIO {
     genericTalonConfigs.Slot0.kI = 0.1; // No output for integrated error
     genericTalonConfigs.Slot0.kD = 0; // A velocity of 1 rps results in 0.1 V output
 
-    genericTalonConfigs.Voltage.PeakForwardVoltage = 16;
-    genericTalonConfigs.Voltage.PeakReverseVoltage = -16;
+    // set max output voltage limits speed - 14V is max output available 
+    genericTalonConfigs.Voltage.PeakForwardVoltage = SuperStructureConstants.GenericTalon_MAX_OUTPUT_VOLTS; 
+    genericTalonConfigs.Voltage.PeakReverseVoltage = SuperStructureConstants.GenericTalon_MAXNeg_OUTPUT_VOLTS;
+
     genericTalonConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-    //define which CanCoder / remote sensor to use for position feedback
+
+    //TODO if position from Cancoder define which CanCoder / remote sensor to use for position feedback
     //genericTalonConfigs.Feedback.FeedbackRemoteSensorID = Hardwaremap.genericTalonCancoder_CID;
     //genericTalonConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
     //genericTalonConfigs.Feedback.SensorToMechanismRatio = 1.0;
@@ -93,11 +96,9 @@ public class GenericTalonIOTalon implements GenericTalonIO {
     genericTalonConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
     genericTalonConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    genericTalonConfigs.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
-        0.6;
+    genericTalonConfigs.SoftwareLimitSwitch.ForwardSoftLimitThreshold = 0.6;
     genericTalonConfigs.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
-    genericTalonConfigs.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
-        0.0;
+    genericTalonConfigs.SoftwareLimitSwitch.ReverseSoftLimitThreshold = 0.0;
     genericTalonConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = false; 
 
     TalonUtils.applyTalonFxConfigs(genericTalonController, genericTalonConfigs);
