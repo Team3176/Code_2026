@@ -5,7 +5,7 @@
 ### Setup and Installs (Getting started)
 * Install [NI Game Tools 2026]( https://www.ni.com/en/support/downloads/drivers/download.frc-game-tools.html ) following these [instructions](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/frc-game-tools.html)
 
-* Install [WPILib](https://github.com/wpilibsuite/allwpilib/releases/tag/v2026.1.1) following these [instructions](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html)
+* Install [WPILib](https://github.com/wpilibsuite/allwpilib/releases/tag/v2026.2.1) following these [instructions](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html)
 
 * Image your RoboRIO 2 using these [instructions](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-3/roborio2-imaging.html)
 
