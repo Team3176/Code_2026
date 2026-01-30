@@ -24,64 +24,29 @@ public class GenericTalon extends SubsystemBase {
  private static GenericTalon instance;
   private final GenericTalonIO io;
   private final GenericTalonIOInputsAutoLogged inputs = new GenericTalonIOInputsAutoLogged();
-  private final LoggedTunableNumber L0TuneSetpoint, L1TuneSetpoint, L2TuneSetpoint, L3TuneSetpoint, L4TuneSetpoint;
+
   private final TunablePID positionMotorPID;
   private Timer deployTime = new Timer();
   private double positionSetpoint;
-  private double position_offset = 0;
+  private double position_offset = SuperStructureConstants.GenericTalon_ENCODER_OFFSET;
   private boolean ishomed = false;
-  private double positionHome = SuperStructureConstants.GenericTalon_L0_POS;
-  private double L0Setpoint, L1Setpoint, L2Setpoint, L3Setpoint, L4Setpoint;
+  private double positionHome = SuperStructureConstants.GenericTalon_ZERO_POS;
+ 
   private double homePos = 0;
-  public enum POS {
-    L0,
-    L1,
-    L2,
-    L3,
-    L4,
-  }
-  public POS currentPosTrack = POS.L0;
 
-  private enum positionStates {
-    DEPLOY,
-    RETRACT,
-    IDLE,
-    HOLD,
-  };
-  
-
-  private positionStates positionState = positionStates.HOLD;
-  // DigitalInput linebreak1 = new DigitalInput(Hardwaremap.ArmRollerLinebreak_DIO);
 
   private GenericTalon(GenericTalonIO io) {
     this.io = io;
-    this.positionMotorPID = new TunablePID("ArmPivot", 3.0, 0.0, 0.0);
-    this.L0TuneSetpoint = new LoggedTunableNumber("GenericTalon/L0Setpoint", SuperStructureConstants.GenericTalon_L0_POS);
-    this.L1TuneSetpoint = new LoggedTunableNumber("GenericTalon/L1Setpoint", SuperStructureConstants.GenericTalon_L1_POS);
-    this.L2TuneSetpoint = new LoggedTunableNumber("GenericTalon/L2Setpoint", SuperStructureConstants.GenericTalon_L2_POS);
-    this.L3TuneSetpoint = new LoggedTunableNumber("GenericTalon/L3Setpoint", SuperStructureConstants.GenericTalon_L3_POS);
-    this.L4TuneSetpoint = new LoggedTunableNumber("GenericTalon/L4Setpoint", SuperStructureConstants.GenericTalon_L4_POS);
+    this.positionMotorPID = new TunablePID("GenericTalonPIDConstants", SuperStructureConstants.GenericTalon_kP, SuperStructureConstants.GenericTalon_kI, SuperStructureConstants.GenericTalon_kD);
+  
     this.positionHome = inputs.genericTalonPositionRot;
 
 
-    L0Setpoint = SuperStructureConstants.GenericTalon_L0_POS;
-    L1Setpoint = SuperStructureConstants.GenericTalon_L1_POS;
-    L2Setpoint = SuperStructureConstants.GenericTalon_L2_POS;
-    L3Setpoint = SuperStructureConstants.GenericTalon_L3_POS;
-    L4Setpoint = SuperStructureConstants.GenericTalon_L4_POS;
+
   }
 
-  public Command setPosTrack(POS pos){
-    return this.runOnce(() -> {
-      currentPosTrack = pos;
-    });
-  }
 
-  private void runGenericTalon(double volts) {
-    // this assumes positive voltage deploys and negative voltage retracts it.
-    // invert the motor if that is NOT true
-    io.setGenericTalonVolts(volts);
-  }
+
 
   public static GenericTalon getInstance() {
     if (instance == null) {
@@ -96,15 +61,6 @@ public class GenericTalon extends SubsystemBase {
 
 
 
-  // Example command to show how to set the position state
-  public Command toGenericTalon(double position_input) {
-    return this.runOnce(
-        () -> {
-          this.positionSetpoint = position_input;
-          deployTime.restart();
-        });
-  }
-
   public Command genericTalon2Home() {
     return this.runOnce(
       () -> {
@@ -112,8 +68,8 @@ public class GenericTalon extends SubsystemBase {
       }); 
     }
 
-  // TODO: might need to deploy the Arm during a spit but maybe not
 
+  //Provide a position suggest scaling from a joy stick or similar to get the desired number of rotations
   public Command runGenericTalon(DoubleSupplier position) {
     return this.run(
       () -> { 
@@ -133,6 +89,8 @@ public class GenericTalon extends SubsystemBase {
 
 
   private void setGenericTalonVolts(double volts) {
+    // this assumes positive voltage deploys and negative voltage retracts.
+    // invert the motor if that is NOT true
     io.setGenericTalonVolts(volts);
   }
 
@@ -148,15 +106,8 @@ public class GenericTalon extends SubsystemBase {
     io.setGenericTalonBrakeMode(true);
   }
 
-  public void setGenericTalonCurrent() {
-    io.setGenericTalonCurrent(5);
-  }
-
-  public Command setGenericTalonCurrents() {
-    return this.run(() -> {setGenericTalonCurrent();});
-  }
   
-  public Command setPivot2Coast() {
+  public Command setGenericTalon2Coast() {
     return this.runOnce(
       () -> {
         setGenericTalonCoast();
@@ -202,15 +153,15 @@ public class GenericTalon extends SubsystemBase {
     setGenericTalonVoltagePos(deployPos);
   }
 
-  public Command incrementalDeAlgae() {
+  public Command incrementalDeploy() {
     return this.runOnce(
       () -> {
-        deAlgaeIncremental();
+        deployIncremental();
       }
     );
   }
 
-  public void deAlgaeIncremental() {
+  public void deployIncremental() {
     double currentPos = inputs.genericTalonPositionRot;
     currentPos = currentPos + 0.25;
     setGenericTalonVoltagePos(currentPos);
@@ -220,29 +171,9 @@ public class GenericTalon extends SubsystemBase {
   public void periodic() {
     
     io.updateInputs(inputs);
-    if (L0TuneSetpoint.hasChanged(hashCode())) {
-      L0Setpoint = L0TuneSetpoint.get();
-    }
-    if (L1TuneSetpoint.hasChanged(hashCode())) {
-      L1Setpoint = L1TuneSetpoint.get();
-    }
-    if (L2TuneSetpoint.hasChanged(hashCode())) {
-      L2Setpoint = L2TuneSetpoint.get();
-    }
-    if (L3TuneSetpoint.hasChanged(hashCode())) {
-      L3Setpoint = L3TuneSetpoint.get();
-    }
-    if (L4TuneSetpoint.hasChanged(hashCode())) {
-      L4Setpoint = L4TuneSetpoint.get();
-    }
-
 
     Logger.processInputs("GenericTalon", inputs);
-    Logger.recordOutput("GenericTalon/state", positionState);
-
-   
-
-    
+     
     Logger.recordOutput("GenericTalon/setpoint", this.positionSetpoint);
    
     positionMotorPID.checkParemeterUpdate();

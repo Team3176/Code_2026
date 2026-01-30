@@ -21,7 +21,7 @@ import yams.mechanisms.SmartMechanism;
 import yams.motorcontrollers.SmartMotorControllerConfig;
 import yams.motorcontrollers.SmartMotorControllerConfig.ControlMode;
 import yams.motorcontrollers.SmartMotorControllerConfig.MotorMode;
-import yams.motorcontrollers.SmartMotorControllerConfig.TelemetryVerbosity;
+//import yams.motorcontrollers.SmartMotorControllerConfig.TelemetryVerbosity;
 
     /** Template hardware interface for a closed loop subsystem. */
 public class IntakeIOTalon implements IntakeIO {

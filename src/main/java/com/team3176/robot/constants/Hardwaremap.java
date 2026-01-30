@@ -8,22 +8,16 @@ public class Hardwaremap {
   /*
    * Superstructer CIDs & CBNs
    */
-
+// Assign the CAN IDs for the network - must only use once
   public static final int genericTalon_CID = 10;
-  public static final int genericTalonCancoder_CID = 11;      
+  public static final int genericTalonCancoder_CID = 11;    
+  public static final int armPivot_CID = 29; 
 
 
 
 
 
-  public static final int indexerRoller_CID = 9;
-  public static final int armRoller_CID = 28;  
-  public static final int armPivot_CID = 29;
-  public static final int armCancoder_CID = 27;
-  public static final int indexerPivot_CID = 4;
-  public static final int climb_CID = 49;
-  public static final int elevatorLeft_CID = 61;
-  public static final int elevatorRight_CID = 60;
+  
   public static int PDH_CID = 1;
   public static int laserCan_CID = 48;
   public static int pigeon_CID = 5;
@@ -32,7 +26,7 @@ public class Hardwaremap {
   public static int TOF_CENTER_CID = 9;
 
 
-
+// Tell the robot which CAN network to configure the devices to
   public static final String genericTalon_CBN = "rio";
   
 
@@ -53,26 +47,17 @@ public class Hardwaremap {
 
   public static String PDH_CBN = "rio";
 
-  // public static final int elevatorLeaderLimitSwitch_DIO = 5;
-  // public static final int elevatorFollowerLimitSwitch_DIO = 6;
-  //public static final int climbLimitSwitch_DIO = 9;
-  public static final int elevatorBotLimitSwitch_DIO = 9;
-  public static final int elevatorTopLimitSwitch_DIO = 0; // 1;
-  // public static final int armRollerLinebreak_DIO = 5;
-  // public static final int armPivotLinebreak_DIO = 4;
-  //public static final int armUpperLimitSwitch_DIO = 7;
-  //public static final int armLowerLimitSwitch_DIO = 8; // 7;
-  public static final int indexerUpperLimitSwitch_DIO = 7;
-  public static final int indexerLowerLimitSwitch_DIO = 8; // 7;
-  public static final int shooterPivotLower_DIO = 2; // 8;
-  public static final int shooterPivotUpper_DIO = 1; // 9;
-  public static final int conveyorFrontLinebreak = 6;
-  public static final int conveyorBackLinebreak = 4;
 
+  /* Use this area to define which Digital IO pins on the RIO limit swtiches and devices are attached too.  */
+
+  // public static final int elevatorBottomLimitSwitch_DIO = 5;
+  // public static final int elevatorTopLimitSwitch_DIO = 6;
+
+ /* us this section to assign PWM Ports from the RIO - IE LED Lights via Blinkin */
   public static final int blinkin_pwm_port = 9;
 
   /*
-  
+  TODO: This AREA DEFINES THE PODS need to update for 2026
    */
   // statics constants for swerve pods
   public static final String SWERVEPOD_CTRE_CBN =

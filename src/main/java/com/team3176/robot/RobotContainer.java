@@ -68,7 +68,7 @@ public class RobotContainer {
   private final Controller controller = Controller.getInstance();
 
   // Superstructure
-//  private final Superstructure superstructure = Superstructure.getInstance();
+  private final Superstructure superstructure = Superstructure.getInstance();
 //  //private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); // TOF system
 //  private final Vision vision;
 
@@ -206,7 +206,7 @@ public class RobotContainer {
     ///// SETUP OVERRIDE BOX ////////
     visionOverride = controller.switchBox.button(4);
 
-
+   
 
 
     // Default command, normal field-relative drive
@@ -361,6 +361,10 @@ public class RobotContainer {
 
 
     // ***** OPERATOR CONTROLLER *****
+
+controller.operator.leftBumper().whileTrue(superstructure.genericPositionMotor(() -> -controller.operator.getLeftY()));
+
+
 // Climb buttons
     // Max retraction position = -70
     // Staring configuration = 0 to -5

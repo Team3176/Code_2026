@@ -32,8 +32,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import com.team3176.robot.constants.Hardwaremap;
 import com.team3176.robot.constants.SuperStructureConstants;
 import com.team3176.robot.util.TalonUtils;
-import au.grapplerobotics.LaserCan;
-import au.grapplerobotics.ConfigurationFailedException;
+
 
 /** Template hardware interface for a closed loop subsystem. */
 public class GenericTalonIOTalon implements GenericTalonIO {
@@ -85,9 +84,10 @@ public class GenericTalonIOTalon implements GenericTalonIO {
     genericTalonConfigs.Voltage.PeakForwardVoltage = 16;
     genericTalonConfigs.Voltage.PeakReverseVoltage = -16;
     genericTalonConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-    genericTalonConfigs.Feedback.FeedbackRemoteSensorID = Hardwaremap.armCancoder_CID;
-    genericTalonConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
-    genericTalonConfigs.Feedback.SensorToMechanismRatio = 1.0;
+    //define which CanCoder / remote sensor to use for position feedback
+    //genericTalonConfigs.Feedback.FeedbackRemoteSensorID = Hardwaremap.genericTalonCancoder_CID;
+    //genericTalonConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
+    //genericTalonConfigs.Feedback.SensorToMechanismRatio = 1.0;
 
     genericTalonConfigs.CurrentLimits.SupplyCurrentLimit = 60;
     genericTalonConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
@@ -107,7 +107,10 @@ public class GenericTalonIOTalon implements GenericTalonIO {
     genericTalonCurrentAmpsStator = genericTalonController.getStatorCurrent();
     genericTalonCurrentAmpsSupply = genericTalonController.getSupplyCurrent();
     genericTalonVelocity = genericTalonController.getVelocity();
-    genericTalonPosition = genericTalonEncoder.getPositionSinceBoot();
+    genericTalonPosition = genericTalonController.getPosition();
+    
+    //If you want to use a cancode use this definition 
+    //genericTalonPosition = genericTalonEncoder.getPositionSinceBoot();
     genericTalonAbsolutePosition = genericTalonEncoder.getAbsolutePosition();
     genericTalonTemp = genericTalonController.getDeviceTemp();
 
@@ -140,8 +143,6 @@ public class GenericTalonIOTalon implements GenericTalonIO {
         genericTalonCurrentAmpsSupply
         );
 
-    // inputs.isRollerLinebreak = (!rollerLinebreak.get());
-    // inputs.isPivotLinebreak = (!pivotLinebreak.get());
 
     inputs.genericTalonAppliedVolts = genericTalonAppliedVolts.getValueAsDouble();
     inputs.genericTalonAmpsStator = genericTalonCurrentAmpsStator.getValueAsDouble();
@@ -164,21 +165,18 @@ public class GenericTalonIOTalon implements GenericTalonIO {
   }
 
 
-
+  //Use this to provide a speed based on voltage - it is not "controlling to speed"
   @Override
   public void setGenericTalonVolts(double volts) {
     genericTalonController.setControl(genericTalonVolts.withOutput(volts));
   }
 
+  //Offset would be used when we need 
   @Override
   public void setGenericTalonVoltagePos(double position) {
     genericTalonController.setControl(voltPosition.withPosition(position + genericTalon_pos_offset));
   }
 
-  @Override
-  public void setGenericTalonCurrent(double current) {
-    genericTalonController.setControl(genericTalonVolts.withOutput(current));
-  }
 
   @Override
   public void setGenericTalonBrakeMode(boolean enable) {
