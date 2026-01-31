@@ -363,14 +363,14 @@ public class RobotContainer {
     // ***** OPERATOR CONTROLLER *****
 
 //controller.operator.leftBumper().whileTrue(superstructure.genericPositionMotor(() -> -controller.operator.getLeftY()));
-controller.rotStick.button(1).whileTrue((superstructure.genericPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
+controller.rotStick.button(1).whileTrue((superstructure.intakePositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 
-controller.rotStick.button(2).whileTrue((superstructure.genericMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
+controller.rotStick.button(2).whileTrue((superstructure.intakeRollerSpeed(() -> -controller.rotStick.getRawAxis(3))));
 // Climb buttons
     // Max retraction position = -70
     // Staring configuration = 0 to -5
     // Max extension = 
-//    controller.operator.leftBumper().whileTrue(superstructure.testClimbManual(() -> -controller.operator.getLeftY()));
+//    controller.operator.leftBumper().whileTrue(superstructure.testClimbManual(() -> -controller.o-perator.getLeftY()));
      
     // Scoring Positions
 //    controller.operator.a().onTrue(superstructure.goToL1()); //.onFalse(superstructure.goToL0()); 

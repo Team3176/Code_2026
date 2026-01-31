@@ -8,6 +8,7 @@ import java.util.function.DoubleSupplier;
 //import com.team3176.robot.constants.FieldConstants;
 // import java.util.function.IntSupplier;
 import com.team3176.robot.subsystems.superstructure.GenericTalonControl.GenericTalon;
+import com.team3176.robot.subsystems.superstructure.intake.Intake;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.ctre.phoenix6.StatusSignal;
 import com.team3176.robot.constants.SuperStructureConstants;
@@ -16,19 +17,21 @@ import com.team3176.robot.util.TunablePID;
 public class Superstructure {
   private static Superstructure instance;
 
-  private GenericTalon genericTalon;
+  //private GenericTalon genericTalon;
+  private  Intake intake;
 
   public Superstructure() {
 
-    genericTalon = GenericTalon.getInstance();
+    //genericTalon = GenericTalon.getInstance();
+    intake = Intake.getInstance();
   }
 
-  public Command genericPositionMotor(DoubleSupplier position) {
-    return (genericTalon.runGenericTalon(() -> position.getAsDouble()));
+  public Command intakePositionMotor(DoubleSupplier position) {
+    return (intake.runIntake(() -> position.getAsDouble()));
   }
 
-    public Command genericMotorSpeed(DoubleSupplier Speed_RPS) {
-    return (genericTalon.runGenericTalonSpeed(() -> Speed_RPS.getAsDouble()));
+    public Command intakeRollerSpeed(DoubleSupplier Speed_RPS) {
+    return (intake.runIntakeRoller(() -> Speed_RPS.getAsDouble()));
   }
   
   public static Superstructure getInstance() {
