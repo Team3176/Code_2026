@@ -9,6 +9,12 @@ public class SuperStructureConstants {
   public static final double GenericTalon_kI = 0; 
   public static final double GenericTalon_kD = 0; 
 
+public static final double Shooter_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
+  public static final double Shooter_MAXNeg_OUTPUT_VOLTS = -2; //Sets Max Reverse Speed
+   public static final double Shooter_kP = .5;
+  public static final double Shooter_kI = 0; 
+  public static final double Shooter_kD = 0; 
+  
   //Set if using gravity for feedforward
   public static final double GenericTalon_kg = 0.2;
 
@@ -16,10 +22,21 @@ public class SuperStructureConstants {
 
   public static final double GenericTalon_ENCODER_OFFSET = 0;
 
+  public static final double Shooter_kg = 0.2;
+
+  public static final double Shooter_ZERO_POS = 0.39;
+
+  public static final double Shooter_ENCODER_OFFSET = 0;
+
 
   public static final double GenericTalonSpeed_MAX_OUTPUT_VOLTS = 4; //Sets Max forward Speed
   public static final double GenericTalonSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
   public static final double GenericTalonSpeed_Max_RPS = 20;
+
+public static final double ShooterSpeed_MAX_OUTPUT_VOLTS = 4; //Sets Max forward Speed
+  public static final double ShooterSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
+  public static final double ShooterSpeed_Max_RPS = 20;
+
 
 
 
