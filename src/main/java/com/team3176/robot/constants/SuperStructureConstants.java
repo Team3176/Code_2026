@@ -21,6 +21,22 @@ public class SuperStructureConstants {
   public static final double GenericTalonSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
   public static final double GenericTalonSpeed_Max_RPS = 20;
 
+public static final double Hood_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
+  public static final double Hood_MAXNeg_OUTPUT_VOLTS = -2; //Sets Max Reverse Speed
+   public static final double Hood_kP = .5;
+  public static final double Hood_kI = 0; 
+  public static final double Hood_kD = 0; 
 
+  //Set if using gravity for feedforward
+  public static final double Hood_kg = 0.2;
+
+  public static final double Hood_ZERO_POS = 0.39;
+
+  public static final double Hood_ENCODER_OFFSET = 0;
+
+
+  public static final double HoodSpeed_MAX_OUTPUT_VOLTS = 4; //Sets Max forward Speed
+  public static final double HoodSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
+  public static final double HoodSpeed_Max_RPS = 20;
 
 }

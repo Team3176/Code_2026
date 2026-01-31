@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.RobotBase;
 import java.util.Map;
 
 import com.ctre.phoenix6.CANBus;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public final class BaseConstants {
   private static final RobotType robot = RobotType.ROBOT_SIMBOT;
