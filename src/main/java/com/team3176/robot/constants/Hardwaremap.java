@@ -9,13 +9,15 @@ public class Hardwaremap {
    * Superstructer CIDs & CBNs
    */
 // Assign the CAN IDs for the network - must only use once
-  public static final int genericTalon_CID = 10;
-  public static final int genericTalonSpeed_CID = 11;
-  public static final int genericTalonCancoder_CID = 12;    
+  public static final int genericTalon_CID = 100;
+  public static final int genericTalonSpeed_CID = 110;
+  public static final int genericTalonCancoder_CID = 120;    
   public static final int armPivot_CID = 29; 
 
-
-
+  public static final int Kicker_CID = 10;
+  public static final int KickerSpeed_CID = 11;
+  public static final int KickerCancoder_CID = 12; 
+//added a 0 to the end of each of the kicker CID's
 
 
   
@@ -31,7 +33,8 @@ public class Hardwaremap {
   public static final String genericTalon_CBN = "rio";
   public static final String genericTalonSpeed_CBN = "rio";
   
-
+  public static final String Kicker_CBN = "rio";
+  public static final String KickerSpeed_CBN = "rio";
 
   public static final String conveyor_CBN = "rio";
   public static final String shooterWheelUpper_CBN = "rio";
