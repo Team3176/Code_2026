@@ -10,6 +10,7 @@ public class Hardwaremap {
    */
 // Assign the CAN IDs for the network - must only use once
   public static final int genericTalon_CID = 10;
+  public static final int genericTalonSpeed_CID = 11;
   public static final int genericTalonCancoder_CID = 12;    
   public static final int armPivot_CID = 29; 
 
@@ -28,6 +29,7 @@ public class Hardwaremap {
 
 // Tell the robot which CAN network to configure the devices to
   public static final String genericTalon_CBN = "rio";
+  public static final String genericTalonSpeed_CBN = "rio";
   
 
 

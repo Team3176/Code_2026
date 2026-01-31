@@ -26,6 +26,10 @@ public class Superstructure {
   public Command genericPositionMotor(DoubleSupplier position) {
     return (genericTalon.runGenericTalon(() -> position.getAsDouble()));
   }
+
+    public Command genericMotorSpeed(DoubleSupplier Speed_RPS) {
+    return (genericTalon.runGenericTalonSpeed(() -> Speed_RPS.getAsDouble()));
+  }
   
   public static Superstructure getInstance() {
     if (instance == null) {

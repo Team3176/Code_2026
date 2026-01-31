@@ -49,4 +49,8 @@ public interface GenericTalonIO {
 
   public default void setGenericTalonCurrent(double current) {};
 
+  public default void setGenericTalonSpeedVelocity(double speed_RPS) {};
+
+  public default void setGenericTalonSpeedBrakeMode(boolean enable) {};
+
 }
