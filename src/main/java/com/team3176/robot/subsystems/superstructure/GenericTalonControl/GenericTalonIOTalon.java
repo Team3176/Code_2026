@@ -150,7 +150,9 @@ public class GenericTalonIOTalon implements GenericTalonIO {
     inputs.genericTalonTempCelcius = genericTalonTemp.getValueAsDouble();
     inputs.genericTalonPositionDeg = Units.rotationsToDegrees(genericTalonPosition.getValueAsDouble());
     inputs.genericTalon_pos_offset = genericTalon_pos_offset;
-    inputs.genericTalonPositionRot = genericTalonEncoder.getPosition().getValueAsDouble() - genericTalon_pos_offset;
+    inputs.genericTalonPositionRot = genericTalonController.getPosition().getValueAsDouble();
+    //Use if using cancoder
+    //inputs.genericTalonPositionRot = genericTalonEncoder.getPosition().getValueAsDouble() - genericTalon_pos_offset;
     inputs.genericTalonPositionRotREAL = genericTalonEncoder.getPosition().getValueAsDouble(); 
     inputs.genericTalonVelocityRadPerSec = Units.rotationsToRadians(genericTalonVelocity.getValueAsDouble());
 
