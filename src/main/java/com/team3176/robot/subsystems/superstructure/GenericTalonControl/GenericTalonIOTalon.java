@@ -19,6 +19,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -38,8 +39,9 @@ import com.team3176.robot.util.TalonUtils;
 public class GenericTalonIOTalon implements GenericTalonIO {
 
   private TalonFX genericTalonController;
+  private TalonFX genericTalonSpeedController;
   private CANcoder genericTalonEncoder;
-  VelocityVoltage voltVelocity;
+  VelocityVoltage voltVelocity = new VelocityVoltage(0);
   VoltageOut genericTalonVolts = new VoltageOut(0.0);
   PositionVoltage voltPosition = new PositionVoltage(0);
   private Rotation2d encoderOffset; 
@@ -60,11 +62,13 @@ public class GenericTalonIOTalon implements GenericTalonIO {
 
  
     TalonFXConfiguration genericTalonConfigs = new TalonFXConfiguration();
+    TalonFXConfiguration genericTalonSpeedConfigs = new TalonFXConfiguration();
  
     // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
 
     genericTalonController = new TalonFX(Hardwaremap.genericTalon_CID, Hardwaremap.genericTalon_CBN);
+    genericTalonSpeedController = new TalonFX(Hardwaremap.genericTalonSpeed_CID, Hardwaremap.genericTalonSpeed_CBN);
 
     genericTalonEncoder = new CANcoder(Hardwaremap.genericTalonCancoder_CID, Hardwaremap.genericTalon_CBN);
  
@@ -103,6 +107,20 @@ public class GenericTalonIOTalon implements GenericTalonIO {
     TalonUtils.applyTalonFxConfigs(genericTalonController, genericTalonConfigs);
     //genericTalonController.setPosition(0, 0);
 
+    //SETUP SPEED CONTROL CONFIGS
+        /* Voltage-based velocity requires a velocity feed forward to account for the back-emf of the motor */
+    genericTalonSpeedConfigs.Slot0.kS = 0.1; // To account for friction, add 0.1 V of static feedforward
+    genericTalonSpeedConfigs.Slot0.kV = 0.12; // Kraken X60 is a 500 kV motor, 500 rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / rotation per second
+    genericTalonSpeedConfigs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 0.11 V output
+    genericTalonSpeedConfigs.Slot0.kI = 0; // No output for integrated error
+    genericTalonSpeedConfigs.Slot0.kD = 0; // No output for error derivative
+    // Peak output of 8 volts
+    genericTalonSpeedConfigs.Voltage.withPeakForwardVoltage (SuperStructureConstants.GenericTalonSpeed_MAX_OUTPUT_VOLTS)
+      .withPeakReverseVoltage(SuperStructureConstants.GenericTalonSpeed_MAXNeg_OUTPUT_VOLTS);
+
+    TalonUtils.applyTalonFxConfigs(genericTalonSpeedController, genericTalonSpeedConfigs);
+
+
     genericTalonAppliedVolts = genericTalonController.getMotorVoltage();
     genericTalonCurrentAmpsStator = genericTalonController.getStatorCurrent();
     genericTalonCurrentAmpsSupply = genericTalonController.getSupplyCurrent();
@@ -127,6 +145,7 @@ public class GenericTalonIOTalon implements GenericTalonIO {
         genericTalonCurrentAmpsSupply);
 
     genericTalonController.optimizeBusUtilization();
+    genericTalonSpeedController.optimizeBusUtilization();
   }
 
 
@@ -188,4 +207,20 @@ public class GenericTalonIOTalon implements GenericTalonIO {
       genericTalonController.setNeutralMode(NeutralModeValue.Coast);
     }
   }
+
+  @Override
+  public void setGenericTalonSpeedBrakeMode(boolean enable) {
+    if (enable) {
+      genericTalonSpeedController.setNeutralMode(NeutralModeValue.Brake);
+    } else {
+      genericTalonSpeedController.setNeutralMode(NeutralModeValue.Coast);
+    }
+  }
+
+    //Offset would be used when we need 
+  @Override
+  public void setGenericTalonSpeedVelocity(double speed_RPS) {
+    genericTalonSpeedController.setControl(voltVelocity.withVelocity(speed_RPS));
+  }
+
 }

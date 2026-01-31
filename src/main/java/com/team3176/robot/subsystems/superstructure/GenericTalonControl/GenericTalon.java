@@ -167,6 +167,29 @@ public class GenericTalon extends SubsystemBase {
     setGenericTalonVoltagePos(currentPos);
   }
 
+  // USE THESE COMMANDS FOR SPEED CONTROL
+
+  private void setGenericTalonSpeedControl(double Speed_RPS) {
+    io.setGenericTalonSpeedVelocity(Speed_RPS);
+  }
+
+  public void setGenericTalonSpeedCoast() {
+    io.setGenericTalonSpeedBrakeMode(false);
+  }
+
+  public void setGenericTalonSpeedBrake() {
+    io.setGenericTalonSpeedBrakeMode(true);
+  }
+
+  //Provide a position suggest scaling from a joy stick or similar to get the desired number of rotations
+  public Command runGenericTalonSpeed(DoubleSupplier Speed_RPS) {
+    return this.run(
+      () -> { 
+        setGenericTalonSpeedControl(Speed_RPS.getAsDouble() * SuperStructureConstants.GenericTalonSpeed_Max_RPS); //TODO this assumes -1 -> based on joysick
+      });
+  }
+
+
   @Override
   public void periodic() {
     
