@@ -73,7 +73,7 @@ public class GenericTalon extends SubsystemBase {
   public Command runGenericTalon(DoubleSupplier position) {
     return this.run(
       () -> { 
-        setGenericTalonVoltagePos(position.getAsDouble());
+        setGenericTalonVoltagePos(position.getAsDouble()*3);
       });
   }
 
