@@ -14,7 +14,8 @@ public class Hardwaremap {
   public static final int genericTalonCancoder_CID = 12;    
   public static final int armPivot_CID = 29; 
 
-
+  public static final int genericTalonLeaderSpeed_CID = 21;
+  public static final int genericTalonFollowerSpeed_CID = 22;
 
 
 
@@ -30,7 +31,7 @@ public class Hardwaremap {
 // Tell the robot which CAN network to configure the devices to
   public static final String genericTalon_CBN = "rio";
   public static final String genericTalonSpeed_CBN = "rio";
-  
+  public static final String genericTalonDualSpeed_CBN = "rio";
 
 
   public static final String conveyor_CBN = "rio";

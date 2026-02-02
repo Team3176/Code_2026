@@ -22,5 +22,10 @@ public class SuperStructureConstants {
   public static final double GenericTalonSpeed_Max_RPS = 20;
 
 
+  public static final double GenericTalonDualSpeed_MAX_OUTPUT_VOLTS = 4; //Sets Max forward Speed
+  public static final double GenericTalonDualSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
+  public static final double GenericTalonDualSpeed_Max_RPS = 20;
+
+
 
 }

@@ -12,6 +12,7 @@ import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
@@ -20,6 +21,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
+
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -40,6 +42,12 @@ public class GenericTalonIOTalon implements GenericTalonIO {
 
   private TalonFX genericTalonController;
   private TalonFX genericTalonSpeedController;
+
+  //Dual Motor Leader Follower Speed Control
+  private TalonFX genericTalonLeaderSpeedController;
+  private TalonFX genericTalonFollowerSpeedController;
+
+
   private CANcoder genericTalonEncoder;
   VelocityVoltage voltVelocity = new VelocityVoltage(0);
   VoltageOut genericTalonVolts = new VoltageOut(0.0);
@@ -63,12 +71,18 @@ public class GenericTalonIOTalon implements GenericTalonIO {
  
     TalonFXConfiguration genericTalonConfigs = new TalonFXConfiguration();
     TalonFXConfiguration genericTalonSpeedConfigs = new TalonFXConfiguration();
+    
+    TalonFXConfiguration genericTalonDualSpeedConfigs = new TalonFXConfiguration();
  
     // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
 
     genericTalonController = new TalonFX(Hardwaremap.genericTalon_CID, Hardwaremap.genericTalon_CBN);
     genericTalonSpeedController = new TalonFX(Hardwaremap.genericTalonSpeed_CID, Hardwaremap.genericTalonSpeed_CBN);
+
+    genericTalonLeaderSpeedController = new TalonFX(Hardwaremap.genericTalonLeaderSpeed_CID, Hardwaremap.genericTalonDualSpeed_CBN);
+    genericTalonFollowerSpeedController = new TalonFX(Hardwaremap.genericTalonFollowerSpeed_CID, Hardwaremap.genericTalonDualSpeed_CBN);
+
 
     genericTalonEncoder = new CANcoder(Hardwaremap.genericTalonCancoder_CID, Hardwaremap.genericTalon_CBN);
  
@@ -120,7 +134,24 @@ public class GenericTalonIOTalon implements GenericTalonIO {
 
     TalonUtils.applyTalonFxConfigs(genericTalonSpeedController, genericTalonSpeedConfigs);
 
+    //Setup SPEED CONTROL FOR Dual Motor Leader / Follower - this definition assumes that the motors need to spin opposite directions for the mechanisim. 
+    /* Voltage-based velocity requires a velocity feed forward to account for the back-emf of the motor */
+    genericTalonDualSpeedConfigs.Slot0.kS = 0.1; // To account for friction, add 0.1 V of static feedforward
+    genericTalonDualSpeedConfigs.Slot0.kV = 0.12; // Kraken X60 is a 500 kV motor, 500 rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / rotation per second
+    genericTalonDualSpeedConfigs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 0.11 V output
+    genericTalonDualSpeedConfigs.Slot0.kI = 0; // No output for integrated error
+    genericTalonDualSpeedConfigs.Slot0.kD = 0; // No output for error derivative
+    // Peak output of 8 volts
+    genericTalonDualSpeedConfigs.Voltage.withPeakForwardVoltage (SuperStructureConstants.GenericTalonDualSpeed_MAX_OUTPUT_VOLTS)
+      .withPeakReverseVoltage(SuperStructureConstants.GenericTalonDualSpeed_MAXNeg_OUTPUT_VOLTS);
 
+    TalonUtils.applyTalonFxConfigs(genericTalonLeaderSpeedController, genericTalonDualSpeedConfigs);
+    TalonUtils.applyTalonFxConfigs(genericTalonFollowerSpeedController, genericTalonDualSpeedConfigs);
+    genericTalonFollowerSpeedController.setControl(new Follower(genericTalonLeaderSpeedController.getDeviceID(), MotorAlignmentValue.Opposed)); 
+
+
+
+    // Set variables for viewing. - TODO select the group that makes the most sense for your mechanism 
     genericTalonAppliedVolts = genericTalonController.getMotorVoltage();
     genericTalonCurrentAmpsStator = genericTalonController.getStatorCurrent();
     genericTalonCurrentAmpsSupply = genericTalonController.getSupplyCurrent();
@@ -129,6 +160,7 @@ public class GenericTalonIOTalon implements GenericTalonIO {
     
     //If you want to use a cancode use this definition 
     //genericTalonPosition = genericTalonEncoder.getPositionSinceBoot();
+
     genericTalonAbsolutePosition = genericTalonEncoder.getAbsolutePosition();
     genericTalonTemp = genericTalonController.getDeviceTemp();
 
@@ -146,6 +178,11 @@ public class GenericTalonIOTalon implements GenericTalonIO {
 
     genericTalonController.optimizeBusUtilization();
     genericTalonSpeedController.optimizeBusUtilization();
+
+    genericTalonLeaderSpeedController.optimizeBusUtilization();
+    genericTalonFollowerSpeedController.optimizeBusUtilization();
+
+
   }
 
 
@@ -222,5 +259,24 @@ public class GenericTalonIOTalon implements GenericTalonIO {
   public void setGenericTalonSpeedVelocity(double speed_RPS) {
     genericTalonSpeedController.setControl(voltVelocity.withVelocity(speed_RPS));
   }
+
+
+  @Override
+  public void setGenericTalonDualSpeedBrakeMode(boolean enable) {
+    if (enable) {
+      genericTalonLeaderSpeedController.setNeutralMode(NeutralModeValue.Brake);
+      genericTalonFollowerSpeedController.setNeutralMode(NeutralModeValue.Brake);
+    } else {
+      genericTalonLeaderSpeedController.setNeutralMode(NeutralModeValue.Coast);
+      genericTalonFollowerSpeedController.setNeutralMode(NeutralModeValue.Coast);
+    }
+  }
+
+    //Offset would be used when we need 
+  @Override
+  public void setGenericTalonDualSpeedVelocity(double speed_RPS) {
+    genericTalonLeaderSpeedController.setControl(voltVelocity.withVelocity(speed_RPS));
+  }
+
 
 }
