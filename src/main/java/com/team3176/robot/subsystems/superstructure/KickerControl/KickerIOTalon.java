@@ -38,157 +38,157 @@ import com.team3176.robot.util.TalonUtils;
 /** Template hardware interface for a closed loop subsystem. */
 public class KickerIOTalon implements KickerIO {
 
-  private TalonFX KickerController;
-  private TalonFX KickerSpeedController;
-  private CANcoder KickerEncoder;
+  private TalonFX kickerController;
+  private TalonFX kickerSpeedController;
+  private CANcoder kickerEncoder;
   VelocityVoltage voltVelocity = new VelocityVoltage(0);
-  VoltageOut KickerVolts = new VoltageOut(0.0);
+  VoltageOut kickerVolts = new VoltageOut(0.0);
   private Rotation2d encoderOffset; 
 
-  DigitalInput KickerLinebreak;
+  DigitalInput kickerLinebreak;
 
-  private final StatusSignal<Voltage> KickerAppliedVolts;
-  private final StatusSignal<Current> KickerCurrentAmpsStator;
-  private final StatusSignal<Current> KickerCurrentAmpsSupply;
-  private final StatusSignal<AngularVelocity> KickerVelocity;
-  private final StatusSignal<Temperature> KickerTemp;
+  private final StatusSignal<Voltage> kickerAppliedVolts;
+  private final StatusSignal<Current> kickerCurrentAmpsStator;
+  private final StatusSignal<Current> kickerCurrentAmpsSupply;
+  private final StatusSignal<AngularVelocity> kickerVelocity;
+  private final StatusSignal<Temperature> kickerTemp;
 
 
   public KickerIOTalon() {
 
  
-    TalonFXConfiguration KickerConfigs = new TalonFXConfiguration();
-    TalonFXConfiguration KickerSpeedConfigs = new TalonFXConfiguration();
+    TalonFXConfiguration kickerConfigs = new TalonFXConfiguration();
+    TalonFXConfiguration kickerSpeedConfigs = new TalonFXConfiguration();
  
     // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
 
-    KickerController = new TalonFX(Hardwaremap.Kicker_CID, Hardwaremap.Kicker_CBN);
-    KickerSpeedController = new TalonFX(Hardwaremap.KickerSpeed_CID, Hardwaremap.KickerSpeed_CBN);
+    kickerController = new TalonFX(Hardwaremap.Kicker_CID, Hardwaremap.Kicker_CBN);
+    kickerSpeedController = new TalonFX(Hardwaremap.KickerSpeed_CID, Hardwaremap.KickerSpeed_CBN);
 
-    KickerEncoder = new CANcoder(Hardwaremap.KickerCancoder_CID, Hardwaremap.Kicker_CBN);
+    kickerEncoder = new CANcoder(Hardwaremap.KickerCancoder_CID, Hardwaremap.Kicker_CBN);
  
 
  
-    //var KickerEncoderConfig = new CANcoderConfiguration();
-    //KickerEncoderConfig.MagnetSensor.MagnetOffset = encoderOffset.getRotations();
+    //var kickerEncoderConfig = new CANcoderConfiguration();
+    //kickerEncoderConfig.MagnetSensor.MagnetOffset = encoderOffset.getRotations();
     
 
     //armPivotEncoder.getConfigurator().apply(pivotEncoderConfig);
 
-    KickerConfigs.Slot0.kP = 3; // An error of 1 rotation results in 2.4 V output
-    KickerConfigs.Slot0.kI = 0.1; // No output for integrated error
-    KickerConfigs.Slot0.kD = 0; // A velocity of 1 rps results in 0.1 V output
+    kickerConfigs.Slot0.kP = 3; // An error of 1 rotation results in 2.4 V output
+    kickerConfigs.Slot0.kI = 0.1; // No output for integrated error
+    kickerConfigs.Slot0.kD = 0; // A velocity of 1 rps results in 0.1 V output
 
     // set max output voltage limits speed - 14V is max output available 
-    KickerConfigs.Voltage.PeakForwardVoltage = SuperStructureConstants.Kicker_MAX_OUTPUT_VOLTS; 
-    KickerConfigs.Voltage.PeakReverseVoltage = SuperStructureConstants.Kicker_MAXNeg_OUTPUT_VOLTS;
+    kickerConfigs.Voltage.PeakForwardVoltage = SuperStructureConstants.Kicker_MAX_OUTPUT_VOLTS; 
+    kickerConfigs.Voltage.PeakReverseVoltage = SuperStructureConstants.Kicker_MAXNeg_OUTPUT_VOLTS;
 
-    KickerConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    kickerConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     //TODO if position from Cancoder define which CanCoder / remote sensor to use for position feedback
-    //KickerConfigs.Feedback.FeedbackRemoteSensorID = Hardwaremap.KickerCancoder_CID;
-    //KickerConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
-    //KickerConfigs.Feedback.SensorToMechanismRatio = 1.0;
+    //kickerConfigs.Feedback.FeedbackRemoteSensorID = Hardwaremap.kickerCancoder_CID;
+    //kickerConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
+    //kickerConfigs.Feedback.SensorToMechanismRatio = 1.0;
 
-    KickerConfigs.CurrentLimits.SupplyCurrentLimit = 60;
-    KickerConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
-    KickerConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    kickerConfigs.CurrentLimits.SupplyCurrentLimit = 60;
+    kickerConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
+    kickerConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    KickerConfigs.SoftwareLimitSwitch.ForwardSoftLimitThreshold = 0.6;
-    KickerConfigs.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
-    KickerConfigs.SoftwareLimitSwitch.ReverseSoftLimitThreshold = 0.0;
-    KickerConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = false; 
+    kickerConfigs.SoftwareLimitSwitch.ForwardSoftLimitThreshold = 0.6;
+    kickerConfigs.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
+    kickerConfigs.SoftwareLimitSwitch.ReverseSoftLimitThreshold = 0.0;
+    kickerConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = false; 
 
-    TalonUtils.applyTalonFxConfigs(KickerController, KickerConfigs);
-    //KickerController.setPosition(0, 0);
+    TalonUtils.applyTalonFxConfigs(kickerController, kickerConfigs);
+    //kickerController.setPosition(0, 0);
 
     //SETUP SPEED CONTROL CONFIGS
         /* Voltage-based velocity requires a velocity feed forward to account for the back-emf of the motor */
-    KickerSpeedConfigs.Slot0.kS = 0.1; // To account for friction, add 0.1 V of static feedforward
-    KickerSpeedConfigs.Slot0.kV = 0.12; // Kraken X60 is a 500 kV motor, 500 rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / rotation per second
-    KickerSpeedConfigs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 0.11 V output
-    KickerSpeedConfigs.Slot0.kI = 0; // No output for integrated error
-    KickerSpeedConfigs.Slot0.kD = 0; // No output for error derivative
+    kickerSpeedConfigs.Slot0.kS = 0.1; // To account for friction, add 0.1 V of static feedforward
+    kickerSpeedConfigs.Slot0.kV = 0.12; // Kraken X60 is a 500 kV motor, 500 rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / rotation per second
+    kickerSpeedConfigs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 0.11 V output
+    kickerSpeedConfigs.Slot0.kI = 0; // No output for integrated error
+    kickerSpeedConfigs.Slot0.kD = 0; // No output for error derivative
     // Peak output of 8 volts
-    KickerSpeedConfigs.Voltage.withPeakForwardVoltage (SuperStructureConstants.KickerSpeed_MAX_OUTPUT_VOLTS)
+    kickerSpeedConfigs.Voltage.withPeakForwardVoltage (SuperStructureConstants.KickerSpeed_MAX_OUTPUT_VOLTS)
       .withPeakReverseVoltage(SuperStructureConstants.KickerSpeed_MAXNeg_OUTPUT_VOLTS);
 
-    TalonUtils.applyTalonFxConfigs(KickerSpeedController, KickerSpeedConfigs);
+    TalonUtils.applyTalonFxConfigs(kickerSpeedController, kickerSpeedConfigs);
 
 
-    KickerAppliedVolts = KickerController.getMotorVoltage();
-    KickerCurrentAmpsStator = KickerController.getStatorCurrent();
-    KickerCurrentAmpsSupply = KickerController.getSupplyCurrent();
-    KickerVelocity = KickerController.getVelocity();
+    kickerAppliedVolts = kickerController.getMotorVoltage();
+    kickerCurrentAmpsStator = kickerController.getStatorCurrent();
+    kickerCurrentAmpsSupply = kickerController.getSupplyCurrent();
+    kickerVelocity = kickerController.getVelocity();
     
     //If you want to use a cancode use this definition 
-    //KickerPosition = KickerEncoder.getPositionSinceBoot();
-    KickerTemp = KickerController.getDeviceTemp();
+    //kickerPosition = kickerEncoder.getPositionSinceBoot();
+    kickerTemp = kickerController.getDeviceTemp();
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         50,
-        KickerAppliedVolts,
-        KickerCurrentAmpsStator,
-        KickerVelocity,
-        KickerTemp,
-        KickerCurrentAmpsSupply);
+        kickerAppliedVolts,
+        kickerCurrentAmpsStator,
+        kickerVelocity,
+        kickerTemp,
+        kickerCurrentAmpsSupply);
 
-    KickerController.optimizeBusUtilization();
-    KickerSpeedController.optimizeBusUtilization();
+    kickerController.optimizeBusUtilization();
+    kickerSpeedController.optimizeBusUtilization();
   }
 
 
 
   /** Updates the set of loggable inputs. */
   @Override
-  public void updateInputs(KickerIOInputs inputs) {
+  public void updateInputs(kickerIOInputs inputs) {
     BaseStatusSignal.refreshAll(
-        KickerAppliedVolts,
-        KickerCurrentAmpsStator,
-        KickerVelocity,
-        KickerTemp,
-        KickerCurrentAmpsSupply
+        kickerAppliedVolts,
+        kickerCurrentAmpsStator,
+        kickerVelocity,
+        kickerTemp,
+        kickerCurrentAmpsSupply
         );
 
 
-    inputs.KickerAppliedVolts = KickerAppliedVolts.getValueAsDouble();
-    inputs.KickerAmpsStator = KickerCurrentAmpsStator.getValueAsDouble();
-    inputs.KickerAmpsSupply = KickerCurrentAmpsSupply.getValueAsDouble();
-    inputs.KickerTempCelcius = KickerTemp.getValueAsDouble();
+    inputs.kickerAppliedVolts = kickerAppliedVolts.getValueAsDouble();
+    inputs.kickerAmpsStator = kickerCurrentAmpsStator.getValueAsDouble();
+    inputs.kickerAmpsSupply = kickerCurrentAmpsSupply.getValueAsDouble();
+    inputs.kickerTempCelcius = kickerTemp.getValueAsDouble();
     //Use if using cancoder
-    //inputs.KickerPositionRot = KickerEncoder.getPosition().getValueAsDouble() - Kicker_pos_offset;
-    inputs.KickerVelocityRadPerSec = Units.rotationsToRadians(KickerVelocity.getValueAsDouble());
+    //inputs.kickerPositionRot = kickerEncoder.getPosition().getValueAsDouble() - kicker_pos_offset;
+    inputs.kickerVelocityRadPerSec = Units.rotationsToRadians(kickerVelocity.getValueAsDouble());
   }
 
 
   //Use this to provide a speed based on voltage - it is not "controlling to speed"
   @Override
-  public void setKickerVolts(double volts) {
-    KickerController.setControl(KickerVolts.withOutput(volts));
+  public void setkickerVolts(double volts) {
+    kickerController.setControl(kickerVolts.withOutput(volts));
   }
 
   @Override
-  public void setKickerBrakeMode(boolean enable) {
+  public void setkickerBrakeMode(boolean enable) {
     if (enable) {
-      KickerController.setNeutralMode(NeutralModeValue.Brake);
+      kickerController.setNeutralMode(NeutralModeValue.Brake);
     } else {
-      KickerController.setNeutralMode(NeutralModeValue.Coast);
+      kickerController.setNeutralMode(NeutralModeValue.Coast);
     }
   }
 
   @Override
-  public void setKickerSpeedBrakeMode(boolean enable) {
+  public void setkickerSpeedBrakeMode(boolean enable) {
     if (enable) {
-      KickerSpeedController.setNeutralMode(NeutralModeValue.Brake);
+      kickerSpeedController.setNeutralMode(NeutralModeValue.Brake);
     } else {
-      KickerSpeedController.setNeutralMode(NeutralModeValue.Coast);
+      kickerSpeedController.setNeutralMode(NeutralModeValue.Coast);
     }
   }
 
     //Offset would be used when we need 
   @Override
-  public void setKickerSpeedVelocity(double speed_RPS) {
-    KickerSpeedController.setControl(voltVelocity.withVelocity(speed_RPS));
+  public void setkickerSpeedVelocity(double speed_RPS) {
+    kickerSpeedController.setControl(voltVelocity.withVelocity(speed_RPS));
   }
 
 }

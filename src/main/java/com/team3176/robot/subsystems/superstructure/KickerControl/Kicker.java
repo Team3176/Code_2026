@@ -23,7 +23,7 @@ import com.team3176.robot.util.TunablePID;
 public class Kicker extends SubsystemBase {
  private static Kicker instance;
   private final KickerIO io;
-  private final KickerIOInputsAutoLogged inputs = new KickerIOInputsAutoLogged();
+  private final kickerIOInputsAutoLogged inputs = new kickerIOInputsAutoLogged();
 
 
   private Timer deployTime = new Timer();
@@ -50,26 +50,26 @@ public class Kicker extends SubsystemBase {
   }
 
 
-    public void setKickerCoast() {
-    io.setKickerBrakeMode(false);
+    public void setkickerCoast() {
+    io.setkickerBrakeMode(false);
   }
 
-  public void setKickerBrake() {
-    io.setKickerBrakeMode(true);
+  public void setkickerBrake() {
+    io.setkickerBrakeMode(true);
   }
 
   
-  public Command setKicker2Coast() {
+  public Command setkicker2Coast() {
     return this.runOnce(
       () -> {
-        setKickerCoast();
+        setkickerCoast();
       }); 
     }
 
-  public Command setKicker2Brake() {
+  public Command setkicker2Brake() {
     return this.runOnce(
       () -> {
-        setKickerBrake();
+        setkickerBrake();
       }); 
     }
 
@@ -86,23 +86,23 @@ public class Kicker extends SubsystemBase {
 
   // USE THESE COMMANDS FOR SPEED CONTROL
 
-  private void setKickerSpeedControl(double Speed_RPS) {
-    io.setKickerSpeedVelocity(Speed_RPS);
+  private void setkickerSpeedControl(double Speed_RPS) {
+    io.setkickerSpeedVelocity(Speed_RPS);
   }
 
-  public void setKickerSpeedCoast() {
-    io.setKickerSpeedBrakeMode(false);
+  public void setkickerSpeedCoast() {
+    io.setkickerSpeedBrakeMode(false);
   }
 
-  public void setKickerSpeedBrake() {
-    io.setKickerSpeedBrakeMode(true);
+  public void setkickerSpeedBrake() {
+    io.setkickerSpeedBrakeMode(true);
   }
 
   //Provide a position suggest scaling from a joy stick or similar to get the desired number of rotations
-  public Command runKickerSpeed(DoubleSupplier Speed_RPS) {
+  public Command runkickerSpeed(DoubleSupplier Speed_RPS) {
     return this.run(
       () -> { 
-        setKickerSpeedControl(Speed_RPS.getAsDouble() * SuperStructureConstants.KickerSpeed_Max_RPS); //TODO this assumes -1 -> based on joysick
+        setkickerSpeedControl(Speed_RPS.getAsDouble() * SuperStructureConstants.KickerSpeed_Max_RPS); //TODO this assumes -1 -> based on joysick
       });
   }
 
@@ -112,6 +112,6 @@ public class Kicker extends SubsystemBase {
     
     io.updateInputs(inputs);
 
-    Logger.processInputs("Kicker", inputs);
+    Logger.processInputs("kicker", inputs);
   }
 }

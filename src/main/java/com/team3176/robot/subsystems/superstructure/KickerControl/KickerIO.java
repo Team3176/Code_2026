@@ -13,35 +13,35 @@ import org.littletonrobotics.junction.AutoLog;
 public interface KickerIO {
   /** Contains all of the input data received from hardware. */
   @AutoLog
-  public static class KickerIOInputs {
-    public double KickerVelocityRadPerSec = 0.0;
-    public double KickerAppliedVolts = 0.0;
-    public double KickerAmpsStator = 0.0;
-    public double KickerAmpsSupply = 0.0;
-    public double KickerTempCelcius = 0.0;
+  public static class kickerIOInputs {
+    public double kickerVelocityRadPerSec = 0.0;
+    public double kickerAppliedVolts = 0.0;
+    public double kickerAmpsStator = 0.0;
+    public double kickerAmpsSupply = 0.0;
+    public double kickerTempCelcius = 0.0;
 
     public boolean upperlimitswitch = false;
     public boolean lowerlimitswitch = false;
 
     // constructor if needed for some inputs
-    KickerIOInputs() {}
+    kickerIOInputs() {}
   }
 
   /*   public default Boolean getRollerLinebreak() {} */
 
   /** Updates the set of loggable inputs. */
-  public default void updateInputs(KickerIOInputs inputs) {}
+  public default void updateInputs(kickerIOInputs inputs) {}
 
-  public default void setKickerVolts(double volts) {}
+  public default void setkickerVolts(double volts) {}
 
   public default void setCoastMode(boolean isCoastMode) {}
 
-  public default void setKickerBrakeMode(boolean enable) {};
+  public default void setkickerBrakeMode(boolean enable) {};
 
-  public default void setKickerCurrent(double current) {};
+  public default void setkickerCurrent(double current) {};
 
-  public default void setKickerSpeedVelocity(double speed_RPS) {};
+  public default void setkickerSpeedVelocity(double speed_RPS) {};
 
-  public default void setKickerSpeedBrakeMode(boolean enable) {};
+  public default void setkickerSpeedBrakeMode(boolean enable) {};
 
 }
