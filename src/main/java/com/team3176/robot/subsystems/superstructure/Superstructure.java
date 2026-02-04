@@ -3,6 +3,7 @@ package com.team3176.robot.subsystems.superstructure;
 import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import java.util.function.DoubleSupplier;
 //import com.team3176.robot.constants.FieldConstants;
@@ -23,14 +24,13 @@ public class Superstructure {
     Shooter = Shooter.getInstance();
   }
 
-  public Command genericPositionMotor(DoubleSupplier position) {
+  public Command shooterPositionMotor(DoubleSupplier position) {
     return (Shooter.runShooter(() -> position.getAsDouble()));
   }
 
-    public Command genericMotorSpeed(DoubleSupplier Speed_RPS) {
+  public Command shooterMotorSpeed(DoubleSupplier Speed_RPS) {
     return (Shooter.runShooterSpeed(() -> Speed_RPS.getAsDouble()));
   }
-  
   public static Superstructure getInstance() {
     if (instance == null) {
       instance = new Superstructure();

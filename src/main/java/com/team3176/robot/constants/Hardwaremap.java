@@ -9,9 +9,9 @@ public class Hardwaremap {
    * Superstructer CIDs & CBNs
    */
 // Assign the CAN IDs for the network - must only use once
-  public static final int genericTalon_CID = 10;
-  public static final int genericTalonSpeed_CID = 11;
-  public static final int genericTalonCancoder_CID = 12;    
+  public static final int genericTalon_CID = 0;
+  public static final int genericTalonSpeed_CID = 0;
+  public static final int genericTalonCancoder_CID = 0;    
   public static final int armPivot_CID = 29; 
   
 

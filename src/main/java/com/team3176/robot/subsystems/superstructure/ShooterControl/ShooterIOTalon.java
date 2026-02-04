@@ -81,7 +81,7 @@ public class ShooterIOTalon implements ShooterIO {
 
     //armPivotEncoder.getConfigurator().apply(pivotEncoderConfig);
 
-    ShooterConfigs.Slot0.kP = 3; // An error of 1 rotation results in 2.4 V output
+    /* ShooterConfigs.Slot0.kP = 3; // An error of 1 rotation results in 2.4 V output
     ShooterConfigs.Slot0.kI = 0.1; // No output for integrated error
     ShooterConfigs.Slot0.kD = 0; // A velocity of 1 rps results in 0.1 V output
 
@@ -104,8 +104,21 @@ public class ShooterIOTalon implements ShooterIO {
     ShooterConfigs.SoftwareLimitSwitch.ReverseSoftLimitThreshold = 0.0;
     ShooterConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = false; 
 
-    TalonUtils.applyTalonFxConfigs(ShooterController, ShooterConfigs);
+    TalonUtils.applyTalonFxConfigs(ShooterController, ShooterConfigs); */
     //ShooterController.setPosition(0, 0);
+
+
+    ShooterConfigs.Slot0.kS = 0.1; // To account for friction, add 0.1 V of static feedforward
+    ShooterConfigs.Slot0.kV = 0.12; // Kraken X60 is a 500 kV motor, 500 rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / rotation per second
+    ShooterConfigs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 0.11 V output
+    ShooterConfigs.Slot0.kI = 0; // No output for integrated error
+    ShooterConfigs.Slot0.kD = 0; // No output for error derivative
+    // Peak output of 8 volts
+    ShooterConfigs.Voltage.withPeakForwardVoltage (SuperStructureConstants.ShooterSpeed_MAX_OUTPUT_VOLTS)
+      .withPeakReverseVoltage(SuperStructureConstants.ShooterSpeed_MAXNeg_OUTPUT_VOLTS);
+
+    TalonUtils.applyTalonFxConfigs(ShooterController, ShooterConfigs);
+    // Shooter Controller
 
     //SETUP SPEED CONTROL CONFIGS
         /* Voltage-based velocity requires a velocity feed forward to account for the back-emf of the motor */
@@ -194,8 +207,8 @@ public class ShooterIOTalon implements ShooterIO {
 
   //Offset would be used when we need 
   @Override
-  public void setShooterVoltagePos(double position) {
-    ShooterController.setControl(voltPosition.withPosition(position + Shooter_pos_offset));
+  public void setShooterVoltagePos(double speed_RPS) {
+    ShooterController.setControl(voltVelocity.withVelocity(speed_RPS));
   }
 
 
