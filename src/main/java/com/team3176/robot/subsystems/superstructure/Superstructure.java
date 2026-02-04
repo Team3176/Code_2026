@@ -26,9 +26,13 @@ public class Superstructure {
 
   public Command shooterPositionMotor(DoubleSupplier position) {
     return (Shooter.runShooter(() -> position.getAsDouble()));
+  public Command genericPositionMotor(DoubleSupplier position) {
+    return (Shooter.runShooter(() -> position.getAsDouble()));
   }
 
   public Command shooterMotorSpeed(DoubleSupplier Speed_RPS) {
+    return (Shooter.runShooterSpeed(() -> Speed_RPS.getAsDouble()));
+    public Command genericMotorSpeed(DoubleSupplier Speed_RPS) {
     return (Shooter.runShooterSpeed(() -> Speed_RPS.getAsDouble()));
   }
   public static Superstructure getInstance() {
