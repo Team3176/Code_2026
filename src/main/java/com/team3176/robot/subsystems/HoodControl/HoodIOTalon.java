@@ -45,7 +45,6 @@ public class HoodIOTalon implements HoodIO {
   VoltageOut HoodVolts = new VoltageOut(0.0);
   PositionVoltage voltPosition = new PositionVoltage(0);
   private Rotation2d encoderOffset; 
-  private double Hood_pos_offset = 0;
   
   DigitalInput HoodLinebreak;
 
@@ -120,7 +119,7 @@ public class HoodIOTalon implements HoodIO {
     HoodAbsolutePosition = HoodEncoder.getAbsolutePosition();
     HoodTemp = HoodController.getDeviceTemp();
 
-    Hood_pos_offset = HoodEncoder.getPosition().getValueAsDouble();
+   // Hood_pos_offset = HoodEncoder.getPosition().getValueAsDouble();
 
 
     BaseStatusSignal.setUpdateFrequencyForAll(
@@ -156,7 +155,7 @@ public class HoodIOTalon implements HoodIO {
     inputs.HoodAmpsSupply = HoodCurrentAmpsSupply.getValueAsDouble();
     inputs.HoodTempCelcius = HoodTemp.getValueAsDouble();
     inputs.HoodPositionDeg = Units.rotationsToDegrees(HoodPosition.getValueAsDouble());
-    inputs.Hood_pos_offset = Hood_pos_offset;
+    //inputs.Hood_pos_offset = Hood_pos_offset;
     inputs.HoodPositionRot = HoodController.getPosition().getValueAsDouble();
     //Use if using cancoder
     //inputs.HoodPositionRot = HoodEncoder.getPosition().getValueAsDouble() - Hood_pos_offset;
@@ -178,7 +177,7 @@ public class HoodIOTalon implements HoodIO {
   //Offset would be used when we need 
   @Override
   public void setHoodVoltagePos(double position) {
-    HoodController.setControl(voltPosition.withPosition(position + Hood_pos_offset));
+    HoodController.setControl(voltPosition.withPosition(position * SuperStructureConstants.Hood_Position_MULTIPLIER + SuperStructureConstants.Hood_pos_offset));
   }
 
 
@@ -191,7 +190,6 @@ public class HoodIOTalon implements HoodIO {
     }
   }
 
-  
 
     //Offset would be used when we need 
  

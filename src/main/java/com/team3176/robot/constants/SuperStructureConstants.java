@@ -34,9 +34,6 @@ public static final double Hood_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
 
   public static final double Hood_ENCODER_OFFSET = 0;
 
-
-  public static final double HoodSpeed_MAX_OUTPUT_VOLTS = 4; //Sets Max forward Speed
-  public static final double HoodSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
-  public static final double HoodSpeed_Max_RPS = 20;
-
+  public static final double Hood_Position_MULTIPLIER = 1; // ten tooth pinion 23 tooth rack, 1 to 1 gear ratio, input is from -1 to 1
+  public static final double Hood_pos_offset = 1;
 }

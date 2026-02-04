@@ -73,7 +73,7 @@ public class Hood extends SubsystemBase {
   public Command runHood(DoubleSupplier position) {
     return this.run(
       () -> { 
-        setHoodVoltagePos(position.getAsDouble()*3);
+        setHoodVoltagePos(position.getAsDouble());
       });
   }
 
