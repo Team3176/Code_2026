@@ -5,9 +5,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import java.util.function.DoubleSupplier;
+
+import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericSpark;
 //import com.team3176.robot.constants.FieldConstants;
 // import java.util.function.IntSupplier;
 import com.team3176.robot.subsystems.superstructure.GenericTalonControl.GenericTalon;
+import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericSpark;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.ctre.phoenix6.StatusSignal;
 import com.team3176.robot.constants.SuperStructureConstants;
@@ -17,10 +20,12 @@ public class Superstructure {
   private static Superstructure instance;
 
   private GenericTalon genericTalon;
+  private GenericSpark genericSpark;
 
   public Superstructure() {
 
     genericTalon = GenericTalon.getInstance();
+    genericSpark = GenericSpark.getInstance();
   }
 
   public Command genericPositionMotor(DoubleSupplier position) {
@@ -34,6 +39,19 @@ public class Superstructure {
   public Command genericDualMotorSpeed(DoubleSupplier Speed_RPS) {
     return (genericTalon.runGenericTalonDualSpeed(() -> Speed_RPS.getAsDouble()));
   }
+
+  public Command genericSparkPositionMotor(DoubleSupplier position) {
+    return (genericSpark.runGenericSpark(() -> position.getAsDouble()));
+  }
+
+  public Command genericSparkMotorSpeed(DoubleSupplier Speed_RPM) {
+    return (genericSpark.runGenericSparkSpeed(() -> Speed_RPM.getAsDouble()));
+  }
+
+  public Command genericSparkDualMotorSpeed(DoubleSupplier Speed_RPM) {
+    return (genericSpark.runGenericSparkDualSpeed(() -> Speed_RPM.getAsDouble()));
+  }
+
   
   public static Superstructure getInstance() {
     if (instance == null) {

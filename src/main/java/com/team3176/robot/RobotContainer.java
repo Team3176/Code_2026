@@ -368,6 +368,15 @@ controller.rotStick.button(1).whileTrue((superstructure.genericPositionMotor(() 
 controller.rotStick.button(2).whileTrue((superstructure.genericMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
 
 controller.rotStick.button(3).whileTrue((superstructure.genericDualMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
+
+//Added to support the Spark Motor Contoller structures. 
+controller.rotStick.button(4).whileTrue((superstructure.genericSparkPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
+
+controller.rotStick.button(5).whileTrue((superstructure.genericSparkMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
+
+controller.rotStick.button(6).whileTrue((superstructure.genericSparkDualMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
+
+
 // Climb buttons
     // Max retraction position = -70
     // Staring configuration = 0 to -5
