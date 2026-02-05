@@ -18,6 +18,15 @@ public class Hardwaremap {
   public static final int genericTalonFollowerSpeed_CID = 22;
 
 
+  public static final int genericSparkFlex_CID = 30;
+  public static final int genericSparkFlexSpeed_CID = 31;
+  public static final int genericSparkFlexCancoder_CID = 32;    
+ 
+
+  public static final int genericSparkFlexLeaderSpeed_CID = 41;
+  public static final int genericSparkFlexFollowerSpeed_CID = 42;
+
+
 
   
   public static int PDH_CID = 1;
@@ -32,6 +41,10 @@ public class Hardwaremap {
   public static final String genericTalon_CBN = "rio";
   public static final String genericTalonSpeed_CBN = "rio";
   public static final String genericTalonDualSpeed_CBN = "rio";
+
+  public static final String genericSparkFlex_CBN = "rio";
+  public static final String genericSparkFlexSpeed_CBN = "rio";
+  public static final String genericSparkFlexDualSpeed_CBN = "rio";
 
 
   public static final String conveyor_CBN = "rio";

@@ -192,15 +192,15 @@ public class GenericTalon extends SubsystemBase {
   // USE THESE COMMANDS FOR Dual Motor SPEED CONTROL
 
   private void setGenericTalonDualSpeedControl(double Speed_RPS) {
-    io.setGenericTalonSpeedVelocity(Speed_RPS);
+    io.setGenericTalonDualSpeedVelocity(Speed_RPS);
   }
 
   public void setGenericTalonDualSpeedCoast() {
-    io.setGenericTalonSpeedBrakeMode(false);
+    io.setGenericTalonDualSpeedBrakeMode(false);
   }
 
   public void setGenericTalonDualSpeedBrake() {
-    io.setGenericTalonSpeedBrakeMode(true);
+    io.setGenericTalonDualSpeedBrakeMode(true);
   }
 
   //Provide a position suggest scaling from a joy stick or similar to get the desired number of rotations
