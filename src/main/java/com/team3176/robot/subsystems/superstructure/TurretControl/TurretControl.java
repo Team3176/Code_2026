@@ -1,4 +1,4 @@
-package com.team3176.robot.subsystems.HoodControl;
+package com.team3176.robot.subsystems.superstructure.TurretControl;
 
 
 import edu.wpi.first.math.MathUtil;
@@ -20,9 +20,9 @@ import com.team3176.robot.util.TunablePID;
 
 
 
-public class Hood extends SubsystemBase {
- private static Hood instance;
-  private final HoodIO io;
+public class TurretControl extends SubsystemBase {
+ private static TurretControl instance;
+  private final TurretControlIO io;
   private final HoodIOInputsAutoLogged inputs = new HoodIOInputsAutoLogged();
 
   private final TunablePID positionMotorPID;
@@ -35,7 +35,7 @@ public class Hood extends SubsystemBase {
   private double homePos = 0;
 
 
-  private Hood(HoodIO io) {
+  private TurretControl(TurretControlIO io) {
     this.io = io;
     this.positionMotorPID = new TunablePID("HoodPIDConstants", SuperStructureConstants.Hood_kP, SuperStructureConstants.Hood_kI, SuperStructureConstants.Hood_kD);
   
@@ -48,12 +48,12 @@ public class Hood extends SubsystemBase {
 
 
 
-  public static Hood getInstance() {
+  public static TurretControl getInstance() {
     if (instance == null) {
       if (BaseConstants.getMode() == Mode.REAL && BaseConstants.getRobot() != RobotType.ROBOT_DEFENSE) {
-        instance = new Hood(new HoodIOTalon() {});
+        instance = new TurretControl(new TurretControlIOTalon() {});
       } else {
-        instance = new Hood(new HoodIOSim() {});
+        instance = new TurretControl(new TurretControlIOSim() {});
       }
     }
     return instance;

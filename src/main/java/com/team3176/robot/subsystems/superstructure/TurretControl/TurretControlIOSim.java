@@ -5,7 +5,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package com.team3176.robot.subsystems.HoodControl;
+package com.team3176.robot.subsystems.superstructure.TurretControl;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.system.plant.DCMotor;
@@ -16,15 +16,16 @@ import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import org.littletonrobotics.junction.Logger;
 import com.team3176.robot.constants.BaseConstants;
+import com.team3176.robot.subsystems.superstructure.TurretControl.TurretControlIO.HoodIOInputs;
 
 /** Template hardware interface for a closed loop subsystem. */
-public class HoodIOSim implements HoodIO {
+public class TurretControlIOSim implements TurretControlIO {
 
   private SingleJointedArmSim HoodSim;
  
   private double appliedVolts;
 
-  public HoodIOSim() {
+  public TurretControlIOSim() {
     HoodSim =
         new SingleJointedArmSim(
             DCMotor.getFalcon500(1), 20, 0.5, 0.7, -1.0 * Math.PI, 3.14, true, 0.0);

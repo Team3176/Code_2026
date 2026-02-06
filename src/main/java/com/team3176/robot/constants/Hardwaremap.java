@@ -14,21 +14,10 @@ public class Hardwaremap {
   public static final int genericTalonCancoder_CID = 120;    
   public static final int armPivot_CID = 29; 
 
-  public static final int Hood_CID = 10;
-  public static final int HoodSpeed_CID = 11;
+  public static final int Hood_CID = 36;
   public static final int HoodCancoder_CID = 12;    
 
 
-
-
-
-  
-  public static int PDH_CID = 1;
-  public static int laserCan_CID = 48;
-  public static int pigeon_CID = 5;
-  public static int TOF_LEFT_CID = 8;
-  public static int TOF_RIGHT_CID = 7;
-  public static int TOF_CENTER_CID = 9;
 
 
 // Tell the robot which CAN network to configure the devices to

@@ -5,7 +5,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package com.team3176.robot.subsystems.HoodControl;
+package com.team3176.robot.subsystems.superstructure.TurretControl;
 
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.BaseStatusSignal;
@@ -36,7 +36,7 @@ import com.team3176.robot.util.TalonUtils;
 
 
 /** Template hardware interface for a closed loop subsystem. */
-public class HoodIOTalon implements HoodIO {
+public class TurretControlIOTalon implements TurretControlIO {
 
   private TalonFX HoodController;
   
@@ -57,7 +57,7 @@ public class HoodIOTalon implements HoodIO {
   private final StatusSignal<Temperature> HoodTemp;
 
 
-  public HoodIOTalon() {
+  public TurretControlIOTalon() {
 
  
     TalonFXConfiguration HoodConfigs = new TalonFXConfiguration();
