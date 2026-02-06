@@ -68,7 +68,7 @@ public class RobotContainer {
   private final Controller controller = Controller.getInstance();
 
   // Superstructure
-//  private final Superstructure superstructure = Superstructure.getInstance();
+  private final Superstructure superstructure = Superstructure.getInstance();
 //  //private final TimeOfFlightSystem tofSystem = TimeOfFlightSystem.getInstance(); // TOF system
 //  private final Vision vision;
 
@@ -206,7 +206,7 @@ public class RobotContainer {
     ///// SETUP OVERRIDE BOX ////////
     visionOverride = controller.switchBox.button(4);
 
-
+   
 
 
     // Default command, normal field-relative drive
@@ -361,12 +361,28 @@ public class RobotContainer {
 
 
     // ***** OPERATOR CONTROLLER *****
+
+//controller.operator.leftBumper().whileTrue(superstructure.genericPositionMotor(() -> -controller.operator.getLeftY()));
+controller.rotStick.button(1).whileTrue((superstructure.genericPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
+
+controller.rotStick.button(2).whileTrue((superstructure.genericMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
+
+controller.rotStick.button(3).whileTrue((superstructure.genericDualMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
+
+//Added to support the Spark Motor Contoller structures. 
+controller.rotStick.button(4).whileTrue((superstructure.genericSparkPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
+
+controller.rotStick.button(5).whileTrue((superstructure.genericSparkMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
+
+controller.rotStick.button(6).whileTrue((superstructure.genericSparkDualMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
+
+
 // Climb buttons
     // Max retraction position = -70
     // Staring configuration = 0 to -5
     // Max extension = 
 //    controller.operator.leftBumper().whileTrue(superstructure.testClimbManual(() -> -controller.operator.getLeftY()));
-     
+
     // Scoring Positions
 //    controller.operator.a().onTrue(superstructure.goToL1()); //.onFalse(superstructure.goToL0()); 
 //    controller.operator.x().onTrue(superstructure.goToL2()); //.onFalse(superstructure.goToL0());    
