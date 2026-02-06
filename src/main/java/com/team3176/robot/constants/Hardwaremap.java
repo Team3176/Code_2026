@@ -15,7 +15,7 @@ public class Hardwaremap {
   public static final int armPivot_CID = 29; 
 
   public static final int Kicker_CID = 10;
-  public static final int KickerSpeed_CID = 11;
+  public static final int KickerSpeed_CID = 32;
   public static final int KickerCancoder_CID = 12; 
 //added a 0 to the end of each of the kicker CID's
 
