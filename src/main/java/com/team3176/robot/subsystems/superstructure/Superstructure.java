@@ -8,7 +8,7 @@ import java.util.function.DoubleSupplier;
 //import com.team3176.robot.constants.FieldConstants;
 // import java.util.function.IntSupplier;
 import com.team3176.robot.subsystems.superstructure.GenericTalonControl.GenericTalon;
-import com.team3176.robot.subsystems.superstructure.KickerControl.Kicker;
+import com.team3176.robot.subsystems.superstructure.TurretControl.TurretControl;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.ctre.phoenix6.StatusSignal;
 import com.team3176.robot.constants.SuperStructureConstants;
@@ -19,13 +19,13 @@ public class Superstructure {
 
   private GenericTalon genericTalon;
 
-  private Kicker kicker;
+  private TurretControl kicker;
 
   public Superstructure() {
 
     genericTalon = GenericTalon.getInstance();
 
-    kicker = Kicker.getInstance();
+    kicker = TurretControl.getInstance();
   }
 
   public Command genericPositionMotor(DoubleSupplier position) {

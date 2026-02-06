@@ -5,7 +5,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package com.team3176.robot.subsystems.superstructure.KickerControl;
+package com.team3176.robot.subsystems.superstructure.TurretControl;
 
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.BaseStatusSignal;
@@ -36,7 +36,7 @@ import com.team3176.robot.util.TalonUtils;
 
 
 /** Template hardware interface for a closed loop subsystem. */
-public class KickerIOTalon implements KickerIO {
+public class TurretControlIOTalon implements TurretControlIO {
 
   private TalonFX kickerController;
   private TalonFX kickerSpeedController;
@@ -54,7 +54,7 @@ public class KickerIOTalon implements KickerIO {
   private final StatusSignal<Temperature> kickerTemp;
 
 
-  public KickerIOTalon() {
+  public TurretControlIOTalon() {
 
  
     TalonFXConfiguration kickerConfigs = new TalonFXConfiguration();

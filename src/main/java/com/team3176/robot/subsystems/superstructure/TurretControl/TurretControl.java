@@ -1,4 +1,4 @@
-package com.team3176.robot.subsystems.superstructure.KickerControl;
+package com.team3176.robot.subsystems.superstructure.TurretControl;
 
 
 import edu.wpi.first.math.MathUtil;
@@ -14,15 +14,16 @@ import org.littletonrobotics.junction.Logger;
 
 import com.team3176.robot.constants.BaseConstants.Mode;
 import com.team3176.robot.constants.BaseConstants.RobotType;
+import com.team3176.robot.subsystems.superstructure.TurretControl.kickerIOInputsAutoLogged;
 import com.team3176.robot.constants.*;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.team3176.robot.util.TunablePID;
 
 
 
-public class Kicker extends SubsystemBase {
- private static Kicker instance;
-  private final KickerIO io;
+public class TurretControl extends SubsystemBase {
+ private static TurretControl instance;
+  private final TurretControlIO io;
   private final kickerIOInputsAutoLogged inputs = new kickerIOInputsAutoLogged();
 
 
@@ -30,7 +31,7 @@ public class Kicker extends SubsystemBase {
  
 
 
-  private Kicker(KickerIO io) {
+  private TurretControl(TurretControlIO io) {
     this.io = io;
 
   }
@@ -38,12 +39,12 @@ public class Kicker extends SubsystemBase {
 
 
 
-  public static Kicker getInstance() {
+  public static TurretControl getInstance() {
     if (instance == null) {
       if (BaseConstants.getMode() == Mode.REAL && BaseConstants.getRobot() != RobotType.ROBOT_DEFENSE) {
-        instance = new Kicker(new KickerIOTalon() {});
+        instance = new TurretControl(new TurretControlIOTalon() {});
       } else {
-        instance = new Kicker(new KickerIOSim() {});
+        instance = new TurretControl(new TurretControlIOSim() {});
       }
     }
     return instance;
