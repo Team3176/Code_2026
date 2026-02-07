@@ -20,7 +20,7 @@ public class Hardwaremap {
   public static final int KickerSpeed_CID = 32;
   public static final int KickerCancoder_CID = 12; 
 //added a 0 to the end of each of the kicker CID's
-  public static final int Hood_CID = 10;
+  public static final int Hood_CID = 36;
   public static final int HoodSpeed_CID = 11;
   public static final int HoodCancoder_CID = 12;    
 
@@ -32,6 +32,9 @@ public class Hardwaremap {
 
   public static final int genericSparkFlexLeaderSpeed_CID = 41;
   public static final int genericSparkFlexFollowerSpeed_CID = 42;
+
+  public static final int shooterLeaderSpeed_CID = 34;
+  public static final int shooterFollowerSpeed_CID = 35;
 
   
   public static int PDH_CID = 1;
@@ -46,6 +49,9 @@ public class Hardwaremap {
   public static final String genericTalon_CBN = "rio";
   public static final String genericTalonSpeed_CBN = "rio";
   public static final String genericTalonDualSpeed_CBN = "rio";
+
+  public static final String shooterDualSpeed_CBN = "rio";
+  
   
   public static final String Kicker_CBN = "rio";
   public static final String KickerSpeed_CBN = "rio";

@@ -14,6 +14,7 @@ import com.team3176.robot.subsystems.superstructure.HoodControl.Hood;
 import com.team3176.robot.subsystems.superstructure.GenericTalonControl.GenericTalon;
 import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericSpark;
 import com.team3176.robot.subsystems.superstructure.KickerControl.Kicker;
+import com.team3176.robot.subsystems.superstructure.ShooterControl.ShooterControl;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.ctre.phoenix6.StatusSignal;
 import com.team3176.robot.constants.SuperStructureConstants;
@@ -25,6 +26,7 @@ public class Superstructure {
   private GenericTalon genericTalon;
   private GenericSpark genericSpark;
   private Hood hood;
+  private ShooterControl shooter;
 
   private Kicker kicker;
 
@@ -32,6 +34,8 @@ public class Superstructure {
 
     genericTalon = GenericTalon.getInstance();
     genericSpark = GenericSpark.getInstance();
+    shooter = ShooterControl.getInstance();
+
 
     kicker = Kicker.getInstance();
 
@@ -66,6 +70,9 @@ public class Superstructure {
     return (genericSpark.runGenericSparkDualSpeed(() -> Speed_RPM.getAsDouble()));
   }
 
+  public Command shooterMotorSpeed(DoubleSupplier Speed_RPS) {
+    return (shooter.runDualShooterSpeed(() -> Speed_RPS.getAsDouble()));
+  }
 
     public Command kickerMotorSpeed(DoubleSupplier Speed_RPS) {
     return (kicker.runkickerSpeed(() -> Speed_RPS.getAsDouble()));
