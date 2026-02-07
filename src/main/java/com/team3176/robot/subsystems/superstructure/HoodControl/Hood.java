@@ -1,4 +1,4 @@
-package com.team3176.robot.subsystems.HoodControl;
+package com.team3176.robot.subsystems.superstructure.HoodControl;
 
 
 import edu.wpi.first.math.MathUtil;

@@ -8,7 +8,7 @@ import java.util.function.DoubleSupplier;
 
 import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericSpark;
 
-import com.team3176.robot.subsystems.HoodControl.Hood;
+import com.team3176.robot.subsystems.superstructure.HoodControl.Hood;
 //import com.team3176.robot.constants.FieldConstants;
 // import java.util.function.IntSupplier;
 import com.team3176.robot.subsystems.superstructure.GenericTalonControl.GenericTalon;
