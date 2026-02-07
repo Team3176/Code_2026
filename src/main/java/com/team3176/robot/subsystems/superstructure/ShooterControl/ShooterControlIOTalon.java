@@ -80,7 +80,7 @@ public class ShooterControlIOTalon implements ShooterControlIO {
 
      //Setup SPEED CONTROL FOR Dual Motor Leader / Follower - this definition assumes that the motors need to spin opposite directions for the mechanisim. 
     /* Voltage-based velocity requires a velocity feed forward to account for the back-emf of the motor */
-    shooterDualSpeedConfigs.Slot0.kS = 0.1; // To account for friction, add 0.1 V of static feedforward
+    shooterDualSpeedConfigs.Slot0.kS = 1; // To account for friction, add 0.1 V of static feedforward
     shooterDualSpeedConfigs.Slot0.kV = 0.12; // Kraken X60 is a 500 kV motor, 500 rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / rotation per second
     shooterDualSpeedConfigs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 0.11 V output
     shooterDualSpeedConfigs.Slot0.kI = 0; // No output for integrated error
@@ -156,7 +156,7 @@ public class ShooterControlIOTalon implements ShooterControlIO {
     //Offset would be used when we need 
   @Override
   public void setDualShooterSpeedVelocity(double speed_RPS) {
-    shooterLeaderSpeedController.setControl(voltVelocity.withVelocity(speed_RPS));
+    shooterLeaderSpeedController.setControl(voltVelocity.withVelocity(-speed_RPS));
   }
 
 
