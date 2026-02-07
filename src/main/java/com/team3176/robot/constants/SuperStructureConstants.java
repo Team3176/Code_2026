@@ -100,9 +100,9 @@ public static final double Hood_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
 // Shooter Constants
 ///
 
-  public static final double ShooterDualSpeed_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
-  public static final double ShooterDualSpeed_MAXNeg_OUTPUT_VOLTS = -2; //Sets Max Reverse Speed
+  public static final double ShooterDualSpeed_MAX_OUTPUT_VOLTS = 12 ; //Sets Max forward Speed
+  public static final double ShooterDualSpeed_MAXNeg_OUTPUT_VOLTS = -12; //Sets Max Reverse Speed
 
 
-  public static final double ShooterDualSpeed_Max_RPS = 20;
+  public static final double ShooterDualSpeed_Max_RPS = 100; // speed is multiplied by two due to joystick so currently this equals 50 * 2 = 100
 }

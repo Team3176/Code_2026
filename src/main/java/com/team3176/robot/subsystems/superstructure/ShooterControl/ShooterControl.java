@@ -75,7 +75,7 @@ public class ShooterControl extends SubsystemBase {
   public Command runDualShooterSpeed(DoubleSupplier Speed_RPS) {
     return this.run(
       () -> { 
-        setDualShooterSpeedControl(Speed_RPS.getAsDouble() * SuperStructureConstants.ShooterDualSpeed_Max_RPS); //TODO this assumes -1 -> based on joysick
+        setDualShooterSpeedControl((Speed_RPS.getAsDouble() +1 ) * SuperStructureConstants.ShooterDualSpeed_Max_RPS); //TODO this assumes -1 -> based on joysick
       });
   }
 
