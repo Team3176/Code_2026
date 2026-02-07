@@ -11,6 +11,7 @@ import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericS
 // import java.util.function.IntSupplier;
 import com.team3176.robot.subsystems.superstructure.GenericTalonControl.GenericTalon;
 import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericSpark;
+import com.team3176.robot.subsystems.superstructure.KickerControl.Kicker;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.ctre.phoenix6.StatusSignal;
 import com.team3176.robot.constants.SuperStructureConstants;
@@ -22,10 +23,14 @@ public class Superstructure {
   private GenericTalon genericTalon;
   private GenericSpark genericSpark;
 
+  private Kicker kicker;
+
   public Superstructure() {
 
     genericTalon = GenericTalon.getInstance();
     genericSpark = GenericSpark.getInstance();
+
+    kicker = Kicker.getInstance();
   }
 
   public Command genericPositionMotor(DoubleSupplier position) {
@@ -52,6 +57,10 @@ public class Superstructure {
     return (genericSpark.runGenericSparkDualSpeed(() -> Speed_RPM.getAsDouble()));
   }
 
+
+    public Command kickerMotorSpeed(DoubleSupplier Speed_RPS) {
+    return (kicker.runkickerSpeed(() -> Speed_RPS.getAsDouble()));
+  }
   
   public static Superstructure getInstance() {
     if (instance == null) {

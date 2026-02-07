@@ -377,6 +377,8 @@ controller.rotStick.button(5).whileTrue((superstructure.genericSparkMotorSpeed((
 controller.rotStick.button(6).whileTrue((superstructure.genericSparkDualMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
 
 
+
+controller.rotStick.button(2).whileTrue((superstructure.kickerMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
 // Climb buttons
     // Max retraction position = -70
     // Staring configuration = 0 to -5
