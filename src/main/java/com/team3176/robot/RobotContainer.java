@@ -38,6 +38,10 @@ import com.team3176.robot.generated.TunerConstants;
 import com.team3176.robot.commands.*;
 import com.team3176.robot.commands.AlignToReef.FieldBranchSide;
 //import com.team3176.robot.commands.AlignReef.TargetLoc; // for enum TargetLoc
+
+import com.team3176.robot.subsystems.leds.LEDS;
+import com.team3176.robot.subsystems.leds.LEDSubsystem;
+
 import com.team3176.robot.subsystems.controller.Controller;
 import com.team3176.robot.subsystems.drivetrain.Drive;
 import com.team3176.robot.subsystems.drivetrain.GyroIOPigeon2;
@@ -47,6 +51,7 @@ import com.team3176.robot.subsystems.vision.Vision;
 import com.team3176.robot.subsystems.vision.VisionIO;
 import com.team3176.robot.subsystems.vision.VisionIOPhotonVision;
 import static com.team3176.robot.subsystems.vision.VisionConstants.*;
+import com.team3176.robot.constants.MatchConstants;
 //import com.team3176.robot.subsystems.tof.TimeOfFlightSystem;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
@@ -75,6 +80,7 @@ public class RobotContainer {
   private Alliance currentAlliance = Alliance.Blue;
 //  private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchtime() < 20 );
   private Trigger visionOverride; 
+  private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < MatchConstants.ENDGAMEALERT_Time);
   private static final AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
 
   private AlignToReef alignmentCommandFactory = null;
@@ -85,8 +91,18 @@ public class RobotContainer {
   private final LoggedDashboardChooser<Command> autoChooser;
   public PathPlannerAuto autocommand;
 
+  // Implement LEDs
+  private LEDSubsystem leds = LEDSubsystem.getInstance();
+  //private LEDS ledsRio = LEDS.getInstance();
+
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    //Leds default commands
+    leds.setDefaultCommand(leds.DefaultLED());
+    endMatchAlert.onTrue(leds.EndgameStart());
+    //TODO Add triggers for Shift Periods
 
 //    vision = new Vision(drive::addVisionMeasurement,
 //        new VisionIOPhotonVision(camera1Name, robotToCamera1),
@@ -382,7 +398,9 @@ controller.rotStick.button(6).whileTrue((superstructure.genericSparkDualMotorSpe
 
 controller.rotStick.button(1).whileTrue((superstructure.kickerMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
 controller.rotStick.button(2).whileTrue((superstructure.HoodMotor(() -> -controller.rotStick.getRawAxis(3))));
-controller.transStick.button(3).whileTrue((superstructure.shooterMotorSpeed(() -> -controller.transStick.getRawAxis(3))));
+controller.transStick.button(3).whileTrue((superstructure.shooterMotorSpeed(() -> -controller.transStick.getRawAxis(3))).alongWith(leds.setIsShooting()));
+
+
 // Climb buttons
     // Max retraction position = -70
     // Staring configuration = 0 to -5
