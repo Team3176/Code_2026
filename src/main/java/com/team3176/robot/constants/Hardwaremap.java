@@ -36,6 +36,9 @@ public class Hardwaremap {
   public static final int shooterLeaderSpeed_CID = 34;
   public static final int shooterFollowerSpeed_CID = 35;
 
+  public static final int turretRotation_CID = 44;
+  public static final int turretRotationCancoder_CID = 45;
+
   
   public static int PDH_CID = 1;
   public static int laserCan_CID = 48;
@@ -57,6 +60,7 @@ public class Hardwaremap {
   public static final String KickerSpeed_CBN = "rio";
   public static final String Hood_CBN = "rio";
   public static final String HoodSpeed_CBN = "rio";
+   public static final String turretRotation_CBN = "rio";
 
   public static final String genericSparkFlex_CBN = "rio";
   public static final String genericSparkFlexSpeed_CBN = "rio";
@@ -82,8 +86,8 @@ public class Hardwaremap {
 
   /* Use this area to define which Digital IO pins on the RIO limit swtiches and devices are attached too.  */
 
-  // public static final int elevatorBottomLimitSwitch_DIO = 5;
-  // public static final int elevatorTopLimitSwitch_DIO = 6;
+  public static final int turretClockwiseLimitSwitch_DIO = 5;
+   public static final int turretCounterClockwiseLimitSwitch_DIO = 6;
 
  /* us this section to assign PWM Ports from the RIO - IE LED Lights via Blinkin */
   public static final int blinkin_pwm_port = 9;

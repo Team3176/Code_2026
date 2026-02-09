@@ -4,6 +4,7 @@ import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericSpark;
@@ -15,6 +16,7 @@ import com.team3176.robot.subsystems.superstructure.GenericTalonControl.GenericT
 import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericSpark;
 import com.team3176.robot.subsystems.superstructure.KickerControl.Kicker;
 import com.team3176.robot.subsystems.superstructure.ShooterControl.ShooterControl;
+import com.team3176.robot.subsystems.superstructure.TurretRotation.TurretRotation;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.ctre.phoenix6.StatusSignal;
 import com.team3176.robot.constants.SuperStructureConstants;
@@ -27,6 +29,7 @@ public class Superstructure {
   private GenericSpark genericSpark;
   private Hood hood;
   private ShooterControl shooter;
+  private TurretRotation turretRotation;
 
   private Kicker kicker;
 
@@ -35,11 +38,11 @@ public class Superstructure {
     genericTalon = GenericTalon.getInstance();
     genericSpark = GenericSpark.getInstance();
     shooter = ShooterControl.getInstance();
-
+    turretRotation = TurretRotation.getInstance();
 
     kicker = Kicker.getInstance();
 
-    hood = hood.getInstance();
+    hood = Hood.getInstance();
   }
 
   public Command genericPositionMotor(DoubleSupplier position) {
@@ -74,8 +77,12 @@ public class Superstructure {
     return (shooter.runDualShooterSpeed(() -> Speed_RPS.getAsDouble()));
   }
 
-    public Command kickerMotorSpeed(DoubleSupplier Speed_RPS) {
+  public Command kickerMotorSpeed(DoubleSupplier Speed_RPS) {
     return (kicker.runkickerSpeed(() -> Speed_RPS.getAsDouble()));
+  }
+
+  public Command runTurretRotationFromVision(DoubleSupplier positionError, BooleanSupplier isTargetLocked ) {
+    return (turretRotation.runTurretRotationFromVision(() -> positionError.getAsDouble(), () -> isTargetLocked.getAsBoolean()));
   }
   
   public static Superstructure getInstance() {

@@ -401,6 +401,7 @@ controller.rotStick.button(2).whileTrue((superstructure.HoodMotor(() -> -control
 controller.transStick.button(3).whileTrue((superstructure.shooterMotorSpeed(() -> -controller.transStick.getRawAxis(3))).alongWith(leds.setIsShooting()));
 
 
+controller.rotStick.button(5).whileTrue((superstructure.runTurretRotationFromVision(() -> controller.rotStick.getRawAxis(3), () -> controller.rotStick.button(6).getAsBoolean())));
 // Climb buttons
     // Max retraction position = -70
     // Staring configuration = 0 to -5

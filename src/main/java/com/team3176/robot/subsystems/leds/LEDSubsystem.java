@@ -107,4 +107,16 @@ public class LEDSubsystem extends SubsystemBase {
           }
         });
   }
+
+  public Command turretLockedOn(){
+    return this.run(() ->blinkin.setMode(BlinkinLedMode.SOLID_DARK_GREEN));
+  }
+
+  public Command turretTracking(){
+    return this.run(() ->blinkin.setMode(BlinkinLedMode.SOLID_ORANGE));
+  }
+
+  public Command turretVisonLost(){
+    return this.run(() ->blinkin.setMode(BlinkinLedMode.FIXED_HEARTBEAT_RED));
+  }
 }
