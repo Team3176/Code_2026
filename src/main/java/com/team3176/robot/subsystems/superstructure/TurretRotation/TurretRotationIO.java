@@ -46,6 +46,6 @@ public interface TurretRotationIO {
   public default void setTurretRotationVoltage(double voltage) {}
 
   //TrackPostionFrom Error only if vision can see targets 
-  public default void setTurretRotationError(double position, boolean isVisionLocked) {} 
+  public default void setTurretRotationError(double positionRotations, boolean isVisionLocked) {} 
 
  }

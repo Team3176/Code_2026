@@ -117,6 +117,8 @@ public static final double Hood_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
 ///  15 Tooth Gear Drive of Turret
 ///  5:1 Gear Ratio on Motor Stage 1
 ///  5:1 Gear Ratio on Motor Stage 2
+/// 
+/// This ratio gives 1 motor rotation is 4 degrees of motor turret movement. 
 
  public static final double TurretGearTeeth = 60; //number of teeth on turret gear
  public static final double TurretDriveTeeth = 15; // number of teeth on turret drive gear (attached to motor)
@@ -124,10 +126,10 @@ public static final double Hood_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
  public static final double MotorStage2Ratio = 5;
 
  public static final double TurretPositionFullRotation = ((TurretGearTeeth / TurretDriveTeeth) * MotorStage1Ratio * MotorStage2Ratio); 
-
+ public static final double TurretDegreesToRotations = TurretPositionFullRotation / 360; // currently .277 rotations per degree
  public static final double TurretRangeInDegrees = 270;
  public static final double TurretFullRangeInMotorRotations = (TurretPositionFullRotation * (TurretRangeInDegrees/360));
- public static final double TurretErrorMoveDeadband = .001 * TurretFullRangeInMotorRotations; // max allowable error is 0.1% of total range 
+ public static final double TurretErrorMoveDeadband = .0005 * TurretFullRangeInMotorRotations; // max allowable error is 0.1% of available range 
  public static final double TurretHomePosition = .5 * TurretFullRangeInMotorRotations; // Assume half of full sweep is the prefered homed position
 
 

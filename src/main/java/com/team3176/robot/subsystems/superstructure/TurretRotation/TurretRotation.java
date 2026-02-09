@@ -128,21 +128,23 @@ public class TurretRotation extends SubsystemBase {
   }
 
   //Use this command for target tracking - 
-  public Command runTurretRotationFromVision(DoubleSupplier positionError, BooleanSupplier isTargetLocked ) {
-      return this.run(
+  public Command runTurretRotationFromVision(DoubleSupplier positionErrorDegrees, BooleanSupplier isTargetLocked ) {
+    double positionErrorRotations =   positionErrorDegrees.getAsDouble() * SuperStructureConstants.TurretDegreesToRotations; //convert degrees of error into rotations
+    
+    return this.run(
       () -> { 
-        turretRotationFromVision(positionError.getAsDouble(), isTargetLocked.getAsBoolean());
+        turretRotationFromVision(positionErrorRotations, isTargetLocked.getAsBoolean());
       });
   }
 
-  private void turretRotationFromVision(double positionError, boolean isTargetLocked ){
+  private void turretRotationFromVision(double positionErrorRotations, boolean isTargetLocked ){
       // curret position in rotations
       double curretPosition = inputs.turretRotationPositionRot;
 
       if (isTargetLocked){
-        if (!(Math.abs(positionError) > SuperStructureConstants.TurretErrorMoveDeadband )){
+        if (!(Math.abs(positionErrorRotations) > SuperStructureConstants.TurretErrorMoveDeadband )){
           // adjust the position based on the error identified 
-          io.setTurretRotationError(curretPosition + positionError, isTargetLocked);
+          io.setTurretRotationError(curretPosition + positionErrorRotations, isTargetLocked);
           leds.turretTracking();
         }
         else {
