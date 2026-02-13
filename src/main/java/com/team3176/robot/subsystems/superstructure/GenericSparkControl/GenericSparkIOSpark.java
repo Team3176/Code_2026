@@ -27,6 +27,8 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.FeedbackSensor;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 
@@ -44,6 +46,10 @@ public class GenericSparkIOSpark implements GenericSparkIO {
   private SparkClosedLoopController sparkPositionController;
   private SparkClosedLoopController sparkSpeedController;
   private SparkClosedLoopController sparkDualSpeedController;
+
+  private RelativeEncoder positionEncoder;
+  private RelativeEncoder speedEncoder; 
+  private RelativeEncoder dualSpeedEncoder; 
 
   public GenericSparkIOSpark() {
 
@@ -63,31 +69,45 @@ public class GenericSparkIOSpark implements GenericSparkIO {
     genericSparkFlexLeaderSpeedController = new SparkFlex(Hardwaremap.genericSparkFlexLeaderSpeed_CID, MotorType.kBrushless);
     genericSparkFlexFollowerSpeedController = new SparkFlex(Hardwaremap.genericSparkFlexFollowerSpeed_CID, MotorType.kBrushless);
 
+    //setup the encoders
+
+    positionEncoder = genericSparkFlexController.getEncoder();
+    speedEncoder = genericSparkFlexSpeedController.getEncoder();
+    dualSpeedEncoder = genericSparkFlexLeaderSpeedController.getEncoder();
+
 
 
     //Position Control Gains
-    genericSparkFlexConfigs.closedLoop.p(3); 
-    genericSparkFlexConfigs.closedLoop.i(0.1); 
+    genericSparkFlexConfigs.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
+    genericSparkFlexConfigs.closedLoop.p(1); 
+    genericSparkFlexConfigs.closedLoop.i(0); 
     genericSparkFlexConfigs.closedLoop.d(0); 
+
 
     // set max output current limits - 1
     genericSparkFlexConfigs.smartCurrentLimit(60);
 
     genericSparkFlexConfigs.inverted(false);
     genericSparkFlexConfigs.idleMode(IdleMode.kBrake);
+    genericSparkFlexConfigs.encoder.positionConversionFactor(1);
 
     //Apply the configuration to the Spark Flex Controller
     genericSparkFlexController.configure(genericSparkFlexConfigs, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     sparkPositionController = genericSparkFlexController.getClosedLoopController();
 
+    
+
+
+
     //TODO add limit switches if needed
 
 
     //SETUP SPEED CONTROL CONFIGS
         /* Voltage-based velocity requires a velocity feed forward to account for the back-emf of the motor */
-    genericSparkFlexSpeedConfigs.closedLoop.p(3); 
-    genericSparkFlexSpeedConfigs.closedLoop.i(0.1);
+    genericSparkFlexSpeedConfigs.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
+    genericSparkFlexSpeedConfigs.closedLoop.p(0.001); 
+    genericSparkFlexSpeedConfigs.closedLoop.i(0);
     genericSparkFlexSpeedConfigs.closedLoop.d(0); 
   
     // set max output current limits TODO check stall current of speed / roller
@@ -95,6 +115,7 @@ public class GenericSparkIOSpark implements GenericSparkIO {
 
     genericSparkFlexSpeedConfigs.inverted(false);
     genericSparkFlexSpeedConfigs.idleMode(IdleMode.kCoast);
+    genericSparkFlexSpeedConfigs.encoder.velocityConversionFactor(1);
 
     //Apply the configuration to the Spark Flex Controller
     genericSparkFlexSpeedController.configure(genericSparkFlexSpeedConfigs, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -104,8 +125,9 @@ public class GenericSparkIOSpark implements GenericSparkIO {
     //
     //SETUP  DualSPEED CONTROL CONFIGS
     //
-    genericSparkFlexDualSpeedConfigs.closedLoop.p(3); 
-    genericSparkFlexDualSpeedConfigs.closedLoop.i(0.1);
+    genericSparkFlexDualSpeedConfigs.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
+    genericSparkFlexDualSpeedConfigs.closedLoop.p(0.001); 
+    genericSparkFlexDualSpeedConfigs.closedLoop.i(0);
     genericSparkFlexDualSpeedConfigs.closedLoop.d(0); 
   
     // set max output current limits TODO check stall current of speed / roller
@@ -113,9 +135,10 @@ public class GenericSparkIOSpark implements GenericSparkIO {
 
     genericSparkFlexDualSpeedConfigs.inverted(false);
     genericSparkFlexDualSpeedConfigs.idleMode(IdleMode.kCoast);
+    genericSparkFlexDualSpeedConfigs.encoder.velocityConversionFactor(1);
 
-    genericSparkFlexDualFollowerSpeedConfigs.closedLoop.p(3); 
-    genericSparkFlexDualFollowerSpeedConfigs.closedLoop.i(0.1);
+    genericSparkFlexDualFollowerSpeedConfigs.closedLoop.p(0.001); 
+    genericSparkFlexDualFollowerSpeedConfigs.closedLoop.i(0);
     genericSparkFlexDualFollowerSpeedConfigs.closedLoop.d(0); 
   
     // set max output current limits TODO check stall current of speed / roller
@@ -144,7 +167,7 @@ public class GenericSparkIOSpark implements GenericSparkIO {
   //Use this to provide a speed based on voltage - it is not "controlling to speed"
   @Override
   public void setGenericSparkVolts(double volts) {
-    genericSparkFlexController.setVoltage(volts);
+    genericSparkFlexController.setVoltage(volts * SuperStructureConstants.GenericSpark_MAX_OUTPUT_VOLTS);
   }
 
   //position is based on rotations

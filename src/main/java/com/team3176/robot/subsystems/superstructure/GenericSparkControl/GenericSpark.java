@@ -72,6 +72,13 @@ public class GenericSpark extends SubsystemBase {
   }
 
   public Command runGenericSparkVoltageManual(DoubleSupplier position) {
+    return this.run(
+      () -> {
+        setGenericSparkVolts(position.getAsDouble());
+      });
+  }
+
+  /*  public Command runGenericSparkVoltageManual(DoubleSupplier position) {
     return this.runEnd(
       () -> {
         setGenericSparkVolts(position.getAsDouble());
@@ -79,8 +86,7 @@ public class GenericSpark extends SubsystemBase {
       () -> {
         setGenericSparkVolts(0.0);
       });
-  }
-
+  } */
 
   private void setGenericSparkVolts(double volts) {
     // this assumes positive voltage deploys and negative voltage retracts.

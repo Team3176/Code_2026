@@ -32,8 +32,9 @@ public class SuperStructureConstants {
   //
   // Constants used by the Generic Spark Motor Controller Subsystems. 
   //
-  public static final double GenericSpark_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
-  public static final double GenericSpark_MAXNeg_OUTPUT_VOLTS = -2; //Sets Max Reverse Speed
+  public static final double GenericSpark_MAX_OUTPUT_VOLTS = 4 ; //Sets Max forward Speed
+  public static final double GenericSpark_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
+
   public static final double GenericSpark_kP = .5;
   public static final double GenericSpark_kI = 0; 
   public static final double GenericSpark_kD = 0; 
@@ -48,7 +49,7 @@ public class SuperStructureConstants {
 
   public static final double GenericSparkSpeed_MAX_OUTPUT_VOLTS = 4; //Sets Max forward Speed
   public static final double GenericSparkSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
-  public static final double GenericSparkSpeed_Max_RPM = 20;
+  public static final double GenericSparkSpeed_Max_RPM = 10;
 
 
   public static final double GenericSparkDualSpeed_MAX_OUTPUT_VOLTS = 4; //Sets Max forward Speed
@@ -126,9 +127,9 @@ public static final double Hood_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
  public static final double MotorStage2Ratio = 1;
 
  public static final double TurretPositionFullRotation = ((TurretGearTeeth / TurretDriveTeeth) * MotorStage1Ratio * MotorStage2Ratio); 
- public static final double TurretDegreesToRotations = TurretPositionFullRotation / 360; // currently .083 rotations per degree
- public static final double TurretRangeInDegrees = 200;
- public static final double TurretFullRangeInMotorRotations = (TurretPositionFullRotation * (TurretRangeInDegrees/360));
+ public static final double TurretRadianToRotations = TurretPositionFullRotation / 6.283; //2pi = 6.283
+ public static final double TurretRangeInRadian = 200 / 360 * 6.283; // 200 degrees of movement in radian 
+ public static final double TurretFullRangeInMotorRotations = (TurretPositionFullRotation * (TurretRangeInRadian/6.283));
  public static final double TurretErrorMoveDeadband = .00005 * TurretFullRangeInMotorRotations; // max allowable error is 0.1% of available range 
  public static final double TurretHomePosition = .5 * TurretFullRangeInMotorRotations; // Assume half of full sweep is the prefered homed position
 

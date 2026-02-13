@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
+import com.team3176.robot.subsystems.leds.LEDSubsystem;
 
 import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericSpark;
 
@@ -61,12 +62,17 @@ public class Superstructure {
     return (genericTalon.runGenericTalonDualSpeed(() -> Speed_RPS.getAsDouble()));
   }
 
+  public Command genericSparkVoltControl(DoubleSupplier volts) {
+    return (genericSpark.runGenericSparkVoltageManual(() -> volts.getAsDouble()));
+  }
+  
   public Command genericSparkPositionMotor(DoubleSupplier position) {
     return (genericSpark.runGenericSpark(() -> position.getAsDouble()));
   }
 
   public Command genericSparkMotorSpeed(DoubleSupplier Speed_RPM) {
-    return (genericSpark.runGenericSparkSpeed(() -> Speed_RPM.getAsDouble()));
+    return (genericSpark.runGenericSparkVoltageManual(Speed_RPM));
+   // .runGenericSparkSpeed(() -> Speed_RPM.getAsDouble()));
   }
 
   public Command genericSparkDualMotorSpeed(DoubleSupplier Speed_RPM) {
@@ -81,9 +87,9 @@ public class Superstructure {
     return (kicker.runkickerSpeed(() -> Speed_RPS.getAsDouble()));
   }
 
-  public Command runTurretRotationFromVision(DoubleSupplier positionError, BooleanSupplier isTargetLocked ) {
+  public Command runTurretRotationFromVision(DoubleSupplier positionError, BooleanSupplier isTargetLocked, LEDSubsystem leds ) {
     //return (turretRotation.runTurretRotation(() -> positionError.getAsDouble()));
-    return (turretRotation.runTurretRotationFromVision(() -> positionError.getAsDouble(), () -> isTargetLocked.getAsBoolean()));
+    return (turretRotation.runTurretRotationFromVision(() -> positionError.getAsDouble(), () -> isTargetLocked.getAsBoolean(), leds));
   }
   
   public static Superstructure getInstance() {

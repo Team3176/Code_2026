@@ -34,13 +34,13 @@ public class TurretRotation extends SubsystemBase {
   private double position_offset = SuperStructureConstants.TurretRotation_ENCODER_OFFSET;
   private boolean ishomed = false;
   private double positionHome = SuperStructureConstants.TurretRotation_ZERO_POS;
-  private LEDSubsystem leds;
+ // private LEDSubsystem leds;
   private double homePos = 0;
 
 
   private TurretRotation(TurretRotationIO io) {
     this.io = io;
-    leds = LEDSubsystem.getInstance();
+   // leds = LEDSubsystem.getInstance();
   }
 
   public boolean getClockwiseLimitswitch() {
@@ -128,23 +128,23 @@ public class TurretRotation extends SubsystemBase {
   }
 
   //Use this command for target tracking - 
-  public Command runTurretRotationFromVision(DoubleSupplier positionErrorDegrees, BooleanSupplier isTargetLocked ) {
+  public Command runTurretRotationFromVision(DoubleSupplier positionErrorDegrees, BooleanSupplier isTargetLocked, LEDSubsystem leds ) {
     double positionErrorRotations =   positionErrorDegrees.getAsDouble(); // SuperStructureConstants.TurretDegreesToRotations; //convert degrees of error into rotations
     
     return this.run(
       () -> { 
-        turretRotationFromVision(positionErrorDegrees.getAsDouble(), isTargetLocked.getAsBoolean());
+        turretRotationFromVision(positionErrorDegrees.getAsDouble(), isTargetLocked.getAsBoolean(), leds);
       });
   }
 
-  private void turretRotationFromVision(double positionErrorRotations, boolean isTargetLocked ){
+  private void turretRotationFromVision(double positionErrorRotations, boolean isTargetLocked , LEDSubsystem leds){
       // curret position in rotations
       double curretPosition = inputs.turretRotationPositionRot;
       //io.setTurretRotationError( positionErrorRotations, isTargetLocked);
       if (isTargetLocked){
         if ((Math.abs(positionErrorRotations) > SuperStructureConstants.TurretErrorMoveDeadband )){
           // adjust the position based on the error identified 
-          io.setTurretRotationError(curretPosition + positionErrorRotations * SuperStructureConstants.TurretDegreesToRotations, isTargetLocked);
+          io.setTurretRotationError(curretPosition + positionErrorRotations * SuperStructureConstants.TurretRadianToRotations, isTargetLocked);
           leds.turretTracking();
         }
         else {
