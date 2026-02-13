@@ -8,6 +8,9 @@
 package com.team3176.robot.subsystems.superstructure.TurretRotation;
 
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
+
+import java.io.PrintStream;
+
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -58,6 +61,7 @@ public class TurretRotationIOTalon implements TurretRotationIO {
   private final StatusSignal<Current> turretRotationCurrentAmpsSupply;
   private final StatusSignal<AngularVelocity> turretRotationVelocity;
   private final StatusSignal<Angle> turretRotationPosition;
+  //private final StatusSignal<Double> turretError_Vision;
   private final StatusSignal<Angle> turretRotationAbsolutePosition;
   private final StatusSignal<Temperature> turretRotationTemp;
 
@@ -121,6 +125,7 @@ public class TurretRotationIOTalon implements TurretRotationIO {
     turretRotationCurrentAmpsSupply = turretRotationController.getSupplyCurrent();
     turretRotationVelocity = turretRotationController.getVelocity();
     turretRotationPosition = turretRotationController.getPosition();
+   
     
     //If you want to use a cancode use this definition 
     //turretRotationPosition = turretRotationEncoder.getPositionSinceBoot();
@@ -141,8 +146,6 @@ public class TurretRotationIOTalon implements TurretRotationIO {
         turretRotationCurrentAmpsSupply);
 
     turretRotationController.optimizeBusUtilization();
-
-
 
   }
 
@@ -217,7 +220,9 @@ public class TurretRotationIOTalon implements TurretRotationIO {
   
   @Override
   public void  setTurretRotationError(double position, boolean isVisionLocked) {
-    if(isVisionLocked){
+   
+
+    if(true){//isVisionLocked
       turretRotationController.setControl(voltPosition.withPosition(position));
     }
   } 

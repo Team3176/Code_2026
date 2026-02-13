@@ -113,23 +113,23 @@ public static final double Hood_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
 
 
 /// One Rotation (360 Degrees of Turret)
-///  60 Tooth Gear on Turrent
-///  15 Tooth Gear Drive of Turret
+///  72 Tooth Gear on Turrent
+///  12 Tooth Gear Drive of Turret
 ///  5:1 Gear Ratio on Motor Stage 1
-///  5:1 Gear Ratio on Motor Stage 2
+///  1:1 Gear Ratio on Motor Stage 2 *** there is not a second stage at the moment
 /// 
-/// This ratio gives 1 motor rotation is 4 degrees of motor turret movement. 
+/// This ratio gives 1 motor rotation is 12 degrees of motor turret movement. 
 
- public static final double TurretGearTeeth = 60; //number of teeth on turret gear
- public static final double TurretDriveTeeth = 15; // number of teeth on turret drive gear (attached to motor)
+ public static final double TurretGearTeeth = 72; //number of teeth on turret gear
+ public static final double TurretDriveTeeth = 12; // number of teeth on turret drive gear (attached to motor)
  public static final double MotorStage1Ratio = 5;
- public static final double MotorStage2Ratio = 5;
+ public static final double MotorStage2Ratio = 1;
 
  public static final double TurretPositionFullRotation = ((TurretGearTeeth / TurretDriveTeeth) * MotorStage1Ratio * MotorStage2Ratio); 
- public static final double TurretDegreesToRotations = TurretPositionFullRotation / 360; // currently .277 rotations per degree
- public static final double TurretRangeInDegrees = 270;
+ public static final double TurretDegreesToRotations = TurretPositionFullRotation / 360; // currently .083 rotations per degree
+ public static final double TurretRangeInDegrees = 200;
  public static final double TurretFullRangeInMotorRotations = (TurretPositionFullRotation * (TurretRangeInDegrees/360));
- public static final double TurretErrorMoveDeadband = .0005 * TurretFullRangeInMotorRotations; // max allowable error is 0.1% of available range 
+ public static final double TurretErrorMoveDeadband = .00005 * TurretFullRangeInMotorRotations; // max allowable error is 0.1% of available range 
  public static final double TurretHomePosition = .5 * TurretFullRangeInMotorRotations; // Assume half of full sweep is the prefered homed position
 
 

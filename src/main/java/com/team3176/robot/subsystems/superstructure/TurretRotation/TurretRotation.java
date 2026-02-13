@@ -129,22 +129,22 @@ public class TurretRotation extends SubsystemBase {
 
   //Use this command for target tracking - 
   public Command runTurretRotationFromVision(DoubleSupplier positionErrorDegrees, BooleanSupplier isTargetLocked ) {
-    double positionErrorRotations =   positionErrorDegrees.getAsDouble() * SuperStructureConstants.TurretDegreesToRotations; //convert degrees of error into rotations
+    double positionErrorRotations =   positionErrorDegrees.getAsDouble(); // SuperStructureConstants.TurretDegreesToRotations; //convert degrees of error into rotations
     
     return this.run(
       () -> { 
-        turretRotationFromVision(positionErrorRotations, isTargetLocked.getAsBoolean());
+        turretRotationFromVision(positionErrorDegrees.getAsDouble(), isTargetLocked.getAsBoolean());
       });
   }
 
   private void turretRotationFromVision(double positionErrorRotations, boolean isTargetLocked ){
       // curret position in rotations
       double curretPosition = inputs.turretRotationPositionRot;
-
+      //io.setTurretRotationError( positionErrorRotations, isTargetLocked);
       if (isTargetLocked){
-        if (!(Math.abs(positionErrorRotations) > SuperStructureConstants.TurretErrorMoveDeadband )){
+        if ((Math.abs(positionErrorRotations) > SuperStructureConstants.TurretErrorMoveDeadband )){
           // adjust the position based on the error identified 
-          io.setTurretRotationError(curretPosition + positionErrorRotations, isTargetLocked);
+          io.setTurretRotationError(curretPosition + positionErrorRotations * SuperStructureConstants.TurretDegreesToRotations, isTargetLocked);
           leds.turretTracking();
         }
         else {
@@ -168,7 +168,7 @@ public class TurretRotation extends SubsystemBase {
     Logger.recordOutput("TurretRotation/setpoint", this.positionSetpoint);
    
    // Use Limit Switches not to break anything - May be double dipping on limit switches based on method call. - safe than sorry
-
+/*
     if (inputs.turretClockwiselimitswitch && inputs.turretRotationAppliedVolts < 0) {
       io.setTurretRotationVoltage(0);
     }
@@ -176,6 +176,6 @@ public class TurretRotation extends SubsystemBase {
     if (inputs.turretCounterclockwiselimitswitch && inputs.turretRotationAppliedVolts >= 0) {
       io.setTurretRotationVoltage(0);
     }
-    
+  */  
   }
 }
