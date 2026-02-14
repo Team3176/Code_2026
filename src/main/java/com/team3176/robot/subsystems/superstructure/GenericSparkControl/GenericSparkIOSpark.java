@@ -106,9 +106,9 @@ public class GenericSparkIOSpark implements GenericSparkIO {
     //SETUP SPEED CONTROL CONFIGS
         /* Voltage-based velocity requires a velocity feed forward to account for the back-emf of the motor */
     genericSparkFlexSpeedConfigs.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
-    genericSparkFlexSpeedConfigs.closedLoop.p(0.001); 
-    genericSparkFlexSpeedConfigs.closedLoop.i(0);
-    genericSparkFlexSpeedConfigs.closedLoop.d(0); 
+    genericSparkFlexSpeedConfigs.closedLoop.p(0.003); 
+    genericSparkFlexSpeedConfigs.closedLoop.i(0.002);
+    genericSparkFlexSpeedConfigs.closedLoop.d(0.001); 
   
     // set max output current limits TODO check stall current of speed / roller
     genericSparkFlexSpeedConfigs.smartCurrentLimit(60);
