@@ -68,6 +68,7 @@ public class GenericSparkIOSpark implements GenericSparkIO {
 
     genericSparkFlexLeaderSpeedController = new SparkFlex(Hardwaremap.genericSparkFlexLeaderSpeed_CID, MotorType.kBrushless);
     genericSparkFlexFollowerSpeedController = new SparkFlex(Hardwaremap.genericSparkFlexFollowerSpeed_CID, MotorType.kBrushless);
+    
 
     //setup the encoders
 
@@ -182,7 +183,8 @@ public class GenericSparkIOSpark implements GenericSparkIO {
     //Offset would be used when we need 
   @Override
   public void setGenericSparkSpeedVelocity(double speed_RPM) {
-    sparkSpeedController.setSetpoint(speed_RPM, ControlType.kVelocity);
+   // sparkSpeedController.setSetpoint(speed_RPM, ControlType.kVelocity);
+   genericSparkFlexSpeedController.set(speed_RPM);
   }
 
 
