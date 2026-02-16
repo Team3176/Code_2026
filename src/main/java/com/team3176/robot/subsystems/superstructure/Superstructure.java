@@ -71,7 +71,8 @@ public class Superstructure {
   }
 
   public Command genericSparkMotorSpeed(DoubleSupplier Speed_RPM) {
-    return (genericSpark.runGenericSparkVoltageManual(Speed_RPM));
+    System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    return (genericSpark.runGenericSparkSpeed(Speed_RPM));
    // .runGenericSparkSpeed(() -> Speed_RPM.getAsDouble()));
   }
 
