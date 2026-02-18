@@ -41,7 +41,7 @@ public class precisionPigeon {
         double yaw = aPigeonIMU.getYaw().getValueAsDouble();
 
         double[] ypr =  {yaw,0,0};
-        rotationalVelocitiesDisp.set(ypr);
+        positionsDisp.set(ypr);
 
         return yaw;
     }

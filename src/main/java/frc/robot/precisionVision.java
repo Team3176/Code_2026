@@ -86,8 +86,8 @@ public class precisionVision {
             new Rotation3d(-0.36222, .36222, 2.355)); // 20.754 deg = 0.36222 radians
 
 
-    public static final Transform3d kSledToTurret = new Transform3d(new Translation3d(0, 0, 0),
-            new Rotation3d(0, 0, 0)); //Turret is in camera coordinate system and no transformation is applied. 
+    public static final Transform3d kSledToTurret = new Transform3d(new Translation3d(0, 0, 0.203),
+            new Rotation3d(0, -0.436, 0)); //Turret is in camera coordinate system and no transformation is applied. 
     public boolean isOurGoalDetected;
     private boolean weAreBlueAlliance;
 
@@ -174,6 +174,7 @@ public class precisionVision {
                 for (var target : aTurretCAMResult.getTargets()) {
                         isTagDetected[target.getFiducialId() - 1] = true;
                         calculateGoalLocationFromTag(target);
+                        calculateGoalLocationFromTurretPose(target);
 
                 } // End of iterating over targets
 
@@ -333,7 +334,7 @@ public class precisionVision {
         int targetID = target.getFiducialId();
         int displayIndex = 0; //The index of the diplay vector 0 for left, 1 for center, 2 for right;
 
-        if(target.poseAmbiguity<0.2){               //If the pose ambiguity is bad, throw out the value and return an invalid solutoin
+        if(target.poseAmbiguity>0.2){               //If the pose ambiguity is bad, throw out the value and return an invalid solutoin (high ambiguiity is bad)
             aTurretSolution.IsValid = false;
             return aTurretSolution;
         }
@@ -421,9 +422,9 @@ public class precisionVision {
     
     private turretSolution calculateGoalLocationFromTurretPose(PhotonTrackedTarget target){
         turretSolution aTurretSolution= new turretSolution();
-        double turretLocX;
-        double turretLocY;
-        double turretLocRot;
+        double turretLocX=0;
+        double turretLocY=0;
+        double turretLocRot=0;
 
         double [] blueGoalLocation = {4.611, 4.021};    //(x,y) blueGoal is at (181.56,158.32) inches
         double [] redGoalLocation = {11.901,4.021};     //(x,y)redGoal is at (468.56,158.32) inches
@@ -450,10 +451,12 @@ public class precisionVision {
 
                 //calculate the angle
                 aTurretSolution.angle = Math.atan((ourGoalLocation[1]-turretLocY) / (ourGoalLocation[0]-turretLocX)) - turretLocRot;
+
+                double[] solutiotDisplayVector= {aTurretSolution.distance,aTurretSolution.angle*180/3.1416,turretLocX,turretLocY,turretLocRot};
+                turretPoseDisplay.set(solutiotDisplayVector);
         }
 
-            double[] solutiotDisplayVector= {aTurretSolution.distance,aTurretSolution.angle};
-            turretPoseDisplay.set(solutiotDisplayVector);
+
 
         return aTurretSolution;
     }
