@@ -429,7 +429,8 @@ controller.rotStick.button(5).whileTrue((superstructure.runTurretRotationFromVis
 //    controller.operator.pov(0)
 //        .whileTrue(superstructure.goToA2())
 //        .onFalse(superstructure.algaeSqueeze());
-//    controller.operator.pov(90).whileTrue(superstructure.deAlgae()).onFalse(superstructure.deAlgaeHome());//.onTrue(superstructure.goToA3());
+controller.operator.pov(180).whileTrue(superstructure.HoodDown());
+controller.operator.pov(0).whileTrue(superstructure.HoodUp());//.onFalse(superstructure.runHood());//.onTrue(superstructure.goToA3());
 //    controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
 
     // Human Load Positions and Rollers

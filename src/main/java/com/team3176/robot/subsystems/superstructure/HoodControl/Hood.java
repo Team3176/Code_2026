@@ -77,6 +77,19 @@ public class Hood extends SubsystemBase {
       });
   }
 
+  public Command runHoodUp(DoubleSupplier position) {
+    return this.run(
+      () -> { 
+        setHoodVoltagePos(position.getAsDouble());
+      });
+  }
+    public Command runHoodDown(DoubleSupplier position) {
+    return this.run(
+      () -> { 
+        setHoodVoltagePos(position.getAsDouble());
+      });
+  }
+
   public Command runHoodVoltageManual(DoubleSupplier position) {
     return this.runEnd(
       () -> {
@@ -135,7 +148,7 @@ public class Hood extends SubsystemBase {
 
   public void deployFromHome() {
     setCurrentHomePos();
-    double deployPos = this.homePos + .25;
+    double deployPos = this.homePos + SuperStructureConstants.HoodUpIncrement;
     setHoodVoltagePos(deployPos);
   }
   
@@ -149,7 +162,7 @@ public class Hood extends SubsystemBase {
 
   public void retractTowardHomePostion () {
     setCurrentHomePos();
-    double deployPos = this.homePos - .10;
+    double deployPos = this.homePos - SuperStructureConstants.HoodDownIncrement;
     setHoodVoltagePos(deployPos);
   }
 

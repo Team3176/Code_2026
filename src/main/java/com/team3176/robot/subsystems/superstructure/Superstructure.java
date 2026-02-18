@@ -54,6 +54,13 @@ public class Superstructure {
     return (hood.runHood(() -> position.getAsDouble()));
   }
 
+    public Command HoodUp() {
+    return (hood.deployFromHomeCmd());
+  }
+    public Command HoodDown() {
+    return (hood.retractTowardHome());
+  }
+
   public Command genericMotorSpeed(DoubleSupplier Speed_RPS) {
     return (genericTalon.runGenericTalonSpeed(() -> Speed_RPS.getAsDouble()));
   }
