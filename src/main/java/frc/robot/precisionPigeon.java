@@ -14,7 +14,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.PubSubOptions;
 
-import javax.sound.sampled.BooleanControl;
+
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 
