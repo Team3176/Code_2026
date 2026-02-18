@@ -19,7 +19,19 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.ctre.phoenix6.signals.MotorAlignmentValue;
+
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.FeedbackSensor;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkFlex;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -36,11 +48,15 @@ import com.team3176.robot.util.TalonUtils;
 
 
 /** Template hardware interface for a closed loop subsystem. */
-public class IntakeControlIOTalon implements IntakeControlIO {
+public class IntakeControlIOTalonSpark implements IntakeControlIO {
 
   private TalonFX IntakePositionController;
-  
   private CANcoder IntakePositionEncoder;
+  
+  private SparkFlex IntakeRollerMotor;
+  private SparkClosedLoopController IntakeRollerController;
+  private RelativeEncoder IntakeRollerEncoder;
+  
   VelocityVoltage voltVelocity = new VelocityVoltage(0);
   VoltageOut IntakePositionVolts = new VoltageOut(0.0);
   PositionVoltage voltIntakePosition = new PositionVoltage(0);
@@ -57,12 +73,15 @@ public class IntakeControlIOTalon implements IntakeControlIO {
   private final StatusSignal<Temperature> IntakePositionTemp;
 
 
-  public IntakeControlIOTalon() {
+  public IntakeControlIOTalonSpark() {
 
  
     TalonFXConfiguration IntakePositionConfigs = new TalonFXConfiguration();
     
- 
+    SparkFlexConfig IntakeRollerConfigs = new SparkFlexConfig();
+    IntakeRollerMotor = new SparkFlex(Hardwaremap.IntakeRoller_CID, MotorType.kBrushless);
+    IntakeRollerEncoder = IntakeRollerMotor.getEncoder();
+
     // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
 
@@ -71,13 +90,8 @@ public class IntakeControlIOTalon implements IntakeControlIO {
     IntakePositionEncoder = new CANcoder(Hardwaremap.IntakePositionCancoder_CID, Hardwaremap.Intake_CBN);
  
 
- 
-    //var HoodEncoderConfig = new CANcoderConfiguration();
+    //Intake Postition
     encoderOffset = Rotation2d.fromDegrees(SuperStructureConstants.IntakePosition_ENCODER_OFFSET);
-    //HoodEncoderConfig.MagnetSensor.MagnetOffset = encoderOffset.getRotations();
-    
-
-    //armPivotEncoder.getConfigurator().apply(pivotEncoderConfig);
 
     IntakePositionConfigs.Slot0.kP = 3; // An error of 1 rotation results in 2.4 V output
     IntakePositionConfigs.Slot0.kI = 0.1; // No output for integrated error
@@ -105,7 +119,26 @@ public class IntakeControlIOTalon implements IntakeControlIO {
     TalonUtils.applyTalonFxConfigs(IntakePositionController, IntakePositionConfigs);
     //IntakePositionController.setPosition(0, 0);
 
-    
+    // Intake Roller Configuartion 
+     //SETUP SPEED CONTROL CONFIGS
+        /* Voltage-based velocity requires a velocity feed forward to account for the back-emf of the motor */
+    IntakeRollerConfigs.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
+    IntakeRollerConfigs.closedLoop.p(0.003); 
+    IntakeRollerConfigs.closedLoop.i(0.002);
+    IntakeRollerConfigs.closedLoop.d(0.001); 
+  
+    // set max output current limits TODO check stall current of speed / roller
+    IntakeRollerConfigs.smartCurrentLimit(60);
+
+    IntakeRollerConfigs.inverted(false);
+    IntakeRollerConfigs.idleMode(IdleMode.kCoast);
+    IntakeRollerConfigs.encoder.velocityConversionFactor(1);
+
+    //Apply the configuration to the Spark Flex Controller
+    IntakeRollerMotor.configure(IntakeRollerConfigs, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    IntakeRollerController = IntakeRollerMotor.getClosedLoopController();
+
 
 
     IntakePositionAppliedVolts = IntakePositionController.getMotorVoltage();
@@ -190,7 +223,12 @@ public class IntakeControlIOTalon implements IntakeControlIO {
     }
   }
 
+  //Offset would be used when we need 
+  @Override
+  public void setIntakeRollerVelocity(double percentDutyCycle) {
+   // sparkSpeedController.setSetpoint(speed_RPM, ControlType.kVelocity);
+   IntakeRollerMotor.set(percentDutyCycle * SuperStructureConstants.IntakeRollerMaxDutyCycle);
+  }
 
-    //Offset would be used when we need 
  
 }

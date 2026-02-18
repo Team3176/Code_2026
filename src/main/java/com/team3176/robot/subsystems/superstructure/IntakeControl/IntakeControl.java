@@ -51,7 +51,7 @@ public class IntakeControl extends SubsystemBase {
   public static IntakeControl getInstance() {
     if (instance == null) {
       if (BaseConstants.getMode() == Mode.REAL && BaseConstants.getRobot() != RobotType.ROBOT_DEFENSE) {
-        instance = new IntakeControl(new IntakeControlIOTalon() {});
+        instance = new IntakeControl(new IntakeControlIOTalonSpark() {});
       } else {
         instance = new IntakeControl(new IntakeControlIOSim() {});
       }

@@ -43,9 +43,8 @@ public class Superstructure {
     genericSpark = GenericSpark.getInstance();
     shooter = ShooterControl.getInstance();
     turretRotation = TurretRotation.getInstance();
-
+    intake = IntakeControl.getInstance();
     kicker = Kicker.getInstance();
-
     hood = Hood.getInstance();
   }
 

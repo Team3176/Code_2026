@@ -85,14 +85,11 @@ public class SuperStructureConstants {
 
 
   // Intake Control Constants 
+  public static final double IntakeRollerMaxDutyCycle = 0.2; // This is 20% max duty cycle 
   public static final double Intake_ZERO_POS = 0.39;
-
   public static final double IntakePosition_ENCODER_OFFSET = 0;
-
   public static final double Intake_Position_MULTIPLIER = 1; // ten tooth pinion 23 tooth rack, 1 to 1 gear ratio, input is from -1 to 1
   public static final double Intake_pos_offset = 1;
-
-
   public static final double IntakePosition_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
   public static final double IntakePosition_MAXNeg_OUTPUT_VOLTS = -2; //Sets Max Reverse Speed
   public static final double IntakeControl_kP = .5;

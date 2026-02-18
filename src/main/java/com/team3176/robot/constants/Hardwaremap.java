@@ -25,7 +25,8 @@ public class Hardwaremap {
   public static final int HoodCancoder_CID = 12;    
 
 // Intake Control Constants
-  public static final int IntakePosition_CID = 36;
+  public static final int IntakePosition_CID = 37;
+  public static final int IntakeRoller_CID = 38;
   public static final int IntakePositionCancoder_CID = 12;    
 
 
