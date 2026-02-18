@@ -184,7 +184,7 @@ public class GenericSparkIOSpark implements GenericSparkIO {
   @Override
   public void setGenericSparkSpeedVelocity(double speed_RPM) {
    // sparkSpeedController.setSetpoint(speed_RPM, ControlType.kVelocity);
-   genericSparkFlexSpeedController.set(speed_RPM);
+   genericSparkFlexSpeedController.set(speed_RPM/20);
   }
 
 

@@ -11,6 +11,7 @@ import com.team3176.robot.subsystems.leds.LEDSubsystem;
 import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericSpark;
 
 import com.team3176.robot.subsystems.superstructure.HoodControl.Hood;
+import com.team3176.robot.subsystems.superstructure.IntakeControl.IntakeControl;
 //import com.team3176.robot.constants.FieldConstants;
 // import java.util.function.IntSupplier;
 import com.team3176.robot.subsystems.superstructure.GenericTalonControl.GenericTalon;
@@ -18,6 +19,7 @@ import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericS
 import com.team3176.robot.subsystems.superstructure.KickerControl.Kicker;
 import com.team3176.robot.subsystems.superstructure.ShooterControl.ShooterControl;
 import com.team3176.robot.subsystems.superstructure.TurretRotation.TurretRotation;
+import com.team3176.robot.subsystems.superstructure.IntakeControl.IntakeControl;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.ctre.phoenix6.StatusSignal;
 import com.team3176.robot.constants.SuperStructureConstants;
@@ -31,6 +33,7 @@ public class Superstructure {
   private Hood hood;
   private ShooterControl shooter;
   private TurretRotation turretRotation;
+  private IntakeControl intake;
 
   private Kicker kicker;
 
@@ -52,6 +55,10 @@ public class Superstructure {
 
     public Command HoodMotor(DoubleSupplier position) {
     return (hood.runHood(() -> position.getAsDouble()));
+  }
+
+    public Command IntakePositionMotor(DoubleSupplier position) {
+    return (intake.runIntakePosition(() -> position.getAsDouble()));
   }
 
   public Command genericMotorSpeed(DoubleSupplier Speed_RPS) {

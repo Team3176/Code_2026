@@ -24,6 +24,10 @@ public class Hardwaremap {
   public static final int HoodSpeed_CID = 11;
   public static final int HoodCancoder_CID = 12;    
 
+// Intake Control Constants
+  public static final int IntakePosition_CID = 36;
+  public static final int IntakePositionCancoder_CID = 12;    
+
 
   public static final int genericSparkFlex_CID = 30;
   public static final int genericSparkFlexSpeed_CID = 31;
@@ -60,7 +64,8 @@ public class Hardwaremap {
   public static final String KickerSpeed_CBN = "rio";
   public static final String Hood_CBN = "rio";
   public static final String HoodSpeed_CBN = "rio";
-   public static final String turretRotation_CBN = "rio";
+  public static final String turretRotation_CBN = "rio";
+  public static final String Intake_CBN = "rio";
 
   public static final String genericSparkFlex_CBN = "rio";
   public static final String genericSparkFlexSpeed_CBN = "rio";
