@@ -167,6 +167,17 @@ public class IntakeControl extends SubsystemBase {
     setIntakePositionVoltagePos(currentPos);
   }
 
+  public Command runIntakeRoller(DoubleSupplier dutyCycle) {
+    return this.run(
+      () -> { 
+        intakeRollerDutyCycle(dutyCycle.getAsDouble());
+      });
+  }
+
+public void intakeRollerDutyCycle(double dutyCycle){
+     io.setIntakeRollerVelocity(dutyCycle); 
+}
+
  
   @Override
   public void periodic() {

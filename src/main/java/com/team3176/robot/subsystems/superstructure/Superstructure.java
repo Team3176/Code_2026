@@ -28,8 +28,7 @@ import com.team3176.robot.util.TunablePID;
 public class Superstructure {
   private static Superstructure instance;
 
-  private GenericTalon genericTalon;
-  private GenericSpark genericSpark;
+
   private Hood hood;
   private ShooterControl shooter;
   private TurretRotation turretRotation;
@@ -39,8 +38,7 @@ public class Superstructure {
 
   public Superstructure() {
 
-    genericTalon = GenericTalon.getInstance();
-    genericSpark = GenericSpark.getInstance();
+
     shooter = ShooterControl.getInstance();
     turretRotation = TurretRotation.getInstance();
     intake = IntakeControl.getInstance();
@@ -48,49 +46,22 @@ public class Superstructure {
     hood = Hood.getInstance();
   }
 
-  public Command genericPositionMotor(DoubleSupplier position) {
-    return (genericTalon.runGenericTalon(() -> position.getAsDouble()));
-  }
-
-    public Command HoodMotor(DoubleSupplier position) {
+  public Command HoodMotor(DoubleSupplier position) {
     return (hood.runHood(() -> position.getAsDouble()));
   }
 
-    public Command IntakePositionMotor(DoubleSupplier position) {
+  public Command IntakePositionMotor(DoubleSupplier position) {
     return (intake.runIntakePosition(() -> position.getAsDouble()));
   }
 
+  public Command IntakeRollerMotor(DoubleSupplier Speed_DutyCylce) {
+    return (intake.runIntakeRoller(() -> Speed_DutyCylce.getAsDouble()));
+  }
     public Command HoodUp() {
     return (hood.deployFromHomeCmd());
   }
     public Command HoodDown() {
     return (hood.retractTowardHome());
-  }
-
-  public Command genericMotorSpeed(DoubleSupplier Speed_RPS) {
-    return (genericTalon.runGenericTalonSpeed(() -> Speed_RPS.getAsDouble()));
-  }
-
-  public Command genericDualMotorSpeed(DoubleSupplier Speed_RPS) {
-    return (genericTalon.runGenericTalonDualSpeed(() -> Speed_RPS.getAsDouble()));
-  }
-
-  public Command genericSparkVoltControl(DoubleSupplier volts) {
-    return (genericSpark.runGenericSparkVoltageManual(() -> volts.getAsDouble()));
-  }
-  
-  public Command genericSparkPositionMotor(DoubleSupplier position) {
-    return (genericSpark.runGenericSpark(() -> position.getAsDouble()));
-  }
-
-  public Command genericSparkMotorSpeed(DoubleSupplier Speed_RPM) {
-    System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    return (genericSpark.runGenericSparkSpeed(Speed_RPM));
-   // .runGenericSparkSpeed(() -> Speed_RPM.getAsDouble()));
-  }
-
-  public Command genericSparkDualMotorSpeed(DoubleSupplier Speed_RPM) {
-    return (genericSpark.runGenericSparkDualSpeed(() -> Speed_RPM.getAsDouble()));
   }
 
   public Command shooterMotorSpeed(DoubleSupplier Speed_RPS) {

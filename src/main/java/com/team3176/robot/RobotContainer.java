@@ -398,11 +398,10 @@ controller.rotStick.button(6).whileTrue((superstructure.genericSparkDualMotorSpe
 
 controller.rotStick.button(1).whileTrue((superstructure.kickerMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
 controller.rotStick.button(2).whileTrue((superstructure.HoodMotor(() -> -controller.rotStick.getRawAxis(3))));
-controller.rotStick.button(9).whileTrue((superstructure.genericSparkVoltControl(() -> -controller.rotStick.getRawAxis(3))));
-controller.rotStick.button(10).whileTrue((superstructure.genericSparkMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
 controller.transStick.button(3).whileTrue((superstructure.shooterMotorSpeed(() -> -controller.transStick.getRawAxis(3))).alongWith(leds.setIsShooting()));
 controller.rotStick.button(5).whileTrue((superstructure.runTurretRotationFromVision(() -> controller.rotStick.getRawAxis(3), () -> controller.rotStick.button(6).getAsBoolean(), leds)));
 controller.rotStick.button(7).whileTrue((superstructure.IntakePositionMotor(() -> -controller.rotStick.getRawAxis(3))));
+controller.rotStick.button(8).whileTrue((superstructure.IntakeRollerMotor(() -> -controller.rotStick.getRawAxis(3))));
 
 
 // Climb buttons
