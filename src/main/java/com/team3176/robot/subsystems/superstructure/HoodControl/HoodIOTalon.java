@@ -178,7 +178,7 @@ public class HoodIOTalon implements HoodIO {
   @Override
   public void setHoodVoltagePos(double position) {
     HoodController.setControl(voltPosition.withPosition(position * SuperStructureConstants.Hood_Position_MULTIPLIER + SuperStructureConstants.Hood_pos_offset));
-  }
+  } 
 
 
   @Override
