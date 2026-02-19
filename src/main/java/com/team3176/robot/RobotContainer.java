@@ -403,6 +403,10 @@ controller.rotStick.button(5).whileTrue((superstructure.runTurretRotationFromVis
 controller.rotStick.button(7).whileTrue((superstructure.IntakePositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 controller.rotStick.button(8).whileTrue((superstructure.IntakeRollerMotor(() -> -controller.rotStick.getRawAxis(3))));
 
+controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
+
+controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -controller.rotStick.getRawAxis(3))));
+
 
 // Climb buttons
     // Max retraction position = -70

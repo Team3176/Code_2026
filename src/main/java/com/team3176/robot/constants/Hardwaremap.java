@@ -26,13 +26,17 @@ public class Hardwaremap {
   public static final int KickerCancoder_CID = 120; 
   public static final int HoodSpeed_CID = 101;
 
-
-
+  
 //added a 0 to the end of each of the kicker CID's
   
   public static final int KickerSpeed_CID = 32;
   public static final int Hood_CID = 36;
   public static final int HoodCancoder_CID = 360;    
+
+  public static final int ClimbLeft_CID = 36;
+  public static final int ClimbRight_CID = 36;
+
+  public static final int Spindexer_CID = 31;
 
 // Intake Control Constants
   public static final int IntakePosition_CID = 20;

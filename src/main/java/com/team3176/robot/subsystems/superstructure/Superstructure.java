@@ -8,10 +8,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import com.team3176.robot.subsystems.leds.LEDSubsystem;
 
-import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericSpark;
 
-import com.team3176.robot.subsystems.superstructure.HoodControl.Hood;
-import com.team3176.robot.subsystems.superstructure.IntakeControl.IntakeControl;
 //import com.team3176.robot.constants.FieldConstants;
 // import java.util.function.IntSupplier;
 import com.team3176.robot.subsystems.superstructure.GenericTalonControl.GenericTalon;
@@ -19,7 +16,10 @@ import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericS
 import com.team3176.robot.subsystems.superstructure.KickerControl.Kicker;
 import com.team3176.robot.subsystems.superstructure.ShooterControl.ShooterControl;
 import com.team3176.robot.subsystems.superstructure.TurretRotation.TurretRotation;
+import com.team3176.robot.subsystems.superstructure.HoodControl.Hood;
 import com.team3176.robot.subsystems.superstructure.IntakeControl.IntakeControl;
+import com.team3176.robot.subsystems.superstructure.ClimbControl.ClimbControl;
+import com.team3176.robot.subsystems.superstructure.Spindexer.Spindexer;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.ctre.phoenix6.StatusSignal;
 import com.team3176.robot.constants.SuperStructureConstants;
@@ -33,6 +33,8 @@ public class Superstructure {
   private ShooterControl shooter;
   private TurretRotation turretRotation;
   private IntakeControl intake;
+  private ClimbControl climb;
+  private Spindexer spindexer;
 
   private Kicker kicker;
 
@@ -57,11 +59,21 @@ public class Superstructure {
   public Command IntakeRollerMotor(DoubleSupplier Speed_DutyCylce) {
     return (intake.runIntakeRoller(() -> Speed_DutyCylce.getAsDouble()));
   }
-    public Command HoodUp() {
+
+  public Command SpindexerMotor(DoubleSupplier speed) {
+    return (spindexer.runSpindexerSpeed(() -> speed.getAsDouble()));
+  }
+
+  
+  public Command HoodUp() {
     return (hood.deployFromHomeCmd());
   }
-    public Command HoodDown() {
+  public Command HoodDown() {
     return (hood.retractTowardHome());
+  }
+
+  public Command ClimbPositionMotor(DoubleSupplier position) {
+    return (climb.runClimb(() -> position.getAsDouble()));
   }
 
   public Command shooterMotorSpeed(DoubleSupplier Speed_RPS) {

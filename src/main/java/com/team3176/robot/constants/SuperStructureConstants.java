@@ -112,8 +112,6 @@ public class SuperStructureConstants {
 
   public static final double ShooterDualSpeed_MAX_OUTPUT_VOLTS = 12 ; //Sets Max forward Speed
   public static final double ShooterDualSpeed_MAXNeg_OUTPUT_VOLTS = -12; //Sets Max Reverse Speed
-
-
   public static final double ShooterDualSpeed_Max_RPS = 100; // speed is multiplied by two due to joystick so currently this equals 50 * 2 = 100
 
 
@@ -139,21 +137,51 @@ public class SuperStructureConstants {
 /// 
 /// This ratio gives 1 motor rotation is 12 degrees of motor turret movement. 
 
- public static final double TurretGearTeeth = 72; //number of teeth on turret gear
- public static final double TurretDriveTeeth = 12; // number of teeth on turret drive gear (attached to motor)
- public static final double MotorStage1Ratio = 5;
- public static final double MotorStage2Ratio = 1;
+  public static final double TurretGearTeeth = 72; //number of teeth on turret gear
+  public static final double TurretDriveTeeth = 12; // number of teeth on turret drive gear (attached to motor)
+  public static final double MotorStage1Ratio = 5;
+  public static final double MotorStage2Ratio = 1;
 
- public static final double TurretPositionFullRotation = ((TurretGearTeeth / TurretDriveTeeth) * MotorStage1Ratio * MotorStage2Ratio); 
- public static final double TurretRadianToRotations = TurretPositionFullRotation / 6.283; //2pi = 6.283
- public static final double TurretRangeInRadian = 200 / 360 * 6.283; // 200 degrees of movement in radian 
- public static final double TurretFullRangeInMotorRotations = (TurretPositionFullRotation * (TurretRangeInRadian/6.283));
- public static final double TurretErrorMoveDeadband = .00005 * TurretFullRangeInMotorRotations; // max allowable error is 0.1% of available range 
- public static final double TurretHomePosition = .5 * TurretFullRangeInMotorRotations; // Assume half of full sweep is the prefered homed position
-
-
+  public static final double TurretPositionFullRotation = ((TurretGearTeeth / TurretDriveTeeth) * MotorStage1Ratio * MotorStage2Ratio); 
+  public static final double TurretRadianToRotations = TurretPositionFullRotation / 6.283; //2pi = 6.283
+  public static final double TurretRangeInRadian = 200 / 360 * 6.283; // 200 degrees of movement in radian 
+  public static final double TurretFullRangeInMotorRotations = (TurretPositionFullRotation * (TurretRangeInRadian/6.283));
+  public static final double TurretErrorMoveDeadband = .00005 * TurretFullRangeInMotorRotations; // max allowable error is 0.1% of available range 
+  public static final double TurretHomePosition = .5 * TurretFullRangeInMotorRotations; // Assume half of full sweep is the prefered homed position
 
 
+ /// Climb Constants
 
+  public static final double Climb_ZERO_POS = 0.39;
+  public static final double Climb_ENCODER_OFFSET = 0;
+  public static final double Climb_Position_MULTIPLIER = 5; //TODO - assumes 5 rotations is climb but need to sort travel distaqnce and sprocket size. 
+  public static final double ClimbLeft_pos_offset = 0; //changed from 1 to 0
+  public static final double ClimbRight_pos_offset = 0; //changed from 1 to 0
+  public static final double Climb_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
+  public static final double Climb_MAXNeg_OUTPUT_VOLTS = -2; //Sets Max Reverse Speed
+  public static final double Climb_kP = .5;
+  public static final double Climb_kI = 0; 
+  public static final double Climb_kD = 0; 
+  public static final double ClimbUpIncrement = 0.1; 
+  public static final double ClimbDownIncrement = 0.1; 
+
+
+  /// Spindexer
+  
+  public static final double Spindexer_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
+  public static final double Spindexer_MAXNeg_OUTPUT_VOLTS = -2; //Sets Max Reverse Speed
+  public static final double Spindexer_kP = .5;
+  public static final double Spindexer_kI = 0; 
+  public static final double Spindexer_kD = 0; 
+  //Set if using gravity for feedforward
+  public static final double Spindexer_kg = 0.2;
+  public static final double Spindexer_ZERO_POS = 0.39;
+  public static final double Spindexer_ENCODER_OFFSET = 0;
+
+
+
+  public static final double SpindexerSpeed_MAX_OUTPUT_VOLTS = 4; //Sets Max forward Speed
+  public static final double SpindexerSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
+  public static final double SpindexerSpeed_Max_RPS = 20;
 
 }
