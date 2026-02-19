@@ -12,45 +12,49 @@ public class Hardwaremap {
   public static final int genericTalon_CID = 100;
   public static final int genericTalonSpeed_CID = 110;
   public static final int genericTalonCancoder_CID = 120;    
-  public static final int armPivot_CID = 29; 
+  public static final int armPivot_CID = 129; 
 
-  public static final int genericTalonLeaderSpeed_CID = 21;
-  public static final int genericTalonFollowerSpeed_CID = 22;
-  public static final int Kicker_CID = 10;
-  public static final int KickerSpeed_CID = 32;
-  public static final int KickerCancoder_CID = 12; 
-//added a 0 to the end of each of the kicker CID's
-  public static final int Hood_CID = 36;
-  public static final int HoodSpeed_CID = 11;
-  public static final int HoodCancoder_CID = 12;    
+  public static final int genericTalonLeaderSpeed_CID = 121;
+  public static final int genericTalonFollowerSpeed_CID = 122;
+  public static final int Kicker_CID = 100;
+  public static final int KickerCancoder_CID = 120; 
+  public static final int HoodSpeed_CID = 101;
 
-// Intake Control Constants
-  public static final int IntakePosition_CID = 37;
-  public static final int IntakeRoller_CID = 38;
-  public static final int IntakePositionCancoder_CID = 12;    
-
-
-  public static final int genericSparkFlex_CID = 30;
-  public static final int genericSparkFlexSpeed_CID = 31;
-  public static final int genericSparkFlexCancoder_CID = 32;    
+public static final int genericSparkFlex_CID = 300;
+  public static final int genericSparkFlexSpeed_CID = 310;
+  public static final int genericSparkFlexCancoder_CID = 320;    
  
 
-  public static final int genericSparkFlexLeaderSpeed_CID = 41;
-  public static final int genericSparkFlexFollowerSpeed_CID = 42;
+  public static final int genericSparkFlexLeaderSpeed_CID = 410;
+  public static final int genericSparkFlexFollowerSpeed_CID = 420;
+
+//added a 0 to the end of each of the kicker CID's
+  
+  public static final int KickerSpeed_CID = 32;
+  public static final int Hood_CID = 36;
+  public static final int HoodCancoder_CID = 360;    
+
+// Intake Control Constants
+  public static final int IntakePosition_CID = 20;
+  public static final int IntakeRoller_CID = 21;
+  public static final int IntakePositionCancoder_CID = 201;    
+
+
+  
 
   public static final int shooterLeaderSpeed_CID = 34;
   public static final int shooterFollowerSpeed_CID = 35;
 
-  public static final int turretRotation_CID = 44;
-  public static final int turretRotationCancoder_CID = 45;
+  public static final int turretRotation_CID = 33;
+  public static final int turretRotationCancoder_CID = 330;
 
   
-  public static int PDH_CID = 1;
-  public static int laserCan_CID = 48;
+  public static int PDH_CID = 11;
+ // public static int laserCan_CID = 48;
   public static int pigeon_CID = 5;
-  public static int TOF_LEFT_CID = 8;
-  public static int TOF_RIGHT_CID = 7;
-  public static int TOF_CENTER_CID = 9;
+ // public static int TOF_LEFT_CID = 8;
+ // public static int TOF_RIGHT_CID = 7;
+ // public static int TOF_CENTER_CID = 9;
 
 
 // Tell the robot which CAN network to configure the devices to
@@ -78,13 +82,9 @@ public class Hardwaremap {
   public static final String shooterWheelLower_CBN = "rio";
   public static final String shooterTransfer_CBN = "rio";
   public static final String shooterPivot_CBN = "rio";
-  public static final String armRoller_CBN = "rio";
-  public static final String armPivot_CBN = "rio";
   public static final String indexerPivot_CBN = "rio";
   /*   public static final String LaserCan_CBN = "rio"; */
   public static final String climb_CBN = "rio";
-  public static final String elevatorLeft_CBN = "rio";
-  public static final String elevatorRight_CBN = "rio";
   public static final String indexerRoller_CBN = "rio";
 
   public static String PDH_CBN = "rio";
