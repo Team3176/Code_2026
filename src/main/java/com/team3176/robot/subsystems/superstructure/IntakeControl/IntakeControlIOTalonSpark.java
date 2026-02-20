@@ -93,7 +93,7 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
     //Intake Postition
     encoderOffset = Rotation2d.fromDegrees(SuperStructureConstants.IntakePosition_ENCODER_OFFSET);
 
-    IntakePositionConfigs.Slot0.kP = 3; // An error of 1 rotation results in 2.4 V output
+    IntakePositionConfigs.Slot0.kP = 60; // An error of 1 rotation results in 2.4 V output
     IntakePositionConfigs.Slot0.kI = 0.1; // No output for integrated error
     IntakePositionConfigs.Slot0.kD = 0; // A velocity of 1 rps results in 0.1 V output
 
@@ -108,8 +108,8 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
     //HoodConfigs.Feedback.SensorToMechanismRatio = 1.0;
 
     IntakePositionConfigs.CurrentLimits.SupplyCurrentLimit = 60;
-    IntakePositionConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
-    IntakePositionConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    IntakePositionConfigs.CurrentLimits.SupplyCurrentLimitEnable = false;
+    IntakePositionConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
     IntakePositionConfigs.SoftwareLimitSwitch.ForwardSoftLimitThreshold = 0.6;
     IntakePositionConfigs.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
