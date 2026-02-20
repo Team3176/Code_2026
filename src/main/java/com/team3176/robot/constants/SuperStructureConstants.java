@@ -148,6 +148,8 @@ public class SuperStructureConstants {
   public static final double TurretFullRangeInMotorRotations = (TurretPositionFullRotation * (TurretRangeInRadian/6.283));
   public static final double TurretErrorMoveDeadband = .00005 * TurretFullRangeInMotorRotations; // max allowable error is 0.1% of available range 
   public static final double TurretHomePosition = .5 * TurretFullRangeInMotorRotations; // Assume half of full sweep is the prefered homed position
+  
+  public static final double TurrentIncrement = .1; //When manually controlling the Turret use drive it this many rotations
 
 
  /// Climb Constants

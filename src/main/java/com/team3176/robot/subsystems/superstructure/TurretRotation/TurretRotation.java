@@ -36,6 +36,7 @@ public class TurretRotation extends SubsystemBase {
   private double positionHome = SuperStructureConstants.TurretRotation_ZERO_POS;
  // private LEDSubsystem leds;
   private double homePos = 0;
+  private double currentPosRot = 0;
 
 
   private TurretRotation(TurretRotationIO io) {
@@ -107,24 +108,36 @@ public class TurretRotation extends SubsystemBase {
     this.homePos = inputs.turretRotationPositionRot;
   }
 
-  public void deployFromHome() {
-    setCurrentHomePos();
-    double deployPos = this.homePos + .25;
-    setTurretRotationVoltagePos(deployPos);
+  public void setCurrentPosToIncrementFrom() {
+    this.currentPosRot = inputs.turretRotationPositionRot;
   }
-  
-  public Command retractTowardHome() {
+
+  public Command moveTurretRightbyIncrement() {
     return this.runOnce(
       () -> {
-        retractTowardHomePostion();
+        moveTurretRightIncrement();
       }
     );
   }
 
-  public void retractTowardHomePostion () {
-    setCurrentHomePos();
-    double deployPos = this.homePos - .10;
-    setTurretRotationVoltagePos(deployPos);
+  public void moveTurretRightIncrement() {
+    setCurrentPosToIncrementFrom();
+    double moveToPos = this.currentPosRot + SuperStructureConstants.TurrentIncrement;
+    setTurretRotationVoltagePos(moveToPos);
+  }
+  
+  public Command moveTurretLeftbyIncrement() {
+    return this.runOnce(
+      () -> {
+        moveTurretLeftIncrement();
+      }
+    );
+  }
+
+  public void moveTurretLeftIncrement () {
+    setCurrentPosToIncrementFrom();
+    double moveToPos = this.currentPosRot - SuperStructureConstants.TurrentIncrement;
+    setTurretRotationVoltagePos(moveToPos);
   }
 
   //Use this command for target tracking - 
