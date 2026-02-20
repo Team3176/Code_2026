@@ -182,6 +182,6 @@ public class SuperStructureConstants {
 
   public static final double SpindexerSpeed_MAX_OUTPUT_VOLTS = 4; //Sets Max forward Speed
   public static final double SpindexerSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
-  public static final double SpindexerSpeed_Max_RPS = 20;
+  public static final double SpindexerSpeed_Max_RPS = 40;
 
 }

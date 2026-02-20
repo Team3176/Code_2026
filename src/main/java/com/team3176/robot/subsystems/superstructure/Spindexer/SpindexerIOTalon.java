@@ -134,7 +134,7 @@ public class SpindexerIOTalon implements SpindexerIO {
     //inputs.SpindexerPositionRot = SpindexerEncoder.getPosition().getValueAsDouble() - Spindexer_pos_offset;
     inputs.SpindexerPositionRotREAL = SpindexerSpeedController.getPosition().getValueAsDouble(); 
     inputs.SpindexerVelocityRadPerSec = Units.rotationsToRadians(SpindexerVelocity.getValueAsDouble());
-
+    inputs.SpindexerVelocity = (SpindexerVelocity.getValueAsDouble());
    
 
   }
