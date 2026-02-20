@@ -33,8 +33,8 @@ public class Hardwaremap {
   public static final int Hood_CID = 36;
   public static final int HoodCancoder_CID = 360;    
 
-  public static final int ClimbLeft_CID = 36;
-  public static final int ClimbRight_CID = 36;
+  public static final int ClimbLeft_CID = 40;
+  public static final int ClimbRight_CID = 41;
 
   public static final int Spindexer_CID = 31;
 
