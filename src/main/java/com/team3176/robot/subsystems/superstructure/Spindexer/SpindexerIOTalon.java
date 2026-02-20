@@ -53,7 +53,7 @@ public class SpindexerIOTalon implements SpindexerIO {
   private final StatusSignal<Current> SpindexerCurrentAmpsStator;
   private final StatusSignal<Current> SpindexerCurrentAmpsSupply;
   private final StatusSignal<AngularVelocity> SpindexerVelocity;
-  private final StatusSignal<Angle> SpindexerPosition;
+  //private final StatusSignal<Angle> SpindexerPosition;
   private final StatusSignal<Angle> SpindexerAbsolutePosition;
   private final StatusSignal<Temperature> SpindexerTemp;
 
@@ -85,14 +85,14 @@ public class SpindexerIOTalon implements SpindexerIO {
     SpindexerCurrentAmpsStator = SpindexerSpeedController.getStatorCurrent();
     SpindexerCurrentAmpsSupply = SpindexerSpeedController.getSupplyCurrent();
     SpindexerVelocity = SpindexerSpeedController.getVelocity();
-    SpindexerPosition = SpindexerSpeedController.getPosition();
+    //SpindexerPosition = SpindexerSpeedController.getPosition();
     
     //If you want to use a cancode use this definition 
     //SpindexerPosition = SpindexerEncoder.getPositionSinceBoot();
     SpindexerAbsolutePosition = SpindexerSpeedController.getPosition();
     SpindexerTemp = SpindexerSpeedController.getDeviceTemp();
 
-    Spindexer_pos_offset = SpindexerEncoder.getPosition().getValueAsDouble();
+    Spindexer_pos_offset = SpindexerSpeedController.getPosition().getValueAsDouble();
 
 
     BaseStatusSignal.setUpdateFrequencyForAll(
@@ -100,11 +100,11 @@ public class SpindexerIOTalon implements SpindexerIO {
         SpindexerAppliedVolts,
         SpindexerCurrentAmpsStator,
         SpindexerVelocity,
-        SpindexerPosition,
+       // SpindexerPosition,
         SpindexerTemp,
         SpindexerCurrentAmpsSupply);
 
-    SpindexerController.optimizeBusUtilization();
+    
     SpindexerSpeedController.optimizeBusUtilization();
   }
 
@@ -117,7 +117,7 @@ public class SpindexerIOTalon implements SpindexerIO {
         SpindexerAppliedVolts,
         SpindexerCurrentAmpsStator,
         SpindexerVelocity,
-        SpindexerPosition,
+      //  SpindexerPosition,
         SpindexerTemp,
         SpindexerCurrentAmpsSupply
         );
@@ -127,7 +127,7 @@ public class SpindexerIOTalon implements SpindexerIO {
     inputs.SpindexerAmpsStator = SpindexerCurrentAmpsStator.getValueAsDouble();
     inputs.SpindexerAmpsSupply = SpindexerCurrentAmpsSupply.getValueAsDouble();
     inputs.SpindexerTempCelcius = SpindexerTemp.getValueAsDouble();
-    inputs.SpindexerPositionDeg = Units.rotationsToDegrees(SpindexerPosition.getValueAsDouble());
+    //inputs.SpindexerPositionDeg = Units.rotationsToDegrees(SpindexerPosition.getValueAsDouble());
     inputs.Spindexer_pos_offset = Spindexer_pos_offset;
     inputs.SpindexerPositionRot = SpindexerSpeedController.getPosition().getValueAsDouble();
     //Use if using cancoder
@@ -135,13 +135,7 @@ public class SpindexerIOTalon implements SpindexerIO {
     inputs.SpindexerPositionRotREAL = SpindexerSpeedController.getPosition().getValueAsDouble(); 
     inputs.SpindexerVelocityRadPerSec = Units.rotationsToRadians(SpindexerVelocity.getValueAsDouble());
 
-    inputs.SpindexerAbsolutePositionDegrees =
-        MathUtil.inputModulus(
-            Rotation2d.fromRotations(SpindexerSpeedController.getPosition().getValueAsDouble())
-                .minus(encoderOffset)
-                .getDegrees(),
-            -180,
-            180);
+   
 
   }
 

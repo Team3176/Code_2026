@@ -17,7 +17,7 @@ public interface SpindexerIO {
     public double SpindexerPositionDeg = 0.0;
     public double SpindexerPositionRot = 0.0;
     public double SpindexerPositionRotREAL =  0.0;
-    public double SpindexerAbsolutePositionDegrees = 0.0;
+ //   public double SpindexerAbsolutePositionDegrees = 0.0;
     public double SpindexerVelocityRadPerSec = 0.0;
     public double SpindexerAppliedVolts = 0.0;
     public double SpindexerAmpsStator = 0.0;

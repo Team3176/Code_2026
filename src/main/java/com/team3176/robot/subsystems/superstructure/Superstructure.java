@@ -46,6 +46,8 @@ public class Superstructure {
     intake = IntakeControl.getInstance();
     kicker = Kicker.getInstance();
     hood = Hood.getInstance();
+    climb = ClimbControl.getInstance();
+    spindexer = Spindexer.getInstance();
   }
 
   public Command HoodMotor(DoubleSupplier position) {
