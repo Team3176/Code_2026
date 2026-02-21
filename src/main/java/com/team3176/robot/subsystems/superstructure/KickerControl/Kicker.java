@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import yams.mechanisms.positional.Arm;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.function.DoubleSupplier;
 
@@ -113,5 +114,7 @@ public class Kicker extends SubsystemBase {
     io.updateInputs(inputs);
 
     Logger.processInputs("kicker", inputs);
+
+    SmartDashboard.putNumber("Kicker Speed", inputs.kickerVelocityRadPerSec);
   }
 }

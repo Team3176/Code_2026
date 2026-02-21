@@ -14,16 +14,17 @@ public interface ShooterControlIO {
   /** Contains all of the input data received from hardware. */
   @AutoLog
   public static class ShooterControlIOInputs {
-    public double genericTalonPositionDeg = 0.0;
-    public double genericTalonPositionRot = 0.0;
-    public double genericTalonPositionRotREAL =  0.0;
-    public double genericTalonAbsolutePositionDegrees = 0.0;
-    public double genericTalonVelocityRadPerSec = 0.0;
-    public double genericTalonAppliedVolts = 0.0;
-    public double genericTalonAmpsStator = 0.0;
-    public double genericTalonAmpsSupply = 0.0;
-    public double genericTalonTempCelcius = 0.0;
-    public double genericTalon_pos_offset = 0.0;
+    public double shooterPositionDeg = 0.0;
+    public double shooterPositionRot = 0.0;
+    public double shooterPositionRotREAL =  0.0;
+    public double shooterAbsolutePositionDegrees = 0.0;
+    public double shooterVelocityRadPerSec = 0.0;
+    public double shooterAppliedVolts = 0.0;
+    public double shooterAmpsStator = 0.0;
+    public double shooterAmpsSupply = 0.0;
+    public double shooterTempCelcius = 0.0;
+    public double shooter_pos_offset = 0.0;
+    public double shooterVelocityRot = 0.0;
 
     public boolean upperlimitswitch = false;
     public boolean lowerlimitswitch = false;

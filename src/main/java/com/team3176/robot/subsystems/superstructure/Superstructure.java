@@ -74,6 +74,15 @@ public class Superstructure {
     return (hood.retractTowardHome());
   }
 
+  //turret turn commands
+    public Command TurretLeft() {
+    return (turretRotation.moveTurretLeftbyIncrement());
+  }
+  
+  public Command TurretRight() {
+    return (turretRotation.moveTurretRightbyIncrement());
+  }
+
   public Command ClimbPositionMotor(DoubleSupplier position) {
     return (climb.runClimb(() -> position.getAsDouble()));
   }

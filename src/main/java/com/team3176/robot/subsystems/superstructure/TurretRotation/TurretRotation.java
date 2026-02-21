@@ -6,6 +6,7 @@ import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import yams.mechanisms.positional.Arm;
 
 import java.util.function.BooleanSupplier;
@@ -180,6 +181,8 @@ public class TurretRotation extends SubsystemBase {
      
     Logger.recordOutput("TurretRotation/setpoint", this.positionSetpoint);
    
+
+    SmartDashboard.putNumber("Turret Rotation", inputs.turretRotationPositionRot);
    // Use Limit Switches not to break anything - May be double dipping on limit switches based on method call. - safe than sorry
 /*
     if (inputs.turretClockwiselimitswitch && inputs.turretRotationAppliedVolts < 0) {

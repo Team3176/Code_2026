@@ -4,9 +4,11 @@ package com.team3176.robot.subsystems.superstructure.HoodControl;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import yams.mechanisms.positional.Arm;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.function.DoubleSupplier;
 
@@ -148,7 +150,7 @@ public class Hood extends SubsystemBase {
 
   public void deployFromHome() {
     setCurrentHomePos();
-    double deployPos = this.homePos + SuperStructureConstants.HoodUpIncrement;
+    double deployPos = this.homePos - SuperStructureConstants.HoodUpIncrement;
     setHoodVoltagePos(deployPos);
   }
   
@@ -162,7 +164,7 @@ public class Hood extends SubsystemBase {
 
   public void retractTowardHomePostion () {
     setCurrentHomePos();
-    double deployPos = this.homePos - SuperStructureConstants.HoodDownIncrement;
+    double deployPos = this.homePos + SuperStructureConstants.HoodDownIncrement;
     setHoodVoltagePos(deployPos);
   }
 
@@ -192,5 +194,6 @@ public class Hood extends SubsystemBase {
    
     positionMotorPID.checkParemeterUpdate();
     
+    SmartDashboard.putNumber("Hood Position", inputs.HoodPositionRot);
   }
 }

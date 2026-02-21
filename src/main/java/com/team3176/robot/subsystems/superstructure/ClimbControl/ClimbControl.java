@@ -4,9 +4,11 @@ package com.team3176.robot.subsystems.superstructure.ClimbControl;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import yams.mechanisms.positional.Arm;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.function.DoubleSupplier;
 
@@ -170,5 +172,6 @@ public class ClimbControl extends SubsystemBase {
    
     positionMotorPID.checkParemeterUpdate();
     
+    SmartDashboard.putNumber("Climb Position", inputs.ClimbPositionRot);
   }
 }

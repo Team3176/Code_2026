@@ -435,6 +435,10 @@ controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -c
 //        .onFalse(superstructure.algaeSqueeze());
 controller.operator.pov(180).whileTrue(superstructure.HoodDown());
 controller.operator.pov(0).whileTrue(superstructure.HoodUp());//.onFalse(superstructure.runHood());//.onTrue(superstructure.goToA3());
+
+controller.operator.pov(90).whileTrue(superstructure.TurretLeft());
+controller.operator.pov(270).whileTrue(superstructure.TurretRight());
+
 //    controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
 
     // Human Load Positions and Rollers

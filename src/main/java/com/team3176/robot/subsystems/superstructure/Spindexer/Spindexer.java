@@ -4,9 +4,11 @@ package com.team3176.robot.subsystems.superstructure.Spindexer;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import yams.mechanisms.positional.Arm;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.function.DoubleSupplier;
 
@@ -107,6 +109,7 @@ public class Spindexer extends SubsystemBase {
     Logger.recordOutput("Spindexer/setpoint", this.positionSetpoint);
    
     positionMotorPID.checkParemeterUpdate();
-    
+
+    SmartDashboard.putNumber("Spindexer Speed", inputs.SpindexerVelocity);
   }
 }

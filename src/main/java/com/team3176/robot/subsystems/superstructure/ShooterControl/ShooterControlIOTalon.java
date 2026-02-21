@@ -139,9 +139,12 @@ public class ShooterControlIOTalon implements ShooterControlIO {
         shooterTemp,
         shooterCurrentAmpsSupply
         );
+
+        inputs.shooterVelocityRot = (shooterVelocity.getValueAsDouble());
+
   }
 
-
+  
   @Override
   public void setDualShooterSpeedBrakeMode(boolean enable) {
     if (enable) {
@@ -152,6 +155,7 @@ public class ShooterControlIOTalon implements ShooterControlIO {
       shooterFollowerSpeedController.setNeutralMode(NeutralModeValue.Coast);
     }
   }
+
 
     //Offset would be used when we need 
   @Override
