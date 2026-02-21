@@ -34,7 +34,18 @@ import com.ctre.phoenix6.hardware.core.CoreTalonFX;
 
 public class precisionLocalization {
     private final Pigeon2 pigeon = new Pigeon2(27, "rio");
-    private final CoreTalonFX driveTalon = new CoreTalonFX(1, "rio");
+    private final CoreTalonFX frontLeftModule = new CoreTalonFX(1, "rio");
+    private final CoreTalonFX frontRightModule = new CoreTalonFX(2, "rio");
+    private final CoreTalonFX backLeftModule = new CoreTalonFX(3, "rio");
+    private final CoreTalonFX backRightModule = new CoreTalonFX(4, "rio");
+
+    private final CoreTalonFX[] thisRobotModules = new CoreTalonFX[] {
+        frontLeftModule,
+        frontRightModule,
+        backLeftModule,
+        backRightModule
+    };
+
     private  SwerveDrivePoseEstimator poseEstimator;
     final double WHEELBASE_METERS = 0.6858;
     final double TRACKWIDTH_METERS = 0.6858;
@@ -51,27 +62,27 @@ public class precisionLocalization {
         frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation
     );
 
-    public SwerveModulePosition getPosition() {
-        StatusSignal<Angle> motorRotatonSignal = driveTalon.getPosition();
-        Angle motorAngle = motorRotatonSignal.getValue();
+    public SwerveModulePosition getPosition(CoreTalonFX[] modules) {
+        StatusSignal<Angle> motorRotationSignal = modules[0].getPosition();
+        
+        
+        
+        Angle motorAngle = motorRotationSignal.getValue(); // get the motor position in rotations
 
-        double rotations = ((Rotation2d) motorAngle).getRotations();
+        double rotations = ((Rotation2d) motorAngle).getRotations(); // Convert the motor angle to rotations
 
-        double distance = rotations * (Math.PI * 0.0508);
+        double distance = (rotations / 1) * (Math.PI * 0.0508); // Distance in meters measured from the rotation and diameter of the wheels
 
-        Rotation2d angle = new Rotation2d(((Rotation2d) motorAngle).getRotations());
+        Rotation2d angle = Rotation2d.fromRotations(rotations);
         return new SwerveModulePosition(distance, angle);
     }
 
     public precisionLocalization(){
         poseEstimator = new SwerveDrivePoseEstimator(kinematics, pigeon.getRotation2d(), 
         new SwerveModulePosition[] {
-            getPosition(), 
-            getPosition(), 
-            getPosition(), 
-            getPosition()
+            getPosition(thisRobotModules),
         }, 
-        new Pose2d(null));
+        new Pose2d());
     
         
 
