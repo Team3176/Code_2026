@@ -123,8 +123,13 @@ public class TurretRotation extends SubsystemBase {
 
   public void moveTurretRightIncrement() {
     setCurrentPosToIncrementFrom();
-    double moveToPos = this.currentPosRot + SuperStructureConstants.TurrentIncrement;
-    setTurretRotationVoltagePos(moveToPos);
+    double moveToPos = this.currentPosRot;
+    
+    if (!inputs.turretClockwiselimitswitch){
+      moveToPos = moveToPos + SuperStructureConstants.TurrentIncrement;
+
+    }
+     setTurretRotationVoltagePos(moveToPos);
   }
   
   public Command moveTurretLeftbyIncrement() {
@@ -137,7 +142,12 @@ public class TurretRotation extends SubsystemBase {
 
   public void moveTurretLeftIncrement () {
     setCurrentPosToIncrementFrom();
-    double moveToPos = this.currentPosRot - SuperStructureConstants.TurrentIncrement;
+    double moveToPos = this.currentPosRot;
+    if (!inputs.turretCounterclockwiselimitswitch){
+      moveToPos = moveToPos- SuperStructureConstants.TurrentIncrement;
+
+    }
+
     setTurretRotationVoltagePos(moveToPos);
   }
 
@@ -181,10 +191,11 @@ public class TurretRotation extends SubsystemBase {
      
     Logger.recordOutput("TurretRotation/setpoint", this.positionSetpoint);
    
-
+    SmartDashboard.putBoolean("LimitSwitch Clockwise", inputs.turretClockwiselimitswitch);
+    SmartDashboard.putBoolean("LimitSwitch Counter Clockwise", inputs.turretCounterclockwiselimitswitch);
     SmartDashboard.putNumber("Turret Rotation", inputs.turretRotationPositionRot);
    // Use Limit Switches not to break anything - May be double dipping on limit switches based on method call. - safe than sorry
-/*
+
     if (inputs.turretClockwiselimitswitch && inputs.turretRotationAppliedVolts < 0) {
       io.setTurretRotationVoltage(0);
     }
@@ -192,6 +203,6 @@ public class TurretRotation extends SubsystemBase {
     if (inputs.turretCounterclockwiselimitswitch && inputs.turretRotationAppliedVolts >= 0) {
       io.setTurretRotationVoltage(0);
     }
-  */  
+    
   }
 }
