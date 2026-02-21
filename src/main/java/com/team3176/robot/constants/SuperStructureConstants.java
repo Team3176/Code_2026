@@ -79,11 +79,11 @@ public class SuperStructureConstants {
   public static final double Hood_kP = .5;
   public static final double Hood_kI = 0; 
   public static final double Hood_kD = 0; 
-  public static final double HoodUpIncrement = 0.1; 
-  public static final double HoodDownIncrement = 0.1; 
+  public static final double HoodUpIncrement = 0.3; 
+  public static final double HoodDownIncrement = 0.3; 
 
   //Set if using gravity for feedforward
-  public static final double Hood_kg = 0.2;
+  public static final double Hood_kg = 2.0;
 
 
   // Intake Control Constants 
@@ -149,7 +149,7 @@ public class SuperStructureConstants {
   public static final double TurretErrorMoveDeadband = .00005 * TurretFullRangeInMotorRotations; // max allowable error is 0.1% of available range 
   public static final double TurretHomePosition = .5 * TurretFullRangeInMotorRotations; // Assume half of full sweep is the prefered homed position
   
-  public static final double TurrentIncrement = .1; //When manually controlling the Turret use drive it this many rotations
+  public static final double TurrentIncrement = .2; //When manually controlling the Turret use drive it this many rotations
 
 
  /// Climb Constants

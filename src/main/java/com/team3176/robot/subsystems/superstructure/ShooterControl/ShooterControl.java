@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import yams.mechanisms.positional.Arm;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.function.DoubleSupplier;
 
@@ -88,6 +89,6 @@ public class ShooterControl extends SubsystemBase {
 
     Logger.processInputs("Shooter", inputs);
      
-        
+    SmartDashboard.putNumber("Shooter Speed", inputs.genericTalonVelocityRadPerSec);    
   }
 }

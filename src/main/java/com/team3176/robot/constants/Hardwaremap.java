@@ -22,7 +22,7 @@ public class Hardwaremap {
 
 
 
-  public static final int Kicker_CID = 100;
+  public static final int Kicker_CID = 32;
   public static final int KickerCancoder_CID = 120; 
   public static final int HoodSpeed_CID = 101;
 
