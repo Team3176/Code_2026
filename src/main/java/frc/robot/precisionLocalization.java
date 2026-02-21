@@ -23,6 +23,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
+import java.lang.reflect.Array;
+
 import org.photonvision.PhotonPoseEstimator;
 
 import com.ctre.phoenix6.StatusSignal;
@@ -34,11 +36,14 @@ import com.ctre.phoenix6.hardware.core.CoreTalonFX;
 
 public class precisionLocalization {
     private final Pigeon2 pigeon = new Pigeon2(27, "rio");
+
+    // can IDs and canbus Location for the swerve modules, these should be set to match the actual configuration of the robot
     private final CoreTalonFX frontLeftModule = new CoreTalonFX(1, "rio");
     private final CoreTalonFX frontRightModule = new CoreTalonFX(2, "rio");
     private final CoreTalonFX backLeftModule = new CoreTalonFX(3, "rio");
     private final CoreTalonFX backRightModule = new CoreTalonFX(4, "rio");
 
+    // creates an array of swerve modules
     private final CoreTalonFX[] thisRobotModules = new CoreTalonFX[] {
         frontLeftModule,
         frontRightModule,
@@ -47,48 +52,55 @@ public class precisionLocalization {
     };
 
     private  SwerveDrivePoseEstimator poseEstimator;
+
+    // physical dimensions of our vision setup, these should change to match the actual robot dimensions
     final double WHEELBASE_METERS = 0.6858;
     final double TRACKWIDTH_METERS = 0.6858;
 
+    // positions of wheel relativ to robot center
     double halfWheelbase = WHEELBASE_METERS / 2.0;
     double halfTrackwidth = TRACKWIDTH_METERS / 2.0;
 
+    // Define the locations of the swerve modules relative to the robot center
     Translation2d frontLeftLocation = new Translation2d(halfWheelbase, halfTrackwidth);
     Translation2d frontRightLocation = new Translation2d(halfWheelbase, -halfTrackwidth);
     Translation2d backLeftLocation = new Translation2d(-halfWheelbase, halfTrackwidth);
     Translation2d backRightLocation = new Translation2d(-halfWheelbase, -halfTrackwidth);   
 
+
     SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
         frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation
     );
 
+    //calculates the position of the swerve module based on the encoder readings from the drive motor, this is a very basic implementation and should be replaced with a more accurate method that also takes into account the angle of the module and any gearing between the motor and the wheel
     public SwerveModulePosition getPosition(CoreTalonFX[] modules) {
         StatusSignal<Angle> motorRotationSignal = modules[0].getPosition();
         
         
-        
-        Angle motorAngle = motorRotationSignal.getValue(); // get the motor position in rotations
+        double rotations = motorRotationSignal.getValueAsDouble(); // get the motor position in rotations
 
-        double rotations = ((Rotation2d) motorAngle).getRotations(); // Convert the motor angle to rotations
 
         double distance = (rotations / 1) * (Math.PI * 0.0508); // Distance in meters measured from the rotation and diameter of the wheels
 
-        Rotation2d angle = Rotation2d.fromRotations(rotations);
-        return new SwerveModulePosition(distance, angle);
+        Rotation2d angle = Rotation2d.fromDegrees(rotations);
+        return new SwerveModulePosition(distance, angle); // return the position of the module as a SwerveModulePosition object
     }
 
     public precisionLocalization(){
         poseEstimator = new SwerveDrivePoseEstimator(kinematics, pigeon.getRotation2d(), 
         new SwerveModulePosition[] {
-            getPosition(thisRobotModules),
+            getPosition(thisRobotModules) 
         }, 
-        new Pose2d());
-    
-        
-
-
+        new Pose2d()); // initial pose, if not passed values, sets to 0,0,0
     }
 
-    
+    public double periodic(){
+        poseEstimator.update(pigeon.getRotation2d(), 
+        new SwerveModulePosition[] {
+            getPosition(thisRobotModules), 
+        });
+        Pose2d currentPose = poseEstimator.getEstimatedPosition(); // gets the current estimated position of the robot
+        return currentPose.getX(); // returns the current estimated yaw of the robot in degrees, this can be changed to return x, y, or the full pose if desired
+    }
 
 }
