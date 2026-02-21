@@ -25,8 +25,8 @@ public interface HoodIO {
     public double HoodTempCelcius = 0.0;
     public double Hood_pos_offset = 0.0;
 
-    public boolean upperlimitswitch = false;
-    public boolean lowerlimitswitch = false;
+    public boolean hoodToplimitswitch = false;
+    public boolean hoodBottomlimitswitch = false;
 
     // constructor if needed for some inputs
     HoodIOInputs() {}

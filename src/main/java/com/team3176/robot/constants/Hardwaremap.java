@@ -31,6 +31,7 @@ public class Hardwaremap {
   
   public static final int KickerSpeed_CID = 32;
   public static final int Hood_CID = 36;
+  public static final int HoodSpark_CID = 45;
   public static final int HoodCancoder_CID = 360;    
 
   public static final int ClimbLeft_CID = 40;
@@ -89,7 +90,9 @@ public class Hardwaremap {
   /* Use this area to define which Digital IO pins on the RIO limit swtiches and devices are attached too.  */
 
   public static final int turretClockwiseLimitSwitch_DIO = 5;
-   public static final int turretCounterClockwiseLimitSwitch_DIO = 6;
+  public static final int turretCounterClockwiseLimitSwitch_DIO = 6;
+  public static final int hoodToplimitswitch_DIO = 7;
+  public static final int hoodBottomlimitswitch_DIO = 8;
 
  /* us this section to assign PWM Ports from the RIO - IE LED Lights via Blinkin */
   public static final int blinkin_pwm_port = 9;

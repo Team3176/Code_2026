@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+//import edu.wpi.first.wpilibj.smartdashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import yams.mechanisms.positional.Arm;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -47,13 +49,20 @@ public class Hood extends SubsystemBase {
 
   }
 
+  public boolean getTopLimitswitch() {
+    return inputs.hoodToplimitswitch;
+  }
 
+  public boolean getBottomLimitswitch() {
+    return inputs.hoodBottomlimitswitch;
+  }
 
 
   public static Hood getInstance() {
     if (instance == null) {
       if (BaseConstants.getMode() == Mode.REAL && BaseConstants.getRobot() != RobotType.ROBOT_DEFENSE) {
-        instance = new Hood(new HoodIOTalon() {});
+        //instance = new Hood(new HoodIOTalon() {});
+        instance = new Hood(new HoodIOSpark() {});
       } else {
         instance = new Hood(new HoodIOSim() {});
       }
@@ -193,6 +202,22 @@ public class Hood extends SubsystemBase {
     Logger.recordOutput("Hood/setpoint", this.positionSetpoint);
    
     positionMotorPID.checkParemeterUpdate();
+
+    SmartDashboard.putNumber("Hood Position", inputs.HoodPositionRot);
+    SmartDashboard.putNumber("Hood Volts", inputs.HoodAppliedVolts);
+    SmartDashboard.putBoolean("Top Limit Switch", inputs.hoodToplimitswitch);
+    SmartDashboard.putBoolean("Bottom Limit Switch", inputs.hoodBottomlimitswitch);
+    
+       // Use Limit Switches not to break anything - May be double dipping on limit switches based on method call. - safe than sorry
+
+    if (inputs.hoodToplimitswitch && inputs.HoodAppliedVolts > 0) {
+      io.setHoodVolts(0);
+    }
+
+    if (inputs.hoodBottomlimitswitch && inputs.HoodAppliedVolts < 0) {
+      io.setHoodVolts(0);
+    }
+  
     
     SmartDashboard.putNumber("Hood Position", inputs.HoodPositionRot);
   }
