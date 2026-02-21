@@ -153,7 +153,7 @@ public class ShooterControlIOTalon implements ShooterControlIO {
     }
   }
 
-  inputs.genericTalonVelocityRadPerSec = Units.rotationsToRadians(genericTalonVelocity.getValueAsDouble());
+ // inputs.genericTalonVelocityRadPerSec = Units.rotationsToRadians(genericTalonVelocity.getValueAsDouble());
 
     //Offset would be used when we need 
   @Override

@@ -110,7 +110,9 @@ public class ClimbControl extends SubsystemBase {
   private void setClimbVoltagePos(double position) {
     io.setClimbBothPos(position);
   }
-
+setCurrentPosToIncrementFrom();
+    double moveToPos = this.currentPosRot - SuperStructureConstants.TurrentIncrement;
+    setTurretRotationVoltagePos(moveToPos);
 
   public Command deployFromHomeCmd() {
     return this.runOnce(
@@ -122,6 +124,7 @@ public class ClimbControl extends SubsystemBase {
   //Used to reset home position based on what is read from sensor currently
   public void setCurrentHomePos() {
     this.homePos = inputs.ClimbPositionRot;
+    
   }
 
   public void deployFromHome() {

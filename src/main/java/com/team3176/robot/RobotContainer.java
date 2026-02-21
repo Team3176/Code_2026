@@ -405,6 +405,13 @@ controller.rotStick.button(8).whileTrue((superstructure.IntakeRollerMotor(() -> 
 
 controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 
+controller
+    .operator
+    .leftBumper()
+    .whileTrue(
+        superstructure.
+            ClimbPositionMotor(() -> -controller.operator.getRightY()));
+
 controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -controller.rotStick.getRawAxis(3))));
 
 
