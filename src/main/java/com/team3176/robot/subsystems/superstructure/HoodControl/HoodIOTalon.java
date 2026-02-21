@@ -56,6 +56,9 @@ public class HoodIOTalon implements HoodIO {
   private final StatusSignal<Angle> HoodAbsolutePosition;
   private final StatusSignal<Temperature> HoodTemp;
 
+  DigitalInput hoodToplimitswitch;
+  DigitalInput hoodBottomlimitswitch;
+
 
   public HoodIOTalon() {
 
@@ -105,7 +108,8 @@ public class HoodIOTalon implements HoodIO {
     TalonUtils.applyTalonFxConfigs(HoodController, HoodConfigs);
     //HoodController.setPosition(0, 0);
 
-    
+    hoodToplimitswitch = new DigitalInput(Hardwaremap.hoodToplimitswitch_DIO);
+    hoodBottomlimitswitch = new DigitalInput(Hardwaremap.hoodBottomlimitswitch_DIO);
 
 
     HoodAppliedVolts = HoodController.getMotorVoltage();
@@ -170,9 +174,16 @@ public class HoodIOTalon implements HoodIO {
             -180,
             180);
 
+    inputs.hoodToplimitswitch = (!hoodToplimitswitch.get());
+    inputs.hoodBottomlimitswitch = !hoodBottomlimitswitch.get();
+
   }
 
 
+    @Override
+  public void setHoodVolts(double volts) {
+    HoodController.setVoltage(volts);
+  }
   
   //Offset would be used when we need 
   @Override
