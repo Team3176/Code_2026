@@ -9,12 +9,13 @@ import edu.wpi.first.networktables.DoubleArrayPublisher;
 import edu.wpi.first.networktables.DoubleEntry;
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleSubscriber;
+import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.IntegerArrayPublisher;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.PubSubOptions;
-
-
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 
@@ -33,9 +34,11 @@ public class precisionPigeon {
     private DoubleArrayPublisher rotationalVelocitiesDisp;
     private DoubleArrayPublisher rotationalYPRDisp;
     private DoubleSubscriber manualX;
+    private DoublePublisher HomeXpos;
     private DoubleSubscriber manualY;
     private DoubleSubscriber manualYaw;
     private BooleanSubscriber updatePosition;
+    private BooleanPublisher ispositionupdating;
 
 
     public precisionPigeon(){
@@ -48,12 +51,23 @@ public class precisionPigeon {
         rotationalAccelsDisp        = IMUDataNT.getDoubleArrayTopic("RotAccel").publish();
         rotationalVelocitiesDisp    = IMUDataNT.getDoubleArrayTopic("RotVel").publish();
         rotationalYPRDisp           = IMUDataNT.getDoubleArrayTopic("RotPos").publish();
-
-        manualX                     =IMUDataNT.getDoubleTopic("ManualX").subscribe(0);
-        manualY                     =IMUDataNT.getDoubleTopic("ManualY").subscribe(0);
-        manualYaw                   =IMUDataNT.getDoubleTopic("ManualY").subscribe(0);
-        updatePosition              =IMUDataNT.getBooleanTopic("UpdatePosition").subscribe(false);
-            
+        manualX                     = IMUDataNT.getDoubleTopic("HomeXpos").subscribe(0);
+        manualY                     = IMUDataNT.getDoubleTopic("HomeYpos").subscribe(0);
+        manualYaw                   = IMUDataNT.getDoubleTopic("ManualYaw").subscribe(0);
+        updatePosition              = IMUDataNT.getBooleanTopic("UpdatePosition").subscribe(true);
+        ispositionupdating          = IMUDataNT.getBooleanTopic("UpdatePosition").publish();
+        Shuffleboard.getTab("Homexpos")
+         .add("HomeXpos", 0)
+         .withWidget(BuiltInWidgets.kTextView) // specify the widget here
+         .getEntry();
+        Shuffleboard.getTab("Homeypos")
+         .add("HomeYpos", 0)
+         .withWidget(BuiltInWidgets.kTextView) // specify the widget here
+         .getEntry();
+         Shuffleboard.getTab("ManualYaw")
+         .add("ManualYaw", 0)
+         .withWidget(BuiltInWidgets.kTextView) // specify the widget here
+         .getEntry();
         
 
     }
@@ -73,12 +87,14 @@ public class precisionPigeon {
         
         aPigeonIMU.setYaw(yaw);
 
+
     }
 
     private void checkForPositionInput(){
         if(updatePosition.getAsBoolean()){
 
             aPigeonIMU.setYaw(manualYaw.get());
+            
 
         }
 
