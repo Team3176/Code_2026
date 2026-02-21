@@ -4,9 +4,11 @@ package com.team3176.robot.subsystems.superstructure.IntakeControl;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import yams.mechanisms.positional.Arm;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.function.DoubleSupplier;
 
@@ -189,6 +191,9 @@ public void intakeRollerDutyCycle(double dutyCycle){
     Logger.recordOutput("Intake/setpoint", this.positionSetpoint);
    
     positionMotorPID.checkParemeterUpdate();
+
+    SmartDashboard.putNumber("Intake Pivot Position", inputs.IntakePositionRot);
     
+    SmartDashboard.putNumber("Intake Roller Speed", inputs.IntakeVelocityRadPerSec);
   }
 }

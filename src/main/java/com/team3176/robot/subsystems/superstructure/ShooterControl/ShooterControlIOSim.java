@@ -34,11 +34,11 @@ public class ShooterControlIOSim implements ShooterControlIO {
   @Override
   public void updateInputs(ShooterControlIOInputs inputs) {
     shooterSim.update(BaseConstants.LOOP_PERIODIC_SECS);
-    inputs.genericTalonPositionDeg = Units.radiansToDegrees(shooterSim.getAngleRads()) + 90;
-    inputs.genericTalonVelocityRadPerSec = shooterSim.getVelocityRadPerSec();
-    inputs.genericTalonAppliedVolts = appliedVolts;
-    inputs.genericTalonAmpsStator = shooterSim.getCurrentDrawAmps();
-    inputs.genericTalonTempCelcius = 0.0;
+    inputs.shooterPositionDeg = Units.radiansToDegrees(shooterSim.getAngleRads()) + 90;
+    inputs.shooterVelocityRadPerSec = shooterSim.getVelocityRadPerSec();
+    inputs.shooterAppliedVolts = appliedVolts;
+    inputs.shooterAmpsStator = shooterSim.getCurrentDrawAmps();
+    inputs.shooterTempCelcius = 0.0;
     Logger.recordOutput("Shooter/SimShooternPos", shooterSim.getAngleRads());
   }
 
