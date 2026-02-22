@@ -42,6 +42,11 @@ public class precisionLocalization {
     private final CoreTalonFX frontRightModule = new CoreTalonFX(2, "rio");
     private final CoreTalonFX backLeftModule = new CoreTalonFX(3, "rio");
     private final CoreTalonFX backRightModule = new CoreTalonFX(4, "rio");
+    private  NetworkTable SwerveDrivePos;
+    private DoublePublisher currentXpos;
+    private Pose2d currentPose;
+    
+    
 
     // creates an array of swerve modules
     private final CoreTalonFX[] thisRobotModules = new CoreTalonFX[] {
@@ -87,6 +92,9 @@ public class precisionLocalization {
     }
 
     public precisionLocalization(){
+        SwerveDrivePos = NetworkTableInstance.getDefault().getTable("Swerve Drive Position");
+        currentXpos = SwerveDrivePos.getDoubleTopic("CurrentXPosition").publish();
+
         poseEstimator = new SwerveDrivePoseEstimator(kinematics, pigeon.getRotation2d(), 
         new SwerveModulePosition[] {
             getPosition(thisRobotModules) 
@@ -99,7 +107,8 @@ public class precisionLocalization {
         new SwerveModulePosition[] {
             getPosition(thisRobotModules), 
         });
-        Pose2d currentPose = poseEstimator.getEstimatedPosition(); // gets the current estimated position of the robot
+        currentPose = poseEstimator.getEstimatedPosition(); // gets the current estimated position of the robot
+        currentXpos.set(currentPose.getX()); // sets the current X position in NetworkTables
         return currentPose.getX(); // returns the current estimated yaw of the robot in degrees, this can be changed to return x, y, or the full pose if desired
     }
 
