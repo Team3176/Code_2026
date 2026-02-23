@@ -35,6 +35,8 @@ import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import com.team3176.robot.constants.Hardwaremap;
 import com.team3176.robot.constants.SuperStructureConstants;
 import com.team3176.robot.util.TalonUtils;
@@ -55,6 +57,7 @@ public class TurretRotationIOTalon implements TurretRotationIO {
   private double turretRotation_pos_offset = 0;
   
   DigitalInput clockwiselimitswitch, counterclockwiselimitswitch ;
+  AnalogInput positionPot;
 
   private final StatusSignal<Voltage> turretRotationAppliedVolts;
   private final StatusSignal<Current> turretRotationCurrentAmpsStator;
@@ -74,6 +77,7 @@ public class TurretRotationIOTalon implements TurretRotationIO {
     clockwiselimitswitch = new DigitalInput(Hardwaremap.turretClockwiseLimitSwitch_DIO);
     counterclockwiselimitswitch = new DigitalInput(Hardwaremap.turretCounterClockwiseLimitSwitch_DIO);
  
+    positionPot = new AnalogInput(3);
     // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
 
@@ -177,7 +181,7 @@ public class TurretRotationIOTalon implements TurretRotationIO {
     //inputs.turretRotationPositionRot = turretRotationEncoder.getPosition().getValueAsDouble() - turretRotation_pos_offset;
     inputs.turretRotationPositionRotREAL = turretRotationEncoder.getPosition().getValueAsDouble(); 
     inputs.turretRotationVelocityRadPerSec = Units.rotationsToRadians(turretRotationVelocity.getValueAsDouble());
-
+    inputs.turretAnalogPOT_Value = positionPot.getVoltage();
     inputs.turretRotationAbsolutePositionDegrees =
         MathUtil.inputModulus(
             Rotation2d.fromRotations(turretRotationEncoder.getAbsolutePosition().getValueAsDouble())

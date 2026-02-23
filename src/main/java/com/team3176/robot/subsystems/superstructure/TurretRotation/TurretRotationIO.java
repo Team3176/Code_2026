@@ -25,6 +25,7 @@ public interface TurretRotationIO {
     public double turretRotationAmpsSupply = 0.0;
     public double turretRotationTempCelcius = 0.0;
     public double turretRotation_pos_offset = 0.0;
+    public double turretAnalogPOT_Value = 0.0;
   
     public boolean turretClockwiselimitswitch = true;
     public boolean turretCounterclockwiselimitswitch = true;

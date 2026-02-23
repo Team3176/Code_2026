@@ -112,9 +112,7 @@ public class ClimbControl extends SubsystemBase {
   private void setClimbVoltagePos(double position) {
     io.setClimbBothPos(position);
   }
-setCurrentPosToIncrementFrom();
-    double moveToPos = this.currentPosRot - SuperStructureConstants.TurrentIncrement;
-    setTurretRotationVoltagePos(moveToPos);
+
 
   public Command deployFromHomeCmd() {
     return this.runOnce(

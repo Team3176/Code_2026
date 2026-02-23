@@ -35,8 +35,7 @@ public class Hood extends SubsystemBase {
   private double position_offset = SuperStructureConstants.Hood_ENCODER_OFFSET;
   private boolean ishomed = false;
   private double positionHome = SuperStructureConstants.Hood_ZERO_POS;
- 
-  private double homePos = 0;
+  private double currentPosRot = 0;
 
 
   private Hood(HoodIO io) {
@@ -88,18 +87,7 @@ public class Hood extends SubsystemBase {
       });
   }
 
-  public Command runHoodUp(DoubleSupplier position) {
-    return this.run(
-      () -> { 
-        setHoodVoltagePos(position.getAsDouble());
-      });
-  }
-    public Command runHoodDown(DoubleSupplier position) {
-    return this.run(
-      () -> { 
-        setHoodVoltagePos(position.getAsDouble());
-      });
-  }
+
 
   public Command runHoodVoltageManual(DoubleSupplier position) {
     return this.runEnd(
@@ -122,29 +110,6 @@ public class Hood extends SubsystemBase {
     io.setHoodVoltagePos(position);
   }
 
-    public void setHoodCoast() {
-    io.setHoodBrakeMode(false);
-  }
-
-  public void setHoodBrake() {
-    io.setHoodBrakeMode(true);
-  }
-
-  
-  public Command setHood2Coast() {
-    return this.runOnce(
-      () -> {
-        setHoodCoast();
-      }); 
-    }
-
-  public Command setHood2Brake() {
-    return this.runOnce(
-      () -> {
-        setHoodBrake();
-      }); 
-    }
-
   public Command deployFromHomeCmd() {
     return this.runOnce(
       () -> {
@@ -154,12 +119,15 @@ public class Hood extends SubsystemBase {
   }
   //Used to reset home position based on what is read from sensor currently
   public void setCurrentHomePos() {
-    this.homePos = inputs.HoodPositionRot;
+    this.positionHome = inputs.HoodPositionRot;
+  }
+    public void setCurrentPos() {
+    this.currentPosRot = inputs.HoodPositionRot;
   }
 
   public void deployFromHome() {
-    setCurrentHomePos();
-    double deployPos = this.homePos - SuperStructureConstants.HoodUpIncrement;
+    setCurrentPos();
+    double deployPos = this.currentPosRot - SuperStructureConstants.HoodUpIncrement;
     setHoodVoltagePos(deployPos);
   }
   
@@ -172,8 +140,14 @@ public class Hood extends SubsystemBase {
   }
 
   public void retractTowardHomePostion () {
-    setCurrentHomePos();
-    double deployPos = this.homePos + SuperStructureConstants.HoodDownIncrement;
+    setCurrentPos();
+    double retractIncrement = SuperStructureConstants.HoodDownIncrement;
+    if (inputs.hoodBottomlimitswitch){
+      setCurrentHomePos();
+      retractIncrement = 0;
+    }
+    
+    double deployPos = this.currentPosRot + retractIncrement;
     setHoodVoltagePos(deployPos);
   }
 
@@ -205,8 +179,8 @@ public class Hood extends SubsystemBase {
 
     SmartDashboard.putNumber("Hood Position", inputs.HoodPositionRot);
     SmartDashboard.putNumber("Hood Volts", inputs.HoodAppliedVolts);
-    SmartDashboard.putBoolean("Top Limit Switch", inputs.hoodToplimitswitch);
-    SmartDashboard.putBoolean("Bottom Limit Switch", inputs.hoodBottomlimitswitch);
+    SmartDashboard.putBoolean("Hood Top Switch", inputs.hoodToplimitswitch);
+    SmartDashboard.putBoolean("Hood Bottom Switch", inputs.hoodBottomlimitswitch);
     
        // Use Limit Switches not to break anything - May be double dipping on limit switches based on method call. - safe than sorry
 

@@ -90,7 +90,7 @@ public class HoodIOTalon implements HoodIO {
     HoodConfigs.Voltage.PeakForwardVoltage = SuperStructureConstants.Hood_MAX_OUTPUT_VOLTS; 
     HoodConfigs.Voltage.PeakReverseVoltage = SuperStructureConstants.Hood_MAXNeg_OUTPUT_VOLTS;
 
-    HoodConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    HoodConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     //TODO if position from Cancoder define which CanCoder / remote sensor to use for position feedback
     //HoodConfigs.Feedback.FeedbackRemoteSensorID = Hardwaremap.HoodCancoder_CID;
     //HoodConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;

@@ -86,7 +86,7 @@ public class Spindexer extends SubsystemBase {
   // USE THESE COMMANDS FOR SPEED CONTROL
 
   private void setSpindexerSpeedControl(double Speed_RPS) {
-    io.setSpindexerSpeedVelocity(Speed_RPS);
+    io.setSpindexerSpeedVelocity(Math.abs(Speed_RPS));
   }
 
 
@@ -94,7 +94,7 @@ public class Spindexer extends SubsystemBase {
   public Command runSpindexerSpeed(DoubleSupplier Speed_RPS) {
     return this.run(
       () -> { 
-        setSpindexerSpeedControl(Speed_RPS.getAsDouble() * SuperStructureConstants.SpindexerSpeed_Max_RPS); //TODO this assumes -1 -> based on joysick
+        setSpindexerSpeedControl((Speed_RPS.getAsDouble() + 1) * SuperStructureConstants.SpindexerSpeed_Max_RPS); //TODO this assumes inputs is comming from a joysick input - may need to just set a constant speed. 
       });
   }
 

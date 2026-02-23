@@ -414,7 +414,7 @@ controller
 
 controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -controller.rotStick.getRawAxis(3))));
 
-controller.operator.leftBumper().whileTrue((ClimbControl.Climb_Extended));
+//controller.operator.leftBumper().whileTrue((ClimbControl.Climb_Extended));
 
 // Climb buttons
     // Max retraction position = -70

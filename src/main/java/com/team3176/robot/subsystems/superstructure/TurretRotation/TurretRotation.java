@@ -168,6 +168,13 @@ public class TurretRotation extends SubsystemBase {
       if (isTargetLocked){
         if ((Math.abs(positionErrorRotations) > SuperStructureConstants.TurretErrorMoveDeadband )){
           // adjust the position based on the error identified 
+           if (inputs.turretClockwiselimitswitch && positionErrorRotations < 0) {
+            positionErrorRotations = 0;
+          }
+           else if (inputs.turretCounterclockwiselimitswitch && positionErrorRotations >= 0) {
+            positionErrorRotations = 0;
+          }
+          
           io.setTurretRotationError(curretPosition + positionErrorRotations * SuperStructureConstants.TurretRadianToRotations, isTargetLocked);
           leds.turretTracking();
         }
@@ -194,6 +201,7 @@ public class TurretRotation extends SubsystemBase {
     SmartDashboard.putBoolean("LimitSwitch Clockwise", inputs.turretClockwiselimitswitch);
     SmartDashboard.putBoolean("LimitSwitch Counter Clockwise", inputs.turretCounterclockwiselimitswitch);
     SmartDashboard.putNumber("Turret Rotation", inputs.turretRotationPositionRot);
+    SmartDashboard.putNumber("Turret POT Volgate", inputs.turretAnalogPOT_Value);
    // Use Limit Switches not to break anything - May be double dipping on limit switches based on method call. - safe than sorry
 
     if (inputs.turretClockwiselimitswitch && inputs.turretRotationAppliedVolts < 0) {
