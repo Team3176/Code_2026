@@ -35,6 +35,9 @@ import com.ctre.phoenix6.hardware.core.CoreTalonFX;
 
 
 public class precisionLocalization {
+    double xPos;
+    double yPos;
+    double Rotation;
     private final Pigeon2 pigeon = new Pigeon2(27, "rio");
 
     // can IDs and canbus Location for the swerve modules, these should be set to match the actual configuration of the robot
