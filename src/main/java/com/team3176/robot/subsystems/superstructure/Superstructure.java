@@ -83,6 +83,10 @@ public class Superstructure {
     return (turretRotation.moveTurretRightbyIncrement());
   }
 
+   public Command TurretCenter() {
+    return (turretRotation.moveTurretToCenter());
+  }
+
   public Command ClimbPositionMotor(DoubleSupplier position) {
     return (climb.runClimb(() -> position.getAsDouble()));
   }

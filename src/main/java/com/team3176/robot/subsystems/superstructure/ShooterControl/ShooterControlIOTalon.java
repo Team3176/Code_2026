@@ -85,6 +85,7 @@ public class ShooterControlIOTalon implements ShooterControlIO {
     shooterDualSpeedConfigs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 0.11 V output
     shooterDualSpeedConfigs.Slot0.kI = 0; // No output for integrated error
     shooterDualSpeedConfigs.Slot0.kD = 0; // No output for error derivative
+    shooterDualSpeedConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     // Peak output of 8 volts
     shooterDualSpeedConfigs.Voltage.withPeakForwardVoltage (SuperStructureConstants.ShooterDualSpeed_MAX_OUTPUT_VOLTS)
       .withPeakReverseVoltage(SuperStructureConstants.ShooterDualSpeed_MAXNeg_OUTPUT_VOLTS);

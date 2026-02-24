@@ -151,6 +151,18 @@ public class SuperStructureConstants {
   
   public static final double TurrentIncrement = .2; //When manually controlling the Turret use drive it this many rotations
 
+  public static final double TurretPotCounterClock = 1.287;
+  public static final double TurretPotClockwise = 3.38;
+  public static final double TurrentCenterPosPot = ((TurretPotClockwise - TurretPotCounterClock) / 2) + TurretPotCounterClock;
+
+  public static final double TurretClockwiseRotHome = -10.616;
+  public static final double TurretCounterClockwiseRot = 5.368;
+  
+
+  public static final double TurretRotPerVolt = (TurretCounterClockwiseRot - TurretClockwiseRotHome) / (TurretPotClockwise - TurretPotCounterClock);
+  public static final double TurretVoltPerRot = 1 / TurretRotPerVolt;
+  public static final double TurrentCenterRotFromHome = (TurrentCenterPosPot -  TurretPotCounterClock) * TurretRotPerVolt;
+
 
  /// Climb Constants
 

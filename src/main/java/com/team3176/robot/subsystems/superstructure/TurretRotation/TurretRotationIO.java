@@ -30,6 +30,8 @@ public interface TurretRotationIO {
     public boolean turretClockwiselimitswitch = true;
     public boolean turretCounterclockwiselimitswitch = true;
 
+   
+
 
     // constructor if needed for some inputs
     TurretRotationIOInputs() {}

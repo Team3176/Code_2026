@@ -414,6 +414,8 @@ controller
 
 controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -controller.rotStick.getRawAxis(3))));
 
+
+
 //controller.operator.leftBumper().whileTrue((ClimbControl.Climb_Extended));
 
 // Climb buttons
@@ -446,6 +448,8 @@ controller.operator.pov(0).whileTrue(superstructure.HoodUp());//.onFalse(superst
 
 controller.operator.pov(90).whileTrue(superstructure.TurretLeft());
 controller.operator.pov(270).whileTrue(superstructure.TurretRight());
+
+controller.operator.back().whileTrue(superstructure.TurretCenter());
 
 //    controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
 

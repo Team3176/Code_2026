@@ -188,6 +188,23 @@ public class TurretRotation extends SubsystemBase {
   }
  
 
+    public Command moveTurretToCenter() {
+    return this.runOnce(
+      () -> {
+        turrentToCenterPoint();
+      }
+    );
+  }
+
+  private void turrentToCenterPoint(){
+    setCurrentPosToIncrementFrom();
+    
+    double goToPosRot =  (SuperStructureConstants.TurrentCenterPosPot - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt;
+    setTurretRotationVoltagePos(goToPosRot + this.currentPosRot);
+     SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
+  }
+
+
 
   @Override
   public void periodic() {
@@ -198,8 +215,8 @@ public class TurretRotation extends SubsystemBase {
      
     Logger.recordOutput("TurretRotation/setpoint", this.positionSetpoint);
    
-    SmartDashboard.putBoolean("LimitSwitch Clockwise", inputs.turretClockwiselimitswitch);
-    SmartDashboard.putBoolean("LimitSwitch Counter Clockwise", inputs.turretCounterclockwiselimitswitch);
+    SmartDashboard.putBoolean("Turret LimitSwitch Clockwise", inputs.turretClockwiselimitswitch);
+    SmartDashboard.putBoolean("Turret LimitSwitch Counter Clockwise", inputs.turretCounterclockwiselimitswitch);
     SmartDashboard.putNumber("Turret Rotation", inputs.turretRotationPositionRot);
     SmartDashboard.putNumber("Turret POT Volgate", inputs.turretAnalogPOT_Value);
    // Use Limit Switches not to break anything - May be double dipping on limit switches based on method call. - safe than sorry
