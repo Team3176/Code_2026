@@ -89,6 +89,6 @@ public class ShooterControl extends SubsystemBase {
 
     Logger.processInputs("Shooter", inputs);
      
-    SmartDashboard.putNumber("Shooter Speed", inputs.shooterVelocityRadPerSec);    
+    SmartDashboard.putNumber("Shooter Speed", inputs.shooterVelocityRot);    
   }
 }
