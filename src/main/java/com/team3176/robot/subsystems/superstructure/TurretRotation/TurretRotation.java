@@ -188,7 +188,7 @@ public class TurretRotation extends SubsystemBase {
   }
  
 
-    public Command moveTurretToCenter() {
+  public Command moveTurretToCenter() {
     return this.runOnce(
       () -> {
         turrentToCenterPoint();
@@ -204,7 +204,36 @@ public class TurretRotation extends SubsystemBase {
      SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
   }
 
+    public Command moveTurretToMaxClockwise() {
+    return this.runOnce(
+      () -> {
+        turrentToMaxClockwise();
+      }
+    );
+  }
 
+  private void turrentToMaxClockwise(){
+    setCurrentPosToIncrementFrom();
+    
+    double goToPosRot =  (SuperStructureConstants.TurretPotClockwiseOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt;
+    setTurretRotationVoltagePos(goToPosRot + this.currentPosRot);
+     SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
+  }
+    public Command moveTurretToMaxCounterClockwise() {
+    return this.runOnce(
+      () -> {
+        turrentToMaxCounterClockwise();
+      }
+    );
+  }
+
+  private void turrentToMaxCounterClockwise(){
+    setCurrentPosToIncrementFrom();
+    
+    double goToPosRot =  (SuperStructureConstants.TurretPotCounterClockOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt;
+    setTurretRotationVoltagePos(goToPosRot + this.currentPosRot);
+     SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
+  }
 
   @Override
   public void periodic() {

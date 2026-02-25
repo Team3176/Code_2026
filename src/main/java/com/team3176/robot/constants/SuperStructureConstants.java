@@ -70,7 +70,9 @@ public class SuperStructureConstants {
 
   public static final double Hood_ENCODER_OFFSET = 0;
 
-  public static final double Hood_Position_MULTIPLIER = 1; // ten tooth pinion 23 tooth rack, 1 to 1 gear ratio, input is from -1 to 1
+  public static final double Hood_Position_MULTIPLIER = 6; // ten tooth pinion 23 tooth rack, 1 to 1 gear ratio, input is from -1 to 1
+  public static final double Hood_MaxPosition = 12; // ten tooth pinion 23 tooth rack, 1 to 1 gear ratio, input is from -1 to 1
+  
   public static final double Hood_pos_offset = 0; //changed from 1 to 0
 
 
@@ -151,12 +153,15 @@ public class SuperStructureConstants {
   
   public static final double TurrentIncrement = .2; //When manually controlling the Turret use drive it this many rotations
 
-  public static final double TurretPotCounterClock = 1.287;
-  public static final double TurretPotClockwise = 3.38;
-  public static final double TurrentCenterPosPot = ((TurretPotClockwise - TurretPotCounterClock) / 2) + TurretPotCounterClock;
+  public static final double TurretPotCounterClock = 1.287;// Min Measured
+  public static final double TurretPotClockwise = 3.38;// Max measured
+  public static final double TurrentCenterPosPot = 2.369; //This is measured vs computed ->  //((TurretPotClockwise - TurretPotCounterClock) / 2) + TurretPotCounterClock;
+  public static final double TurretPotCounterClockOffset = 1.300; //1.287 Min Measured
+  public static final double TurretPotClockwiseOffset = 3.300;// 3.38 Max measured
 
-  public static final double TurretClockwiseRotHome = -10.616;
-  public static final double TurretCounterClockwiseRot = 5.368;
+
+  public static final double TurretClockwiseRotHome = -10.616; // Min Meausred will change based on motor power up
+  public static final double TurretCounterClockwiseRot = 5.368; // Max measured will change based on motor power up
   
 
   public static final double TurretRotPerVolt = (TurretCounterClockwiseRot - TurretClockwiseRotHome) / (TurretPotClockwise - TurretPotCounterClock);

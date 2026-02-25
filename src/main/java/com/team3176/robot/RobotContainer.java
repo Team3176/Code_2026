@@ -446,10 +446,13 @@ controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -c
 controller.operator.pov(180).whileTrue(superstructure.HoodDown());
 controller.operator.pov(0).whileTrue(superstructure.HoodUp());//.onFalse(superstructure.runHood());//.onTrue(superstructure.goToA3());
 
-controller.operator.pov(90).whileTrue(superstructure.TurretLeft());
-controller.operator.pov(270).whileTrue(superstructure.TurretRight());
+controller.operator.pov(90).whileTrue(superstructure.TurretIncrementLeft());
+controller.operator.pov(270).whileTrue(superstructure.TurretIncrementRight());
 
 controller.operator.back().whileTrue(superstructure.TurretCenter());
+
+controller.operator.a().whileTrue(superstructure.TurretRight());
+controller.operator.b().whileTrue(superstructure.TurretLeft());
 
 //    controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
 

@@ -78,7 +78,7 @@ public class HoodIOSpark implements HoodIO {
     // set max output current limits - 1
     hoodSparkConfigs.smartCurrentLimit(40);
 
-    hoodSparkConfigs.inverted(false);
+    hoodSparkConfigs.inverted(true);
     hoodSparkConfigs.idleMode(IdleMode.kBrake);
     hoodSparkConfigs.encoder.positionConversionFactor(1);
 
@@ -105,6 +105,7 @@ public class HoodIOSpark implements HoodIO {
     inputs.HoodAppliedVolts = HoodAppliedVolts;
     inputs.hoodToplimitswitch = (!hoodToplimitswitch.get());
     inputs.hoodBottomlimitswitch = !hoodBottomlimitswitch.get();
+    inputs.HoodPositionRot = positionEncoder.getPosition();
   }
 
 
@@ -117,7 +118,7 @@ public class HoodIOSpark implements HoodIO {
   //position is based on rotations
   @Override
   public void setHoodVoltagePos(double position) {
-    sparkPositionController.setSetpoint(position, ControlType.kPosition);
+    sparkPositionController.setSetpoint(position * SuperStructureConstants.Hood_MaxPosition, ControlType.kPosition);
   }
 
 

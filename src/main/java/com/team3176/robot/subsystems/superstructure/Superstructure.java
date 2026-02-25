@@ -75,16 +75,22 @@ public class Superstructure {
   }
 
   //turret turn commands
-    public Command TurretLeft() {
+    public Command TurretIncrementLeft() {
     return (turretRotation.moveTurretLeftbyIncrement());
   }
   
-  public Command TurretRight() {
+  public Command TurretIncrementRight() {
     return (turretRotation.moveTurretRightbyIncrement());
   }
 
    public Command TurretCenter() {
     return (turretRotation.moveTurretToCenter());
+  }
+     public Command TurretLeft() {
+    return (turretRotation.moveTurretToMaxCounterClockwise());
+  }
+     public Command TurretRight() {
+    return (turretRotation.moveTurretToMaxClockwise());
   }
 
   public Command ClimbPositionMotor(DoubleSupplier position) {
