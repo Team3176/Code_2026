@@ -30,15 +30,17 @@ public class precisionPigeon {
     private DoubleArrayPublisher accelerationsDisp;
     private DoubleArrayPublisher velocitiesDisp;
     private DoubleArrayPublisher positionsDisp;
-    private DoubleArrayPublisher rotationalAccelsDisp;
-    private DoubleArrayPublisher rotationalVelocitiesDisp;
-    private DoubleArrayPublisher rotationalYPRDisp;
+    private DoublePublisher rotationalAccelsDisp;
+    private DoublePublisher rotationalVelocitiesDisp;
+    private DoublePublisher rotationalYPRDisp;
     private DoubleSubscriber manualX;
-    private DoublePublisher HomeXpos;
+    private DoublePublisher HomedXpos;
     private DoubleSubscriber manualY;
     private DoubleSubscriber manualYaw;
+    private DoublePublisher setyaw;
     private BooleanSubscriber updatePosition;
     private BooleanPublisher ispositionupdating;
+    
 
 
     public precisionPigeon(){
@@ -48,14 +50,17 @@ public class precisionPigeon {
         accelerationsDisp           = IMUDataNT.getDoubleArrayTopic("Accels").publish();
         velocitiesDisp              = IMUDataNT.getDoubleArrayTopic("Velocities").publish();
         positionsDisp               = IMUDataNT.getDoubleArrayTopic("positions").publish();
-        rotationalAccelsDisp        = IMUDataNT.getDoubleArrayTopic("RotAccel").publish();
-        rotationalVelocitiesDisp    = IMUDataNT.getDoubleArrayTopic("RotVel").publish();
-        rotationalYPRDisp           = IMUDataNT.getDoubleArrayTopic("RotPos").publish();
-        manualX                     = IMUDataNT.getDoubleTopic("HomeXpos").subscribe(0);
-        manualY                     = IMUDataNT.getDoubleTopic("HomeYpos").subscribe(0);
+        rotationalAccelsDisp        = IMUDataNT.getDoubleTopic("RotAccel").publish();
+        rotationalVelocitiesDisp    = IMUDataNT.getDoubleTopic("RotVel in Degrees Per Second").publish();
+        rotationalYPRDisp           = IMUDataNT.getDoubleTopic("RotPos").publish();
+        manualX                     = IMUDataNT.getDoubleTopic("HomedXpos").subscribe(0);
+        manualY                     = IMUDataNT.getDoubleTopic("ManualY").subscribe(0);               
         manualYaw                   = IMUDataNT.getDoubleTopic("ManualYaw").subscribe(0);
-        updatePosition              = IMUDataNT.getBooleanTopic("UpdatePosition").subscribe(true);
-        ispositionupdating          = IMUDataNT.getBooleanTopic("UpdatePosition").publish();
+        setyaw                      = IMUDataNT.getDoubleTopic("SetYaw").publish();
+        updatePosition              = IMUDataNT.getBooleanTopic("UpdatePosition").subscribe(false);
+
+        
+  /*/
         Shuffleboard.getTab("Homexpos")
          .add("HomeXpos", 0)
          .withWidget(BuiltInWidgets.kTextView) // specify the widget here
@@ -69,13 +74,44 @@ public class precisionPigeon {
          .withWidget(BuiltInWidgets.kTextView) // specify the widget here
          .getEntry();
         
-
+*/
     }
 
     public double PeriodicUpdate(){
+
         double yaw = aPigeonIMU.getYaw().getValueAsDouble();
         double pitch = aPigeonIMU.getPitch().getValueAsDouble();
         double roll = aPigeonIMU.getRoll().getValueAsDouble();
+
+        double SetYaw = manualYaw.get();
+        double accelx = aPigeonIMU.getAccelerationX().getValueAsDouble();
+        double accely = aPigeonIMU.getAccelerationY().getValueAsDouble();
+        double[] accels = { accelx,accely,};
+        accelerationsDisp.set(accels);
+
+        double velocitydisplacementx = aPigeonIMU.getAngularVelocityXDevice().getValueAsDouble();
+        double velocitydisplacementy = aPigeonIMU.getAngularVelocityYDevice().getValueAsDouble();
+        double[] velocitydisplacementotal = { velocitydisplacementx,velocitydisplacementy};
+
+        velocitiesDisp.set(velocitydisplacementotal);
+        double rotations = aPigeonIMU.getYaw().getValueAsDouble();
+
+        double rotationalposition = (rotations - yaw);
+        double rotationalvelocity = aPigeonIMU.getAngularVelocityZDevice().getValueAsDouble();
+        rotationalVelocitiesDisp.set(rotationalvelocity);
+        rotationalYPRDisp.set(rotationalposition);
+
+        double rotationalaccleration = aPigeonIMU.getAccelerationZ().getValueAsDouble();
+        rotationalAccelsDisp.set(rotationalaccleration);
+
+
+        if (updatePosition.getAsBoolean()){
+         aPigeonIMU.setYaw(SetYaw);
+         
+
+         
+        }
+        
 
         double[] ypr =  {yaw,pitch,roll};
         positionsDisp.set(ypr);
