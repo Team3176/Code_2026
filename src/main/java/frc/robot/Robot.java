@@ -52,6 +52,7 @@ DoublePublisher tag10Ambiguity;
 
 precisionVision thisRobotVisionHandler;
 precisionPigeon thisRobotIMUHandler;
+precisionLocalization thisRobotLocalizationHandler;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -65,6 +66,7 @@ precisionPigeon thisRobotIMUHandler;
     thisRobotVisionHandler = new precisionVision();
     thisRobotVisionHandler.setWeAreBlueAliance(false);
     thisRobotIMUHandler = new precisionPigeon();
+    thisRobotLocalizationHandler = new precisionLocalization();
 
         /* 
     //Create a Net table for our targeting
