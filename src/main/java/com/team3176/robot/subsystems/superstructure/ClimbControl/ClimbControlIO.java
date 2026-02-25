@@ -16,6 +16,7 @@ public interface ClimbControlIO {
   public static class ClimbControlIOInputs {
     public double ClimbPositionDeg = 0.0;
     public double ClimbPositionRot = 0.0;
+    
     public double ClimbPositionRotREAL =  0.0;
     public double ClimbAbsolutePositionDegrees = 0.0;
     public double ClimbVelocityRadPerSec = 0.0;
@@ -45,7 +46,7 @@ public interface ClimbControlIO {
 
   public default void setClimbLeftPos(double position) {}
 
-  public default void setClimbRightPos(double position) {}
+  public default void setVoltage(double voltage) {}
 
 
 

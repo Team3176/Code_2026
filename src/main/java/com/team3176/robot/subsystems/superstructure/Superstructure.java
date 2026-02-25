@@ -91,6 +91,14 @@ public class Superstructure {
     return (climb.runClimb(() -> position.getAsDouble()));
   }
 
+  public Command RetractClimb() {
+    return (climb.Climb2Home());
+  }
+
+  public Command ExtendClimb() {
+    return (climb.Climb2Extend());
+  }
+
   public Command shooterMotorSpeed(DoubleSupplier Speed_RPS) {
     return (shooter.runDualShooterSpeed(() -> Speed_RPS.getAsDouble()));
   }

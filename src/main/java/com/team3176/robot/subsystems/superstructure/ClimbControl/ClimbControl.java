@@ -16,6 +16,7 @@ import org.littletonrobotics.junction.Logger;
 
 import com.team3176.robot.constants.BaseConstants.Mode;
 import com.team3176.robot.constants.BaseConstants.RobotType;
+import com.team3176.robot.subsystems.superstructure.Superstructure;
 import com.team3176.robot.constants.*;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.team3176.robot.util.TunablePID;
@@ -63,6 +64,7 @@ public class ClimbControl extends SubsystemBase {
 
 
 
+
   public Command Climb2Home() {
     return this.runOnce(
       () -> {
@@ -70,6 +72,12 @@ public class ClimbControl extends SubsystemBase {
       }); 
     }
 
+  public Command Climb2Extend() {
+    return this.runOnce(
+      () -> {
+       setClimbVoltagePos(SuperStructureConstants.ClimbMaxExtend); 
+      }); 
+    }
 
   //Provide a position suggest scaling from a joy stick or similar to get the desired number of rotations
   public Command runClimb(DoubleSupplier position) {
@@ -173,6 +181,9 @@ public class ClimbControl extends SubsystemBase {
    
     positionMotorPID.checkParemeterUpdate();
     
-    SmartDashboard.putNumber("Climb Position", inputs.ClimbPositionRot);
+    SmartDashboard.putNumber("Climb Position Right", inputs.ClimbPositionRot);
+    SmartDashboard.putNumber("Climb Position Left", inputs.ClimbPositionRot);
+
+
   }
 }
