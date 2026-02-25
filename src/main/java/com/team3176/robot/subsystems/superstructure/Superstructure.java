@@ -26,6 +26,9 @@ import com.team3176.robot.constants.SuperStructureConstants;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.team3176.robot.util.TunablePID;
 public class Superstructure {
+  
+
+
   private static Superstructure instance;
 
 
@@ -93,6 +96,22 @@ public class Superstructure {
 
   public Command kickerMotorSpeed(DoubleSupplier Speed_RPS) {
     return (kicker.runkickerSpeed(() -> Speed_RPS.getAsDouble()));
+  }
+  
+  public Command KickerOn() {
+    return (kicker.runkickerOn());
+  }
+
+    public Command KickerOff() {
+    return (kicker.runkickerOff());
+  }
+
+    public Command SpindexerOn() {
+    return (spindexer.runSpindexerOn());
+  }
+
+    public Command SpindexerOff() {
+    return (spindexer.runSpindexerOff());
   }
 
   public Command runTurretRotationFromVision(DoubleSupplier positionError, BooleanSupplier isTargetLocked, LEDSubsystem leds ) {

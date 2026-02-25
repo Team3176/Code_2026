@@ -24,12 +24,11 @@ public class Hardwaremap {
 
   public static final int Kicker_CID = 32;
   public static final int KickerCancoder_CID = 120; 
-  public static final int HoodSpeed_CID = 101;
-
+  public static final int KickerSpeed_CID = 32;
   
 //added a 0 to the end of each of the kicker CID's
   
-  public static final int KickerSpeed_CID = 32;
+  public static final int HoodSpeed_CID = 101;
   public static final int Hood_CID = 36;
   public static final int HoodSpark_CID = 45;
   public static final int HoodCancoder_CID = 46;    

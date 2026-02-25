@@ -82,11 +82,31 @@ public class Spindexer extends SubsystemBase {
     io.setSpindexerVolts(volts);
   }
 
+    public Command runSpindexerOn() {
+    return this.runOnce(
+      () -> {
+        setSpindexerComand(SuperStructureConstants.Spindexer_Speed_On);
+      }); 
+    }
+
+  public Command runSpindexerOff() {
+    return this.runOnce(
+      () -> {
+        setSpindexerComand(SuperStructureConstants.Spindexer_Speed_Off);
+      }); 
+    }
+
+  
+
 
   // USE THESE COMMANDS FOR SPEED CONTROL
 
   private void setSpindexerSpeedControl(double Speed_RPS) {
     io.setSpindexerSpeedVelocity(Math.abs(Speed_RPS));
+  }
+
+    private void setSpindexerComand(double Speed_RPS) {
+    io.setSpindexerSpeedVelocity(Speed_RPS);
   }
 
 
