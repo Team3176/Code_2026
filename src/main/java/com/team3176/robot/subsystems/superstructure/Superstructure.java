@@ -112,6 +112,15 @@ public class Superstructure {
     return (shooter.runDualShooterSpeed(() -> Speed_RPS.getAsDouble()));
   }
 
+  public Command shooterMotorSpeedIDLE () {
+    return (shooter.runDualShooterSpeedIDLE());
+  }
+
+ public Command toggleShooterStatus () {
+    return (shooter.toggleShooterStatus());
+  }
+
+
   public Command kickerMotorSpeed(DoubleSupplier Speed_RPS) {
     return (kicker.runkickerSpeed(() -> Speed_RPS.getAsDouble()));
   }

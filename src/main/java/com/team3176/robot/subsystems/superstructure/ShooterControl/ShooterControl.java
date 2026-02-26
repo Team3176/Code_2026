@@ -26,6 +26,10 @@ public class ShooterControl extends SubsystemBase {
   private final ShooterControlIO io;
   private final ShooterControlIOInputsAutoLogged inputs = new ShooterControlIOInputsAutoLogged();
 
+private boolean shooterIsShutDown;
+
+
+
 
   private Timer deployTime = new Timer();
 
@@ -35,6 +39,8 @@ public class ShooterControl extends SubsystemBase {
 
   private ShooterControl(ShooterControlIO io) {
     this.io = io;
+
+    shooterIsShutDown = false;
     
 
 
@@ -61,7 +67,11 @@ public class ShooterControl extends SubsystemBase {
   // USE THESE COMMANDS FOR Dual Motor SPEED CONTROL
 
   private void setDualShooterSpeedControl(double Speed_RPS) {
-    io.setDualShooterSpeedVelocity(Speed_RPS);
+    if( shooterIsShutDown == true) {
+       io.setDualShooterSpeedVelocity(0);
+    } else {
+      io.setDualShooterSpeedVelocity(Speed_RPS);
+    }
   }
 
   public void setDualShooterSpeedCoast() {
@@ -80,6 +90,22 @@ public class ShooterControl extends SubsystemBase {
       });
   }
 
+  public Command runDualShooterSpeedIDLE() {
+    return this.run(
+      () -> { 
+        setDualShooterSpeedControl( SuperStructureConstants.runDualShooterSpeedIDLE_SPEED); // idle system
+      });
+  }
+
+  public Command toggleShooterStatus() {
+    return this.runOnce(
+      () -> {
+        shooterIsShutDown = !shooterIsShutDown;
+      }
+    );
+    
+  }
+
 
 
   @Override
@@ -91,4 +117,6 @@ public class ShooterControl extends SubsystemBase {
      
     SmartDashboard.putNumber("Shooter Speed", inputs.shooterVelocityRot);    
   }
+  
+
 }
