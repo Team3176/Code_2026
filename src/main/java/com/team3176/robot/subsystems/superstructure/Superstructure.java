@@ -109,6 +109,10 @@ public class Superstructure {
     //return (turretRotation.runTurretRotation(() -> positionError.getAsDouble()));
     return (turretRotation.runTurretRotationFromVision(() -> positionError.getAsDouble(), () -> isTargetLocked.getAsBoolean(), leds));
   }
+
+  public Command runHoodPositionFromVision(DoubleSupplier distance, BooleanSupplier isTargetLocked) {
+    return (hood.runHood(distance, isTargetLocked));
+  }
   
   public static Superstructure getInstance() {
     if (instance == null) {

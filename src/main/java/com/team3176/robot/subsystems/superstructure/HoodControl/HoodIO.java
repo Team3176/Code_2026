@@ -49,5 +49,7 @@ public interface HoodIO {
 
   public default void setHoodCurrent(double current) {};
 
+  public default void setHoodFromDistance(double distance, boolean isVisionLocked) {}
+
 
 }

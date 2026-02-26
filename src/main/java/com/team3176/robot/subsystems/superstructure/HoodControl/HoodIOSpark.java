@@ -70,7 +70,7 @@ public class HoodIOSpark implements HoodIO {
 
     //Position Control Gains
     hoodSparkConfigs.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
-    hoodSparkConfigs.closedLoop.p(1); 
+    hoodSparkConfigs.closedLoop.p(.1); 
     hoodSparkConfigs.closedLoop.i(0); 
     hoodSparkConfigs.closedLoop.d(0); 
 
@@ -121,6 +121,12 @@ public class HoodIOSpark implements HoodIO {
     sparkPositionController.setSetpoint(position * SuperStructureConstants.Hood_MaxPosition, ControlType.kPosition);
   }
 
+  public void setHoodFromDistance(double distance, boolean isVisionLocked){
+
+    if(isVisionLocked){
+      sparkPositionController.setSetpoint(((Math.pow (4.25, distance)) - .0797) * SuperStructureConstants.Hood_MaxPosition, ControlType.kPosition);
+    }
+  }
 
 
 

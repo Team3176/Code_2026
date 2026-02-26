@@ -12,12 +12,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import yams.mechanisms.positional.Arm;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import org.littletonrobotics.junction.Logger;
 
 import com.team3176.robot.constants.BaseConstants.Mode;
 import com.team3176.robot.constants.BaseConstants.RobotType;
+import com.team3176.robot.subsystems.leds.LEDSubsystem;
 import com.team3176.robot.constants.*;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.team3176.robot.util.TunablePID;
@@ -87,6 +89,13 @@ public class Hood extends SubsystemBase {
       });
   }
 
+    public Command runHood(DoubleSupplier position, BooleanSupplier isTargetLocked) {
+    return this.run(
+      () -> { 
+        hoodRotationsFromVision(position.getAsDouble(), isTargetLocked.getAsBoolean());
+      });
+  }
+
 
 
   public Command runHoodVoltageManual(DoubleSupplier position) {
@@ -129,6 +138,30 @@ public class Hood extends SubsystemBase {
     setCurrentPos();
     double deployPos = this.currentPosRot - SuperStructureConstants.HoodUpIncrement;
     setHoodVoltagePos(deployPos);
+  }
+
+  private void hoodRotationsFromVision(Double distance, Boolean isTargetLocked){
+    // current position in rotations
+    double currentPosition = inputs.HoodPositionRot;
+    double hoodPositionFromHoop = (Math.pow (4.25, distance)) - .0797; // update this based on table data for hood distance
+    double hoodPositionRequest = currentPosition;
+
+    if (isTargetLocked){
+    
+         if (inputs.hoodToplimitswitch && hoodPositionRequest < SuperStructureConstants.Hood_ZERO_POS){
+          hoodPositionRequest = hoodPositionFromHoop;
+        }
+         else if (inputs.hoodBottomlimitswitch && hoodPositionRequest >= SuperStructureConstants.Hood_MaxPosition){
+          hoodPositionRequest = hoodPositionFromHoop;
+        }
+
+        setHoodVoltagePos(hoodPositionRequest);
+    
+      }
+
+    
+    
+
   }
   
   public Command retractTowardHome() {

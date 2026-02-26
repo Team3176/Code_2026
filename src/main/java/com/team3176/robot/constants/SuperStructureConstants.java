@@ -67,13 +67,15 @@ public class SuperStructureConstants {
 
 
   public static final double Hood_ZERO_POS = 0.39;
-
+  public static final double Hood_MaxPosition = 12; // ten tooth pinion 23 tooth rack, 1 to 1 gear ratio, input is from -1 to 1
+  
   public static final double Hood_ENCODER_OFFSET = 0;
 
   public static final double Hood_Position_MULTIPLIER = 6; // ten tooth pinion 23 tooth rack, 1 to 1 gear ratio, input is from -1 to 1
-  public static final double Hood_MaxPosition = 12; // ten tooth pinion 23 tooth rack, 1 to 1 gear ratio, input is from -1 to 1
   
   public static final double Hood_pos_offset = 0; //changed from 1 to 0
+
+  public static final double HoodErrorMoveHood = 0;
 
 
   public static final double Hood_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
