@@ -119,4 +119,9 @@ public class LEDSubsystem extends SubsystemBase {
   public Command turretVisonLost(){
     return this.run(() ->blinkin.setMode(BlinkinLedMode.FIXED_HEARTBEAT_RED));
   }
+
+  public Command GoalShiftActive(){
+    return this.run(() ->blinkin.setMode(BlinkinLedMode.SOLID_LAWN_GREEN));
+  }
+  
 }

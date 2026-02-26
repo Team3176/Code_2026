@@ -46,6 +46,8 @@ public class HoodIOSpark implements HoodIO {
 
   private final Double HoodAppliedVolts;
 
+  private Double homeposition = 0.0; 
+
   DigitalInput hoodToplimitswitch;
   DigitalInput hoodBottomlimitswitch;
   
@@ -106,6 +108,7 @@ public class HoodIOSpark implements HoodIO {
     inputs.hoodToplimitswitch = (!hoodToplimitswitch.get());
     inputs.hoodBottomlimitswitch = !hoodBottomlimitswitch.get();
     inputs.HoodPositionRot = positionEncoder.getPosition();
+    homeposition = inputs.HoodPositionRot;
   }
 
 
@@ -115,21 +118,13 @@ public class HoodIOSpark implements HoodIO {
     hoodSparkMotor.setVoltage(volts);
   }
 
-  //position is based on rotations
+  //position is based on rotations so long as it is in bounds
   @Override
   public void setHoodVoltagePos(double position) {
-    sparkPositionController.setSetpoint(position * SuperStructureConstants.Hood_MaxPosition, ControlType.kPosition);
-  }
-
-  public void setHoodFromDistance(double distance, boolean isVisionLocked){
-
-    if(isVisionLocked){
-      sparkPositionController.setSetpoint(((Math.pow (4.25, distance)) - .0797) * SuperStructureConstants.Hood_MaxPosition, ControlType.kPosition);
+    if(position <= SuperStructureConstants.Hood_MaxPosition + homeposition || position >= SuperStructureConstants.Hood_ZERO_POS + homeposition){
+      sparkPositionController.setSetpoint(position, ControlType.kPosition);
     }
   }
-
-
-
 
 
 }

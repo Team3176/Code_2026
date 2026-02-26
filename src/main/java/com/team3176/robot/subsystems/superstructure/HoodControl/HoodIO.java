@@ -24,6 +24,7 @@ public interface HoodIO {
     public double HoodAmpsSupply = 0.0;
     public double HoodTempCelcius = 0.0;
     public double Hood_pos_offset = 0.0;
+    public double HoodHomePosROT = 0.0;
 
     public boolean hoodToplimitswitch = false;
     public boolean hoodBottomlimitswitch = false;

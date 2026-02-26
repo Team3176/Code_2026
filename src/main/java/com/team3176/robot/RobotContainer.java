@@ -51,6 +51,9 @@ import com.team3176.robot.subsystems.vision.Vision;
 import com.team3176.robot.subsystems.vision.VisionIO;
 import com.team3176.robot.subsystems.vision.VisionIOPhotonVision;
 import static com.team3176.robot.subsystems.vision.VisionConstants.*;
+
+import java.util.Optional;
+
 import com.team3176.robot.constants.MatchConstants;
 //import com.team3176.robot.subsystems.tof.TimeOfFlightSystem;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
@@ -81,6 +84,7 @@ public class RobotContainer {
 //  private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchtime() < 20 );
   private Trigger visionOverride; 
   private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < MatchConstants.ENDGAMEALERT_Time);
+  private Trigger ShootingTime = new Trigger(()-> isHubActive());
   private static final AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
 
   private AlignToReef alignmentCommandFactory = null;
@@ -102,6 +106,8 @@ public class RobotContainer {
     //Leds default commands
     leds.setDefaultCommand(leds.DefaultLED());
     endMatchAlert.onTrue(leds.EndgameStart());
+    ShootingTime.onTrue(leds.GoalShiftActive());
+    SmartDashboard.putBoolean("Is Hub Active", isHubActive());
     //TODO Add triggers for Shift Periods
 
 //    vision = new Vision(drive::addVisionMeasurement,
@@ -251,7 +257,7 @@ public class RobotContainer {
     //controller.transStick.pov(90).onTrue(new AlignReef(TargetLoc.RIGHT));
 
     // Switch to X pattern when X button is pressed
-    controller.transStick.button(4).whileTrue(Commands.runOnce(drive::stopWithX, drive));
+   // controller.transStick.button(4).whileTrue(Commands.runOnce(drive::stopWithX, drive));
 
     //BOOST ME BABY *2
     controller.rotStick.button(1).
@@ -458,13 +464,15 @@ controller.operator.y().onTrue(superstructure.SpindexerOn()).onFalse(superstruct
 //        .onFalse(superstructure.algaeSqueeze());
 controller.operator.pov(0).whileTrue(superstructure.HoodUp());
 controller.operator.pov(180).whileTrue(superstructure.HoodDown());
-controller.operator.pov(0).whileTrue(superstructure.HoodUp());//.onFalse(superstructure.runHood());//.onTrue(superstructure.goToA3());
+
+
 
 controller.operator.pov(90).whileTrue(superstructure.TurretIncrementLeft());
 controller.operator.pov(270).whileTrue(superstructure.TurretIncrementRight());
 
-controller.operator.back().whileTrue(superstructure.TurretCenter());
 
+
+controller.operator.back().whileTrue(superstructure.TurretCenter());
 controller.operator.a().whileTrue(superstructure.TurretRight());
 controller.operator.b().whileTrue(superstructure.TurretLeft());
 
@@ -544,5 +552,71 @@ controller.operator.b().whileTrue(superstructure.TurretLeft());
 
    public static AprilTagFieldLayout getFieldLayout() {
         return fieldLayout;
+    }
+
+
+    //TODO 2026 Game specific hub activations
+    public boolean isHubActive() {
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+         // If we have no alliance, we cannot be enabled, therefore no hub.
+         if (alliance.isEmpty()) {
+            return false;
+        }
+  // Hub is always enabled in autonomous.
+        if (DriverStation.isAutonomousEnabled()) {
+            return true;
+         }
+  // At this point, if we're not teleop enabled, there is no hub.
+        if (!DriverStation.isTeleopEnabled()) {
+            return false;
+        }
+
+  // We're teleop enabled, compute.
+         double matchTime = DriverStation.getMatchTime();
+         String gameData = DriverStation.getGameSpecificMessage();
+  // If we have no game data, we cannot compute, assume hub is active, as its likely early in teleop.
+        if (gameData.isEmpty()) {
+            return true;
+        }
+        boolean redInactiveFirst = false;
+        switch (gameData.charAt(0)) {
+            case 'R' -> redInactiveFirst = true;
+            case 'B' -> redInactiveFirst = false;
+            default -> {
+            // If we have invalid game data, assume hub is active.
+            return true;
+            }
+        }
+
+  // Shift was is active for blue if red won auto, or red if blue won auto.
+        boolean shift1Active = switch (alliance.get()) {
+            case Red -> !redInactiveFirst;
+            case Blue -> redInactiveFirst;
+        };
+
+        if (matchTime > 130) {
+    // Transition shift, hub is active.
+            return true;
+        } 
+        else if (matchTime > 105) {
+            // Shift 1
+            return shift1Active;
+        } 
+        else if (matchTime > 80) {
+            // Shift 2
+            return !shift1Active;
+        }
+        else if (matchTime > 55) {
+            // Shift 3
+            return shift1Active;
+        }
+        else if (matchTime > 30) {
+            // Shift 4
+            return !shift1Active;
+        } 
+        else {
+            // End game, hub always active.
+            return true;
+        }
     }
 }

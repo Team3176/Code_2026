@@ -92,6 +92,18 @@ public class SuperStructureConstants {
   public static final double Hood_kg = 2.0;
 
 
+  ///Distance to Postion Look up table
+  /// Must be the same length
+  
+  public static final double[] botDistanceLUT     = { 0.00, 0.50, 1.00, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 4.50};  //must be ordered as increaseing
+  public static final double[] botShootHoodPosLUT = { 0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50};  //Hood in rotations - 0-12
+  public static final double[] botShooterSpeedLUT = { 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0, 70.0, 80.0, 90.0};  //Speed in RPM
+
+  public static final double[] botPassHoodPosLUT  = { 0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50};  //Hood in rotations - 0-12
+  public static final double[] botPassSpeedLUT    = { 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0, 70.0, 80.0, 90.0};  //Speed in RPM
+
+
+
   // Intake Control Constants 
   public static final double IntakeRollerMaxDutyCycle = 0.2; // This is 20% max duty cycle 
   public static final double Intake_ZERO_POS = 0.39;

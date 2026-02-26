@@ -23,6 +23,7 @@ import com.team3176.robot.subsystems.leds.LEDSubsystem;
 import com.team3176.robot.constants.*;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.team3176.robot.util.TunablePID;
+import com.team3176.robot.mathUtil.LinearInterpolationTable;;;
 
 
 
@@ -38,6 +39,8 @@ public class Hood extends SubsystemBase {
   private boolean ishomed = false;
   private double positionHome = SuperStructureConstants.Hood_ZERO_POS;
   private double currentPosRot = 0;
+  private double[][] hoodShootLUT = {SuperStructureConstants.botDistanceLUT, SuperStructureConstants.botShootHoodPosLUT};
+  private LinearInterpolationTable distanceToHoodPosLUT = new LinearInterpolationTable(hoodShootLUT);
 
 
   private Hood(HoodIO io) {
@@ -89,10 +92,10 @@ public class Hood extends SubsystemBase {
       });
   }
 
-    public Command runHood(DoubleSupplier position, BooleanSupplier isTargetLocked) {
+    public Command runHoodFromDistance(DoubleSupplier distance, BooleanSupplier isTargetLocked) {
     return this.run(
       () -> { 
-        hoodRotationsFromVision(position.getAsDouble(), isTargetLocked.getAsBoolean());
+        hoodRotationsFromVision(distance.getAsDouble(), isTargetLocked.getAsBoolean());
       });
   }
 
@@ -129,6 +132,7 @@ public class Hood extends SubsystemBase {
   //Used to reset home position based on what is read from sensor currently
   public void setCurrentHomePos() {
     this.positionHome = inputs.HoodPositionRot;
+    inputs.HoodHomePosROT = this.positionHome;
   }
     public void setCurrentPos() {
     this.currentPosRot = inputs.HoodPositionRot;
@@ -140,29 +144,7 @@ public class Hood extends SubsystemBase {
     setHoodVoltagePos(deployPos);
   }
 
-  private void hoodRotationsFromVision(Double distance, Boolean isTargetLocked){
-    // current position in rotations
-    double currentPosition = inputs.HoodPositionRot;
-    double hoodPositionFromHoop = (Math.pow (4.25, distance)) - .0797; // update this based on table data for hood distance
-    double hoodPositionRequest = currentPosition;
-
-    if (isTargetLocked){
-    
-         if (inputs.hoodToplimitswitch && hoodPositionRequest < SuperStructureConstants.Hood_ZERO_POS){
-          hoodPositionRequest = hoodPositionFromHoop;
-        }
-         else if (inputs.hoodBottomlimitswitch && hoodPositionRequest >= SuperStructureConstants.Hood_MaxPosition){
-          hoodPositionRequest = hoodPositionFromHoop;
-        }
-
-        setHoodVoltagePos(hoodPositionRequest);
-    
-      }
-
-    
-    
-
-  }
+  
   
   public Command retractTowardHome() {
     return this.runOnce(
@@ -184,7 +166,7 @@ public class Hood extends SubsystemBase {
     setHoodVoltagePos(deployPos);
   }
 
-  public Command incrementalDeploy() {
+  /*public Command incrementalDeploy() {
     return this.runOnce(
       () -> {
         deployIncremental();
@@ -196,7 +178,32 @@ public class Hood extends SubsystemBase {
     double currentPos = inputs.HoodPositionRot;
     currentPos = currentPos + 0.25;
     setHoodVoltagePos(currentPos);
+  }*/
+
+
+//Use this method when shooting at the goal
+  private void hoodRotationsFromVision(Double distance, Boolean isTargetLocked){
+    // current position in rotations
+    double currentPosition = inputs.HoodPositionRot;
+    //double hoodPositionFromHoop = (Math.pow (4.25, distance)) - .0797; // update this based on table data for hood distance
+    double hoodPositionFromHoop = distanceToHoodPosLUT.interpolate(distance); // update this based on table data for hood distance
+    double hoodPositionRequest = currentPosition;
+
+    if (isTargetLocked){
+    
+      if (inputs.hoodToplimitswitch || hoodPositionFromHoop < SuperStructureConstants.Hood_ZERO_POS){
+        hoodPositionRequest = hoodPositionFromHoop;
+      }
+      else if (inputs.hoodBottomlimitswitch || hoodPositionFromHoop >= SuperStructureConstants.Hood_MaxPosition){
+        hoodPositionRequest = hoodPositionFromHoop;
+      }
+
+      setHoodVoltagePos(hoodPositionRequest);
+    
+    }
+
   }
+
 
  
   @Override

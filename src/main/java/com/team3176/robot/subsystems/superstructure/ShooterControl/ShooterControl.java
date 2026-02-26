@@ -9,12 +9,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import yams.mechanisms.positional.Arm;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import org.littletonrobotics.junction.Logger;
 
 import com.team3176.robot.constants.BaseConstants.Mode;
 import com.team3176.robot.constants.BaseConstants.RobotType;
+import com.team3176.robot.mathUtil.LinearInterpolationTable;
 import com.team3176.robot.constants.*;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.team3176.robot.util.TunablePID;
@@ -22,33 +24,21 @@ import com.team3176.robot.util.TunablePID;
 
 
 public class ShooterControl extends SubsystemBase {
- private static ShooterControl instance;
-  private final ShooterControlIO io;
-  private final ShooterControlIOInputsAutoLogged inputs = new ShooterControlIOInputsAutoLogged();
-
+private static ShooterControl instance;
+private final ShooterControlIO io;
+private final ShooterControlIOInputsAutoLogged inputs = new ShooterControlIOInputsAutoLogged();
+private double[][] shootSpeedGoalLUT = {SuperStructureConstants.botDistanceLUT, SuperStructureConstants.botShooterSpeedLUT};
+private LinearInterpolationTable distanceToGoalShooterLUT = new LinearInterpolationTable(shootSpeedGoalLUT);
 private boolean shooterIsShutDown;
 
 
 
+private ShooterControl(ShooterControlIO io) {
+  this.io = io;
 
-  private Timer deployTime = new Timer();
-
- 
-
-
-
-  private ShooterControl(ShooterControlIO io) {
-    this.io = io;
-
-    shooterIsShutDown = false;
-    
-
-
+  shooterIsShutDown = false;
 
   }
-
-
-
 
   public static ShooterControl getInstance() {
     if (instance == null) {
@@ -104,6 +94,36 @@ private boolean shooterIsShutDown;
       }
     );
     
+  }
+
+  public Command runDualShooterGoalVision(DoubleSupplier distance, BooleanSupplier isTargetLocked) {
+    return this.run(
+      () -> { 
+        shooterSpeedFromVision(distance.getAsDouble(), isTargetLocked.getAsBoolean() ); // idle system
+      });
+  }
+
+  //Use this method when shooting at the goal
+  private void shooterSpeedFromVision(Double distance, Boolean isTargetLocked){
+    // current position in rotations
+    double currentSpeed = inputs.shooterVelocityRadPerSec;
+    //double hoodPositionFromHoop = (Math.pow (4.25, distance)) - .0797; // update this based on table data for hood distance
+    double shooterSpeedFromDistance = distanceToGoalShooterLUT.interpolate(distance); // update this based on table data for hood distance
+    double shooterSpeedRequest = currentSpeed;
+
+    if (isTargetLocked){
+    
+      if (shooterIsShutDown || shooterSpeedFromDistance < SuperStructureConstants.runDualShooterSpeedIDLE_SPEED){
+        shooterSpeedRequest = SuperStructureConstants.runDualShooterSpeedIDLE_SPEED;
+      }
+      else if ( shooterSpeedFromDistance >= SuperStructureConstants.ShooterDualSpeed_Max_RPS){
+        shooterSpeedRequest = SuperStructureConstants.ShooterDualSpeed_Max_RPS;
+      }
+
+      setDualShooterSpeedControl(shooterSpeedRequest);
+    
+    }
+
   }
 
 

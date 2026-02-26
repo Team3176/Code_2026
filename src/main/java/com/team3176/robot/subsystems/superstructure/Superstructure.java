@@ -147,7 +147,7 @@ public class Superstructure {
   }
 
   public Command runHoodPositionFromVision(DoubleSupplier distance, BooleanSupplier isTargetLocked) {
-    return (hood.runHood(distance, isTargetLocked));
+    return (hood.runHoodFromDistance(distance, isTargetLocked));
   }
   
   public static Superstructure getInstance() {
