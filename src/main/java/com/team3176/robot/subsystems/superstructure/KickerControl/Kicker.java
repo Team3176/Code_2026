@@ -4,6 +4,7 @@ package com.team3176.robot.subsystems.superstructure.KickerControl;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import yams.mechanisms.positional.Arm;
@@ -15,6 +16,9 @@ import org.littletonrobotics.junction.Logger;
 
 import com.team3176.robot.constants.BaseConstants.Mode;
 import com.team3176.robot.constants.BaseConstants.RobotType;
+import com.team3176.robot.subsystems.superstructure.Superstructure;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.hardware.TalonFXS;
 import com.team3176.robot.constants.*;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.team3176.robot.util.TunablePID;
@@ -50,6 +54,9 @@ public class Kicker extends SubsystemBase {
     return instance;
   }
 
+ 
+
+ 
 
     public void setkickerCoast() {
     io.setkickerBrakeMode(false);
@@ -64,6 +71,20 @@ public class Kicker extends SubsystemBase {
     return this.runOnce(
       () -> {
         setkickerCoast();
+      }); 
+  }  
+  
+  public Command runkickerOn() {
+    return this.runOnce(
+      () -> {
+        setKickerComand(SuperStructureConstants.Kicker_Speed_On);
+      }); 
+    }
+
+  public Command runkickerOff() {
+    return this.runOnce(
+      () -> {
+        setKickerComand(SuperStructureConstants.Kicker_Speed_Off);
       }); 
     }
 
@@ -91,6 +112,10 @@ public class Kicker extends SubsystemBase {
     io.setkickerSpeedVelocity(Speed_RPS);
   }
 
+  private void setKickerComand(double Speed_RPS) {
+    io.setkickerSpeedVelocity(Speed_RPS);
+  }
+
   public void setkickerSpeedCoast() {
     io.setkickerSpeedBrakeMode(false);
   }
@@ -98,7 +123,8 @@ public class Kicker extends SubsystemBase {
   public void setkickerSpeedBrake() {
     io.setkickerSpeedBrakeMode(true);
   }
-
+  
+ 
   //Provide a position suggest scaling from a joy stick or similar to get the desired number of rotations
   public Command runkickerSpeed(DoubleSupplier Speed_RPS) {
     return this.run(

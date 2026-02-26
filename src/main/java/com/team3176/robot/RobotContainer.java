@@ -422,7 +422,8 @@ controller
 
 controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -controller.rotStick.getRawAxis(3))));
 
-
+controller.operator.x().onTrue(superstructure.KickerOn()).onFalse(superstructure.KickerOff()); 
+controller.operator.y().onTrue(superstructure.SpindexerOn()).onFalse(superstructure.SpindexerOff()); 
 
 //controller.operator.leftBumper().whileTrue((ClimbControl.Climb_Extended));
 
@@ -451,6 +452,7 @@ controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -c
 //    controller.operator.pov(0)
 //        .whileTrue(superstructure.goToA2())
 //        .onFalse(superstructure.algaeSqueeze());
+controller.operator.pov(0).whileTrue(superstructure.HoodUp());
 controller.operator.pov(180).whileTrue(superstructure.HoodDown());
 controller.operator.pov(0).whileTrue(superstructure.HoodUp());//.onFalse(superstructure.runHood());//.onTrue(superstructure.goToA3());
 
