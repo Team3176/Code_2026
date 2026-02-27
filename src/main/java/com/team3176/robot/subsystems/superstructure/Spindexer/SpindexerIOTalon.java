@@ -78,6 +78,8 @@ public class SpindexerIOTalon implements SpindexerIO {
     SpindexerSpeedConfigs.Voltage.withPeakForwardVoltage (SuperStructureConstants.SpindexerSpeed_MAX_OUTPUT_VOLTS)
       .withPeakReverseVoltage(SuperStructureConstants.SpindexerSpeed_MAXNeg_OUTPUT_VOLTS);
 
+    SpindexerSpeedConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+
     TalonUtils.applyTalonFxConfigs(SpindexerSpeedController, SpindexerSpeedConfigs);
 
 

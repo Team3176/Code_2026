@@ -112,6 +112,7 @@ public class KickerIOTalon implements KickerIO {
     // Peak output of 8 volts
     kickerSpeedConfigs.Voltage.withPeakForwardVoltage (SuperStructureConstants.KickerSpeed_MAX_OUTPUT_VOLTS)
       .withPeakReverseVoltage(SuperStructureConstants.KickerSpeed_MAXNeg_OUTPUT_VOLTS);
+    kickerSpeedConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
     TalonUtils.applyTalonFxConfigs(kickerSpeedController, kickerSpeedConfigs);
 
