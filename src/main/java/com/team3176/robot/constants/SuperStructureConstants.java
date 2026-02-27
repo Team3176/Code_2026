@@ -107,8 +107,9 @@ public class SuperStructureConstants {
   // Intake Control Constants 
   public static final double IntakeRollerMaxDutyCycle = 0.2; // This is 20% max duty cycle 
   public static final double Intake_ZERO_POS = 0.39;
+  public static final double Intake_Extend_POS = 5.6;
   public static final double IntakePosition_ENCODER_OFFSET = 0;
-  public static final double Intake_Position_MULTIPLIER = 5.39; // 12:1 gear box at just under 1/3 of an out put rotation
+  public static final double Intake_Position_MULTIPLIER = 5.6; // 12:1 gear box at just under 1/3 of an out put rotation
   public static final double Intake_pos_offset = 0;
   public static final double IntakePosition_MAX_OUTPUT_VOLTS = 12 ; //Sets Max forward Speed
   public static final double IntakePosition_MAXNeg_OUTPUT_VOLTS = -12; //Sets Max Reverse Speed

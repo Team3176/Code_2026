@@ -61,6 +61,14 @@ public class Superstructure {
     return (intake.runIntakePosition(() -> position.getAsDouble()));
   }
 
+  public Command IntakeExtend(){
+    return (intake.deployFromHomeCmd());
+  }
+
+  public Command IntakeRetract(){
+    return (intake.Intake2Home());
+  }
+
   public Command IntakeRollerMotor(DoubleSupplier Speed_DutyCylce) {
     return (intake.runIntakeRoller(() -> Speed_DutyCylce.getAsDouble()));
   }

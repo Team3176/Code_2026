@@ -208,19 +208,13 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
   
   //Offset would be used when we need 
   @Override
-  public void setIntakePositionVoltagePos(double position) {
+  public void 
+  setIntakePositionVoltagePos(double position) {
     IntakePositionController.setControl(voltIntakePosition.withPosition(position * SuperStructureConstants.Intake_Position_MULTIPLIER + SuperStructureConstants.Intake_pos_offset));
   }
 
 
-  @Override
-  public void setIntakePositionBrakeMode(boolean enable) {
-    if (enable) {
-      IntakePositionController.setNeutralMode(NeutralModeValue.Brake);
-    } else {
-      IntakePositionController.setNeutralMode(NeutralModeValue.Coast);
-    }
-  }
+
 
   //Offset would be used when we need 
   @Override

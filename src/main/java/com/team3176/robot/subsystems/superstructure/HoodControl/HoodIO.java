@@ -46,6 +46,8 @@ public interface HoodIO {
 
   public default void setHoodVoltagePos(double position) {}
 
+   public default void setHoodVisionPos(double position) {}
+
   public default void setHoodBrakeMode(boolean enable) {};
 
   public default void setHoodCurrent(double current) {};

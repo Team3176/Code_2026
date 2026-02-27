@@ -42,13 +42,7 @@ public class IntakeControl extends SubsystemBase {
     this.positionMotorPID = new TunablePID("IntakeControlPIDConstants", SuperStructureConstants.IntakeControl_kP, SuperStructureConstants.IntakeControl_kI, SuperStructureConstants.IntakeControl_kD);
   
     this.positionHome = inputs.IntakePositionRot;
-
-
-
   }
-
-
-
 
   public static IntakeControl getInstance() {
     if (instance == null) {
@@ -100,29 +94,6 @@ public class IntakeControl extends SubsystemBase {
     io.setIntakePositionVoltagePos(position);
   }
 
-    public void setIntakePositionCoast() {
-    io.setIntakePositionBrakeMode(false);
-  }
-
-  public void setIntakePositionBrake() {
-    io.setIntakePositionBrakeMode(true);
-  }
-
-  
-  public Command setIntakePosition2Coast() {
-    return this.runOnce(
-      () -> {
-        setIntakePositionCoast();
-      }); 
-    }
-
-  public Command setHood2Brake() {
-    return this.runOnce(
-      () -> {
-        setIntakePositionBrake();
-      }); 
-    }
-
   public Command deployFromHomeCmd() {
     return this.runOnce(
       () -> {
@@ -136,8 +107,8 @@ public class IntakeControl extends SubsystemBase {
   }
 
   public void deployFromHome() {
-    setCurrentHomePos();
-    double deployPos = this.homePos + .25;
+ 
+    double deployPos = this.homePos + SuperStructureConstants.Intake_Extend_POS;
     setIntakePositionVoltagePos(deployPos);
   }
   
@@ -155,19 +126,7 @@ public class IntakeControl extends SubsystemBase {
     setIntakePositionVoltagePos(deployPos);
   }
 
-  public Command incrementalDeploy() {
-    return this.runOnce(
-      () -> {
-        deployIncremental();
-      }
-    );
-  }
 
-  public void deployIncremental() {
-    double currentPos = inputs.IntakePositionRot;
-    currentPos = currentPos + 0.25;
-    setIntakePositionVoltagePos(currentPos);
-  }
 
   public Command runIntakeRoller(DoubleSupplier dutyCycle) {
     return this.run(
@@ -176,9 +135,9 @@ public class IntakeControl extends SubsystemBase {
       });
   }
 
-public void intakeRollerDutyCycle(double dutyCycle){
+  public void intakeRollerDutyCycle(double dutyCycle){
      io.setIntakeRollerVelocity(dutyCycle); 
-}
+  }
 
  
   @Override
