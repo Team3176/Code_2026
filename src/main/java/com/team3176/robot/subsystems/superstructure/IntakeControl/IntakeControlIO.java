@@ -43,7 +43,6 @@ public interface IntakeControlIO {
 
   //public default void setIntakePostionVoltagePos(double position) {}
 
-  public default void setIntakePositionBrakeMode(boolean enable) {}
 
   public  default void setIntakePositionVoltagePos(double position) {}
 

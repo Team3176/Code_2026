@@ -386,24 +386,8 @@ public class RobotContainer {
 
     // ***** OPERATOR CONTROLLER *****
 
-//controller.operator.leftBumper().whileTrue(superstructure.genericPositionMotor(() -> -controller.operator.getLeftY()));
-/*
-
-controller.rotStick.button(1).whileTrue((superstructure.HoodMotor(() -> -controller.rotStick.getRawAxis(3))));
-
-controller.rotStick.button(2).whileTrue((superstructure.genericMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
-
-controller.rotStick.button(3).whileTrue((superstructure.genericDualMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
-
-//Added to support the Spark Motor Contoller structures. 
-controller.rotStick.button(4).whileTrue((superstructure.genericSparkPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
-
-controller.rotStick.button(5).whileTrue((superstructure.genericSparkMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
-
-controller.rotStick.button(6).whileTrue((superstructure.genericSparkDualMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
-
-*/
-
+controller.transStick.button(1).whileTrue(superstructure.IntakeExtend());
+controller.transStick.button(2).whileTrue(superstructure.IntakeRetract());
 controller.rotStick.button(1).whileTrue((superstructure.kickerMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
 controller.rotStick.button(2).whileTrue((superstructure.HoodMotor(() -> -controller.rotStick.getRawAxis(3))));
 controller.transStick.button(3).whileTrue((superstructure.shooterMotorSpeed(() -> -controller.transStick.getRawAxis(3))).alongWith(leds.setIsShooting())).onFalse(superstructure.shooterMotorSpeedIDLE());
@@ -413,8 +397,6 @@ controller.rotStick.button(8).whileTrue((superstructure.IntakeRollerMotor(() -> 
 
 //controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
-controller.operator.rightTrigger().whileTrue((superstructure.RetractClimb()));
-controller.operator.leftTrigger().whileTrue((superstructure.ExtendClimb()));
 
 controller.operator.button(4).onTrue( new launc
 
@@ -426,17 +408,26 @@ controller.transStick.button(12).onTrue(superstructure.toggleShooterStatus());
 
 
 
-controller
-    .operator
-    .leftBumper()
-    .whileTrue(
-        superstructure.
-            ClimbPositionMotor(() -> -controller.operator.getRightY()));
 
 controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -controller.rotStick.getRawAxis(3))));
+controller.operator.rightTrigger().whileTrue((superstructure.RetractClimb()));
+controller.operator.leftTrigger().whileTrue((superstructure.ExtendClimb()));
 
+controller.operator.leftBumper().whileTrue(superstructure.ClimbPositionMotor(() -> -controller.operator.getRightY()));
 controller.operator.x().onTrue(superstructure.KickerOn()).onFalse(superstructure.KickerOff()); 
 controller.operator.y().onTrue(superstructure.SpindexerOn()).onFalse(superstructure.SpindexerOff()); 
+
+controller.operator.pov(0).whileTrue(superstructure.HoodUp());
+controller.operator.pov(180).whileTrue(superstructure.HoodDown());
+
+controller.operator.pov(90).whileTrue(superstructure.TurretIncrementLeft());
+controller.operator.pov(270).whileTrue(superstructure.TurretIncrementRight());
+
+
+
+controller.operator.back().whileTrue(superstructure.TurretCenter());
+controller.operator.a().whileTrue(superstructure.TurretRight());
+controller.operator.b().whileTrue(superstructure.TurretLeft());
 
 //controller.operator.leftBumper().whileTrue((ClimbControl.Climb_Extended));
 
@@ -465,19 +456,7 @@ controller.operator.y().onTrue(superstructure.SpindexerOn()).onFalse(superstruct
 //    controller.operator.pov(0)
 //        .whileTrue(superstructure.goToA2())
 //        .onFalse(superstructure.algaeSqueeze());
-controller.operator.pov(0).whileTrue(superstructure.HoodUp());
-controller.operator.pov(180).whileTrue(superstructure.HoodDown());
 
-
-
-controller.operator.pov(90).whileTrue(superstructure.TurretIncrementLeft());
-controller.operator.pov(270).whileTrue(superstructure.TurretIncrementRight());
-
-
-
-controller.operator.back().whileTrue(superstructure.TurretCenter());
-controller.operator.a().whileTrue(superstructure.TurretRight());
-controller.operator.b().whileTrue(superstructure.TurretLeft());
 
 //    controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
 

@@ -134,13 +134,14 @@ public class Hood extends SubsystemBase {
     this.positionHome = inputs.HoodPositionRot;
     inputs.HoodHomePosROT = this.positionHome;
   }
-    public void setCurrentPos() {
+  
+  public void setCurrentPos() {
     this.currentPosRot = inputs.HoodPositionRot;
   }
 
   public void deployFromHome() {
     setCurrentPos();
-    double deployPos = this.currentPosRot - SuperStructureConstants.HoodUpIncrement;
+    double deployPos = this.currentPosRot + SuperStructureConstants.HoodUpIncrement;
     setHoodVoltagePos(deployPos);
   }
 
@@ -158,11 +159,10 @@ public class Hood extends SubsystemBase {
     setCurrentPos();
     double retractIncrement = SuperStructureConstants.HoodDownIncrement;
     if (inputs.hoodBottomlimitswitch){
-      setCurrentHomePos();
       retractIncrement = 0;
     }
     
-    double deployPos = this.currentPosRot + retractIncrement;
+    double deployPos = this.currentPosRot - retractIncrement;
     setHoodVoltagePos(deployPos);
   }
 
@@ -198,7 +198,7 @@ public class Hood extends SubsystemBase {
         hoodPositionRequest = hoodPositionFromHoop;
       }
 
-      setHoodVoltagePos(hoodPositionRequest);
+      io.setHoodVisionPos(hoodPositionRequest);
     
     }
 
