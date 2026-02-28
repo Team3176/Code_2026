@@ -172,8 +172,8 @@ public class ClimbControlIOTalon implements ClimbControlIO {
   //Offset would be used when we need 
   @Override
   public void setClimbBothPos(double position) {
-    ClimbLeftController.setControl(voltPosition.withPosition(position * SuperStructureConstants.Climb_Position_MULTIPLIER + SuperStructureConstants.ClimbLeft_pos_offset));
-    ClimbRightController.setControl(voltPosition.withPosition(position * SuperStructureConstants.Climb_Position_MULTIPLIER + SuperStructureConstants.ClimbRight_pos_offset));
+    ClimbLeftController.setControl(voltPosition.withPosition(position  + SuperStructureConstants.ClimbLeft_pos_offset));
+    ClimbRightController.setControl(voltPosition.withPosition(position + SuperStructureConstants.ClimbRight_pos_offset));
   } 
 
     @Override
