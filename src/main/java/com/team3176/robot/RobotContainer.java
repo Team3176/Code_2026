@@ -388,8 +388,8 @@ public class RobotContainer {
         .andThen(superstructure.KickerOn()).withTimeout(.25)
         .andThen(superstructure.SpindexerOn().withTimeout(1))); */
 
-controller.transStick.button(4).onTrue((superstructure.ShooterOn().andThen(Commands.waitSeconds(.5)).andThen(superstructure.KickerOn().andThen(Commands.waitSeconds(.5))).andThen(superstructure.SpindexerOn())));
-//.with(500).andThen(superstructure.SpindexerOn()));
+controller.transStick.button(4).onTrue((superstructure.ShooterOn().andThen(Commands.waitSeconds(1)).andThen(superstructure.KickerOn().andThen(Commands.waitSeconds(1))).andThen(superstructure.SpindexerOn())));
+controller.rotStick.button(4).onTrue((superstructure.ShooterOff().andThen(Commands.waitSeconds(.1)).andThen(superstructure.KickerOff().andThen(Commands.waitSeconds(.1))).andThen(superstructure.SpindexerOff())));
 
 
 controller.transStick.button(1).whileTrue(superstructure.IntakeExtend());
