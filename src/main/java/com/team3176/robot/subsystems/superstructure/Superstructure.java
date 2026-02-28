@@ -129,11 +129,18 @@ public class Superstructure {
     return (shooter.toggleShooterStatus());
   }
 
-
   public Command kickerMotorSpeed(DoubleSupplier Speed_RPS) {
     return (kicker.runkickerSpeed(() -> Speed_RPS.getAsDouble()));
   }
-  
+
+    public Command ShooterOn() {
+    return (shooter.runShooterOn());
+  }
+
+  public Command ShooterOff() {
+    return (shooter.runShooterOff());
+  }
+
   public Command KickerOn() {
     return (kicker.runkickerOn());
   }
@@ -165,10 +172,6 @@ public class Superstructure {
       System.out.println("Superstructure instance created.");
     }
     return instance;
-  }
-
-  public Command BeginShooterSequence() {
-    return (ShootSequence.ShootSequence());
   }
 }
 

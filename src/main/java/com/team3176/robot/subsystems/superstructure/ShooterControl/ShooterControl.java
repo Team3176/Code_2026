@@ -64,6 +64,9 @@ private ShooterControl(ShooterControlIO io) {
     }
   }
 
+
+
+
   public void setDualShooterSpeedCoast() {
     io.setDualShooterSpeedBrakeMode(false);
   }
@@ -125,6 +128,20 @@ private ShooterControl(ShooterControlIO io) {
     }
 
   }
+  
+  public Command runShooterOn() {
+    return this.runOnce(
+      () -> {
+        setDualShooterSpeedControl(SuperStructureConstants.Shooter_Speed_On);
+      }); 
+    }
+
+  public Command runShooterOff() {
+    return this.runOnce(
+      () -> {
+        setDualShooterSpeedControl(SuperStructureConstants.Shooter_Speed_Off);
+      }); 
+    }
 
 
 

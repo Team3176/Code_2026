@@ -35,11 +35,9 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
 import com.team3176.robot.generated.TunerConstants;
+//import com.team3176.robot.commands.AlignReef.TargetLoc; // for enum TargetLoc
 import com.team3176.robot.commands.*;
 import com.team3176.robot.commands.AlignToReef.FieldBranchSide;
-import com.team3176.robot.commands.ShootSequence;
-//import com.team3176.robot.commands.AlignReef.TargetLoc; // for enum TargetLoc
-
 import com.team3176.robot.subsystems.leds.LEDS;
 import com.team3176.robot.subsystems.leds.LEDSubsystem;
 
@@ -156,12 +154,11 @@ public class RobotContainer {
     alignmentCommandFactory = new AlignToReef(drive, fieldLayout);
     variableAutoFactory = new VariableAutos(alignmentCommandFactory, dynamics, drive);
 
-/** 
-    NamedCommands.registerCommand("L2", superstructure.goToL2()
-        .withDeadline(new WaitCommand(1.5).andThen(superstructure.shoot().withTimeout(1)))
-        .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0().withTimeout(1)));
-    NamedCommands.registerCommand("L3", superstructure.goToL3()
+ 
+    /* NamedCommands.registerCommand("ShootToHub", superstructure.shooterMotorSpeed(null).withTimeout(.5)   
+        .andThen(superstructure.KickerOn()).withTimeout(.25)
+        .andThen(superstructure.SpindexerOn().withTimeout(1))); */
+ /*   NamedCommands.registerCommand("L3", superstructure.goToL3()
         .withDeadline(new WaitCommand(1.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
         .andThen(superstructure.goToL0().withTimeout(1)));
@@ -387,6 +384,14 @@ public class RobotContainer {
 
     // ***** OPERATOR CONTROLLER *****
 
+     /* NamedCommands.registerCommand("ShootToHub", superstructure.shooterMotorSpeed(null).withTimeout(.5)   
+        .andThen(superstructure.KickerOn()).withTimeout(.25)
+        .andThen(superstructure.SpindexerOn().withTimeout(1))); */
+
+controller.transStick.button(4).onTrue((superstructure.ShooterOn().andThen(Commands.waitSeconds(.5)).andThen(superstructure.KickerOn().andThen(Commands.waitSeconds(.5))).andThen(superstructure.SpindexerOn())));
+//.with(500).andThen(superstructure.SpindexerOn()));
+
+
 controller.transStick.button(1).whileTrue(superstructure.IntakeExtend());
 controller.transStick.button(2).whileTrue(superstructure.IntakeRetract());
 controller.rotStick.button(1).whileTrue((superstructure.kickerMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
@@ -399,10 +404,8 @@ controller.rotStick.button(8).whileTrue((superstructure.IntakeRollerMotor(() -> 
 //controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 
-controller.operator.button(4).whileTrue(ShootSequence.ShootSequence());
-
 //controller.rotStick.button(10).whileTrue((superstructure.RetractClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
-
+//controller.rotStick.button(4).whileTrue(superstructure.shooterMotorSpeed());
 
 
 controller.transStick.button(12).onTrue(superstructure.toggleShooterStatus());
@@ -602,4 +605,7 @@ controller.operator.b().whileTrue(superstructure.TurretLeft());
             return true;
         }
     }
+
+    
+ 
 }

@@ -48,8 +48,4 @@ public class ShootSequence extends SequentialCommandGroup {
              
         
     }
-    public static Command ShootSequence() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'ShootSequence'");
-    }
 }

@@ -135,6 +135,8 @@ public class SuperStructureConstants {
   public static final double ShooterDualSpeed_Max_RPS = 100; // speed is multiplied by two due to joystick so currently this equals 50 * 2 = 100
   public static final double runDualShooterSpeedIDLE_SPEED = 6;
   public static final double Shooter_SpinUpSeconds = 2;
+  public static final double Shooter_Speed_On = 20;
+  public static final double Shooter_Speed_Off = 0;
   
 ///
 /// Turret Constants
