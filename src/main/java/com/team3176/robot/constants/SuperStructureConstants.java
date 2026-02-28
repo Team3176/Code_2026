@@ -66,6 +66,7 @@ public class SuperStructureConstants {
   public static final double Kicker_ENCODER_OFFSET = 0;
   public static final double Kicker_Speed_On = 20;
   public static final double Kicker_Speed_Off = 0;
+  public static final double Kicker_SpinUpSeconds = 2;
 
 
   public static final double Hood_ZERO_POS = 0.39;
@@ -132,6 +133,7 @@ public class SuperStructureConstants {
   public static final double ShooterDualSpeed_MAXNeg_OUTPUT_VOLTS = -12; //Sets Max Reverse Speed
   public static final double ShooterDualSpeed_Max_RPS = 100; // speed is multiplied by two due to joystick so currently this equals 50 * 2 = 100
   public static final double runDualShooterSpeedIDLE_SPEED = 6;
+  public static final double Shooter_SpinUpSeconds = 2;
   
 ///
 /// Turret Constants
@@ -220,6 +222,6 @@ public class SuperStructureConstants {
   public static final double SpindexerSpeed_MAX_OUTPUT_VOLTS = 4; //Sets Max forward Speed
   public static final double SpindexerSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
   public static final double SpindexerSpeed_Max_RPS = 40;
-  
+  public static final double Spindexer_SpinUpSeconds = 2;
 
 }

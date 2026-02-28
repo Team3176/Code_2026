@@ -37,6 +37,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import com.team3176.robot.generated.TunerConstants;
 import com.team3176.robot.commands.*;
 import com.team3176.robot.commands.AlignToReef.FieldBranchSide;
+import com.team3176.robot.commands.Shootsequence;
 //import com.team3176.robot.commands.AlignReef.TargetLoc; // for enum TargetLoc
 
 import com.team3176.robot.subsystems.leds.LEDS;
@@ -152,6 +153,7 @@ public class RobotContainer {
     // }
     alignmentCommandFactory = new AlignToReef(drive, fieldLayout);
     variableAutoFactory = new VariableAutos(alignmentCommandFactory, dynamics, drive);
+    shootsequence = new Shootsequence();
 
 /** 
     NamedCommands.registerCommand("L2", superstructure.goToL2()
@@ -414,6 +416,7 @@ controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() ->
 controller.operator.rightTrigger().whileTrue((superstructure.RetractClimb()));
 controller.operator.leftTrigger().whileTrue((superstructure.ExtendClimb()));
 
+controller.operator.button(4).onTrue( new launc
 
 //controller.rotStick.button(10).whileTrue((superstructure.RetractClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 
