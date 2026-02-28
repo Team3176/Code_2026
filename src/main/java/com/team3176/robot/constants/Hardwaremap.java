@@ -9,7 +9,7 @@ public class Hardwaremap {
    * Superstructer CIDs & CBNs
    */
 // Assign the CAN IDs for the network - must only use once
-  public static final int genericTalon_CID = 100;
+  /*public static final int genericTalon_CID = 100;
   public static final int genericTalonSpeed_CID = 110;
   public static final int genericTalonCancoder_CID = 120;    
   public static final int genericTalonLeaderSpeed_CID = 121;
@@ -19,35 +19,35 @@ public class Hardwaremap {
   public static final int genericSparkFlexCancoder_CID = 320;    
   public static final int genericSparkFlexLeaderSpeed_CID = 410;
   public static final int genericSparkFlexFollowerSpeed_CID = 420;
+*/
 
 
-
-  public static final int Kicker_CID = 32;
-  public static final int KickerCancoder_CID = 120; 
-  public static final int KickerSpeed_CID = 32;
+  public static final int Kicker_CID = 53;
+  public static final int KickerCancoder_CID = 530; 
+  public static final int KickerSpeed_CID = 53;
   
 //added a 0 to the end of each of the kicker CID's
   
-  public static final int HoodSpeed_CID = 101;
-  public static final int Hood_CID = 36;
-  public static final int HoodSpark_CID = 45;
-  public static final int HoodCancoder_CID = 46;    
+  //public static final int HoodSpeed_CID = 570;
+  public static final int Hood_CID = 57;
+  public static final int HoodSpark_CID = 57;
+  public static final int HoodCancoder_CID = 57;    
 
-  public static final int ClimbLeft_CID = 40;
-  public static final int ClimbRight_CID = 41;
+  public static final int ClimbLeft_CID = 58;
+  public static final int ClimbRight_CID = 59;
 
-  public static final int Spindexer_CID = 31;
+  public static final int Spindexer_CID = 52;
 
 // Intake Control Constants
-  public static final int IntakePosition_CID = 20;
-  public static final int IntakeRoller_CID = 21;
-  public static final int IntakePositionCancoder_CID = 201;    
+  public static final int IntakePosition_CID = 50;
+  public static final int IntakeRoller_CID = 51;
+  public static final int IntakePositionCancoder_CID = 500;    
 
-  public static final int shooterLeaderSpeed_CID = 34;
-  public static final int shooterFollowerSpeed_CID = 35;
+  public static final int shooterLeaderSpeed_CID = 55;
+  public static final int shooterFollowerSpeed_CID = 56;
 
-  public static final int turretRotation_CID = 33;
-  public static final int turretRotationCancoder_CID = 330;
+  public static final int turretRotation_CID = 54;
+  public static final int turretRotationCancoder_CID = 540;
 
   
   public static int PDH_CID = 11;
