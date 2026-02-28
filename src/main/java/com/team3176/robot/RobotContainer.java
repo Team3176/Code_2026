@@ -37,7 +37,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import com.team3176.robot.generated.TunerConstants;
 import com.team3176.robot.commands.*;
 import com.team3176.robot.commands.AlignToReef.FieldBranchSide;
-import com.team3176.robot.commands.Shootsequence;
+import com.team3176.robot.commands.ShootSequence;
 //import com.team3176.robot.commands.AlignReef.TargetLoc; // for enum TargetLoc
 
 import com.team3176.robot.subsystems.leds.LEDS;
@@ -48,6 +48,7 @@ import com.team3176.robot.subsystems.drivetrain.Drive;
 import com.team3176.robot.subsystems.drivetrain.GyroIOPigeon2;
 import com.team3176.robot.subsystems.drivetrain.ModuleIOTalonFX;
 import com.team3176.robot.subsystems.superstructure.Superstructure;
+import com.team3176.robot.subsystems.superstructure.Spindexer.Spindexer;
 import com.team3176.robot.subsystems.vision.Vision;
 import com.team3176.robot.subsystems.vision.VisionIO;
 import com.team3176.robot.subsystems.vision.VisionIOPhotonVision;
@@ -91,6 +92,7 @@ public class RobotContainer {
   private AlignToReef alignmentCommandFactory = null;
   private VariableAutos variableAutoFactory = null;
   public final DynamicsCommandFactory dynamics = null;
+  private 
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
@@ -153,7 +155,6 @@ public class RobotContainer {
     // }
     alignmentCommandFactory = new AlignToReef(drive, fieldLayout);
     variableAutoFactory = new VariableAutos(alignmentCommandFactory, dynamics, drive);
-    shootsequence = new Shootsequence();
 
 /** 
     NamedCommands.registerCommand("L2", superstructure.goToL2()
@@ -398,7 +399,7 @@ controller.rotStick.button(8).whileTrue((superstructure.IntakeRollerMotor(() -> 
 //controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 
-controller.operator.button(4).onTrue( new launc
+controller.operator.button(4).whileTrue((new ShootSequence(() -> -controller.rotStick.getRawAxis(3))));
 
 //controller.rotStick.button(10).whileTrue((superstructure.RetractClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 
