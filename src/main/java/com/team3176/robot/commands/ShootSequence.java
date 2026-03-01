@@ -41,11 +41,15 @@ public class ShootSequence extends SequentialCommandGroup {
     Superstructure superstructure = Superstructure.getInstance();
     public ShootSequence(DoubleSupplier speed) {
         addCommands(
-            //ShooterControl.getInstance().runDualShooterSpeed(speed).withTimeout(SuperStructureConstants.Shooter_SpinUpSeconds),
-            //Kicker.getInstance().runkickerSpeed(speed),
-            //superstructure.SpindexerMotor(speed);
-            ShooterControl.getInstance().runDualShooterSpeed(speed);
+            ShooterControl.getInstance().runDualShooterSpeed(speed).withTimeout(SuperStructureConstants.Shooter_SpinUpSeconds),
+            Kicker.getInstance().runkickerSpeed(speed).withTimeout(SuperStructureConstants.Kicker_SpinUpSeconds),
+            Spindexer.getInstance().runSpindexerSpeed(speed));
+            //ShooterControl.getInstance().runDualShooterSpeed(speed);
              
-        )
+        
+    }
+    public static Command ShootSequence() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'ShootSequence'");
     }
 }

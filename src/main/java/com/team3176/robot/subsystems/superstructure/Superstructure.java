@@ -22,6 +22,7 @@ import com.team3176.robot.subsystems.superstructure.ClimbControl.ClimbControl;
 import com.team3176.robot.subsystems.superstructure.Spindexer.Spindexer;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.ctre.phoenix6.StatusSignal;
+import com.team3176.robot.commands.ShootSequence;
 import com.team3176.robot.constants.SuperStructureConstants;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.team3176.robot.util.TunablePID;
@@ -165,4 +166,9 @@ public class Superstructure {
     }
     return instance;
   }
+
+  public Command BeginShooterSequence() {
+    return (ShootSequence.ShootSequence());
+  }
 }
+

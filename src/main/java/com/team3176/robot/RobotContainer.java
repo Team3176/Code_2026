@@ -92,7 +92,7 @@ public class RobotContainer {
   private AlignToReef alignmentCommandFactory = null;
   private VariableAutos variableAutoFactory = null;
   public final DynamicsCommandFactory dynamics = null;
-  private 
+  
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
@@ -399,7 +399,7 @@ controller.rotStick.button(8).whileTrue((superstructure.IntakeRollerMotor(() -> 
 //controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 
-controller.operator.button(4).whileTrue((new ShootSequence(() -> -controller.rotStick.getRawAxis(3))));
+controller.operator.button(4).whileTrue(ShootSequence.ShootSequence());
 
 //controller.rotStick.button(10).whileTrue((superstructure.RetractClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 
