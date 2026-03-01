@@ -21,6 +21,9 @@ import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 
 
+//Imports for swerve Drive generator
+import com.ctre.phoenix6.HootAutoReplay;
+
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -30,35 +33,26 @@ import org.photonvision.targeting.PhotonPipelineResult;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private final RobotContainer m_robotContainer;
-/* 
-  private PhotonCamera turretCamera;
 
 
-BooleanPublisher redGoalTagDetected;  
-BooleanPublisher tag2Detected;     
-BooleanPublisher tag10Detected;    
-BooleanPublisher tag5Detected;  
-BooleanPublisher blueGoalTagDetected;
-BooleanPublisher tag18Detected;
-BooleanPublisher tag26Detected;
-BooleanPublisher tag21Detected;
+  precisionVision thisRobotVisionHandler;
+  precisionPigeon thisRobotIMUHandler;
+  precisionLocalization thisRobotLocalizationHandler;
 
-DoublePublisher angleToTag10;
-DoublePublisher distanceToTag10;
-DoublePublisher zToTarget10;
-DoublePublisher rotToTarget10;
-DoublePublisher tag10Ambiguity;
-*/
 
-precisionVision thisRobotVisionHandler;
-precisionPigeon thisRobotIMUHandler;
-precisionLocalization thisRobotLocalizationHandler;
+//Hoot Stuff for swerve drive data logging and replay
+  private final HootAutoReplay m_timeAndJoystickReplay = new HootAutoReplay()
+      .withTimestampReplay()
+      .withJoystickReplay();
+
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   public Robot() {
+
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
@@ -68,32 +62,9 @@ precisionLocalization thisRobotLocalizationHandler;
     thisRobotIMUHandler = new precisionPigeon();
     thisRobotLocalizationHandler = new precisionLocalization();
 
-        /* 
-    //Create a Net table for our targeting
-    NetworkTable tagsTable = NetworkTableInstance.getDefault().getTable("GoalAprilTags");
-    //IntegerArrayPublisher pubTags = tagsTable.getIntegerArrayTopic("myTags").publish();
-    redGoalTagDetected  = tagsTable.getBooleanTopic("Red GOAL DETECTED").publish();
-    tag2Detected        = tagsTable.getBooleanTopic("Tag2Seen").publish();
-    tag10Detected       = tagsTable.getBooleanTopic("Tag10Seen").publish();
-    tag5Detected        = tagsTable.getBooleanTopic("Tag5Seen").publish();
-
-    blueGoalTagDetected = tagsTable.getBooleanTopic("Blue GOAL DETECTED").publish();
-    tag18Detected       = tagsTable.getBooleanTopic("Tag18Seen").publish();
-    tag26Detected       = tagsTable.getBooleanTopic("Tag26Seen").publish();
-    tag21Detected       = tagsTable.getBooleanTopic("Tag21Seen").publish();
-
-    angleToTag10        = tagsTable.getDoubleTopic("Tag10Angle").publish();
-    distanceToTag10     = tagsTable.getDoubleTopic("Tag10Distance").publish();
-    zToTarget10         = tagsTable.getDoubleTopic("Tag10DZ").publish();
-    rotToTarget10       = tagsTable.getDoubleTopic("Tag10rot").publish();
-
-    tag10Ambiguity      = tagsTable.getDoubleTopic("Tag10ambig").publish();
-
-    turretCamera = new PhotonCamera("Arducam_OV9281_USB_Camera");
-    */
+        /* log and replay timestamp and joystick data */
 
   }
-
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
    * that you want ran during disabled, autonomous, teleoperated and test.
@@ -109,9 +80,29 @@ precisionLocalization thisRobotLocalizationHandler;
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    //thisRobotVisionHandler.periodicUpdate();
-    thisRobotIMUHandler.PeriodicUpdate();
+    try{
+      thisRobotVisionHandler.periodicUpdate();
+
+    } catch (Exception e){
+      System.out.println("Vision Update Failed");
+      //Update the net tables faults Table to show that vision crashed. 
+
+    }
+
+    try{
+      thisRobotIMUHandler.PeriodicUpdate();
+    }catch(Exception e){
+        System.out.println("IMU Update Failed");
+        //Update the net tables faults Table to show that IMU crashed.
+    }
+    
     thisRobotLocalizationHandler.currentPose();
+
+    //Update Hoot Stuff for swerve
+    m_timeAndJoystickReplay.update();
+      
+
+
   }
 
 
