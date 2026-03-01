@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.networktables.IntegerArrayPublisher;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.RawPublisher;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.DriverStation;
 import swervelib.parser.json.modules.DriveConversionFactorsJson;
@@ -35,18 +36,19 @@ import com.ctre.phoenix6.hardware.core.CoreTalonFX;
 
 
 public class precisionLocalization {
-    double xPos;
-    double yPos;
-    double Rotation;
-    private final Pigeon2 pigeon = new Pigeon2(27, "rio");
+
+    String driveCanBus = "rio";
+    private final Pigeon2 pigeon = new Pigeon2(27, driveCanBus);
 
     // can IDs and canbus Location for the swerve modules, these should be set to match the actual configuration of the robot
-    private final CoreTalonFX frontLeftModule = new CoreTalonFX(1, "rio");
-    private final CoreTalonFX frontRightModule = new CoreTalonFX(2, "rio");
-    private final CoreTalonFX backLeftModule = new CoreTalonFX(3, "rio");
-    private final CoreTalonFX backRightModule = new CoreTalonFX(4, "rio");
+    private final CoreTalonFX frontLeftModule = new CoreTalonFX(1, driveCanBus);
+    private final CoreTalonFX frontRightModule = new CoreTalonFX(2, driveCanBus);
+    private final CoreTalonFX backLeftModule = new CoreTalonFX(3, driveCanBus);
+    private final CoreTalonFX backRightModule = new CoreTalonFX(4, driveCanBus);
     private  NetworkTable SwerveDrivePos;
-    private DoublePublisher currentXpos;
+    public DoublePublisher currentXpos;
+    private DoublePublisher currentYpos;
+    private DoublePublisher currentRotation;
     private Pose2d currentPose;
     
     
@@ -62,8 +64,8 @@ public class precisionLocalization {
     private  SwerveDrivePoseEstimator poseEstimator;
 
     // physical dimensions of our vision setup, these should change to match the actual robot dimensions
-    final double WHEELBASE_METERS = 0.6858;
-    final double TRACKWIDTH_METERS = 0.6858;
+    final double WHEELBASE_METERS = 0.55245;
+    final double TRACKWIDTH_METERS = 0.55245;
 
     // positions of wheel relativ to robot center
     double halfWheelbase = WHEELBASE_METERS / 2.0;
@@ -88,7 +90,7 @@ public class precisionLocalization {
         double rotations = motorRotationSignal.getValueAsDouble(); // get the motor position in rotations
 
 
-        double distance = (rotations / 1) * (Math.PI * 0.0508); // Distance in meters measured from the rotation and diameter of the wheels
+        double distance = (rotations / 6.75) * (Math.PI * 0.1016); // Distance in meters measured from the rotation and diameter of the wheels
 
         Rotation2d angle = Rotation2d.fromDegrees(rotations);
         return new SwerveModulePosition(distance, angle); // return the position of the module as a SwerveModulePosition object
@@ -97,6 +99,8 @@ public class precisionLocalization {
     public precisionLocalization(){
         SwerveDrivePos = NetworkTableInstance.getDefault().getTable("Swerve Drive Position");
         currentXpos = SwerveDrivePos.getDoubleTopic("CurrentXPosition").publish();
+        currentYpos = SwerveDrivePos.getDoubleTopic("CurrentYPosition").publish();
+        currentRotation = SwerveDrivePos.getDoubleTopic("CurrentRotation").publish();
 
         poseEstimator = new SwerveDrivePoseEstimator(kinematics, pigeon.getRotation2d(), 
         new SwerveModulePosition[] {
@@ -105,14 +109,18 @@ public class precisionLocalization {
         new Pose2d()); // initial pose, if not passed values, sets to 0,0,0
     }
 
-    public double periodic(){
+    public void currentPose(){
+        double x = 1.0;
+       /* 
         poseEstimator.update(pigeon.getRotation2d(), 
         new SwerveModulePosition[] {
             getPosition(thisRobotModules), 
         });
         currentPose = poseEstimator.getEstimatedPosition(); // gets the current estimated position of the robot
-        currentXpos.set(currentPose.getX()); // sets the current X position in NetworkTables
-        return currentPose.getX(); // returns the current estimated yaw of the robot in degrees, this can be changed to return x, y, or the full pose if desired
+        */
+         //currentXpos.set(currentPose.getX());
+         currentXpos.set(x);
+         //currentYpos.set(currentPose.getY());
+         //currentRotation.set(currentPose.getRotation().getDegrees());
     }
-
 }

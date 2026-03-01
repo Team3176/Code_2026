@@ -109,9 +109,9 @@ precisionLocalization thisRobotLocalizationHandler;
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    thisRobotVisionHandler.periodicUpdate();
+    //thisRobotVisionHandler.periodicUpdate();
     thisRobotIMUHandler.PeriodicUpdate();
-
+    thisRobotLocalizationHandler.currentPose();
   }
 
 
