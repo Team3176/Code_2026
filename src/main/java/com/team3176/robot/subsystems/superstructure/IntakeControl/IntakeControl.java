@@ -155,10 +155,7 @@ public class IntakeControl extends SubsystemBase {
     
     SmartDashboard.putNumber("Intake Roller Speed", inputs.IntakeVelocityRadPerSec);
 
-    if(inputs.IntakePositionRot < SuperStructureConstants.Intake_Extend_POS)
-    {
-      io.setIntakePositionVolts(0);
-    }
+
 
   }
 }

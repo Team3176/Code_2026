@@ -64,7 +64,7 @@ public class SuperStructureConstants {
   public static final double Kicker_kg = 0.2;
   public static final double Kicker_ZERO_POS = 0.39;  
   public static final double Kicker_ENCODER_OFFSET = 0;
-  public static final double Kicker_Speed_On = 20;
+  public static final double Kicker_Speed_On = 60;
   public static final double Kicker_Speed_Off = 0;
 
 
@@ -105,9 +105,9 @@ public class SuperStructureConstants {
 
 
   // Intake Control Constants 
-  public static final double IntakeRollerMaxDutyCycle = 0.2; // This is 20% max duty cycle 
+  public static final double IntakeRollerMaxDutyCycle = 1; // This is 20% max duty cycle 
   public static final double Intake_ZERO_POS = 0.39;
-  public static final double Intake_Extend_POS = -5.6;
+  public static final double Intake_Extend_POS = -5.76;
   public static final double IntakePosition_ENCODER_OFFSET = 0;
   public static final double Intake_Position_MULTIPLIER = 5.6; // 12:1 gear box at just under 1/3 of an out put rotation
   public static final double Intake_pos_offset = 0;
@@ -131,7 +131,7 @@ public class SuperStructureConstants {
 
   public static final double ShooterDualSpeed_MAX_OUTPUT_VOLTS = 12 ; //Sets Max forward Speed
   public static final double ShooterDualSpeed_MAXNeg_OUTPUT_VOLTS = -12; //Sets Max Reverse Speed
-  public static final double ShooterDualSpeed_Max_RPS = 100; // speed is multiplied by two due to joystick so currently this equals 50 * 2 = 100
+  public static final double ShooterDualSpeed_Max_RPS = 35; // speed is multiplied by two due to joystick so currently this equals 50 * 2 = 100
   public static final double runDualShooterSpeedIDLE_SPEED = 6;
   
 ///
@@ -214,7 +214,7 @@ public class SuperStructureConstants {
   public static final double Spindexer_kg = 0.2;
   public static final double Spindexer_ZERO_POS = 0.39;
   public static final double Spindexer_ENCODER_OFFSET = 0;
-  public static final double Spindexer_Speed_On = 20;
+  public static final double Spindexer_Speed_On = 30;
   public static final double Spindexer_Speed_Off = 0;
 
 
