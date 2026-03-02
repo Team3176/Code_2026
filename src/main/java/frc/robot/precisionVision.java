@@ -38,6 +38,8 @@ public class precisionVision {
     private PhotonCamera turretCamera;
     private PhotonCamera leftRearCamera;
     private PhotonCamera rightRearCamera;
+    private PhotonCamera leftFrontCamera;
+    private PhotonCamera rightFrontCamera;
 
     private NetworkTable visionTurretData;
     private BooleanPublisher isOurGoalDetectedDisplay;
@@ -79,11 +81,17 @@ public class precisionVision {
             .loadField(AprilTagFields.k2026RebuiltAndymark);
     //public static final Transform3d kSledToLeftRearCam = new Transform3d(new Translation3d(-0.33, 0.33, 0.177),
     //        new Rotation3d(0.36222, .36222, 2.355)); // 20.754 deg = 0.36222 radians
-        public static final Transform3d kSledToLeftRearCam = new Transform3d(new Translation3d(-0.33, 0.33, 0.177),
-            new Rotation3d(0, 0.262, 2.355)); // 20.754 deg = 0.36222 radians
+        public static final Transform3d kSledToLeftRearCam = new Transform3d(new Translation3d(-0.0508, 0.254, 0.52),
+            new Rotation3d(0., -0.552, 2.82634)); // 20.754 deg = 0.36222 radians
 
-    public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.33, -0.33, 0.177),
-            new Rotation3d(-0.36222, .36222, 2.355)); // 20.754 deg = 0.36222 radians
+    public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.0508, -0.254, 0.52),
+            new Rotation3d(0., -0.552, 3.457)); 
+    
+    public static final Transform3d kSledToFrontLeftCam = new Transform3d(new Translation3d(0.0508, 0.254, 0.52),
+         new Rotation3d(0., 0.552, 0.3152));
+    
+    public static final Transform3d kSledToFrontRightCam = new Transform3d(new Translation3d(0.0508, -0.254, 0.52),
+        new Rotation3d (0, 0.552, 5.968));
 
 
     public static final Transform3d kSledToTurret = new Transform3d(new Translation3d(0, 0, 0.203),
@@ -94,6 +102,8 @@ public class precisionVision {
     private PhotonPoseEstimator turretPoseEstimator;
     private PhotonPoseEstimator leftRearPoseEstimator;
     private PhotonPoseEstimator rightRearPoseEstimator;
+    private PhotonPoseEstimator leftFrontPoseEstimator;
+    private PhotonPoseEstimator rightFrontPoseEstimator;
 
     // parameters for tracking status of april tag detection
     boolean[] isTagDetected;
@@ -145,11 +155,16 @@ public class precisionVision {
         turretCamera = new PhotonCamera("TurretCamera");
         leftRearCamera = new PhotonCamera("LeftRearCamera");
         rightRearCamera = new PhotonCamera("RightRearCamera");
+        leftFrontCamera = new PhotonCamera("LeftFrontCamera");
+        rightFrontCamera = new PhotonCamera("RightFrontCamera");       
 
         // Construct things for localization
-        turretPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToLeftRearCam);
+        turretPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToTurret);
         leftRearPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToLeftRearCam);
         rightRearPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToRightRearCam);
+        leftFrontPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToFrontLeftCam);
+        rightFrontPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToFrontRightCam);
+        
         //private Matrix<N3, N1> curStdDevs;
 
     }
@@ -237,10 +252,10 @@ public class precisionVision {
         // ************** THIS SECTION DEALS WITH LOCALIZATION ESTIMATES */
         
         Optional<EstimatedRobotPose> visionEst = Optional.empty();
-        for (var result : leftRearCamera.getAllUnreadResults()) {
-            visionEst = leftRearPoseEstimator.estimateCoprocMultiTagPose(result);
+        for (var result : rightFrontCamera.getAllUnreadResults()) {
+            visionEst = rightFrontPoseEstimator.estimateCoprocMultiTagPose(result);
             if (visionEst.isEmpty()) {
-                visionEst = leftRearPoseEstimator.estimateLowestAmbiguityPose(result); //default to 2d localization if we can't get multi-tag results
+                visionEst = rightFrontPoseEstimator.estimateLowestAmbiguityPose(result); //default to 2d localization if we can't get multi-tag results
 
             }
             //updateEstimationStdDevs(visionEst, result.getTargets());
