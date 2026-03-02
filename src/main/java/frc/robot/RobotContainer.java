@@ -4,6 +4,16 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.*;
+import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.ctre.phoenix6.swerve.SwerveRequest;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.FollowPathCommand;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.FollowPathCommand;
+
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
@@ -18,6 +28,8 @@ import static edu.wpi.first.units.Units.*;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.DoubleArraySubscriber;
 import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.wpilibj.XboxController;
@@ -27,9 +39,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-
-import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
-import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -68,12 +77,23 @@ public class RobotContainer {
 
   // ********* End of swerve drivetrain declarations ********* /
 
+  /* Path Follower */
+  private final SendableChooser<Command> autoChooser;
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+
+    autoChooser = AutoBuilder.buildAutoChooser("Tests");
+    SmartDashboard.putData("Auto Mode", autoChooser);
+
     // Configure the trigger bindings
     configureBindings();
+
+    // Warmup PathPlanner to avoid Java pauses
+    FollowPathCommand.warmupCommand().schedule();
+
   }
 
   /**
@@ -120,12 +140,12 @@ public class RobotContainer {
     // transStick.back().and(transStick.button(6)).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
     // transStick.start().and(transStick.button(7)).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
     // transStick.start().and(transStick.button(8)).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
-    
+
     // Reset the field-centric heading on left bumper press.
-    //    transStick.button(3).onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric)); //TODO Change this function to yaw rezero
+    // transStick.button(3).onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+    // //TODO Change this function to yaw rezero
 
     drivetrain.registerTelemetry(logger::telemeterize);
-
 
   }
 
@@ -136,6 +156,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return autoChooser.getSelected();
   }
 }

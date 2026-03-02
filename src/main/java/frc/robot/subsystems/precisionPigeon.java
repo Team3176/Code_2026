@@ -1,5 +1,6 @@
-package frc.robot;
+package frc.robot.subsystems;
 
+import edu.wpi.first.hal.AllianceStationID;
 import edu.wpi.first.networktables.BooleanArrayPublisher;
 import edu.wpi.first.networktables.BooleanPublisher;
 import edu.wpi.first.networktables.BooleanEntry;
@@ -16,6 +17,10 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.PubSubOptions;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+
+import java.util.Optional;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 
@@ -40,6 +45,7 @@ public class precisionPigeon {
     private DoublePublisher setyaw;
     private BooleanSubscriber updatePosition;
     private BooleanPublisher ispositionupdating;
+    private Optional<DriverStation.Alliance> currentAlliance = DriverStation.getAlliance();
     
 
 
@@ -133,7 +139,28 @@ public class precisionPigeon {
             
 
         }
+    }
+    
+    
 
+    public void setIMUYawToDriverZero(){
+        //This method will set the IMU to the driver's zero. This with the front (intake) pointing away from driver glass. 
+        if(currentAlliance.isPresent()){
+            if(currentAlliance.get() == Alliance.Red){
+                //If the current alliance is Red, then you are in the "normal" orientation.
+                aPigeonIMU.setYaw(180);
+
+            }else{
+                //if your current alliance is blue you are in the "inverted" orientation.
+                aPigeonIMU.setYaw(0);
+
+            }
+
+        }else{
+            //Default to Blue alliance and set to zero yaw
+            aPigeonIMU.setYaw(0);
+        }
+               
     }
 
 }
