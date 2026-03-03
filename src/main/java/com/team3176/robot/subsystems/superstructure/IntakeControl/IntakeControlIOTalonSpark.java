@@ -93,8 +93,8 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
     //Intake Postition
     encoderOffset = Rotation2d.fromDegrees(SuperStructureConstants.IntakePosition_ENCODER_OFFSET);
 
-    IntakePositionConfigs.Slot0.kP = 1; // An error of 1 rotation results in 2.4 V output
-    IntakePositionConfigs.Slot0.kI = 0.1; // No output for integrated error
+    IntakePositionConfigs.Slot0.kP = .1; // An error of 1 rotation results in 2.4 V output
+    IntakePositionConfigs.Slot0.kI = 0; // No output for integrated error
     IntakePositionConfigs.Slot0.kD = 0; // A velocity of 1 rps results in 0.1 V output
 
     // set max output voltage limits speed - 14V is max output available 
@@ -212,8 +212,10 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
   setIntakePositionVoltagePos(double position) {
     IntakePositionController.setControl(voltIntakePosition.withPosition(position * SuperStructureConstants.Intake_Position_MULTIPLIER + SuperStructureConstants.Intake_pos_offset));
   }
-
-
+  @Override
+  public  void setIntakePositionVolts(double volts) {
+    IntakePositionController.setVoltage(volts);
+  }
 
 
   //Offset would be used when we need 

@@ -88,7 +88,7 @@ public class Hood extends SubsystemBase {
   public Command runHood(DoubleSupplier position) {
     return this.run(
       () -> { 
-        setHoodVoltagePos(position.getAsDouble());
+        setHoodVoltagePos(Math.abs(position.getAsDouble() * SuperStructureConstants.Hood_Position_MULTIPLIER));// using throttle input only go positive
       });
   }
 

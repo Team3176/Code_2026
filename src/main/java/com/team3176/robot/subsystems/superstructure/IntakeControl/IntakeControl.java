@@ -154,5 +154,8 @@ public class IntakeControl extends SubsystemBase {
     SmartDashboard.putNumber("Intake Pivot Position", inputs.IntakePositionRot);
     
     SmartDashboard.putNumber("Intake Roller Speed", inputs.IntakeVelocityRadPerSec);
+
+
+
   }
 }

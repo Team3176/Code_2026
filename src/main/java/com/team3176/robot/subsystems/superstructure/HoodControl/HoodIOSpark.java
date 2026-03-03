@@ -72,7 +72,7 @@ public class HoodIOSpark implements HoodIO {
 
     //Position Control Gains
     hoodSparkConfigs.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
-    hoodSparkConfigs.closedLoop.p(.1); 
+    hoodSparkConfigs.closedLoop.p(1); 
     hoodSparkConfigs.closedLoop.i(0); 
     hoodSparkConfigs.closedLoop.d(0); 
 
