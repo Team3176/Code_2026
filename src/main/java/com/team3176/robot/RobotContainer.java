@@ -46,6 +46,7 @@ import com.team3176.robot.subsystems.drivetrain.Drive;
 import com.team3176.robot.subsystems.drivetrain.GyroIOPigeon2;
 import com.team3176.robot.subsystems.drivetrain.ModuleIOTalonFX;
 import com.team3176.robot.subsystems.superstructure.Superstructure;
+import com.team3176.robot.subsystems.superstructure.ShooterControl.ShooterControl;
 import com.team3176.robot.subsystems.superstructure.Spindexer.Spindexer;
 import com.team3176.robot.subsystems.vision.Vision;
 import com.team3176.robot.subsystems.vision.VisionIO;
@@ -389,7 +390,7 @@ public class RobotContainer {
         .andThen(superstructure.SpindexerOn().withTimeout(1))); */
 
 controller.transStick.button(4).onTrue((superstructure.ShooterOn().andThen(Commands.waitSeconds(1)).andThen(superstructure.KickerOn().andThen(Commands.waitSeconds(1))).andThen(superstructure.SpindexerOn())));
-controller.rotStick.button(4).onTrue((superstructure.ShooterOff().andThen(Commands.waitSeconds(.1)).andThen(superstructure.KickerOff().andThen(Commands.waitSeconds(.1))).andThen(superstructure.SpindexerOff())));
+controller.rotStick.button(4).onTrue((superstructure.shooterMotorSpeedIDLE().andThen(Commands.waitSeconds(.1)).andThen(superstructure.KickerOff().andThen(Commands.waitSeconds(.1))).andThen(superstructure.SpindexerOff())));
 
 
 controller.transStick.button(1).whileTrue(superstructure.IntakeExtend());
