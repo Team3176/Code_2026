@@ -189,7 +189,7 @@ public class SuperStructureConstants {
 
   public static final double Climb_ZERO_POS = 0.39;
   public static final double Climb_ENCODER_OFFSET = 0;
-  public static final double Climb_Position_MULTIPLIER = 5; //TODO - assumes 5 rotations is climb but need to sort travel distaqnce and sprocket size. 
+  public static final double Climb_Position_MULTIPLIER = 5;
   public static final double ClimbLeft_pos_offset = 0; //changed from 1 to 0
   public static final double ClimbRight_pos_offset = 0; //changed from 1 to 0
   public static final double Climb_MAX_OUTPUT_VOLTS = 6 ; //Sets Max forward Speed

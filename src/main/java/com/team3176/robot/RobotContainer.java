@@ -411,8 +411,8 @@ controller.rotStick.button(8).whileTrue((superstructure.IntakeRollerMotor(() -> 
 
 //controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
-controller.operator.rightTrigger().whileTrue((superstructure.RetractClimb()));
-controller.operator.leftTrigger().whileTrue((superstructure.ExtendClimb()));
+controller.operator.rightTrigger().whileTrue((superstructure.HoodUp()));
+controller.operator.leftTrigger().whileTrue((superstructure.HoodDown()));
 
 
 //controller.rotStick.button(10).whileTrue((superstructure.RetractClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
@@ -423,12 +423,7 @@ controller.transStick.button(12).onTrue(superstructure.toggleShooterStatus());
 
 
 
-controller
-    .operator
-    .leftBumper()
-    .whileTrue(
-        superstructure.
-            ClimbPositionMotor(() -> -controller.operator.getRightY()));
+controller.operator.leftBumper().whileTrue(superstructure.ClimbPositionMotor(() -> -controller.operator.getRightY()));
 
 controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -controller.rotStick.getRawAxis(3))));
 
@@ -462,17 +457,18 @@ controller.operator.y().onTrue(superstructure.SpindexerOn()).onFalse(superstruct
 //    controller.operator.pov(0)
 //        .whileTrue(superstructure.goToA2())
 //        .onFalse(superstructure.algaeSqueeze());
-controller.operator.pov(0).whileTrue(superstructure.HoodUp());
-controller.operator.pov(180).whileTrue(superstructure.HoodDown());
+controller.operator.pov(0).whileTrue(superstructure.TurretCenter());
+//controller.operator.pov(180).whileTrue(superstructure.()); used for bottom 
 
 
 
 controller.operator.pov(90).whileTrue(superstructure.TurretIncrementLeft());
 controller.operator.pov(270).whileTrue(superstructure.TurretIncrementRight());
 
+//RetractClimb should be used for the down position of the left joystick
+//ExtendClimb should 
 
-
-controller.operator.back().whileTrue(superstructure.TurretCenter());
+//controller.operator.back().whileTrue(superstructure.());
 controller.operator.a().whileTrue(superstructure.TurretRight());
 controller.operator.b().whileTrue(superstructure.TurretLeft());
 
