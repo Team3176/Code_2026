@@ -25,8 +25,8 @@ import com.team3176.robot.util.TunablePID;
 
 public class ClimbControl extends SubsystemBase {
  private static ClimbControl instance;
-  private final ClimbControlIO io;
-  private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAutoLogged();
+private final ClimbControlIO io;
+private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAutoLogged();
 
   private final TunablePID positionMotorPID;
   private Timer deployTime = new Timer();
