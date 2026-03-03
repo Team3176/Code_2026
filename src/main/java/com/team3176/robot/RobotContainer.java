@@ -411,6 +411,9 @@ controller.rotStick.button(7).whileTrue((superstructure.IntakePositionMotor(() -
 controller.rotStick.button(8).whileTrue((superstructure.IntakeRollerMotor(() -> -controller.rotStick.getRawAxis(3))));
 
 //controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
+controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
+controller.operator.rightTrigger().whileTrue((superstructure.HoodUp()));
+controller.operator.leftTrigger().whileTrue((superstructure.HoodDown()));
 
 //controller.rotStick.button(10).whileTrue((superstructure.RetractClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 //controller.rotStick.button(4).whileTrue(superstructure.shooterMotorSpeed());
@@ -420,6 +423,7 @@ controller.transStick.button(12).onTrue(superstructure.toggleShooterStatus());
 
 
 
+controller.operator.leftBumper().whileTrue(superstructure.ClimbPositionMotor(() -> -controller.operator.getRightY()));
 
 controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -controller.rotStick.getRawAxis(3))));
 
@@ -475,7 +479,20 @@ controller.operator.pov(90).whileTrue(superstructure.TurretIncrementRight());
 //    controller.operator.pov(0)
 //        .whileTrue(superstructure.goToA2())
 //        .onFalse(superstructure.algaeSqueeze());
+controller.operator.pov(0).whileTrue(superstructure.TurretCenter());
+//controller.operator.pov(180).whileTrue(superstructure.()); used for bottom 
 
+
+
+controller.operator.pov(90).whileTrue(superstructure.TurretIncrementLeft());
+controller.operator.pov(270).whileTrue(superstructure.TurretIncrementRight());
+
+//RetractClimb should be used for the down position of the left joystick
+//ExtendClimb should 
+
+//controller.operator.back().whileTrue(superstructure.());
+controller.operator.a().whileTrue(superstructure.TurretRight());
+controller.operator.b().whileTrue(superstructure.TurretLeft());
 
 //    controller.operator.rightStick().and(controller.operator.leftStick()).whileTrue(superstructure.elevatorSetHome()); // Hold both sticks to go to L0
 
