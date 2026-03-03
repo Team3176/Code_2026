@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
 
 
   precisionVision thisRobotVisionHandler;
-  precisionPigeon thisRobotIMUHandler;
+//  precisionPigeon thisRobotIMUHandler;
   precisionLocalization thisRobotLocalizationHandler;
 
 
@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
 
     thisRobotVisionHandler = new precisionVision();
     thisRobotVisionHandler.setWeAreBlueAliance(false);
-    thisRobotIMUHandler = new precisionPigeon();
+   // thisRobotIMUHandler = new precisionPigeon();
     thisRobotLocalizationHandler = new precisionLocalization();
 
         /* log and replay timestamp and joystick data */
@@ -91,12 +91,12 @@ public class Robot extends TimedRobot {
     }
 
     try{
-      thisRobotIMUHandler.PeriodicUpdate();
+      m_robotContainer.thisRobotIMUHandler.PeriodicUpdate();
     }catch(Exception e){
         System.out.println("IMU Update Failed");
         //Update the net tables faults Table to show that IMU crashed.
     }
-    
+  
     thisRobotLocalizationHandler.currentPose();
 
     //Update Hoot Stuff for swerve

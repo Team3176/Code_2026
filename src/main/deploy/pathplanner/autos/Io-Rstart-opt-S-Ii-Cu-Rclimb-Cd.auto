@@ -1,0 +1,55 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Io"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rstart-Opt"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "S"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Ii"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Cu"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Opt-Rclimb"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Cd"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

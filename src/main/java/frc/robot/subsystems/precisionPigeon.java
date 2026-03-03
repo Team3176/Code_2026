@@ -28,8 +28,8 @@ import dev.doglog.internal.tunable.entry.ToggleableBooleanSubscriber;;
 
 public class precisionPigeon {
 
-    private static int pigeonCanID = 27; //This is the can ID of the IMU set in phoenix tuner
-    private static String pigeonCANBusLocation = "rio"; //this is the canbus that the pigeon is installed on (note this method to be deprecated in 2027)
+    private static int pigeonCanID = 5; //This is the can ID of the IMU set in phoenix tuner
+    private static String pigeonCANBusLocation = "canivore"; //this is the canbus that the pigeon is installed on (note this method to be deprecated in 2027)
     private Pigeon2 aPigeonIMU;
     private NetworkTable IMUDataNT;
     private DoubleArrayPublisher accelerationsDisp;
@@ -50,7 +50,7 @@ public class precisionPigeon {
 
 
     public precisionPigeon(){
-        aPigeonIMU = new Pigeon2(pigeonCanID,pigeonCANBusLocation);
+        aPigeonIMU = new Pigeon2(5,"canivore");
 
         IMUDataNT = NetworkTableInstance.getDefault().getTable("IMU Data");
         accelerationsDisp           = IMUDataNT.getDoubleArrayTopic("Accels").publish();
@@ -66,21 +66,7 @@ public class precisionPigeon {
         updatePosition              = IMUDataNT.getBooleanTopic("UpdatePosition").subscribe(false);
 
         
-  /*/
-        Shuffleboard.getTab("Homexpos")
-         .add("HomeXpos", 0)
-         .withWidget(BuiltInWidgets.kTextView) // specify the widget here
-         .getEntry();
-        Shuffleboard.getTab("Homeypos")
-         .add("HomeYpos", 0)
-         .withWidget(BuiltInWidgets.kTextView) // specify the widget here
-         .getEntry();
-         Shuffleboard.getTab("ManualYaw")
-         .add("ManualYaw", 0)
-         .withWidget(BuiltInWidgets.kTextView) // specify the widget here
-         .getEntry();
-        
-*/
+
     }
 
     public double PeriodicUpdate(){
@@ -148,19 +134,19 @@ public class precisionPigeon {
         if(currentAlliance.isPresent()){
             if(currentAlliance.get() == Alliance.Red){
                 //If the current alliance is Red, then you are in the "normal" orientation.
-                aPigeonIMU.setYaw(180);
+                aPigeonIMU.setYaw(0);
 
             }else{
                 //if your current alliance is blue you are in the "inverted" orientation.
-                aPigeonIMU.setYaw(0);
+                aPigeonIMU.setYaw(180);
 
             }
 
         }else{
             //Default to Blue alliance and set to zero yaw
-            aPigeonIMU.setYaw(0);
+            aPigeonIMU.setYaw(180);
         }
-               
+
     }
 
 }

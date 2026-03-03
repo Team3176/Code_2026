@@ -42,6 +42,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.precisionPigeon;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -57,8 +58,8 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   // ******** Declarations for swerve drivetrain ***** /
-  private double MaxSpeed = 1 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-  private double MaxAngularRate = RotationsPerSecond.of(1).in(RadiansPerSecond); // 3/4 of a rotation per second max
+  private double MaxSpeed = 1.0 *  TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+  private double MaxAngularRate = 1.0* RotationsPerSecond.of(1).in(RadiansPerSecond); // 3/4 of a rotation per second max
                                                                                  // angular velocity
 
   /* Setting up bindings for necessary control of the swerve drive platform */
@@ -72,6 +73,9 @@ public class RobotContainer {
 
   private final CommandJoystick rotStick = new CommandJoystick(0);
   private final CommandJoystick transStick = new CommandJoystick(1);
+ 
+
+  public precisionPigeon thisRobotIMUHandler;
 
   public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
@@ -85,6 +89,9 @@ public class RobotContainer {
    */
   public RobotContainer() {
 
+    thisRobotIMUHandler = new precisionPigeon();
+     Commands.runOnce(()->thisRobotIMUHandler.setIMUYawToDriverZero());
+    
     autoChooser = AutoBuilder.buildAutoChooser("Tests");
     SmartDashboard.putData("Auto Mode", autoChooser);
 
@@ -135,6 +142,9 @@ public class RobotContainer {
         .applyRequest(() -> point.withModuleDirection(new Rotation2d(-transStick.getX(), -transStick.getY()))));
 
     // Run SysId routines when holding back/start and X/Y.
+
+    transStick.button(8).whileTrue(Commands.runOnce(()->thisRobotIMUHandler.setIMUYawToDriverZero()));
+
     // Note that each routine should be run exactly once in a single log.
     // transStick.back().and(transStick.button(5)).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
     // transStick.back().and(transStick.button(6)).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
@@ -158,4 +168,7 @@ public class RobotContainer {
     // An example command will be run in autonomous
     return autoChooser.getSelected();
   }
+
+
+
 }
