@@ -22,6 +22,7 @@ import com.team3176.robot.subsystems.superstructure.ClimbControl.ClimbControl;
 import com.team3176.robot.subsystems.superstructure.Spindexer.Spindexer;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.ctre.phoenix6.StatusSignal;
+import com.team3176.robot.commands.ShootSequence;
 import com.team3176.robot.constants.SuperStructureConstants;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.team3176.robot.util.TunablePID;
@@ -128,11 +129,18 @@ public class Superstructure {
     return (shooter.toggleShooterStatus());
   }
 
-
   public Command kickerMotorSpeed(DoubleSupplier Speed_RPS) {
     return (kicker.runkickerSpeed(() -> Speed_RPS.getAsDouble()));
   }
-  
+
+    public Command ShooterOn() {
+    return (shooter.runShooterOn());
+  }
+
+  public Command ShooterOff() {
+    return (shooter.runShooterOff());
+  }
+
   public Command KickerOn() {
     return (kicker.runkickerOn());
   }
@@ -166,3 +174,4 @@ public class Superstructure {
     return instance;
   }
 }
+

@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -35,10 +36,9 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
 import com.team3176.robot.generated.TunerConstants;
+//import com.team3176.robot.commands.AlignReef.TargetLoc; // for enum TargetLoc
 import com.team3176.robot.commands.*;
 import com.team3176.robot.commands.AlignToReef.FieldBranchSide;
-//import com.team3176.robot.commands.AlignReef.TargetLoc; // for enum TargetLoc
-
 import com.team3176.robot.subsystems.leds.LEDS;
 import com.team3176.robot.subsystems.leds.LEDSubsystem;
 
@@ -47,6 +47,8 @@ import com.team3176.robot.subsystems.drivetrain.Drive;
 import com.team3176.robot.subsystems.drivetrain.GyroIOPigeon2;
 import com.team3176.robot.subsystems.drivetrain.ModuleIOTalonFX;
 import com.team3176.robot.subsystems.superstructure.Superstructure;
+import com.team3176.robot.subsystems.superstructure.ShooterControl.ShooterControl;
+import com.team3176.robot.subsystems.superstructure.Spindexer.Spindexer;
 import com.team3176.robot.subsystems.vision.Vision;
 import com.team3176.robot.subsystems.vision.VisionIO;
 import com.team3176.robot.subsystems.vision.VisionIOPhotonVision;
@@ -90,6 +92,7 @@ public class RobotContainer {
   private AlignToReef alignmentCommandFactory = null;
   private VariableAutos variableAutoFactory = null;
   public final DynamicsCommandFactory dynamics = null;
+  
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
@@ -153,12 +156,11 @@ public class RobotContainer {
     alignmentCommandFactory = new AlignToReef(drive, fieldLayout);
     variableAutoFactory = new VariableAutos(alignmentCommandFactory, dynamics, drive);
 
-/** 
-    NamedCommands.registerCommand("L2", superstructure.goToL2()
-        .withDeadline(new WaitCommand(1.5).andThen(superstructure.shoot().withTimeout(1)))
-        .andThen(superstructure.stopRollers())
-        .andThen(superstructure.goToL0().withTimeout(1)));
-    NamedCommands.registerCommand("L3", superstructure.goToL3()
+ 
+    /* NamedCommands.registerCommand("ShootToHub", superstructure.shooterMotorSpeed(null).withTimeout(.5)   
+        .andThen(superstructure.KickerOn()).withTimeout(.25)
+        .andThen(superstructure.SpindexerOn().withTimeout(1))); */
+ /*   NamedCommands.registerCommand("L3", superstructure.goToL3()
         .withDeadline(new WaitCommand(1.5).andThen(superstructure.shoot().withTimeout(1)))
         .andThen(superstructure.stopRollers())
         .andThen(superstructure.goToL0().withTimeout(1)));
@@ -384,21 +386,34 @@ public class RobotContainer {
 
     // ***** OPERATOR CONTROLLER *****
 
-controller.transStick.button(1).whileTrue(superstructure.IntakeExtend());
-controller.transStick.button(2).whileTrue(superstructure.IntakeRetract());
+     /* NamedCommands.registerCommand("ShootToHub", superstructure.shooterMotorSpeed(null).withTimeout(.5)   
+        .andThen(superstructure.KickerOn()).withTimeout(.25)
+        .andThen(superstructure.SpindexerOn().withTimeout(1))); */
+
+controller.transStick.button(4).onTrue((superstructure.ShooterOn().andThen(Commands.waitSeconds(1)).andThen(superstructure.KickerOn().andThen(Commands.waitSeconds(1))).andThen(superstructure.SpindexerOn())));
+controller.rotStick.button(4).onTrue((superstructure.shooterMotorSpeedIDLE().andThen(Commands.waitSeconds(1)).andThen(superstructure.KickerOff().andThen(Commands.waitSeconds(1))).andThen(superstructure.SpindexerOff())));
+
+//I think extend means out while retract means in
+controller.operator.leftBumper().whileTrue(superstructure.IntakeExtend());
+controller.operator.rightBumper().whileTrue(superstructure.IntakeRetract());
+
+//controller.transStick.button(1).whileTrue(superstructure.IntakeExtend());
+//controller.transStick.button(2).whileTrue(superstructure.IntakeRetract());
+
 controller.rotStick.button(1).whileTrue((superstructure.kickerMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
 controller.rotStick.button(2).whileTrue((superstructure.HoodMotor(() -> -controller.rotStick.getRawAxis(3))));
-controller.transStick.button(3).whileTrue((superstructure.shooterMotorSpeed(() -> -controller.transStick.getRawAxis(3))).alongWith(leds.setIsShooting())).onFalse(superstructure.shooterMotorSpeedIDLE());
+
+//We need shoot motors set to 1, 2 and 3 constants based on distance but I don't know the distances. There's also a pass button which I'm not sure about
+//controller.transStick.button(3).whileTrue((superstructure.shooterMotorSpeed(() -> -controller.transStick.getRawAxis(3))).alongWith(leds.setIsShooting())).onFalse(superstructure.shooterMotorSpeedIDLE());
+
 controller.rotStick.button(5).whileTrue((superstructure.runTurretRotationFromVision(() -> controller.rotStick.getRawAxis(3), () -> controller.rotStick.button(6).getAsBoolean(), leds)));
 controller.rotStick.button(7).whileTrue((superstructure.IntakePositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 controller.rotStick.button(8).whileTrue((superstructure.IntakeRollerMotor(() -> -controller.rotStick.getRawAxis(3))));
 
 //controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
-controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
-
 
 //controller.rotStick.button(10).whileTrue((superstructure.RetractClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
-
+//controller.rotStick.button(4).whileTrue(superstructure.shooterMotorSpeed());
 
 
 controller.transStick.button(12).onTrue(superstructure.toggleShooterStatus());
@@ -407,24 +422,31 @@ controller.transStick.button(12).onTrue(superstructure.toggleShooterStatus());
 
 
 controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -controller.rotStick.getRawAxis(3))));
-controller.operator.rightTrigger().whileTrue((superstructure.RetractClimb()));
-controller.operator.leftTrigger().whileTrue((superstructure.ExtendClimb()));
 
-controller.operator.leftBumper().whileTrue(superstructure.ClimbPositionMotor(() -> -controller.operator.getRightY()));
+//Climb has to be on a joystick but I can't figure out how to do it
+//controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
+//controller.operator.rightTrigger().whileTrue((superstructure.RetractClimb()));
+//controller.operator.leftTrigger().whileTrue((superstructure.ExtendClimb()));
+
+//controller.operator.leftBumper().whileTrue(superstructure.ClimbPositionMotor(() -> -controller.operator.getRightY()));
 controller.operator.x().onTrue(superstructure.KickerOn()).onFalse(superstructure.KickerOff()); 
 controller.operator.y().onTrue(superstructure.SpindexerOn()).onFalse(superstructure.SpindexerOff()); 
 
-controller.operator.pov(0).whileTrue(superstructure.HoodUp());
-controller.operator.pov(180).whileTrue(superstructure.HoodDown());
+controller.operator.rightTrigger().whileTrue(superstructure.HoodUp());
+//For the triggers, it says to make it go down or up by increment, I know I can put a number in the paratheses so that might help?
+controller.operator.leftTrigger().whileTrue(superstructure.HoodDown());
+//controller.operator.pov(180).whileTrue(superstructure.HoodDown());
 
-controller.operator.pov(90).whileTrue(superstructure.TurretIncrementLeft());
-controller.operator.pov(270).whileTrue(superstructure.TurretIncrementRight());
+controller.operator.pov(0).whileTrue(superstructure.TurretCenter());
+controller.operator.pov(270).whileTrue(superstructure.TurretIncrementLeft());
+controller.operator.pov(90).whileTrue(superstructure.TurretIncrementRight());
+//Intake shake goes here
 
 
 
-controller.operator.back().whileTrue(superstructure.TurretCenter());
-controller.operator.a().whileTrue(superstructure.TurretRight());
-controller.operator.b().whileTrue(superstructure.TurretLeft());
+//controller.operator.back().whileTrue(superstructure.TurretCenter());
+//controller.operator.a().whileTrue(superstructure.TurretRight());
+//controller.operator.b().whileTrue(superstructure.TurretLeft());
 
 //controller.operator.leftBumper().whileTrue((ClimbControl.Climb_Extended));
 
@@ -598,4 +620,7 @@ controller.operator.b().whileTrue(superstructure.TurretLeft());
             return true;
         }
     }
+
+    
+ 
 }
