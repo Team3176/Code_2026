@@ -11,8 +11,6 @@ import com.team3176.robot.subsystems.leds.LEDSubsystem;
 
 //import com.team3176.robot.constants.FieldConstants;
 // import java.util.function.IntSupplier;
-import com.team3176.robot.subsystems.superstructure.GenericTalonControl.GenericTalon;
-import com.team3176.robot.subsystems.superstructure.GenericSparkControl.GenericSpark;
 import com.team3176.robot.subsystems.superstructure.KickerControl.Kicker;
 import com.team3176.robot.subsystems.superstructure.ShooterControl.ShooterControl;
 import com.team3176.robot.subsystems.superstructure.TurretRotation.TurretRotation;
@@ -22,7 +20,6 @@ import com.team3176.robot.subsystems.superstructure.ClimbControl.ClimbControl;
 import com.team3176.robot.subsystems.superstructure.Spindexer.Spindexer;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.ctre.phoenix6.StatusSignal;
-import com.team3176.robot.commands.ShootSequence;
 import com.team3176.robot.constants.SuperStructureConstants;
 import com.team3176.robot.util.LoggedTunableNumber;
 import com.team3176.robot.util.TunablePID;

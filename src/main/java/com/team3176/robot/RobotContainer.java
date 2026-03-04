@@ -393,10 +393,6 @@ public class RobotContainer {
 controller.transStick.button(4).onTrue((superstructure.ShooterOn().andThen(Commands.waitSeconds(1)).andThen(superstructure.KickerOn().andThen(Commands.waitSeconds(1))).andThen(superstructure.SpindexerOn())));
 controller.rotStick.button(4).onTrue((superstructure.shooterMotorSpeedIDLE().andThen(Commands.waitSeconds(1)).andThen(superstructure.KickerOff().andThen(Commands.waitSeconds(1))).andThen(superstructure.SpindexerOff())));
 
-//I think extend means out while retract means in
-controller.operator.leftBumper().whileTrue(superstructure.IntakeExtend());
-controller.operator.rightBumper().whileTrue(superstructure.IntakeRetract());
-
 //controller.transStick.button(1).whileTrue(superstructure.IntakeExtend());
 //controller.transStick.button(2).whileTrue(superstructure.IntakeRetract());
 
@@ -409,11 +405,9 @@ controller.rotStick.button(2).whileTrue((superstructure.HoodMotor(() -> -control
 controller.rotStick.button(5).whileTrue((superstructure.runTurretRotationFromVision(() -> controller.rotStick.getRawAxis(3), () -> controller.rotStick.button(6).getAsBoolean(), leds)));
 controller.rotStick.button(7).whileTrue((superstructure.IntakePositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 controller.rotStick.button(8).whileTrue((superstructure.IntakeRollerMotor(() -> -controller.rotStick.getRawAxis(3))));
+controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 
 //controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
-controller.rotStick.button(9).whileTrue((superstructure.ClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
-controller.operator.rightTrigger().whileTrue((superstructure.HoodUp()));
-controller.operator.leftTrigger().whileTrue((superstructure.HoodDown()));
 
 //controller.rotStick.button(10).whileTrue((superstructure.RetractClimbPositionMotor(() -> -controller.rotStick.getRawAxis(3))));
 //controller.rotStick.button(4).whileTrue(superstructure.shooterMotorSpeed());
@@ -423,7 +417,6 @@ controller.transStick.button(12).onTrue(superstructure.toggleShooterStatus());
 
 
 
-controller.operator.leftBumper().whileTrue(superstructure.ClimbPositionMotor(() -> -controller.operator.getRightY()));
 
 controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -controller.rotStick.getRawAxis(3))));
 
@@ -433,12 +426,25 @@ controller.rotStick.button(10).whileTrue((superstructure.SpindexerMotor(() -> -c
 //controller.operator.leftTrigger().whileTrue((superstructure.ExtendClimb()));
 
 //controller.operator.leftBumper().whileTrue(superstructure.ClimbPositionMotor(() -> -controller.operator.getRightY()));
+
+// *** OPERATOR COMMANNDS *** //
+
+controller.operator.leftBumper().whileTrue(superstructure.IntakeExtend());
+controller.operator.rightBumper().whileTrue(superstructure.IntakeRetract());
+
+//Doesn't work
+SmartDashboard.putBoolean("right trigger", controller.operator.rightTrigger().getAsBoolean());
+controller.operator.rightTrigger().whileTrue(superstructure.HoodUp());
+controller.operator.leftTrigger().whileTrue(superstructure.HoodDown());
+
 controller.operator.x().onTrue(superstructure.KickerOn()).onFalse(superstructure.KickerOff()); 
 controller.operator.y().onTrue(superstructure.SpindexerOn()).onFalse(superstructure.SpindexerOff()); 
+controller.operator.leftStick().whileTrue(superstructure.ClimbPositionMotor(() -> -controller.operator.getRightY()));
 
-controller.operator.rightTrigger().whileTrue(superstructure.HoodUp());
+
+//controller.operator.rightTrigger().whileTrue(superstructure.HoodUp());
 //For the triggers, it says to make it go down or up by increment, I know I can put a number in the paratheses so that might help?
-controller.operator.leftTrigger().whileTrue(superstructure.HoodDown());
+//controller.operator.leftTrigger().whileTrue(superstructure.HoodDown());
 //controller.operator.pov(180).whileTrue(superstructure.HoodDown());
 
 controller.operator.pov(0).whileTrue(superstructure.TurretCenter());
