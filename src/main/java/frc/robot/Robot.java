@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.precisionPigeon;
+import frc.robot.precisionVision;
 import edu.wpi.first.networktables.BooleanPublisher;
 import edu.wpi.first.networktables.BooleanArrayPublisher;
 import edu.wpi.first.networktables.DoublePublisher;
@@ -56,7 +56,10 @@ public class Robot extends TimedRobot {
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    //***** this is only here to support simultaneious development with a vision chassis. remove once that's retired. */
+  
     m_robotContainer = new RobotContainer();
+
 
     thisRobotVisionHandler = new precisionVision();
     thisRobotVisionHandler.setWeAreBlueAliance(false);
@@ -96,8 +99,14 @@ public class Robot extends TimedRobot {
         System.out.println("IMU Update Failed");
         //Update the net tables faults Table to show that IMU crashed.
     }
+
+    try{
   
     thisRobotLocalizationHandler.currentPose();
+
+    }catch(Exception e){
+
+    }
 
     //Update Hoot Stuff for swerve
     m_timeAndJoystickReplay.update();

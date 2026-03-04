@@ -63,9 +63,9 @@ public class precisionVision {
     public double turretDistanceTogoal;
 
     private NetworkTable visionLocalizationData;
-    private DoublePublisher fieldLocX;
-    private DoublePublisher fieldLocY;
-    private DoublePublisher fieldLocRot;
+    private DoubleArrayPublisher fieldLocX;
+    private DoubleArrayPublisher fieldLocY;
+    private DoubleArrayPublisher fieldLocRot;
     private Field2d field2DDisplay;
 
     private NetworkTable aprilTagList;
@@ -79,19 +79,26 @@ public class precisionVision {
 
     public static final AprilTagFieldLayout kTagLayout = AprilTagFieldLayout
             .loadField(AprilTagFields.k2026RebuiltAndymark);
-    //public static final Transform3d kSledToLeftRearCam = new Transform3d(new Translation3d(-0.33, 0.33, 0.177),
-    //        new Rotation3d(0.36222, .36222, 2.355)); // 20.754 deg = 0.36222 radians
-        public static final Transform3d kSledToLeftRearCam = new Transform3d(new Translation3d(-0.0508, 0.254, 0.52),
-            new Rotation3d(0., -0.552, 2.82634)); // 20.754 deg = 0.36222 radians
 
-    public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.0508, -0.254, 0.52),
-            new Rotation3d(0., -0.552, 3.457)); 
-    
-    public static final Transform3d kSledToFrontLeftCam = new Transform3d(new Translation3d(0.0508, 0.254, 0.52),
-         new Rotation3d(0., 0.552, 0.3152));
+            //Rotations for camera transformations need to be input as quaternions. 
+            //Use the Euler Angle to quaternion calculator:
+            //https://articulatedrobotics.xyz/tools/rotation-calculator/
+            //We prefer to do the ZYX Euler
+            //These assume a Z(Yaw) of 45, 135, 225,315
+            //These assume a Y(pitch) of -25 
+            //From that calculator we are using the Axis-Angle in radians
+
+            public static final Transform3d kSledToFrontLeftCam = new Transform3d(new Translation3d(0.0508, 0.254, 0.52),
+            new Rotation3d(0.191830, -0.463118, 0.865288));
+
+            public static final Transform3d kSledToLeftRearCam = new Transform3d(new Translation3d(-0.0508, 0.254, 0.52),
+            new Rotation3d(0.215575, -0.089294, 0.972396)); 
+
+            public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.0508, -0.254, 0.52),
+            new Rotation3d(0.215575,0.089294,0.97236));
     
     public static final Transform3d kSledToFrontRightCam = new Transform3d(new Translation3d(0.0508, -0.254, 0.52),
-        new Rotation3d (0, 0.552, 5.968));
+        new Rotation3d (-0.191830,-0.463118,-0.465288));
 
 
     public static final Transform3d kSledToTurret = new Transform3d(new Translation3d(0, 0, 0.203),
@@ -105,8 +112,18 @@ public class precisionVision {
     private PhotonPoseEstimator leftFrontPoseEstimator;
     private PhotonPoseEstimator rightFrontPoseEstimator;
 
+    class cameraContainer{
+        PhotonCamera thisCamera;
+        PhotonPoseEstimator thisPoseEstimator;
+        int arrayIndex;
+    };
+
     // parameters for tracking status of april tag detection
     boolean[] isTagDetected;
+    List<cameraContainer> chassisCameras;
+    double [] visionXest;
+    double [] VisionYest;
+    double []VisionRest;
 
     public precisionVision() {
         // This is the default constructor
@@ -130,9 +147,9 @@ public class precisionVision {
 
         //locatlization Tables
         visionLocalizationData = NetworkTableInstance.getDefault().getTable("LocalizationData");
-        fieldLocX = visionLocalizationData.getDoubleTopic("fieldLocX").publish();
-        fieldLocY = visionLocalizationData.getDoubleTopic("fieldLocY").publish();
-        fieldLocRot = visionLocalizationData.getDoubleTopic("fieldLocRot").publish();
+        fieldLocX = visionLocalizationData.getDoubleArrayTopic("fieldLocX").publish();
+        fieldLocY = visionLocalizationData.getDoubleArrayTopic("fieldLocY").publish();
+        fieldLocRot = visionLocalizationData.getDoubleArrayTopic("fieldLocRot").publish();
        // field2DDisplay = new Field2d("2026Field");
         
 
@@ -166,6 +183,34 @@ public class precisionVision {
         rightFrontPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToFrontRightCam);
         
         //private Matrix<N3, N1> curStdDevs;
+
+        //Temporary Container for chassisCameras
+        cameraContainer frLeftContainer = new cameraContainer();
+        frLeftContainer.thisCamera = leftFrontCamera;
+        frLeftContainer.thisPoseEstimator = leftFrontPoseEstimator;
+        frLeftContainer.arrayIndex = 0;
+
+
+        cameraContainer BaLeftContainer = new cameraContainer();
+        BaLeftContainer.thisCamera = leftRearCamera;
+        BaLeftContainer.thisPoseEstimator = leftRearPoseEstimator;
+        BaLeftContainer.arrayIndex = 1;
+
+        cameraContainer BaRightContainer = new cameraContainer();
+        BaRightContainer.thisCamera = rightRearCamera;
+        BaRightContainer.thisPoseEstimator = rightRearPoseEstimator;
+        BaRightContainer.arrayIndex = 2;
+
+        cameraContainer FrRightContainer = new cameraContainer();
+        FrRightContainer.thisCamera = rightFrontCamera;
+        FrRightContainer.thisPoseEstimator = rightFrontPoseEstimator;
+        FrRightContainer.arrayIndex = 3;
+
+         chassisCameras = Arrays.asList(frLeftContainer,BaLeftContainer,BaRightContainer,FrRightContainer);
+
+         visionXest = new double[3];
+         VisionYest = new double[3];
+         VisionRest = new double[3];
 
     }
 
@@ -251,26 +296,34 @@ public class precisionVision {
 
         // ************** THIS SECTION DEALS WITH LOCALIZATION ESTIMATES */
 
-        List<PhotonCamera> chassisCameras = Arrays.asList(leftFrontCamera,leftRearCamera,rightRearCamera,rightFrontCamera);
+       
 
-        for (PhotonCamera aPhotonCamera : chassisCameras) {
-            
+        for (cameraContainer aCameraContainer : chassisCameras) {
+             
+
             Optional<EstimatedRobotPose> visionEst = Optional.empty();
-            for (var result : rightFrontCamera.getAllUnreadResults()) {
-                visionEst = rightFrontPoseEstimator.estimateCoprocMultiTagPose(result);
-                if (visionEst.isEmpty()) {
-                    visionEst = rightFrontPoseEstimator.estimateLowestAmbiguityPose(result); //default to 2d localization if we can't get multi-tag results
+            
+            
 
-                }
-                //updateEstimationStdDevs(visionEst, result.getTargets());
-                if (!visionEst.isEmpty()) {
-                    fieldLocX.set(visionEst.get().estimatedPose.getX());
-                    fieldLocY.set(visionEst.get().estimatedPose.getY());
-                    fieldLocRot.set(visionEst.get().estimatedPose.getRotation().getZ()*180/3.14);
-                }
+                for (var result : aCameraContainer.thisCamera.getAllUnreadResults()) {
+                    visionEst = aCameraContainer.thisPoseEstimator.estimateCoprocMultiTagPose(result);
+                    if (visionEst.isEmpty()) {
+                        visionEst = aCameraContainer.thisPoseEstimator.estimateLowestAmbiguityPose(result); //default to 2d localization if we can't get multi-tag results
 
-        }
+                    }
+                    //updateEstimationStdDevs(visionEst, result.getTargets());
+                    if (!visionEst.isEmpty()) {
+                        visionXest[aCameraContainer.arrayIndex] = visionEst.get().estimatedPose.getX();
+                        VisionYest[aCameraContainer.arrayIndex] = visionEst.get().estimatedPose.getY();
+                        VisionRest[aCameraContainer.arrayIndex] = visionEst.get().estimatedPose.getRotation().getZ()*180/3.14;
+                    }
+
+            }
+        
     }
+        fieldLocX.set(visionXest);
+        fieldLocX.set(VisionYest);
+        fieldLocRot.set(VisionRest);
 
         return true;
     }
