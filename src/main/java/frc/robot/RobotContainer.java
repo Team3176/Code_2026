@@ -5,6 +5,12 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
+
+import java.util.Optional;
+
+import frc.robot.subsystems.controller.Controller;
+//import java.lang.ModuleLayer.Controller;
+
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
@@ -14,7 +20,8 @@ import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.FollowPathCommand;
 
-import frc.robot.Constants.OperatorConstants;
+//import frc.robot.Constants.OperatorConstants;
+import frc.robot.constants.MatchConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -32,17 +39,25 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.DoubleArraySubscriber;
 import edu.wpi.first.networktables.DoubleSubscriber;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.Commands;
+
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
+
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.precisionPigeon;
+import frc.robot.subsystems.leds.LEDSubsystem;
+import frc.robot.subsystems.superstructure.Superstructure;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -71,8 +86,8 @@ public class RobotContainer {
 
   private final Telemetry logger = new Telemetry(MaxSpeed);
 
-  private final CommandJoystick rotStick = new CommandJoystick(0);
-  private final CommandJoystick transStick = new CommandJoystick(1);
+ // private final CommandJoystick rotStick = new CommandJoystick(0);
+ // private final CommandJoystick transStick = new CommandJoystick(1);
  
 
   public precisionPigeon thisRobotIMUHandler;
@@ -83,6 +98,21 @@ public class RobotContainer {
 
   /* Path Follower */
   private final SendableChooser<Command> autoChooser;
+
+/// Defintion that was NOT Auto Generated - TEAM 3176 2026
+  // Controllers
+  private final Controller controller = Controller.getInstance();
+  
+  // Superstructure
+  private final Superstructure superstructure = Superstructure.getInstance();
+
+  private Trigger visionOverride; 
+  private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < MatchConstants.ENDGAMEALERT_Time);
+  private Trigger ShootingTime = new Trigger(()-> isHubActive());
+  
+  // Implement LEDs
+  private LEDSubsystem leds = LEDSubsystem.getInstance();
+
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -100,6 +130,13 @@ public class RobotContainer {
 
     // Warmup PathPlanner to avoid Java pauses
     FollowPathCommand.warmupCommand().schedule();
+
+    /// Team 3176 2026
+  //Leds default commands
+    leds.setDefaultCommand(leds.DefaultLED());
+    endMatchAlert.onTrue(leds.EndgameStart());
+    ShootingTime.onTrue(leds.GoalShiftActive());
+    SmartDashboard.putBoolean("Is Hub Active", isHubActive());
 
   }
 
@@ -125,10 +162,10 @@ public class RobotContainer {
     // Swerve Drive Command Bindings
     drivetrain.setDefaultCommand(
         // Drivetrain will execute this command periodically
-        drivetrain.applyRequest(() -> drive.withVelocityX(transStick.getY() * MaxSpeed) // Drive forward with negative Y
+        drivetrain.applyRequest(() -> drive.withVelocityX(controller.transStick.getY() * MaxSpeed) // Drive forward with negative Y
                                                                                         // (forward)
-            .withVelocityY(transStick.getX() * MaxSpeed) // Drive left with negative X (left)
-            .withRotationalRate(-rotStick.getX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+            .withVelocityY(controller.transStick.getX() * MaxSpeed) // Drive left with negative X (left)
+            .withRotationalRate(-controller.rotStick.getX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
         ));
 
     // Idle while the robot is disabled. This ensures the configured
@@ -137,16 +174,16 @@ public class RobotContainer {
     RobotModeTriggers.disabled().whileTrue(
         drivetrain.applyRequest(() -> idle).ignoringDisable(true));
 
-    transStick.button(0).whileTrue(drivetrain.applyRequest(() -> brake));
-    transStick.button(1).whileTrue(drivetrain
-        .applyRequest(() -> point.withModuleDirection(new Rotation2d(-transStick.getX(), -transStick.getY()))));
+    controller.transStick.button(0).whileTrue(drivetrain.applyRequest(() -> brake));
+    controller.transStick.button(1).whileTrue(drivetrain
+        .applyRequest(() -> point.withModuleDirection(new Rotation2d(-controller.transStick.getX(), -controller.transStick.getY()))));
 
     // Run SysId routines when holding back/start and X/Y.
 
     //transStick.button(8).whileTrue(Commands.runOnce(()->thisRobotIMUHandler.setIMUYawToDriverZero()));t
     
 
-    transStick.button(8).whileTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+    controller.transStick.button(8).whileTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
     //    transStick.button(8).whileTrue(drivetrain.runonce(()->drivetrain.seedFieldCentric(Rotation2d.kPi)));
 
     // Note that each routine should be run exactly once in a single log.
@@ -161,6 +198,69 @@ public class RobotContainer {
 
     drivetrain.registerTelemetry(logger::telemeterize);
 
+    /// Team 3176 2026
+    ///// SETUP OVERRIDE BOX ////////
+    visionOverride = controller.switchBox.button(4);
+
+    ///Test Commands 
+    //TODO Remove these following testing
+    controller.rotStick.button(2).whileTrue((superstructure.HoodMotor(() -> -controller.rotStick.getRawAxis(3))));
+    controller.rotStick.button(1).whileTrue((superstructure.shooterMotorSpeed(() -> -controller.transStick.getRawAxis(3))));
+    controller.rotStick.button(3).whileTrue(superstructure.KickerOn().andThen(superstructure.SpindexerOn())).onFalse(superstructure.SpindexerOff().andThen(superstructure.KickerOff()));
+
+
+    /// Operator Commands
+    controller.operator.y().onTrue(superstructure.ShotOneHood());
+    controller.operator.x().onTrue(superstructure.ShotTwoHood());
+    controller.operator.b().onTrue(superstructure.ShotThreeHood());
+    controller.operator.a().onTrue(superstructure.ShotFourHood());
+
+    controller.operator.y().onTrue(superstructure.ShotOneShooter());
+    controller.operator.x().onTrue(superstructure.ShotTwoShooter());
+    controller.operator.b().onTrue(superstructure.ShotThreeShooter());
+    controller.operator.a().onTrue(superstructure.ShotFourShooter());
+
+    controller.operator.leftBumper().onTrue(superstructure.IntakeExtend());
+    controller.operator.rightBumper().onTrue(superstructure.IntakeRetract());
+
+    controller.operator.leftTrigger().whileTrue(superstructure.HoodDown());
+    controller.operator.rightTrigger().whileTrue(superstructure.HoodUp());
+
+    controller.operator.pov(0).whileTrue(superstructure.TurretCenter());
+    controller.operator.pov(270).whileTrue(superstructure.TurretLeft());
+    controller.operator.pov(90).whileTrue(superstructure.TurretRight());
+
+    controller.operator.pov(180).whileTrue((superstructure.IntakePositionMaunal(() -> -controller.operator.getRightY())));
+
+    controller.operator.back().onTrue(superstructure.SpindexerReverse()).onFalse(superstructure.SpindexerOff());
+    controller.operator.back().onTrue(superstructure.KickerReverse()).onFalse(superstructure.KickerOff());
+
+    controller.operator.start().onTrue(superstructure.ShooterReverse());
+
+
+    //Climb Part Deux
+    controller
+        .operator
+        .rightBumper()
+        .whileTrue(
+            superstructure
+                .moveClimbLeftRightPosition(
+                    () -> -controller.operator.getLeftY(), () -> -controller.operator.getRightY()))
+        .onFalse(superstructure.stopClimbLeftRight());
+
+
+    /// Driver Commands 
+    controller.transStick.button(1).onTrue((superstructure.ShooterOn().andThen(Commands.waitSeconds(.5)).andThen(superstructure.KickerOn().andThen(Commands.waitSeconds(.1))).andThen(superstructure.SpindexerOn())));
+    controller.transStick.button(1).onFalse((superstructure.SpindexerOff().andThen(Commands.waitSeconds(.2)).andThen(superstructure.KickerOff().andThen(Commands.waitSeconds(.2))).andThen(superstructure.shooterMotorSpeedIDLE())));
+
+    controller.rotStick.button(1).onTrue(superstructure.toggleShooterStatus());
+
+
+
+      /// Swtich box Commands
+      // TODO do we need anything here?
+      //controller.switchBox.button(4).onTrue(drive.setVisionOverride(true)).onFalse(drive.setVisionOverride(false));
+
   }
 
   /**
@@ -173,6 +273,69 @@ public class RobotContainer {
     return autoChooser.getSelected();
   }
 
+//TODO 2026 Game specific hub activations
+    public boolean isHubActive() {
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+         // If we have no alliance, we cannot be enabled, therefore no hub.
+         if (alliance.isEmpty()) {
+            return false;
+        }
+  // Hub is always enabled in autonomous.
+        if (DriverStation.isAutonomousEnabled()) {
+            return true;
+         }
+  // At this point, if we're not teleop enabled, there is no hub.
+        if (!DriverStation.isTeleopEnabled()) {
+            return false;
+        }
 
+  // We're teleop enabled, compute.
+         double matchTime = DriverStation.getMatchTime();
+         String gameData = DriverStation.getGameSpecificMessage();
+  // If we have no game data, we cannot compute, assume hub is active, as its likely early in teleop.
+        if (gameData.isEmpty()) {
+            return true;
+        }
+        boolean redInactiveFirst = false;
+        switch (gameData.charAt(0)) {
+            case 'R' -> redInactiveFirst = true;
+            case 'B' -> redInactiveFirst = false;
+            default -> {
+            // If we have invalid game data, assume hub is active.
+            return true;
+            }
+        }
+
+  // Shift was is active for blue if red won auto, or red if blue won auto.
+        boolean shift1Active = switch (alliance.get()) {
+            case Red -> !redInactiveFirst;
+            case Blue -> redInactiveFirst;
+        };
+
+        if (matchTime > 130) {
+    // Transition shift, hub is active.
+            return true;
+        } 
+        else if (matchTime > 105) {
+            // Shift 1
+            return shift1Active;
+        } 
+        else if (matchTime > 80) {
+            // Shift 2
+            return !shift1Active;
+        }
+        else if (matchTime > 55) {
+            // Shift 3
+            return shift1Active;
+        }
+        else if (matchTime > 30) {
+            // Shift 4
+            return !shift1Active;
+        } 
+        else {
+            // End game, hub always active.
+            return true;
+        }
+    }
 
 }

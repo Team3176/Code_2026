@@ -1,0 +1,266 @@
+package frc.robot.subsystems.superstructure.HoodControl;
+
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+//import edu.wpi.first.wpilibj.smartdashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
+
+import org.littletonrobotics.junction.Logger;
+
+import frc.robot.constants.BaseConstants.Mode;
+import frc.robot.constants.BaseConstants.RobotType;
+
+import frc.robot.constants.*;
+import frc.robot.util.LoggedTunableNumber;
+import frc.robot.util.TunablePID;
+import frc.robot.mathUtil.LinearInterpolationTable;;;
+
+
+
+public class Hood extends SubsystemBase {
+ private static Hood instance;
+  private final HoodIO io;
+  private final HoodIOInputsAutoLogged inputs = new HoodIOInputsAutoLogged();
+
+  private final TunablePID positionMotorPID;
+  private Timer deployTime = new Timer();
+  private double positionSetpoint;
+  private double position_offset = SuperStructureConstants.Hood_ENCODER_OFFSET;
+  private boolean ishomed = false;
+  private double positionHome = SuperStructureConstants.Hood_ZERO_POS;
+  private double currentPosRot = 0;
+  private double[][] hoodShootLUT = {SuperStructureConstants.botDistanceLUT, SuperStructureConstants.botShootHoodPosLUT};
+  private LinearInterpolationTable distanceToHoodPosLUT = new LinearInterpolationTable(hoodShootLUT);
+
+
+  private Hood(HoodIO io) {
+    this.io = io;
+    this.positionMotorPID = new TunablePID("HoodPIDConstants", SuperStructureConstants.Hood_kP, SuperStructureConstants.Hood_kI, SuperStructureConstants.Hood_kD);
+  
+    this.positionHome = inputs.HoodPositionRot;
+
+
+
+  }
+
+  public boolean getTopLimitswitch() {
+    return inputs.hoodToplimitswitch;
+  }
+
+  public boolean getBottomLimitswitch() {
+    return inputs.hoodBottomlimitswitch;
+  }
+
+
+  public static Hood getInstance() {
+    if (instance == null) {
+      if (BaseConstants.getMode() == Mode.REAL && BaseConstants.getRobot() != RobotType.ROBOT_DEFENSE) {
+        //instance = new Hood(new HoodIOTalon() {});
+        instance = new Hood(new HoodIOSpark() {});
+      } else {
+        instance = new Hood(new HoodIOSim() {});
+      }
+    }
+    return instance;
+  }
+
+
+
+  public Command Hood2Home() {
+    return this.runOnce(
+      () -> {
+       setHoodVoltagePos(positionHome); 
+      }); 
+    }
+
+
+  //Provide a position suggest scaling from a joy stick or similar to get the desired number of rotations
+  public Command runHood(DoubleSupplier position) {
+    return this.run(
+      () -> { 
+        setHoodVoltagePos(Math.abs(position.getAsDouble() * SuperStructureConstants.Hood_Position_MULTIPLIER));// using throttle input only go positive
+      });
+  }
+
+    public Command runHoodFromDistance(DoubleSupplier distance, BooleanSupplier isTargetLocked) {
+    return this.run(
+      () -> { 
+        hoodRotationsFromVision(distance.getAsDouble(), isTargetLocked.getAsBoolean());
+      });
+  }
+
+
+
+  public Command runHoodVoltageManual(DoubleSupplier position) {
+    return this.runEnd(
+      () -> {
+        setHoodVolts(position.getAsDouble());
+      }, 
+      () -> {
+        setHoodVolts(0.0);
+      });
+  }
+
+
+  public Command setHoodONEPos() {
+    return this.run(
+      () -> { 
+        setHoodVoltagePos(SuperStructureConstants.HoodONERot);
+      });
+   }
+
+  public Command setHoodTWOPos() {
+    return this.run(
+      () -> { 
+        setHoodVoltagePos(SuperStructureConstants.HoodTWORot);
+      });
+   }
+
+     public Command setHoodTHREEPos() {
+    return this.run(
+      () -> { 
+        setHoodVoltagePos(SuperStructureConstants.HoodTHREERot);
+      });
+   }
+
+     public Command setHoodFOURPos() {
+    return this.run(
+      () -> { 
+        setHoodVoltagePos(SuperStructureConstants.HoodFOURRot);
+      });
+   }
+   
+  private void setHoodVolts(double volts) {
+    // this assumes positive voltage deploys and negative voltage retracts.
+    // invert the motor if that is NOT true
+    io.setHoodVolts(volts);
+  }
+
+  private void setHoodVoltagePos(double position) {
+    io.setHoodVoltagePos(position);
+  }
+
+  public Command deployFromHomeCmd() {
+    return this.runOnce(
+      () -> {
+        deployFromHome();
+      }
+    );
+  }
+  //Used to reset home position based on what is read from sensor currently
+  public void setCurrentHomePos() {
+    this.positionHome = inputs.HoodPositionRot;
+    inputs.HoodHomePosROT = this.positionHome;
+  }
+  
+  public void setCurrentPos() {
+    this.currentPosRot = inputs.HoodPositionRot;
+  }
+
+  public void deployFromHome() {
+    setCurrentPos();
+    double deployPos = this.currentPosRot + SuperStructureConstants.HoodUpIncrement;
+    setHoodVoltagePos(deployPos);
+  }
+
+  
+  
+  public Command retractTowardHome() {
+    return this.runOnce(
+      () -> {
+        retractTowardHomePostion();
+      }
+    );
+  }
+
+  public void retractTowardHomePostion () {
+    setCurrentPos();
+    double retractIncrement = SuperStructureConstants.HoodDownIncrement;
+    if (inputs.hoodBottomlimitswitch){
+      retractIncrement = 0;
+    }
+    
+    double deployPos = this.currentPosRot - retractIncrement;
+    setHoodVoltagePos(deployPos);
+  }
+
+  /*public Command incrementalDeploy() {
+    return this.runOnce(
+      () -> {
+        deployIncremental();
+      }
+    );
+  }
+
+  public void deployIncremental() {
+    double currentPos = inputs.HoodPositionRot;
+    currentPos = currentPos + 0.25;
+    setHoodVoltagePos(currentPos);
+  }*/
+
+
+//Use this method when shooting at the goal
+  private void hoodRotationsFromVision(Double distance, Boolean isTargetLocked){
+    // current position in rotations
+    double currentPosition = inputs.HoodPositionRot;
+    //double hoodPositionFromHoop = (Math.pow (4.25, distance)) - .0797; // update this based on table data for hood distance
+    double hoodPositionFromHoop = distanceToHoodPosLUT.interpolate(distance); // update this based on table data for hood distance
+    double hoodPositionRequest = currentPosition;
+
+    if (isTargetLocked){
+    
+      if (inputs.hoodToplimitswitch || hoodPositionFromHoop < SuperStructureConstants.Hood_ZERO_POS){
+        hoodPositionRequest = hoodPositionFromHoop;
+      }
+      else if (inputs.hoodBottomlimitswitch || hoodPositionFromHoop >= SuperStructureConstants.Hood_MaxPosition){
+        hoodPositionRequest = hoodPositionFromHoop;
+      }
+
+      io.setHoodVisionPos(hoodPositionRequest);
+    
+    }
+
+  }
+
+
+ 
+  @Override
+  public void periodic() {
+    
+    io.updateInputs(inputs);
+
+    Logger.processInputs("Hood", inputs);
+     
+    Logger.recordOutput("Hood/setpoint", this.positionSetpoint);
+   
+    positionMotorPID.checkParemeterUpdate();
+
+    SmartDashboard.putNumber("Hood Position", inputs.HoodPositionRot);
+    SmartDashboard.putNumber("Hood Volts", inputs.HoodAppliedVolts);
+    SmartDashboard.putBoolean("Hood Top Switch", inputs.hoodToplimitswitch);
+    SmartDashboard.putBoolean("Hood Bottom Switch", inputs.hoodBottomlimitswitch);
+    
+       // Use Limit Switches not to break anything - May be double dipping on limit switches based on method call. - safe than sorry
+
+    if (inputs.hoodToplimitswitch && inputs.HoodAppliedVolts > 0) {
+      io.setHoodVolts(0);
+    }
+
+    if (inputs.hoodBottomlimitswitch && inputs.HoodAppliedVolts < 0) {
+      io.setHoodVolts(0);
+    }
+  
+    
+    SmartDashboard.putNumber("Hood Position", inputs.HoodPositionRot);
+  }
+}
