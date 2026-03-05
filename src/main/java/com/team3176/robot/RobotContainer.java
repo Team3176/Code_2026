@@ -396,8 +396,9 @@ controller.rotStick.button(1).onTrue(superstructure.toggleShooterStatus());
 //controller.transStick.button(2).whileTrue(superstructure.IntakeRetract());
 
 //controller.rotStick.button(1).whileTrue((superstructure.kickerMotorSpeed(() -> -controller.rotStick.getRawAxis(3))));
-//controller.rotStick.button(2).whileTrue((superstructure.HoodMotor(() -> -controller.rotStick.getRawAxis(3))));
-
+controller.rotStick.button(2).whileTrue((superstructure.HoodMotor(() -> -controller.rotStick.getRawAxis(3))));
+controller.rotStick.button(1).whileTrue((superstructure.shooterMotorSpeed(() -> -controller.transStick.getRawAxis(3))));
+controller.rotStick.button(3).whileTrue(superstructure.KickerOn().andThen(superstructure.SpindexerOn())).onFalse(superstructure.SpindexerOff().andThen(superstructure.KickerOff()));
 //We need shoot motors set to 1, 2 and 3 constants based on distance but I don't know the distances. There's also a pass button which I'm not sure about
 //controller.transStick.button(3).whileTrue((superstructure.shooterMotorSpeed(() -> -controller.transStick.getRawAxis(3))).alongWith(leds.setIsShooting())).onFalse(superstructure.shooterMotorSpeedIDLE());
 
