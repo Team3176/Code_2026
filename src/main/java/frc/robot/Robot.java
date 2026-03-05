@@ -7,7 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.precisionVision;
+import frc.robot.subsystems.precisionVision;
+import frc.robot.subsystems.precisionPigeon;
+//import frc.robot.subsystems.precisionLocalization;
 import edu.wpi.first.networktables.BooleanPublisher;
 import edu.wpi.first.networktables.BooleanArrayPublisher;
 import edu.wpi.first.networktables.DoublePublisher;
@@ -38,7 +40,7 @@ public class Robot extends TimedRobot {
 
   precisionVision thisRobotVisionHandler;
 //  precisionPigeon thisRobotIMUHandler;
-  precisionLocalization thisRobotLocalizationHandler;
+  //precisionLocalization thisRobotLocalizationHandler;
 
 
 //Hoot Stuff for swerve drive data logging and replay
@@ -64,7 +66,7 @@ public class Robot extends TimedRobot {
     thisRobotVisionHandler = new precisionVision();
     thisRobotVisionHandler.setWeAreBlueAliance(false);
    // thisRobotIMUHandler = new precisionPigeon();
-    thisRobotLocalizationHandler = new precisionLocalization();
+    //thisRobotLocalizationHandler = new precisionLocalization();
 
         /* log and replay timestamp and joystick data */
 
@@ -102,7 +104,7 @@ public class Robot extends TimedRobot {
 
     try{
   
-    thisRobotLocalizationHandler.currentPose();
+    //thisRobotLocalizationHandler.currentPose();
 
     }catch(Exception e){
 
@@ -126,6 +128,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)

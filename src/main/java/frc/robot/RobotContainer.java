@@ -143,7 +143,11 @@ public class RobotContainer {
 
     // Run SysId routines when holding back/start and X/Y.
 
-    transStick.button(8).whileTrue(Commands.runOnce(()->thisRobotIMUHandler.setIMUYawToDriverZero()));
+    //transStick.button(8).whileTrue(Commands.runOnce(()->thisRobotIMUHandler.setIMUYawToDriverZero()));t
+    
+
+    transStick.button(8).whileTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+    //    transStick.button(8).whileTrue(drivetrain.runonce(()->drivetrain.seedFieldCentric(Rotation2d.kPi)));
 
     // Note that each routine should be run exactly once in a single log.
     // transStick.back().and(transStick.button(5)).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
