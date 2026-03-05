@@ -46,6 +46,10 @@ public interface ClimbControlIO {
 
   public default void setClimbLeftPos(double position) {}
 
+  public default void setLeftVoltage(double voltage) {}
+
+  public default void setRightVoltage(double voltage) {}
+
   public default void setVoltage(double voltage) {}
 
 

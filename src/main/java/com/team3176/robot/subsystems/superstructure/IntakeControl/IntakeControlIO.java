@@ -44,7 +44,8 @@ public interface IntakeControlIO {
   //public default void setIntakePostionVoltagePos(double position) {}
 
 
-  public  default void setIntakePositionVoltagePos(double position) {}
+  public  default void setIntakePositionVoltagePosSlot0(double position) {}
+  public  default void setIntakePositionVoltagePosSlot1(double position) {}
 
   public default void setIntakeRollerVelocity(double percentDutyCycle) {}
 

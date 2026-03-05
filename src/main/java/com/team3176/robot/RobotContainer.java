@@ -435,8 +435,8 @@ controller.operator.a().onTrue(superstructure.ShotFourShooter());
 //controller.operator.y().onTrue(superstructure.SpindexerOn()).onFalse(superstructure.SpindexerOff()); 
 
 //I think extend means out while retract means in
-controller.operator.leftBumper().whileTrue(superstructure.IntakeExtend());
-controller.operator.rightBumper().whileTrue(superstructure.IntakeRetract());
+controller.operator.leftBumper().onTrue(superstructure.IntakeExtend());
+controller.operator.rightBumper().onTrue(superstructure.IntakeRetract());
 
 controller.operator.leftTrigger().whileTrue(superstructure.HoodDown());
 controller.operator.rightTrigger().whileTrue(superstructure.HoodUp());
@@ -445,10 +445,24 @@ controller.operator.pov(0).whileTrue(superstructure.TurretCenter());
 controller.operator.pov(270).whileTrue(superstructure.TurretLeft());
 controller.operator.pov(90).whileTrue(superstructure.TurretRight());
 
-controller.operator.pov(180).whileTrue(superstructure.ClimbPositionMotor(() -> -controller.operator.getRightY()));
-controller.operator.pov(180).whileTrue((superstructure.IntakePositionMotor(() -> -controller.operator.getLeftY())));
-//Intake shake goes here
+//controller.operator.pov(180).whileTrue(superstructure.ClimbPositionMotor(() -> -controller.operator.getRightY()));
+controller.operator.pov(180).whileTrue((superstructure.IntakePositionMaunal(() -> -controller.operator.getRightY())));
 
+controller.operator.back().onTrue(superstructure.SpindexerReverse()).onFalse(superstructure.SpindexerOff());
+controller.operator.back().onTrue(superstructure.KickerReverse()).onFalse(superstructure.KickerOff());
+
+controller.operator.start().onTrue(superstructure.ShooterReverse());
+
+
+//Climb Part Deux
+    controller
+        .operator
+        .rightBumper()
+        .whileTrue(
+            superstructure
+                .moveClimbLeftRightPosition(
+                    () -> -controller.operator.getLeftY(), () -> -controller.operator.getRightY()))
+        .onFalse(superstructure.stopClimbLeftRight());
 
 
 

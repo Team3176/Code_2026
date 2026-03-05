@@ -59,7 +59,8 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
   
   VelocityVoltage voltVelocity = new VelocityVoltage(0);
   VoltageOut IntakePositionVolts = new VoltageOut(0.0);
-  PositionVoltage voltIntakePosition = new PositionVoltage(0);
+  PositionVoltage voltIntakePositionSlot0 = new PositionVoltage(0).withSlot(0);
+  PositionVoltage voltIntakePositionSlot1 = new PositionVoltage(0).withSlot(1);
   private Rotation2d encoderOffset; 
   
   DigitalInput HoodLinebreak;
@@ -92,10 +93,15 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
 
     //Intake Postition
     encoderOffset = Rotation2d.fromDegrees(SuperStructureConstants.IntakePosition_ENCODER_OFFSET);
-
-    IntakePositionConfigs.Slot0.kP = .2; // An error of 1 rotation results in 2.4 V output
+    //Gains for Deploy 
+    IntakePositionConfigs.Slot0.kP = .05; // An error of 1 rotation results in 2.4 V output
     IntakePositionConfigs.Slot0.kI = 0.1; // No output for integrated error
     IntakePositionConfigs.Slot0.kD = 0; // A velocity of 1 rps results in 0.1 V output
+
+    //Gains for Retract
+    IntakePositionConfigs.Slot1.kP = .4; // An error of 1 rotation results in 2.4 V output
+    IntakePositionConfigs.Slot1.kI = 0.2; // No output for integrated error
+    IntakePositionConfigs.Slot1.kD = 0; // A velocity of 1 rps results in 0.1 V output
 
     // set max output voltage limits speed - 14V is max output available 
     IntakePositionConfigs.Voltage.PeakForwardVoltage = SuperStructureConstants.IntakePosition_MAX_OUTPUT_VOLTS; 
@@ -209,12 +215,19 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
   //Offset would be used when we need 
   @Override
   public void 
-  setIntakePositionVoltagePos(double position) {
-    IntakePositionController.setControl(voltIntakePosition.withPosition(position * SuperStructureConstants.Intake_Position_MULTIPLIER + SuperStructureConstants.Intake_pos_offset));
+  setIntakePositionVoltagePosSlot0(double position) {
+    IntakePositionController.setControl(voltIntakePositionSlot0.withPosition(position + SuperStructureConstants.Intake_pos_offset));
   }
+
+  @Override
+  public void 
+  setIntakePositionVoltagePosSlot1(double position) {
+    IntakePositionController.setControl(voltIntakePositionSlot1.withPosition(position + SuperStructureConstants.Intake_pos_offset));
+  }
+  
   @Override
   public  void setIntakePositionVolts(double volts) {
-    IntakePositionController.setVoltage(volts);
+    IntakePositionController.setVoltage(volts * SuperStructureConstants.Intake_Position_MULTIPLIER);
   }
 
 

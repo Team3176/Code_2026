@@ -169,6 +169,26 @@ private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAu
     setClimbVoltagePos(currentPos);
   }
 
+  public Command moveLeftRightPosition(DoubleSupplier deltaLeft, DoubleSupplier deltaRight) {
+    return this.runEnd(
+        () -> {
+          io.setRightVoltage(5 * deltaRight.getAsDouble());
+          io.setLeftVoltage(5 * deltaLeft.getAsDouble());
+        },
+        () -> {
+          io.setRightVoltage(0.0);
+          io.setLeftVoltage(0.0);
+        });
+  }
+
+  public Command stopLeftRight() {
+    return this.runOnce(
+        () -> {
+          io.setLeftVoltage(0.0);
+          io.setRightVoltage(0.0);
+        });
+  }
+
  
   @Override
   public void periodic() {

@@ -59,11 +59,19 @@ public class Superstructure {
     return (intake.runIntakePosition(() -> position.getAsDouble()));
   }
 
+    public Command IntakePositionMaunal(DoubleSupplier volts) {
+    return (intake.runIntakePositionVoltageManual(() -> volts.getAsDouble()));
+  }
+
   public Command IntakeExtend(){
     return (intake.deployFromHomeCmd());
   }
 
   public Command IntakeRetract(){
+    return (intake.retractToHome());
+  }
+
+  public Command IntakeIncrementalRetract(){
     return (intake.retractTowardHome());
   }
 
@@ -114,6 +122,14 @@ public class Superstructure {
     return (climb.Climb2Extend());
   }
 
+  public Command moveClimbLeftRightPosition(DoubleSupplier deltaLeft, DoubleSupplier deltaRight) {
+    return climb.moveLeftRightPosition(deltaLeft, deltaRight);
+  }
+
+  public Command stopClimbLeftRight() {
+    return climb.stopLeftRight();
+  }
+
   public Command shooterMotorSpeed(DoubleSupplier Speed_RPS) {
     return (shooter.runDualShooterSpeed(() -> Speed_RPS.getAsDouble()));
   }
@@ -126,13 +142,14 @@ public class Superstructure {
     return (shooter.toggleShooterStatus());
   }
 
-  public Command kickerMotorSpeed(DoubleSupplier Speed_RPS) {
-    return (kicker.runkickerSpeed(() -> Speed_RPS.getAsDouble()));
-  }
-
-    public Command ShooterOn() {
+  public Command ShooterOn() {
     return (shooter.runShooterOn());
   }
+
+  public Command ShooterReverse() {
+    return (shooter.runShooterReverse());
+  }
+
 
   public Command ShooterOff() {
     return (shooter.runShooterOff());
@@ -164,16 +181,27 @@ public class Superstructure {
     return (hood.setHoodFOURPos());
   }
 
+  public Command kickerMotorSpeed(DoubleSupplier Speed_RPS) {
+    return (kicker.runkickerSpeed(() -> Speed_RPS.getAsDouble()));
+  }
   public Command KickerOn() {
     return (kicker.runkickerOn());
   }
 
-    public Command KickerOff() {
+  public Command KickerReverse() {
+    return (kicker.runkickerReverse());
+  }
+
+  public Command KickerOff() {
     return (kicker.runkickerOff());
   }
 
-    public Command SpindexerOn() {
+  public Command SpindexerOn() {
     return (spindexer.runSpindexerOn());
+  }
+
+  public Command SpindexerReverse() {
+    return (spindexer.runSpindexerReverse());
   }
 
     public Command SpindexerOff() {

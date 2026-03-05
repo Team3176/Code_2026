@@ -70,7 +70,7 @@ public class IntakeControl extends SubsystemBase {
   public Command runIntakePosition(DoubleSupplier position) {
     return this.run(
       () -> { 
-        setIntakePositionVoltagePos(position.getAsDouble());
+        setIntakePositionVoltagePosSlot0(position.getAsDouble());
       });
   }
 
@@ -91,8 +91,19 @@ public class IntakeControl extends SubsystemBase {
     io.setIntakePositionVolts(volts);
   }
 
-  private void setIntakePositionVoltagePos(double position) {
-    io.setIntakePositionVoltagePos(position);
+  //Use for Deploy 
+  private void setIntakePositionVoltagePosSlot0(double position) {
+    io.setIntakePositionVoltagePosSlot0(position);
+  }
+  //Use for Retracting
+    private void setIntakePositionVoltagePosSlot1(double position) {
+    io.setIntakePositionVoltagePosSlot1(position);
+  }
+
+
+  //Used to reset home position based on what is read from sensor currently
+  public void setCurrentHomePos() {
+    this.homePos = inputs.IntakePositionRot;
   }
 
   public Command deployFromHomeCmd() {
@@ -102,22 +113,20 @@ public class IntakeControl extends SubsystemBase {
       }
     );
   }
-  //Used to reset home position based on what is read from sensor currently
-  public void setCurrentHomePos() {
-    this.homePos = inputs.IntakePositionRot;
-  }
 
   public void deployFromHome() {
  
     double deployPos = SuperStructureConstants.Intake_Extend_POS;
-    setIntakePositionVoltagePos(deployPos);
+    setIntakePositionVoltagePosSlot0(deployPos);
     io.setIntakeRollerVelocity(SuperStructureConstants.IntakeRollerIntakeSpeed); 
   }
   
+
+  // Incremental retracting
   public Command retractTowardHome() {
     return this.runOnce(
       () -> {
-        retractToHomePostion();
+        retractTowardHomePostion();
          
       }
     );
@@ -126,17 +135,26 @@ public class IntakeControl extends SubsystemBase {
   public void retractTowardHomePostion () {
     setCurrentHomePos();
     double deployPos = this.homePos - .10;
-    setIntakePositionVoltagePos(deployPos);
+    setIntakePositionVoltagePosSlot1(deployPos);
    
+  }
+  // Retract to Home Positiong 
+  public Command retractToHome() {
+    return this.runOnce(
+      () -> {
+        retractToHomePostion();
+         
+      }
+    );
   }
 
     public void retractToHomePostion () {
-      setIntakePositionVoltagePos(positionHome); 
+      setIntakePositionVoltagePosSlot1(positionHome); 
       io.setIntakeRollerVelocity(SuperStructureConstants.IntakeRollerIdleSpeed); 
    
   }
 
-
+/// This is the area for running / commending roller speeds
 
   public Command runIntakeRoller(DoubleSupplier dutyCycle) {
     return this.run(

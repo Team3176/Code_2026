@@ -176,10 +176,20 @@ public class ClimbControlIOTalon implements ClimbControlIO {
     ClimbRightController.setControl(voltPosition.withPosition(position + SuperStructureConstants.ClimbRight_pos_offset));
   } 
 
-    @Override
+  @Override
   public void setClimbLeftPos(double position) {
     ClimbLeftController.setControl(voltPosition.withPosition(position * SuperStructureConstants.Climb_Position_MULTIPLIER + SuperStructureConstants.ClimbLeft_pos_offset));
    } 
+
+  @Override
+  public void setRightVoltage(double voltage) {
+    ClimbRightController.setVoltage(voltage);
+  }
+
+  @Override
+  public void setLeftVoltage(double voltage) {
+    ClimbLeftController.setVoltage(voltage);
+  }
 //Used to be overridden
     //@Override
   //public void setClimbRightPos(double position) {

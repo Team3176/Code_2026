@@ -170,6 +170,13 @@ private ShooterControl(ShooterControlIO io) {
       }); 
     }
 
+    public Command runShooterReverse() {
+    return this.runOnce(
+      () -> {
+        setDualShooterSpeedControl(SuperStructureConstants.Shooter_Speed_Reverse);
+      }); 
+    }
+
   public Command runShooterOff() {
     return this.runOnce(
       () -> {

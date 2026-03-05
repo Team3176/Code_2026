@@ -89,6 +89,13 @@ public class Spindexer extends SubsystemBase {
       }); 
     }
 
+    public Command runSpindexerReverse() {
+    return this.runOnce(
+      () -> {
+        setSpindexerComand(SuperStructureConstants.Spindexer_Speed_Reverse);
+      }); 
+    }
+
   public Command runSpindexerOff() {
     return this.runOnce(
       () -> {
@@ -105,7 +112,7 @@ public class Spindexer extends SubsystemBase {
     io.setSpindexerSpeedVelocity(Math.abs(Speed_RPS));
   }
 
-    private void setSpindexerComand(double Speed_RPS) {
+  private void setSpindexerComand(double Speed_RPS) {
     io.setSpindexerSpeedVelocity(Speed_RPS);
   }
 

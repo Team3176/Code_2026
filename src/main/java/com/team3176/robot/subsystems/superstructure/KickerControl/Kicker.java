@@ -81,6 +81,13 @@ public class Kicker extends SubsystemBase {
       }); 
     }
 
+    public Command runkickerReverse() {
+    return this.runOnce(
+      () -> {
+        setKickerComand(SuperStructureConstants.Kicker_Speed_Reverse);
+      }); 
+    }
+
   public Command runkickerOff() {
     return this.runOnce(
       () -> {
@@ -95,16 +102,7 @@ public class Kicker extends SubsystemBase {
       }); 
     }
 
-  public Command incrementalDeploy() {
-    return this.runOnce(
-      () -> {
-        deployIncremental();
-      }
-    );
-  }
 
-  public void deployIncremental() {
-  }
 
   // USE THESE COMMANDS FOR SPEED CONTROL
 
