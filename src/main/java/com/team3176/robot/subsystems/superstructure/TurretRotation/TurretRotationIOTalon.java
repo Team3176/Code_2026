@@ -49,7 +49,7 @@ public class TurretRotationIOTalon implements TurretRotationIO {
 
 
 
-  private CANcoder turretRotationEncoder;
+  //private CANcoder turretRotationEncoder;
   VelocityVoltage voltVelocity = new VelocityVoltage(0);
   VoltageOut turretRotationVolts = new VoltageOut(0.0);
   PositionVoltage voltPosition = new PositionVoltage(0);
@@ -84,7 +84,7 @@ public class TurretRotationIOTalon implements TurretRotationIO {
     turretRotationController = new TalonFX(Hardwaremap.turretRotation_CID, Hardwaremap.turretRotation_CBN);
     
 
-    turretRotationEncoder = new CANcoder(Hardwaremap.turretRotationCancoder_CID, Hardwaremap.turretRotation_CBN);
+   //turretRotationEncoder = new CANcoder(Hardwaremap.turretRotationCancoder_CID, Hardwaremap.turretRotation_CBN);
  
 
  
@@ -134,10 +134,10 @@ public class TurretRotationIOTalon implements TurretRotationIO {
     //If you want to use a cancode use this definition 
     //turretRotationPosition = turretRotationEncoder.getPositionSinceBoot();
 
-    turretRotationAbsolutePosition = turretRotationEncoder.getAbsolutePosition();
+    turretRotationAbsolutePosition = turretRotationController.getPosition();
     turretRotationTemp = turretRotationController.getDeviceTemp();
 
-    turretRotation_pos_offset = turretRotationEncoder.getPosition().getValueAsDouble();
+    turretRotation_pos_offset = turretRotationController.getPosition().getValueAsDouble();
 
 
     BaseStatusSignal.setUpdateFrequencyForAll(
@@ -179,12 +179,12 @@ public class TurretRotationIOTalon implements TurretRotationIO {
     inputs.turretRotationPositionRot = turretRotationController.getPosition().getValueAsDouble();
     //Use if using cancoder
     //inputs.turretRotationPositionRot = turretRotationEncoder.getPosition().getValueAsDouble() - turretRotation_pos_offset;
-    inputs.turretRotationPositionRotREAL = turretRotationEncoder.getPosition().getValueAsDouble(); 
+    inputs.turretRotationPositionRotREAL = turretRotationController.getPosition().getValueAsDouble(); 
     inputs.turretRotationVelocityRadPerSec = Units.rotationsToRadians(turretRotationVelocity.getValueAsDouble());
     inputs.turretAnalogPOT_Value = positionPot.getVoltage();
     inputs.turretRotationAbsolutePositionDegrees =
         MathUtil.inputModulus(
-            Rotation2d.fromRotations(turretRotationEncoder.getAbsolutePosition().getValueAsDouble())
+            Rotation2d.fromRotations(turretRotationController.getPosition().getValueAsDouble())
                 .minus(encoderOffset)
                 .getDegrees(),
             -180,

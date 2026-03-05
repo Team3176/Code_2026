@@ -64,7 +64,7 @@ public class Superstructure {
   }
 
   public Command IntakeRetract(){
-    return (intake.Intake2Home());
+    return (intake.retractTowardHome());
   }
 
   public Command IntakeRollerMotor(DoubleSupplier Speed_DutyCylce) {
@@ -136,6 +136,32 @@ public class Superstructure {
 
   public Command ShooterOff() {
     return (shooter.runShooterOff());
+  }
+
+  public Command ShotOneShooter() {
+    return (shooter.setShooterONESpeed());
+  }    
+  public Command ShotTwoShooter() {
+    return (shooter.setShooterTWOSpeed());
+  }    
+  public Command ShotThreeShooter() {
+    return (shooter.setShooterTHREESpeed());
+  }    
+  public Command ShotFourShooter() {
+    return (shooter.setShooterFOURSpeed());
+  }
+
+  public Command ShotOneHood() {
+    return (hood.setHoodONEPos());
+  }    
+  public Command ShotTwoHood() {
+    return (hood.setHoodTWOPos());
+  }    
+  public Command ShotThreeHood() {
+    return (hood.setHoodTHREEPos());
+  }    
+  public Command ShotFourHood() {
+    return (hood.setHoodFOURPos());
   }
 
   public Command KickerOn() {

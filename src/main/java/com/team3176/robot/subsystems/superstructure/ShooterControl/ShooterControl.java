@@ -31,6 +31,8 @@ private double[][] shootSpeedGoalLUT = {SuperStructureConstants.botDistanceLUT, 
 private LinearInterpolationTable distanceToGoalShooterLUT = new LinearInterpolationTable(shootSpeedGoalLUT);
 private boolean shooterIsShutDown;
 
+private double currentShootRequst = SuperStructureConstants.Shooter_Speed_On;
+
 
 
 private ShooterControl(ShooterControlIO io) {
@@ -99,6 +101,38 @@ private ShooterControl(ShooterControlIO io) {
     
   }
 
+    public Command setShooterONESpeed() {
+    return this.run(
+      () -> { 
+        setShooterSpeedConstant(SuperStructureConstants.ShooterONESpeed);
+      });
+   }
+
+  public Command setShooterTWOSpeed() {
+    return this.run(
+      () -> { 
+        setShooterSpeedConstant(SuperStructureConstants.ShooterTWOSpeed);
+      });
+   }
+
+     public Command setShooterTHREESpeed() {
+    return this.run(
+      () -> { 
+        setShooterSpeedConstant(SuperStructureConstants.ShooterTHREESpeed);
+      });
+   }
+
+     public Command setShooterFOURSpeed() {
+    return this.run(
+      () -> { 
+        setShooterSpeedConstant(SuperStructureConstants.ShooterFOURSpeed);
+      });
+   }
+
+  public void setShooterSpeedConstant(double ShootSpeed) {
+     currentShootRequst = ShootSpeed;
+  }
+
   public Command runDualShooterGoalVision(DoubleSupplier distance, BooleanSupplier isTargetLocked) {
     return this.run(
       () -> { 
@@ -132,7 +166,7 @@ private ShooterControl(ShooterControlIO io) {
   public Command runShooterOn() {
     return this.runOnce(
       () -> {
-        setDualShooterSpeedControl(SuperStructureConstants.Shooter_Speed_On);
+        setDualShooterSpeedControl(currentShootRequst);
       }); 
     }
 

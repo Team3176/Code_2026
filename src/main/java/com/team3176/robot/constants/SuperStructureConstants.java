@@ -66,7 +66,10 @@ public class SuperStructureConstants {
   public static final double Kicker_ENCODER_OFFSET = 0;
   public static final double Kicker_Speed_On = 60;
   public static final double Kicker_Speed_Off = 0;
-  public static final double Kicker_SpinUpSeconds = 2;
+
+  public static final double KickerSpeed_MAX_OUTPUT_VOLTS = 3; //Sets Max forward Speed
+  public static final double KickerSpeed_MAXNeg_OUTPUT_VOLTS = -3; //Sets Max Reverse Speed
+  public static final double KickerSpeed_Max_RPS = 30;
 
 
   public static final double Hood_ZERO_POS = 0.39;
@@ -89,6 +92,11 @@ public class SuperStructureConstants {
   public static final double HoodUpIncrement = 0.3; 
   public static final double HoodDownIncrement = 0.3; 
 
+  public static final double HoodONERot = 0;
+  public static final double HoodTWORot = 2;
+  public static final double HoodTHREERot = 03;
+  public static final double HoodFOURRot = 04; 
+
   //Set if using gravity for feedforward
   public static final double Hood_kg = 2.0;
 
@@ -96,35 +104,36 @@ public class SuperStructureConstants {
   ///Distance to Postion Look up table
   /// Must be the same length
   
-  public static final double[] botDistanceLUT     = { 0.00, 0.60, 1.00, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 4.50, 5.00, 5.50};  //must be ordered as increaseing
-  public static final double[] botShootHoodPosLUT = { 0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60};  //Hood in rotations - 0-12
-  public static final double[] botShooterSpeedLUT = { 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0, 70.0, 80.0, 90.0, 100.0, 110.0};  //Speed in RPM
+  public static final double[] botDistanceLUT     = { 0.00, 0.50, 1.00, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 4.50};  //must be ordered as increaseing
+  public static final double[] botShootHoodPosLUT = { 0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50};  //Hood in rotations - 0-12
+  public static final double[] botShooterSpeedLUT = { 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0, 70.0, 80.0, 90.0};  //Speed in RPM
 
-  public static final double[] botPassHoodPosLUT  = { 0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60};  //Hood in rotations - 0-12
-  public static final double[] botPassSpeedLUT    = { 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0, 70.0, 80.0, 90.0, 100.0, 110.0};  //Speed in RPM
+  public static final double[] botPassHoodPosLUT  = { 0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50};  //Hood in rotations - 0-12
+  public static final double[] botPassSpeedLUT    = { 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0, 70.0, 80.0, 90.0};  //Speed in RPM
 
 
 
   // Intake Control Constants 
   public static final double IntakeRollerMaxDutyCycle = 1; // This is 20% max duty cycle 
-  public static final double Intake_ZERO_POS = 0.39;
-  public static final double Intake_Extend_POS = -5.76;
+  public static final double Intake_ZERO_POS = 0.36;
+  public static final double Intake_Extend_POS = -5.8;
   public static final double IntakePosition_ENCODER_OFFSET = 0;
   public static final double Intake_Position_MULTIPLIER = 5.6; // 12:1 gear box at just under 1/3 of an out put rotation
   public static final double Intake_pos_offset = 0;
-  public static final double IntakePosition_MAX_OUTPUT_VOLTS = 12 ; //Sets Max forward Speed
+  public static final double IntakePosition_MAX_OUTPUT_VOLTS = 5 ; //Sets Max forward Speed
   public static final double IntakePosition_MAXNeg_OUTPUT_VOLTS = -12; //Sets Max Reverse Speed
   public static final double IntakeControl_kP = .5;
   public static final double IntakeControl_kI = 0; 
   public static final double IntakeControl_kD = 0; 
 
+  public static final double IntakeRollerIntakeSpeed = .75; //50% duty cycle
+  public static final double IntakeRollerIdleSpeed = .2; //20% duty cycle 
+
   //Set if using gravity for feedforward
   public static final double Intake_kg = 0.2;
 
 
-  public static final double KickerSpeed_MAX_OUTPUT_VOLTS = 3; //Sets Max forward Speed
-  public static final double KickerSpeed_MAXNeg_OUTPUT_VOLTS = -3; //Sets Max Reverse Speed
-  public static final double KickerSpeed_Max_RPS = 30;
+
 
 ///
 // Shooter Constants
@@ -133,10 +142,13 @@ public class SuperStructureConstants {
   public static final double ShooterDualSpeed_MAX_OUTPUT_VOLTS = 12 ; //Sets Max forward Speed
   public static final double ShooterDualSpeed_MAXNeg_OUTPUT_VOLTS = -12; //Sets Max Reverse Speed
   public static final double ShooterDualSpeed_Max_RPS = 35; // speed is multiplied by two due to joystick so currently this equals 50 * 2 = 100
-  public static final double runDualShooterSpeedIDLE_SPEED = 6;
-  public static final double Shooter_SpinUpSeconds = 2;
-  public static final double Shooter_Speed_On = 20;
+  public static final double Shooter_Speed_On = 25;
   public static final double Shooter_Speed_Off = 0;
+  public static final double runDualShooterSpeedIDLE_SPEED = 6;
+  public static final double ShooterONESpeed = 40;
+  public static final double ShooterTWOSpeed = 20;
+  public static final double ShooterTHREESpeed = 100;
+  public static final double ShooterFOURSpeed = 70; 
   
 ///
 /// Turret Constants
@@ -177,8 +189,8 @@ public class SuperStructureConstants {
   public static final double TurretPotCounterClock = 1.405;// Min Measured Volts
   public static final double TurretPotClockwise = 3.44;// Max measured
   public static final double TurrentCenterPosPot = 2.429; //This is measured vs computed ->  //((TurretPotClockwise - TurretPotCounterClock) / 2) + TurretPotCounterClock;
-  public static final double TurretPotCounterClockOffset = 1.41; //1.405 Min Measured
-  public static final double TurretPotClockwiseOffset = 3.40;// 3.38 Max measured
+  public static final double TurretPotCounterClockOffset = 1.46; //1.405 Min Measured
+  public static final double TurretPotClockwiseOffset = 3.37;// 3.38 Max measured
 
 
   public static final double TurretClockwiseRotHome = -7.36; // Min Meausred will change based on motor power up
@@ -194,7 +206,7 @@ public class SuperStructureConstants {
 
   public static final double Climb_ZERO_POS = 0.39;
   public static final double Climb_ENCODER_OFFSET = 0;
-  public static final double Climb_Position_MULTIPLIER = 5;
+  public static final double Climb_Position_MULTIPLIER = 5; //TODO - assumes 5 rotations is climb but need to sort travel distaqnce and sprocket size. 
   public static final double ClimbLeft_pos_offset = 0; //changed from 1 to 0
   public static final double ClimbRight_pos_offset = 0; //changed from 1 to 0
   public static final double Climb_MAX_OUTPUT_VOLTS = 6 ; //Sets Max forward Speed
@@ -225,6 +237,6 @@ public class SuperStructureConstants {
   public static final double SpindexerSpeed_MAX_OUTPUT_VOLTS = 4; //Sets Max forward Speed
   public static final double SpindexerSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
   public static final double SpindexerSpeed_Max_RPS = 40;
-  public static final double Spindexer_SpinUpSeconds = 2;
+  
 
 }

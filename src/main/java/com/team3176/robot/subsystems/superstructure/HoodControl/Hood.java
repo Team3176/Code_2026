@@ -112,6 +112,34 @@ public class Hood extends SubsystemBase {
   }
 
 
+  public Command setHoodONEPos() {
+    return this.run(
+      () -> { 
+        setHoodVoltagePos(SuperStructureConstants.HoodONERot);
+      });
+   }
+
+  public Command setHoodTWOPos() {
+    return this.run(
+      () -> { 
+        setHoodVoltagePos(SuperStructureConstants.HoodTWORot);
+      });
+   }
+
+     public Command setHoodTHREEPos() {
+    return this.run(
+      () -> { 
+        setHoodVoltagePos(SuperStructureConstants.HoodTHREERot);
+      });
+   }
+
+     public Command setHoodFOURPos() {
+    return this.run(
+      () -> { 
+        setHoodVoltagePos(SuperStructureConstants.HoodFOURRot);
+      });
+   }
+   
   private void setHoodVolts(double volts) {
     // this assumes positive voltage deploys and negative voltage retracts.
     // invert the motor if that is NOT true

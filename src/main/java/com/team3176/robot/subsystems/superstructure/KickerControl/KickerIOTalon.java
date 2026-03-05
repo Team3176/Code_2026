@@ -38,9 +38,9 @@ import com.team3176.robot.util.TalonUtils;
 /** Template hardware interface for a closed loop subsystem. */
 public class KickerIOTalon implements KickerIO {
 
-  private TalonFX kickerController;
+ // private TalonFX kickerController;
   private TalonFX kickerSpeedController;
-  private CANcoder kickerEncoder;
+ // private CANcoder kickerEncoder;
   VelocityVoltage voltVelocity = new VelocityVoltage(0);
   VoltageOut kickerVolts = new VoltageOut(0.0);
   private Rotation2d encoderOffset; 
@@ -63,10 +63,10 @@ public class KickerIOTalon implements KickerIO {
     // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
 
-    kickerController = new TalonFX(Hardwaremap.Kicker_CID, Hardwaremap.Kicker_CBN);
+    //kickerController = new TalonFX(Hardwaremap.Kicker_CID, Hardwaremap.Kicker_CBN);
     kickerSpeedController = new TalonFX(Hardwaremap.KickerSpeed_CID, Hardwaremap.KickerSpeed_CBN);
 
-    kickerEncoder = new CANcoder(Hardwaremap.KickerCancoder_CID, Hardwaremap.Kicker_CBN);
+    //kickerEncoder = new CANcoder(Hardwaremap.KickerCancoder_CID, Hardwaremap.Kicker_CBN);
  
 
  
@@ -86,20 +86,7 @@ public class KickerIOTalon implements KickerIO {
 
     kickerConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     //TODO if position from Cancoder define which CanCoder / remote sensor to use for position feedback
-    //kickerConfigs.Feedback.FeedbackRemoteSensorID = Hardwaremap.kickerCancoder_CID;
-    //kickerConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
-    //kickerConfigs.Feedback.SensorToMechanismRatio = 1.0;
-
-    kickerConfigs.CurrentLimits.SupplyCurrentLimit = 60;
-    kickerConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
-    kickerConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-
-    kickerConfigs.SoftwareLimitSwitch.ForwardSoftLimitThreshold = 0.6;
-    kickerConfigs.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
-    kickerConfigs.SoftwareLimitSwitch.ReverseSoftLimitThreshold = 0.0;
-    kickerConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = false; 
-
-    TalonUtils.applyTalonFxConfigs(kickerController, kickerConfigs);
+   
     //kickerController.setPosition(0, 0);
 
     //SETUP SPEED CONTROL CONFIGS
@@ -117,14 +104,14 @@ public class KickerIOTalon implements KickerIO {
     TalonUtils.applyTalonFxConfigs(kickerSpeedController, kickerSpeedConfigs);
 
 
-    kickerAppliedVolts = kickerController.getMotorVoltage();
-    kickerCurrentAmpsStator = kickerController.getStatorCurrent();
-    kickerCurrentAmpsSupply = kickerController.getSupplyCurrent();
-    kickerVelocity = kickerController.getVelocity();
+    kickerAppliedVolts = kickerSpeedController.getMotorVoltage();
+    kickerCurrentAmpsStator = kickerSpeedController.getStatorCurrent();
+    kickerCurrentAmpsSupply = kickerSpeedController.getSupplyCurrent();
+    kickerVelocity = kickerSpeedController.getVelocity();
     
     //If you want to use a cancode use this definition 
     //kickerPosition = kickerEncoder.getPositionSinceBoot();
-    kickerTemp = kickerController.getDeviceTemp();
+    kickerTemp = kickerSpeedController.getDeviceTemp();
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         50,
@@ -134,7 +121,7 @@ public class KickerIOTalon implements KickerIO {
         kickerTemp,
         kickerCurrentAmpsSupply);
 
-    kickerController.optimizeBusUtilization();
+  //  kickerController.optimizeBusUtilization();
     kickerSpeedController.optimizeBusUtilization();
   }
 
@@ -165,17 +152,10 @@ public class KickerIOTalon implements KickerIO {
   //Use this to provide a speed based on voltage - it is not "controlling to speed"
   @Override
   public void setkickerVolts(double volts) {
-    kickerController.setControl(kickerVolts.withOutput(volts));
+    kickerSpeedController.setControl(kickerVolts.withOutput(volts));
   }
 
-  @Override
-  public void setkickerBrakeMode(boolean enable) {
-    if (enable) {
-      kickerController.setNeutralMode(NeutralModeValue.Brake);
-    } else {
-      kickerController.setNeutralMode(NeutralModeValue.Coast);
-    }
-  }
+
 
   @Override
   public void setkickerSpeedBrakeMode(boolean enable) {

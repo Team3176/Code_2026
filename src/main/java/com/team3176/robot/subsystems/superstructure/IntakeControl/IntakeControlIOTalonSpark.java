@@ -51,7 +51,7 @@ import com.team3176.robot.util.TalonUtils;
 public class IntakeControlIOTalonSpark implements IntakeControlIO {
 
   private TalonFX IntakePositionController;
-  private CANcoder IntakePositionEncoder;
+  //private CANcoder IntakePositionEncoder;
   
   private SparkFlex IntakeRollerMotor;
   private SparkClosedLoopController IntakeRollerController;
@@ -87,14 +87,14 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
 
     IntakePositionController = new TalonFX(Hardwaremap.IntakePosition_CID, Hardwaremap.Intake_CBN);
     
-    IntakePositionEncoder = new CANcoder(Hardwaremap.IntakePositionCancoder_CID, Hardwaremap.Intake_CBN);
+   // IntakePositionEncoder = new CANcoder(Hardwaremap.IntakePositionCancoder_CID, Hardwaremap.Intake_CBN);
  
 
     //Intake Postition
     encoderOffset = Rotation2d.fromDegrees(SuperStructureConstants.IntakePosition_ENCODER_OFFSET);
 
-    IntakePositionConfigs.Slot0.kP = .1; // An error of 1 rotation results in 2.4 V output
-    IntakePositionConfigs.Slot0.kI = 0; // No output for integrated error
+    IntakePositionConfigs.Slot0.kP = .2; // An error of 1 rotation results in 2.4 V output
+    IntakePositionConfigs.Slot0.kI = 0.1; // No output for integrated error
     IntakePositionConfigs.Slot0.kD = 0; // A velocity of 1 rps results in 0.1 V output
 
     // set max output voltage limits speed - 14V is max output available 
@@ -192,11 +192,11 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
     inputs.IntakePositionRot = IntakePositionController.getPosition().getValueAsDouble();
     //Use if using cancoder
     //inputs.HoodPositionRot = HoodEncoder.getPosition().getValueAsDouble() - Hood_pos_offset;
-    inputs.IntakePositionRotREAL = IntakePositionEncoder.getPosition().getValueAsDouble(); 
+    inputs.IntakePositionRotREAL = IntakeRollerMotor.getEncoder().getPosition(); 
     inputs.IntakeVelocityRadPerSec = IntakeRollerMotor.getEncoder().getVelocity();
     inputs.IntakeAbsolutePositionDegrees =
         MathUtil.inputModulus(
-            Rotation2d.fromRotations(IntakePositionEncoder.getAbsolutePosition().getValueAsDouble())
+            Rotation2d.fromRotations(IntakeRollerMotor.getEncoder().getPosition())
                 .minus(encoderOffset)
                 .getDegrees(),
             -180,

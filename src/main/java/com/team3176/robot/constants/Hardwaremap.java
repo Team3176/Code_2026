@@ -22,8 +22,8 @@ public class Hardwaremap {
 */
 
 
-  public static final int Kicker_CID = 53;
-  public static final int KickerCancoder_CID = 530; 
+  //public static final int Kicker_CID = 53;
+  //public static final int KickerCancoder_CID = 530; 
   public static final int KickerSpeed_CID = 53;
   
 //added a 0 to the end of each of the kicker CID's
@@ -41,13 +41,13 @@ public class Hardwaremap {
 // Intake Control Constants
   public static final int IntakePosition_CID = 50;
   public static final int IntakeRoller_CID = 51;
-  public static final int IntakePositionCancoder_CID = 500;    
+  //public static final int IntakePositionCancoder_CID = 500;    
 
   public static final int shooterLeaderSpeed_CID = 55;
   public static final int shooterFollowerSpeed_CID = 56;
 
   public static final int turretRotation_CID = 54;
-  public static final int turretRotationCancoder_CID = 540;
+  //public static final int turretRotationCancoder_CID = 540;
 
   
   public static int PDH_CID = 11;

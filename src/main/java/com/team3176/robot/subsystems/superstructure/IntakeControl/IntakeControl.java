@@ -60,7 +60,8 @@ public class IntakeControl extends SubsystemBase {
   public Command Intake2Home() {
     return this.runOnce(
       () -> {
-       setIntakePositionVoltagePos(positionHome); 
+       //setIntakePositionVoltagePos(positionHome); 
+       retractToHomePostion();
       }); 
     }
 
@@ -108,14 +109,16 @@ public class IntakeControl extends SubsystemBase {
 
   public void deployFromHome() {
  
-    double deployPos = this.homePos + SuperStructureConstants.Intake_Extend_POS;
+    double deployPos = SuperStructureConstants.Intake_Extend_POS;
     setIntakePositionVoltagePos(deployPos);
+    io.setIntakeRollerVelocity(SuperStructureConstants.IntakeRollerIntakeSpeed); 
   }
   
   public Command retractTowardHome() {
     return this.runOnce(
       () -> {
-        retractTowardHomePostion();
+        retractToHomePostion();
+         
       }
     );
   }
@@ -124,6 +127,13 @@ public class IntakeControl extends SubsystemBase {
     setCurrentHomePos();
     double deployPos = this.homePos - .10;
     setIntakePositionVoltagePos(deployPos);
+   
+  }
+
+    public void retractToHomePostion () {
+      setIntakePositionVoltagePos(positionHome); 
+      io.setIntakeRollerVelocity(SuperStructureConstants.IntakeRollerIdleSpeed); 
+   
   }
 
 
