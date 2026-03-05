@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 1.9784859154929588,
+        "x": 2.4096302816901414,
         "y": 4.035
       },
       "prevControl": {
-        "x": 2.6318168919000926,
+        "x": 3.062961258097275,
         "y": 4.036505201443274
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Cmid"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -1.8476102659945277
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

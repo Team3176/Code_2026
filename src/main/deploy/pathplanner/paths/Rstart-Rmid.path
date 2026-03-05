@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.495475352112677,
-        "y": 4.035
+        "x": 3.527411971830987,
+        "y": 0.63375
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.345757042253522,
-        "y": 4.09887323943662
+        "x": 2.581143619942025,
+        "y": 0.8396216562631813
       },
       "isLocked": false,
-      "linkedName": "Cstart"
+      "linkedName": "Rstart"
     },
     {
       "anchor": {
-        "x": 1.0682922535211277,
-        "y": 2.80544014084507
+        "x": 2.122200704225353,
+        "y": 0.8094014084507046
       },
       "prevControl": {
-        "x": 2.5214084507042265,
-        "y": 2.102834507042254
+        "x": 2.3559685508280297,
+        "y": 0.7207865457314775
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Rclimb"
+      "linkedName": "Rmid"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -130.10090754621223
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -1.8476102659945277
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

@@ -37,7 +37,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Opt-Rclimb"
+            "pathName": "Opt-Cclimb"
           }
         },
         {

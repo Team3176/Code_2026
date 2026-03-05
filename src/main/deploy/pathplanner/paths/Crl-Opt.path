@@ -4,28 +4,44 @@
     {
       "anchor": {
         "x": 0.8607042253521135,
-        "y": 0.63375
+        "y": 5.935228873239437
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8886795774647895,
-        "y": 2.8373767605633806
+        "x": 1.62718309859155,
+        "y": 5.440211267605634
       },
       "isLocked": false,
-      "linkedName": "Opt"
+      "linkedName": "Crl"
     },
     {
       "anchor": {
-        "x": 1.0682922535211277,
-        "y": 2.80544014084507
+        "x": 2.0104225352112683,
+        "y": 3.013028169014085
       },
       "prevControl": {
-        "x": 2.5054401408450713,
-        "y": 2.7415669014084507
+        "x": 2.1860739436619725,
+        "y": 3.6677288732394366
+      },
+      "nextControl": {
+        "x": 1.787977270809164,
+        "y": 2.183914001697151
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.8607042253521135,
+        "y": 0.63375
+      },
+      "prevControl": {
+        "x": 1.1960387323943669,
+        "y": 1.080862676056338
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Rclimb"
+      "linkedName": "Opt"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

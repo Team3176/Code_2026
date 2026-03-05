@@ -7,19 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Cstart-Opt"
+            "pathName": "Cstart-Drive off"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Opt-Crl"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Crl-Cclimb"
+            "pathName": "Cmid-Opt"
           }
         }
       ]
