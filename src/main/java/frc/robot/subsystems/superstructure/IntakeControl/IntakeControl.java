@@ -33,8 +33,10 @@ public class IntakeControl extends SubsystemBase {
   private double position_offset = SuperStructureConstants.IntakePosition_ENCODER_OFFSET;
   private boolean ishomed = false;
   private double positionHome = SuperStructureConstants.Intake_ZERO_POS;
- 
+  private enum rollerSpeedStatus {OFF, INTAKE, IDLE, REVERSE};
   private double homePos = 0;
+
+  rollerSpeedStatus Status = rollerSpeedStatus.OFF; 
 
 
   private IntakeControl(IntakeControlIO io) {
@@ -119,6 +121,7 @@ public class IntakeControl extends SubsystemBase {
     double deployPos = SuperStructureConstants.Intake_Extend_POS;
     setIntakePositionVoltagePosSlot0(deployPos);
     io.setIntakeRollerVelocity(SuperStructureConstants.IntakeRollerIntakeSpeed); 
+    Status = rollerSpeedStatus.INTAKE;
   }
   
 
@@ -151,6 +154,7 @@ public class IntakeControl extends SubsystemBase {
     public void retractToHomePostion () {
       setIntakePositionVoltagePosSlot1(positionHome); 
       io.setIntakeRollerVelocity(SuperStructureConstants.IntakeRollerIdleSpeed); 
+      Status = rollerSpeedStatus.IDLE;
    
   }
 
@@ -165,6 +169,36 @@ public class IntakeControl extends SubsystemBase {
 
   public void intakeRollerDutyCycle(double dutyCycle){
      io.setIntakeRollerVelocity(dutyCycle); 
+  }
+
+  public Command runIntakeRollerReverse() {
+    return this.run(
+      () -> { 
+        intakeRollerReverse();
+      });
+  }
+
+  public void intakeRollerReverse(){
+     io.setIntakeRollerVelocity(SuperStructureConstants.IntakeRollerIntakeReverse); 
+  }
+
+  public Command runIntakeRollerResume() {
+    return this.run(
+      () -> { 
+        intakeRollerResume();
+      });
+  }
+
+  public void intakeRollerResume(){
+    if (Status == rollerSpeedStatus.IDLE){
+      io.setIntakeRollerVelocity(SuperStructureConstants.IntakeRollerIdleSpeed); 
+    }
+    else if (Status == rollerSpeedStatus.INTAKE){
+      io.setIntakeRollerVelocity(SuperStructureConstants.IntakeRollerIntakeSpeed); 
+    }
+    else if (Status == rollerSpeedStatus.OFF){
+      io.setIntakeRollerVelocity(0); 
+    }
   }
 
  

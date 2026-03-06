@@ -15,7 +15,8 @@ public interface ClimbControlIO {
   @AutoLog
   public static class ClimbControlIOInputs {
     public double ClimbPositionDeg = 0.0;
-    public double ClimbPositionRot = 0.0;
+    public double ClimbPositionRotRight = 0.0;
+    public double ClimbPositionRotLeft = 0.0;
     
     public double ClimbPositionRotREAL =  0.0;
     public double ClimbAbsolutePositionDegrees = 0.0;

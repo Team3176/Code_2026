@@ -93,10 +93,10 @@ public class SuperStructureConstants {
   public static final double HoodUpIncrement = 0.3; 
   public static final double HoodDownIncrement = 0.3; 
 
-  public static final double HoodONERot = 0;
-  public static final double HoodTWORot = 2;
-  public static final double HoodTHREERot = 03;
-  public static final double HoodFOURRot = 04; 
+  public static final double HoodONERot =   2.500;  //y
+  public static final double HoodTWORot =   0.071;  //x
+  public static final double HoodTHREERot = 2.476;  //b
+  public static final double HoodFOURRot =  4.404;   //a
 
   //Set if using gravity for feedforward
   public static final double Hood_kg = 2.0;
@@ -105,12 +105,12 @@ public class SuperStructureConstants {
   ///Distance to Postion Look up table
   /// Must be the same length
   
-  public static final double[] botDistanceLUT     = { 0.00, 0.50, 1.00, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 4.50};  //must be ordered as increaseing
-  public static final double[] botShootHoodPosLUT = { 0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50};  //Hood in rotations - 0-12
-  public static final double[] botShooterSpeedLUT = { 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0, 70.0, 80.0, 90.0};  //Speed in RPM
+  public static final double[] botDistanceLUT     = { 0.00, 0.50, 1.00, 1.50, 2.00, 2.50, 2.92, 3.30, 5.30};  //must be ordered as increaseing
+  public static final double[] botShootHoodPosLUT = { 0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 2.50, 2.47, 4.40};  //Hood in rotations - 0-12
+  public static final double[] botShooterSpeedLUT = { 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 40.0, 47.0, 52.0};  //Speed in RPM
 
-  public static final double[] botPassHoodPosLUT  = { 0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50};  //Hood in rotations - 0-12
-  public static final double[] botPassSpeedLUT    = { 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0, 70.0, 80.0, 90.0};  //Speed in RPM
+  public static final double[] botPassHoodPosLUT  = { 0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 5.30};  //Hood in rotations - 0-12
+  public static final double[] botPassSpeedLUT    = { 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0, 70.0, 85.0};  //Speed in RPM
 
 
 
@@ -119,7 +119,7 @@ public class SuperStructureConstants {
   public static final double Intake_ZERO_POS = 0.36;
   public static final double Intake_Extend_POS = -5.8;
   public static final double IntakePosition_ENCODER_OFFSET = 0;
-  public static final double Intake_Position_MULTIPLIER = 6; // use half power - see if that works in manual mode
+  public static final double Intake_Position_MULTIPLIER = 5; // use half power - see if that works in manual mode
   public static final double Intake_pos_offset = 0;
   public static final double IntakePosition_MAX_OUTPUT_VOLTS = 5 ; //Sets Max forward Speed
   public static final double IntakePosition_MAXNeg_OUTPUT_VOLTS = -12; //Sets Max Reverse Speed
@@ -129,6 +129,8 @@ public class SuperStructureConstants {
 
   public static final double IntakeRollerIntakeSpeed = .75; //50% duty cycle
   public static final double IntakeRollerIdleSpeed = .2; //20% duty cycle 
+  public static final double IntakeRollerIntakeReverse = -.5; //reverse speed 
+
 
   //Set if using gravity for feedforward
   public static final double Intake_kg = 0.2;
@@ -147,10 +149,10 @@ public class SuperStructureConstants {
   public static final double Shooter_Speed_Reverse = -25; // This should be the only negative speed. 
   public static final double Shooter_Speed_Off = 0;
   public static final double runDualShooterSpeedIDLE_SPEED = 6;
-  public static final double ShooterONESpeed = 40;
-  public static final double ShooterTWOSpeed = 20;
-  public static final double ShooterTHREESpeed = 100;
-  public static final double ShooterFOURSpeed = 70; 
+  public static final double ShooterONESpeed = 40; //y
+  public static final double ShooterTWOSpeed = 37;  //x
+  public static final double ShooterTHREESpeed = 47;  //b
+  public static final double ShooterFOURSpeed = 52;  //a
   
 ///
 /// Turret Constants

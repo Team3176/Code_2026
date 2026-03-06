@@ -70,6 +70,12 @@ public class Superstructure {
   public Command IntakeRetract(){
     return (intake.retractToHome());
   }
+  public Command IntakeRollerReverse(){
+    return (intake.runIntakeRollerReverse());
+  }
+  public Command IntakeRollerResume(){
+    return (intake.runIntakeRollerResume());
+  }
 
   public Command IntakeIncrementalRetract(){
     return (intake.retractTowardHome());

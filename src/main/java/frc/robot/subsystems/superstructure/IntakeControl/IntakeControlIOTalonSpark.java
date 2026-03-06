@@ -94,7 +94,7 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
     //Intake Postition
     encoderOffset = Rotation2d.fromDegrees(SuperStructureConstants.IntakePosition_ENCODER_OFFSET);
     //Gains for Deploy 
-    IntakePositionConfigs.Slot0.kP = .05; // An error of 1 rotation results in 2.4 V output
+    IntakePositionConfigs.Slot0.kP = .08; // An error of 1 rotation results in 2.4 V output
     IntakePositionConfigs.Slot0.kI = 0.1; // No output for integrated error
     IntakePositionConfigs.Slot0.kD = 0; // A velocity of 1 rps results in 0.1 V output
 

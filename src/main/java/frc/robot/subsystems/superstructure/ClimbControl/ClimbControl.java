@@ -33,7 +33,8 @@ private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAu
   private double positionSetpoint;
   private double position_offset = SuperStructureConstants.Climb_ENCODER_OFFSET;
   private boolean ishomed = false;
-  private double positionHome = SuperStructureConstants.Climb_ZERO_POS;
+  private double positionHomeLeft = SuperStructureConstants.Climb_ZERO_POS;
+  private double positionHomeRight = SuperStructureConstants.Climb_ZERO_POS;
  
   private double homePos = 0;
 
@@ -42,9 +43,8 @@ private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAu
     this.io = io;
     this.positionMotorPID = new TunablePID("ClimbControlPIDConstants", SuperStructureConstants.Climb_kP, SuperStructureConstants.Climb_kI, SuperStructureConstants.Climb_kD);
   
-    this.positionHome = inputs.ClimbPositionRot;
-
-
+    this.positionHomeRight = inputs.ClimbPositionRotRight;
+    this.positionHomeLeft = inputs.ClimbPositionRotLeft;
 
   }
 
@@ -68,9 +68,9 @@ private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAu
   public Command Climb2Home() {
     return this.runOnce(
       () -> {
-       setClimbVoltagePos(positionHome); 
-      }); 
-    }
+       setClimbVoltagePos(positionHomeLeft); 
+    });
+  }
 
   public Command Climb2Extend() {
     return this.runOnce(
@@ -103,7 +103,7 @@ private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAu
   public Command runClimbVoltageManual(DoubleSupplier position) {
     return this.runEnd(
       () -> {
-        setClimbVolts(position.getAsDouble());
+        setClimbVolts(-position.getAsDouble());
       }, 
       () -> {
         setClimbVolts(0.0);
@@ -131,7 +131,7 @@ private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAu
   }
   //Used to reset home position based on what is read from sensor currently
   public void setCurrentHomePos() {
-    this.homePos = inputs.ClimbPositionRot;
+    this.homePos = inputs.ClimbPositionRotLeft;
     
   }
 
@@ -164,7 +164,7 @@ private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAu
   }
 
   public void deployIncremental() {
-    double currentPos = inputs.ClimbPositionRot;
+    double currentPos = inputs.ClimbPositionRotLeft;
     currentPos = currentPos + 0.25;
     setClimbVoltagePos(currentPos);
   }
@@ -172,13 +172,28 @@ private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAu
   public Command moveLeftRightPosition(DoubleSupplier deltaLeft, DoubleSupplier deltaRight) {
     return this.runEnd(
         () -> {
-          io.setRightVoltage(5 * deltaRight.getAsDouble());
-          io.setLeftVoltage(5 * deltaLeft.getAsDouble());
+          deltaLeftRightClimb(5 * deltaRight.getAsDouble(), 5* deltaLeft.getAsDouble());
+          
         },
         () -> {
           io.setRightVoltage(0.0);
           io.setLeftVoltage(0.0);
         });
+  }
+
+  public void deltaLeftRightClimb(double deltaLeft, double deltaRight) {
+    if(inputs.ClimbPositionRotLeft <= SuperStructureConstants.ClimbMaxExtend && deltaLeft > 0){
+      io.setLeftVoltage(deltaLeft);
+    }
+    else{
+      io.setLeftVoltage(0.0);
+    }
+     if(inputs.ClimbPositionRotLeft <= SuperStructureConstants.ClimbMaxExtend && deltaRight > 0 ){
+        io.setRightVoltage(deltaRight);
+    }
+    else{
+      io.setRightVoltage(0);
+    }
   }
 
   public Command stopLeftRight() {
@@ -201,8 +216,8 @@ private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAu
    
     positionMotorPID.checkParemeterUpdate();
     
-    SmartDashboard.putNumber("Climb Position Right", inputs.ClimbPositionRot);
-    SmartDashboard.putNumber("Climb Position Left", inputs.ClimbPositionRot);
+    SmartDashboard.putNumber("Climb Position Right", inputs.ClimbPositionRotRight);
+    SmartDashboard.putNumber("Climb Position Left", inputs.ClimbPositionRotLeft);
 
 
   }

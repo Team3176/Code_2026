@@ -175,7 +175,7 @@ public class RobotContainer {
         drivetrain.applyRequest(() -> idle).ignoringDisable(true));
 
     controller.transStick.button(0).whileTrue(drivetrain.applyRequest(() -> brake));
-    controller.transStick.button(1).whileTrue(drivetrain
+    controller.transStick.button(10).whileTrue(drivetrain
         .applyRequest(() -> point.withModuleDirection(new Rotation2d(-controller.transStick.getX(), -controller.transStick.getY()))));
 
     // Run SysId routines when holding back/start and X/Y.
@@ -220,8 +220,8 @@ public class RobotContainer {
     controller.operator.b().onTrue(superstructure.ShotThreeShooter());
     controller.operator.a().onTrue(superstructure.ShotFourShooter());
 
-    controller.operator.leftBumper().onTrue(superstructure.IntakeExtend());
-    controller.operator.rightBumper().onTrue(superstructure.IntakeRetract());
+    controller.operator.leftBumper().onTrue(superstructure.IntakeExtend().withTimeout(1));
+    controller.operator.rightBumper().onTrue(superstructure.IntakeRetract().withTimeout(1));
 
     controller.operator.leftTrigger().whileTrue(superstructure.HoodDown());
     controller.operator.rightTrigger().whileTrue(superstructure.HoodUp());
@@ -253,12 +253,12 @@ public class RobotContainer {
     controller.transStick.button(1).onTrue((superstructure.ShooterOn().andThen(Commands.waitSeconds(.5)).andThen(superstructure.KickerOn().andThen(Commands.waitSeconds(.1))).andThen(superstructure.SpindexerOn())));
     controller.transStick.button(1).onFalse((superstructure.SpindexerOff().andThen(Commands.waitSeconds(.2)).andThen(superstructure.KickerOff().andThen(Commands.waitSeconds(.2))).andThen(superstructure.shooterMotorSpeedIDLE())));
 
-    controller.rotStick.button(1).onTrue(superstructure.toggleShooterStatus());
-
+    controller.rotStick.button(2).onTrue(superstructure.toggleShooterStatus());
+    controller.rotStick.button(1).onTrue(superstructure.IntakeRollerReverse()).onFalse(superstructure.IntakeRollerResume());
 
 
       /// Swtich box Commands
-      // TODO do we need anything here?
+      // TODO do we need anything here?.
       //controller.switchBox.button(4).onTrue(drive.setVisionOverride(true)).onFalse(drive.setVisionOverride(false));
 
   }

@@ -152,7 +152,8 @@ public class ClimbControlIOTalon implements ClimbControlIO {
     inputs.ClimbTempCelcius = ClimbTemp.getValueAsDouble();
     inputs.ClimbPositionDeg = Units.rotationsToDegrees(ClimbPosition.getValueAsDouble());
     //inputs.Climb_pos_offset = Climb_pos_offset;
-    inputs.ClimbPositionRot = ClimbLeftController.getPosition().getValueAsDouble();
+    inputs.ClimbPositionRotLeft = ClimbLeftController.getPosition().getValueAsDouble();
+    inputs.ClimbPositionRotRight = ClimbRightController.getPosition().getValueAsDouble();
     //Use if using cancoder
     //inputs.ClimbPositionRot = ClimbEncoder.getPosition().getValueAsDouble() - Climb_pos_offset;
     inputs.ClimbPositionRotREAL = ClimbLeftController.getPosition().getValueAsDouble(); 
