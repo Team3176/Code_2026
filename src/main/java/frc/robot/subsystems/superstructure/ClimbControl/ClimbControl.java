@@ -182,18 +182,26 @@ private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAu
   }
 
   public void deltaLeftRightClimb(double deltaLeft, double deltaRight) {
-    if(inputs.ClimbPositionRotLeft <= SuperStructureConstants.ClimbMaxExtend && deltaLeft > 0){
+    SmartDashboard.putNumber("climb volt command left", deltaLeft);
+    SmartDashboard.putNumber("climb volt command right", deltaRight);
+
+/*     if(inputs.ClimbPositionRotLeft == SuperStructureConstants.ClimbMaxExtend && deltaLeft > 0){
       io.setLeftVoltage(deltaLeft);
     }
     else{
       io.setLeftVoltage(0.0);
     }
-     if(inputs.ClimbPositionRotLeft <= SuperStructureConstants.ClimbMaxExtend && deltaRight > 0 ){
+     if(inputs.ClimbPositionRotLeft == SuperStructureConstants.ClimbMaxExtend && deltaRight > 0 ){
         io.setRightVoltage(deltaRight);
     }
     else{
       io.setRightVoltage(0);
-    }
+    } */
+       
+      io.setLeftVoltage(-deltaLeft);
+
+      io.setRightVoltage(-deltaRight);
+  
   }
 
   public Command stopLeftRight() {

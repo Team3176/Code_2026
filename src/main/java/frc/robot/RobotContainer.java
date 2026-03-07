@@ -116,7 +116,7 @@ public class RobotContainer {
   private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < MatchConstants.ENDGAMEALERT_Time);
   private Trigger autoAlert = new Trigger (() -> DriverStation.isAutonomous());
   private Trigger ShootingTime = new Trigger(()-> isHubActive());
-  private Trigger ShooterIsLockedON = new Trigger (()-> thisPrecePrecisionVision.getTurretLockOn());
+  //private Trigger ShooterIsLockedON = new Trigger (()-> thisPrecePrecisionVision.getTurretLockOn());
   
   // Implement LEDs
   private LEDSubsystem leds = LEDSubsystem.getInstance();
@@ -135,8 +135,7 @@ public class RobotContainer {
 
 
 
-    // Warmup PathPlanner to avoid Java pauses
-    FollowPathCommand.warmupCommand().schedule();
+
 
     /// Team 3176 2026
   //Leds default commands
@@ -145,8 +144,8 @@ public class RobotContainer {
     endMatchAlert.onTrue(leds.EndgameStart()); // blue
     ShootingTime.onTrue(leds.GoalShiftActive());  //SOLID_LAWN_GREEN
     ShootingTime.onFalse(leds.DefaultLED()); // purple 
-    ShooterIsLockedON.onTrue(leds.turretLockedOn());  // FIXED_TWINKLES_LAVA
-    ShooterIsLockedON.onFalse(leds.DefaultLED());  // purple
+   // ShooterIsLockedON.onTrue(leds.turretLockedOn());  // FIXED_TWINKLES_LAVA
+   // ShooterIsLockedON.onFalse(leds.DefaultLED());  // purple
     SmartDashboard.putBoolean("Is Hub Active", isHubActive());
 
     NamedCommands.registerCommand("ShootFromClimb", superstructure.ShotTwoShooter().withTimeout(.1)   
@@ -183,7 +182,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("RetractIntake", 
         superstructure.IntakeRetract().withTimeout(1));  
 
-
+    // Warmup PathPlanner to avoid Java pauses
+    FollowPathCommand.warmupCommand().schedule();
 
     // Configure the trigger bindings
     configureBindings();
