@@ -170,13 +170,15 @@ public class precisionVision {
 
         // Connect to the cameras
         turretCamera = new PhotonCamera("TurretCamera");
+        turretPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToTurret);
+try{
         leftRearCamera = new PhotonCamera("LeftRearCamera");
         rightRearCamera = new PhotonCamera("RightRearCamera");
         leftFrontCamera = new PhotonCamera("LeftFrontCamera");
         rightFrontCamera = new PhotonCamera("RightFrontCamera");       
 
         // Construct things for localization
-        turretPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToTurret);
+
         leftRearPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToLeftRearCam);
         rightRearPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToRightRearCam);
         leftFrontPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToFrontLeftCam);
@@ -207,10 +209,11 @@ public class precisionVision {
         FrRightContainer.arrayIndex = 3;
 
          chassisCameras = Arrays.asList(frLeftContainer,BaLeftContainer,BaRightContainer,FrRightContainer);
-
+}catch(Exception e){
          visionXest = new double[4];
          VisionYest = new double[4];
          VisionRest = new double[4];
+}
 
     }
 
@@ -296,7 +299,7 @@ public class precisionVision {
 
         // ************** THIS SECTION DEALS WITH LOCALIZATION ESTIMATES */
 
-       
+       try{
 
         for (cameraContainer aCameraContainer : chassisCameras) {
              
@@ -324,6 +327,8 @@ public class precisionVision {
         fieldLocX.set(visionXest);
         fieldLocX.set(VisionYest);
         fieldLocRot.set(VisionRest);
+
+         }catch(Exception e){}
 
         return true;
     }

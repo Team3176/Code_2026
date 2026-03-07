@@ -48,7 +48,7 @@ public class Robot extends LoggedRobot {
   private final RobotContainer m_robotContainer;
 
 
-  precisionVision thisRobotVisionHandler;
+ // precisionVision thisRobotVisionHandler;
 //  precisionPigeon thisRobotIMUHandler;
   //precisionLocalization thisRobotLocalizationHandler;
 
@@ -119,14 +119,14 @@ public class Robot extends LoggedRobot {
     m_robotContainer = new RobotContainer();
 
 
-    thisRobotVisionHandler = new precisionVision();
-    thisRobotVisionHandler.setWeAreBlueAliance(false);
+    m_robotContainer.thisPrecePrecisionVision = new precisionVision();
+    m_robotContainer.thisPrecePrecisionVision .setWeAreBlueAliance(false);
    // thisRobotIMUHandler = new precisionPigeon();
     //thisRobotLocalizationHandler = new precisionLocalization();
 
         /* log and replay timestamp and joystick data */
     //attach precision vision to robot container
-    m_robotContainer.thisPrecePrecisionVision = thisRobotVisionHandler;
+   // m_robotContainer.thisPrecePrecisionVision = thisRobotVisionHandler;
 
   }
   /**
@@ -145,7 +145,7 @@ public class Robot extends LoggedRobot {
     CommandScheduler.getInstance().run();
 
     try{
-      thisRobotVisionHandler.periodicUpdate();
+      m_robotContainer.thisPrecePrecisionVision .periodicUpdate();
 
     } catch (Exception e){
       System.out.println("Vision Update Failed");
