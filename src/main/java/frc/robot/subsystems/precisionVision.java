@@ -208,9 +208,9 @@ public class precisionVision {
 
          chassisCameras = Arrays.asList(frLeftContainer,BaLeftContainer,BaRightContainer,FrRightContainer);
 
-         visionXest = new double[3];
-         VisionYest = new double[3];
-         VisionRest = new double[3];
+         visionXest = new double[4];
+         VisionYest = new double[4];
+         VisionRest = new double[4];
 
     }
 
