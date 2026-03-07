@@ -137,7 +137,7 @@ public class TurretRotationIOTalon implements TurretRotationIO {
     turretRotationAbsolutePosition = turretRotationController.getPosition();
     turretRotationTemp = turretRotationController.getDeviceTemp();
 
-    turretRotation_pos_offset = turretRotationController.getPosition().getValueAsDouble();
+    //turretRotation_pos_offset = turretRotationController.getPosition().getValueAsDouble();
 
 
     BaseStatusSignal.setUpdateFrequencyForAll(

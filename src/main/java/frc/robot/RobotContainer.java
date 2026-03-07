@@ -55,6 +55,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.precisionPigeon;
+import frc.robot.subsystems.precisionVision;
 import frc.robot.subsystems.leds.LEDSubsystem;
 import frc.robot.subsystems.superstructure.Superstructure;
 
@@ -85,6 +86,7 @@ public class RobotContainer {
   private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
 
   private final Telemetry logger = new Telemetry(MaxSpeed);
+  private precisionVision visionHandler; 
 
  // private final CommandJoystick rotStick = new CommandJoystick(0);
  // private final CommandJoystick transStick = new CommandJoystick(1);
@@ -118,7 +120,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-
+    
     thisRobotIMUHandler = new precisionPigeon();
      Commands.runOnce(()->thisRobotIMUHandler.setIMUYawToDriverZero());
     
@@ -221,7 +223,7 @@ public class RobotContainer {
     controller.operator.a().onTrue(superstructure.ShotFourShooter());
 
     controller.operator.leftBumper().onTrue(superstructure.IntakeExtend().withTimeout(1));
-    controller.operator.rightBumper().onTrue(superstructure.IntakeRetract().withTimeout(1));
+    controller.operator.rightBumper().onTrue(superstructure.IntakeRetract().withTimeout(2));
 
     controller.operator.leftTrigger().whileTrue(superstructure.HoodDown());
     controller.operator.rightTrigger().whileTrue(superstructure.HoodUp());

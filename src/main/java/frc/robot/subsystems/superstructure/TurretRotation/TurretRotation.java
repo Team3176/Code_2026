@@ -33,6 +33,7 @@ public class TurretRotation extends SubsystemBase {
   private Timer deployTime = new Timer();
   private double positionSetpoint;
   private double position_offset = SuperStructureConstants.TurretRotation_ENCODER_OFFSET;
+  private double desiredRotations = 0.0;
   private boolean ishomed = false;
   private double positionHome = SuperStructureConstants.TurretRotation_ZERO_POS;
  // private LEDSubsystem leds;
@@ -202,6 +203,9 @@ public class TurretRotation extends SubsystemBase {
     double goToPosRot =  (SuperStructureConstants.TurrentCenterPosPot - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt;
     setTurretRotationVoltagePos(goToPosRot + this.currentPosRot);
      SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
+     desiredRotations = goToPosRot + this.currentPosRot;
+
+
   }
 
     public Command moveTurretToMaxClockwise() {
@@ -218,6 +222,7 @@ public class TurretRotation extends SubsystemBase {
     double goToPosRot =  (SuperStructureConstants.TurretPotClockwiseOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt;
     setTurretRotationVoltagePos(goToPosRot + this.currentPosRot);
      SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
+     desiredRotations = goToPosRot + this.currentPosRot;
   }
     public Command moveTurretToMaxCounterClockwise() {
     return this.runOnce(
@@ -233,6 +238,7 @@ public class TurretRotation extends SubsystemBase {
     double goToPosRot =  (SuperStructureConstants.TurretPotCounterClockOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt;
     setTurretRotationVoltagePos(goToPosRot + this.currentPosRot);
      SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
+     desiredRotations = goToPosRot + this.currentPosRot;
   }
 
   @Override
@@ -246,15 +252,16 @@ public class TurretRotation extends SubsystemBase {
    
     SmartDashboard.putBoolean("Turret LimitSwitch Clockwise", inputs.turretClockwiselimitswitch);
     SmartDashboard.putBoolean("Turret LimitSwitch Counter Clockwise", inputs.turretCounterclockwiselimitswitch);
-    SmartDashboard.putNumber("Turret Rotation", inputs.turretRotationPositionRot);
+    SmartDashboard.putNumber("Turret Current Rotation", inputs.turretRotationPositionRot);
+    SmartDashboard.putNumber("Turret Desired Rotation", desiredRotations);
     SmartDashboard.putNumber("Turret POT Volgate", inputs.turretAnalogPOT_Value);
    // Use Limit Switches not to break anything - May be double dipping on limit switches based on method call. - safe than sorry
 
-    if (inputs.turretClockwiselimitswitch && inputs.turretRotationAppliedVolts < 0) {
+    if (inputs.turretClockwiselimitswitch && inputs.turretRotationAppliedVolts > 0) {
       io.setTurretRotationVoltage(0);
     }
 
-    if (inputs.turretCounterclockwiselimitswitch && inputs.turretRotationAppliedVolts >= 0) {
+    if (inputs.turretCounterclockwiselimitswitch && inputs.turretRotationAppliedVolts <= 0) {
       io.setTurretRotationVoltage(0);
     }
     

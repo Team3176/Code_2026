@@ -76,10 +76,10 @@ public class IntakeControl extends SubsystemBase {
       });
   }
 
-  public Command runIntakePositionVoltageManual(DoubleSupplier position) {
+  public Command runIntakePositionVoltageManual(DoubleSupplier volts) {
     return this.runEnd(
       () -> {
-        setIntakePositionVolts(position.getAsDouble());
+        setIntakePositionVolts(volts.getAsDouble());
       }, 
       () -> {
         setIntakePositionVolts(0.0);
@@ -90,6 +90,9 @@ public class IntakeControl extends SubsystemBase {
   private void setIntakePositionVolts(double volts) {
     // this assumes positive voltage deploys and negative voltage retracts.
     // invert the motor if that is NOT true
+    if (volts < 0) {
+      io.setIntakeRollerVelocity(SuperStructureConstants.IntakeRollerIdleSpeed);
+    }
     io.setIntakePositionVolts(volts);
   }
 
