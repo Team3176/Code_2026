@@ -130,8 +130,7 @@ public class RobotContainer {
     thisRobotIMUHandler = new precisionPigeon();
      Commands.runOnce(()->thisRobotIMUHandler.setIMUYawToDriverZero());
     
-    autoChooser = AutoBuilder.buildAutoChooser("Tests");
-    SmartDashboard.putData("Auto Mode", autoChooser);
+
 
 
 
@@ -143,7 +142,7 @@ public class RobotContainer {
     autoAlert.onTrue(leds.AutoDriveStart());  //rainbow
     endMatchAlert.onTrue(leds.EndgameStart()); // blue
     ShootingTime.onTrue(leds.GoalShiftActive());  //SOLID_LAWN_GREEN
-    ShootingTime.onFalse(leds.DefaultLED()); // purple 
+    ShootingTime.onFalse(leds.turretVisonLost()); // red 
    // ShooterIsLockedON.onTrue(leds.turretLockedOn());  // FIXED_TWINKLES_LAVA
    // ShooterIsLockedON.onFalse(leds.DefaultLED());  // purple
     SmartDashboard.putBoolean("Is Hub Active", isHubActive());
@@ -155,21 +154,25 @@ public class RobotContainer {
      .andThen(Commands.waitSeconds(.1)))
      .andThen(superstructure.SpindexerOn()));   
 
-    NamedCommands.registerCommand("ShootFromTrench", superstructure.ShotThreeShooter().withTimeout(.1)   
+    NamedCommands.registerCommand("ShootFromTrench", 
+    superstructure.ShotThreeShooter().withTimeout(.1)   
      .andThen(superstructure.ShooterOn())
      .andThen(Commands.waitSeconds(.5))
      .andThen(superstructure.KickerOn()
      .andThen(Commands.waitSeconds(.1)))
      .andThen(superstructure.SpindexerOn()));
      
-    NamedCommands.registerCommand("ShootFromClose", superstructure.ShotTwoShooter().withTimeout(.1)   
+    NamedCommands.registerCommand("ShootFromClose", 
+    superstructure.ShotTwoShooter().withTimeout(.1)   
      .andThen(superstructure.ShooterOn())
      .andThen(Commands.waitSeconds(.5))
      .andThen(superstructure.KickerOn()
      .andThen(Commands.waitSeconds(.1)))
-     .andThen(superstructure.SpindexerOn()));  
+     .andThen(superstructure.SpindexerOn()
+     .andThen(Commands.waitSeconds(10))));  
 
-    NamedCommands.registerCommand("ShootFromHumanFeed", superstructure.ShotFourShooter().withTimeout(.1)   
+    NamedCommands.registerCommand("ShootFromHumanFeed", 
+    superstructure.ShotFourShooter().withTimeout(.1)   
      .andThen(superstructure.ShooterOn())
      .andThen(Commands.waitSeconds(.5))
      .andThen(superstructure.KickerOn()
@@ -181,7 +184,21 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("RetractIntake", 
         superstructure.IntakeRetract().withTimeout(1));  
+    NamedCommands.registerCommand("TurretCenter",
+        superstructure.TurretCenter().withTimeout(.2));
+    NamedCommands.registerCommand("TurretRight",
+        superstructure.TurretRight().withTimeout(.2));
+    NamedCommands.registerCommand("TurretLeft",
+        superstructure.TurretRight().withTimeout(.2));
+    NamedCommands.registerCommand("IntakeRollerIdle",
+        superstructure.IntakeRollerIdle().withTimeout(.2));
+    NamedCommands.registerCommand("StopShot",
+        superstructure.ShooterOff()
+        .andThen(superstructure.SpindexerOff()
+        .andThen(superstructure.KickerOff())).withTimeout(.2));
 
+    autoChooser = AutoBuilder.buildAutoChooser("Tests");
+    SmartDashboard.putData("Auto Mode", autoChooser);
     // Warmup PathPlanner to avoid Java pauses
     FollowPathCommand.warmupCommand().schedule();
 

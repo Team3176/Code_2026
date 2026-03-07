@@ -39,6 +39,36 @@
           "data": {
             "name": "RetractIntake"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TurretCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TurretLeft"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TurretRight"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeRollerIdle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShot"
+          }
         }
       ]
     }

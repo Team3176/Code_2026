@@ -85,6 +85,10 @@ public class Superstructure {
     return (intake.runIntakeRoller(() -> Speed_DutyCylce.getAsDouble()));
   }
 
+  public Command IntakeRollerIdle(){
+    return (intake.runIntakeRollerIdle());
+  }
+
   public Command SpindexerMotor(DoubleSupplier speed) {
     return (spindexer.runSpindexerSpeed(() -> speed.getAsDouble()));
   }

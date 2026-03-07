@@ -204,6 +204,19 @@ public class IntakeControl extends SubsystemBase {
     }
   }
 
+  public Command runIntakeRollerIdle() {
+    return this.run(
+      () -> { 
+        intakeRollerIdle();
+      });
+  }
+
+  public void intakeRollerIdle(){
+   
+      io.setIntakeRollerVelocity(SuperStructureConstants.IntakeRollerIdleSpeed); 
+      Status = rollerSpeedStatus.IDLE;
+  }
+
  
   @Override
   public void periodic() {
