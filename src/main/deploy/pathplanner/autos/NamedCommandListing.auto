@@ -7,43 +7,37 @@
         {
           "type": "named",
           "data": {
-            "name": null
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Rstart-Opt"
+            "name": "ShootFromClimb"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": null
+            "name": "ShootFromTrench"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": null
+            "name": "ShootFromClose"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": null
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Opt-Cclimb"
+            "name": "ShootFromHumanFeed"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": null
+            "name": "DeployIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RetractIntake"
           }
         }
       ]
