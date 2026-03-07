@@ -15,6 +15,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.FollowPathCommand;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -45,7 +46,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.Commands;
-
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
@@ -131,8 +132,7 @@ public class RobotContainer {
     autoChooser = AutoBuilder.buildAutoChooser("Tests");
     SmartDashboard.putData("Auto Mode", autoChooser);
 
-    // Configure the trigger bindings
-    configureBindings();
+
 
     // Warmup PathPlanner to avoid Java pauses
     FollowPathCommand.warmupCommand().schedule();
@@ -143,6 +143,46 @@ public class RobotContainer {
     endMatchAlert.onTrue(leds.EndgameStart());
     ShootingTime.onTrue(leds.GoalShiftActive());
     SmartDashboard.putBoolean("Is Hub Active", isHubActive());
+
+    NamedCommands.registerCommand("ShootFromClimb", superstructure.ShotTwoShooter().withTimeout(.1)   
+     .andThen(superstructure.ShooterOn())
+     .andThen(Commands.waitSeconds(.5))
+     .andThen(superstructure.KickerOn()
+     .andThen(Commands.waitSeconds(.1)))
+     .andThen(superstructure.SpindexerOn()));   
+
+    NamedCommands.registerCommand("ShootFromTrench", superstructure.ShotThreeShooter().withTimeout(.1)   
+     .andThen(superstructure.ShooterOn())
+     .andThen(Commands.waitSeconds(.5))
+     .andThen(superstructure.KickerOn()
+     .andThen(Commands.waitSeconds(.1)))
+     .andThen(superstructure.SpindexerOn()));
+     
+    NamedCommands.registerCommand("ShootFromClose", superstructure.ShotTwoShooter().withTimeout(.1)   
+     .andThen(superstructure.ShooterOn())
+     .andThen(Commands.waitSeconds(.5))
+     .andThen(superstructure.KickerOn()
+     .andThen(Commands.waitSeconds(.1)))
+     .andThen(superstructure.SpindexerOn()));  
+
+    NamedCommands.registerCommand("ShootFromHumanFeed", superstructure.ShotFourShooter().withTimeout(.1)   
+     .andThen(superstructure.ShooterOn())
+     .andThen(Commands.waitSeconds(.5))
+     .andThen(superstructure.KickerOn()
+     .andThen(Commands.waitSeconds(.1)))
+     .andThen(superstructure.SpindexerOn()));  
+
+    NamedCommands.registerCommand("DeployIntake", 
+        superstructure.IntakeExtend().withTimeout(1));  
+
+    NamedCommands.registerCommand("RetractIntake", 
+        superstructure.IntakeRetract().withTimeout(1));  
+
+
+
+    // Configure the trigger bindings
+    configureBindings();
+    
 
   }
 

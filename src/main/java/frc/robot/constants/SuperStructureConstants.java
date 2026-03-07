@@ -98,10 +98,10 @@ public class SuperStructureConstants {
   public static final double HoodTHREERot = 2.476;  //b
   public static final double HoodFOURRot =  4.404;   //a
 
-  public static final double ShooterONESpeed = 40; //y
-  public static final double ShooterTWOSpeed = 37;  //x
-  public static final double ShooterTHREESpeed = 42;  //b - was 47 
-  public static final double ShooterFOURSpeed = 47;  //a - was 52
+  public static final double ShooterONESpeed = 40; //y  - Climb 
+  public static final double ShooterTWOSpeed = 37;  //x  - Close
+  public static final double ShooterTHREESpeed = 42;  //b - was 47 - TRENCH
+  public static final double ShooterFOURSpeed = 47;  //a - was 52 - Corner / Human 
 
   //Set if using gravity for feedforward
   public static final double Hood_kg = 2.0;
