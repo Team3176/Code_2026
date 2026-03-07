@@ -53,7 +53,7 @@ public class LEDSubsystem extends SubsystemBase {
 
   private void isEndGame() {
     // Flashing Blue
-    blinkin.setMode(BlinkinLedMode.FIXED_SHOT_BLUE);
+    blinkin.setMode(BlinkinLedMode.FIXED_SHOT_WHITE);
   }
 
   private void isAuton() {
@@ -109,7 +109,7 @@ public class LEDSubsystem extends SubsystemBase {
   }
 
   public Command turretLockedOn(){
-    return this.run(() ->blinkin.setMode(BlinkinLedMode.SOLID_DARK_GREEN));
+    return this.run(() ->blinkin.setMode(BlinkinLedMode.FIXED_TWINKLES_LAVA));
   }
 
   public Command turretTracking(){
@@ -121,7 +121,11 @@ public class LEDSubsystem extends SubsystemBase {
   }
 
   public Command GoalShiftActive(){
-    return this.run(() ->blinkin.setMode(BlinkinLedMode.SOLID_LAWN_GREEN));
+    return this.run(() ->blinkin.setMode(BlinkinLedMode.FIXED_CHASE_BLUE));
+  }
+
+  public Command GoalShiftNonActive(){
+    return this.run(() ->blinkin.setMode(BlinkinLedMode.SOLID_DARK_RED));
   }
   
 }

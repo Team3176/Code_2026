@@ -114,8 +114,9 @@ public class RobotContainer {
 
   private Trigger visionOverride; 
   private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < MatchConstants.ENDGAMEALERT_Time);
+  private Trigger autoAlert = new Trigger (() -> DriverStation.isAutonomous());
   private Trigger ShootingTime = new Trigger(()-> isHubActive());
-  //private Trigger ShooterIsLockedON = new Trigger (()-> thisPrecePrecisionVision.isOurGoalDetected());
+  private Trigger ShooterIsLockedON = new Trigger (()-> thisPrecePrecisionVision.getTurretLockOn());
   
   // Implement LEDs
   private LEDSubsystem leds = LEDSubsystem.getInstance();
@@ -139,9 +140,13 @@ public class RobotContainer {
 
     /// Team 3176 2026
   //Leds default commands
-    leds.setDefaultCommand(leds.DefaultLED());
-    endMatchAlert.onTrue(leds.EndgameStart());
-    ShootingTime.onTrue(leds.GoalShiftActive());
+    leds.setDefaultCommand(leds.DefaultLED()); //purple
+    autoAlert.onTrue(leds.AutoDriveStart());  //rainbow
+    endMatchAlert.onTrue(leds.EndgameStart()); // blue
+    ShootingTime.onTrue(leds.GoalShiftActive());  //SOLID_LAWN_GREEN
+    ShootingTime.onFalse(leds.DefaultLED()); // purple 
+    ShooterIsLockedON.onTrue(leds.turretLockedOn());  // FIXED_TWINKLES_LAVA
+    ShooterIsLockedON.onFalse(leds.DefaultLED());  // purple
     SmartDashboard.putBoolean("Is Hub Active", isHubActive());
 
     NamedCommands.registerCommand("ShootFromClimb", superstructure.ShotTwoShooter().withTimeout(.1)   

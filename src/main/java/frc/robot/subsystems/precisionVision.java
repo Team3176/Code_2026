@@ -348,6 +348,12 @@ public class precisionVision {
 
     }
 
+    public boolean getTurretLockOn() {
+
+        return turretGoodLock;
+
+    }
+
     public double getTurretDistanceToGoalMeters() {
         // Returns distance to target in radians
         return turretDistanceTogoal;
