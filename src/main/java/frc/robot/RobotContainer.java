@@ -88,10 +88,13 @@ public class RobotContainer {
   private final Telemetry logger = new Telemetry(MaxSpeed);
   private precisionVision visionHandler; 
 
+  private boolean shooterLockon = false; 
+  private double shooterDistance = 0.0;
+
  // private final CommandJoystick rotStick = new CommandJoystick(0);
  // private final CommandJoystick transStick = new CommandJoystick(1);
  
-
+  public precisionVision thisPrecePrecisionVision;
   public precisionPigeon thisRobotIMUHandler;
 
   public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
@@ -111,6 +114,7 @@ public class RobotContainer {
   private Trigger visionOverride; 
   private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < MatchConstants.ENDGAMEALERT_Time);
   private Trigger ShootingTime = new Trigger(()-> isHubActive());
+  //private Trigger ShooterIsLockedON = new Trigger (()-> thisPrecePrecisionVision.isOurGoalDetected());
   
   // Implement LEDs
   private LEDSubsystem leds = LEDSubsystem.getInstance();

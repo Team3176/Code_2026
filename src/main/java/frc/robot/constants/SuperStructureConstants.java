@@ -98,6 +98,11 @@ public class SuperStructureConstants {
   public static final double HoodTHREERot = 2.476;  //b
   public static final double HoodFOURRot =  4.404;   //a
 
+  public static final double ShooterONESpeed = 40; //y
+  public static final double ShooterTWOSpeed = 37;  //x
+  public static final double ShooterTHREESpeed = 42;  //b - was 47 
+  public static final double ShooterFOURSpeed = 47;  //a - was 52
+
   //Set if using gravity for feedforward
   public static final double Hood_kg = 2.0;
 
@@ -149,10 +154,7 @@ public class SuperStructureConstants {
   public static final double Shooter_Speed_Reverse = -25; // This should be the only negative speed. 
   public static final double Shooter_Speed_Off = 0;
   public static final double runDualShooterSpeedIDLE_SPEED = 6;
-  public static final double ShooterONESpeed = 40; //y
-  public static final double ShooterTWOSpeed = 37;  //x
-  public static final double ShooterTHREESpeed = 47;  //b
-  public static final double ShooterFOURSpeed = 52;  //a
+
   
 ///
 /// Turret Constants
