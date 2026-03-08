@@ -95,7 +95,7 @@ public class RobotContainer {
  // private final CommandJoystick rotStick = new CommandJoystick(0);
  // private final CommandJoystick transStick = new CommandJoystick(1);
  
-  public precisionVision thisPrecePrecisionVision;
+  //public precisionVision thisPrecePrecisionVision;
   public precisionPigeon thisRobotIMUHandler;
 
   public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
@@ -116,7 +116,7 @@ public class RobotContainer {
   private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < MatchConstants.ENDGAMEALERT_Time);
   private Trigger autoAlert = new Trigger (() -> DriverStation.isAutonomous());
   private Trigger ShootingTime = new Trigger(()-> isHubActive());
-  //private Trigger ShooterIsLockedON = new Trigger (()-> thisPrecePrecisionVision.getTurretLockOn());
+  
   
   // Implement LEDs
   private LEDSubsystem leds = LEDSubsystem.getInstance();
@@ -128,6 +128,8 @@ public class RobotContainer {
   public RobotContainer() {
     
     thisRobotIMUHandler = new precisionPigeon();
+   // thisPrecePrecisionVision = new precisionVision();
+    //private Trigger ShooterIsLockedON = new Trigger (()-> thisPrecePrecisionVision.getTurretLockOn());
      Commands.runOnce(()->thisRobotIMUHandler.setIMUYawToDriverZero());
     
 
@@ -155,7 +157,9 @@ public class RobotContainer {
      .andThen(superstructure.SpindexerOn()));   
 
     NamedCommands.registerCommand("ShootFromTrench", 
-    superstructure.ShotThreeShooter().withTimeout(.1)   
+    superstructure.ShotThreeShooter().withTimeout(.1)
+     .andThen(superstructure.ShotThreeHood())
+     .andThen(Commands.waitSeconds(.2))
      .andThen(superstructure.ShooterOn())
      .andThen(Commands.waitSeconds(.5))
      .andThen(superstructure.KickerOn()
@@ -168,8 +172,7 @@ public class RobotContainer {
      .andThen(Commands.waitSeconds(.5))
      .andThen(superstructure.KickerOn()
      .andThen(Commands.waitSeconds(.1)))
-     .andThen(superstructure.SpindexerOn()
-     .andThen(Commands.waitSeconds(10))));  
+     .andThen(superstructure.SpindexerOn()));  
 
     NamedCommands.registerCommand("ShootFromHumanFeed", 
     superstructure.ShotFourShooter().withTimeout(.1)   
@@ -313,7 +316,7 @@ public class RobotContainer {
         .whileTrue(
             superstructure
                 .moveClimbLeftRightPosition(
-                    () -> -controller.operator.getLeftY(), () -> -controller.operator.getRightY()))
+                    () -> -controller.operator.getRightY(), () -> -controller.operator.getLeftY()))
         .onFalse(superstructure.stopClimbLeftRight());
 
 

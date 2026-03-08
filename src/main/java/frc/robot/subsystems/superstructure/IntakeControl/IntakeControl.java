@@ -175,7 +175,7 @@ public class IntakeControl extends SubsystemBase {
   }
 
   public Command runIntakeRollerReverse() {
-    return this.run(
+    return this.runOnce(
       () -> { 
         intakeRollerReverse();
       });
@@ -186,7 +186,7 @@ public class IntakeControl extends SubsystemBase {
   }
 
   public Command runIntakeRollerResume() {
-    return this.run(
+    return this.runOnce(
       () -> { 
         intakeRollerResume();
       });
@@ -205,7 +205,7 @@ public class IntakeControl extends SubsystemBase {
   }
 
   public Command runIntakeRollerIdle() {
-    return this.run(
+    return this.runOnce(
       () -> { 
         intakeRollerIdle();
       });

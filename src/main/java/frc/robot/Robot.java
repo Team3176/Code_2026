@@ -126,7 +126,7 @@ public class Robot extends LoggedRobot {
 
         /* log and replay timestamp and joystick data */
     //attach precision vision to robot container
-    m_robotContainer.thisPrecePrecisionVision = thisRobotVisionHandler;
+   // m_robotContainer.thisPrecePrecisionVision = thisRobotVisionHandler;
 
   }
   /**

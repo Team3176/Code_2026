@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Cstart-Cmid"
+            "pathName": "Etrench-NOMOVE"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ShootFromClose"
+            "name": "ShootFromTrench"
           }
         }
       ]

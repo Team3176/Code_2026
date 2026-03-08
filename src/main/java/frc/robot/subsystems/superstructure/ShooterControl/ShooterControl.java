@@ -86,7 +86,7 @@ private ShooterControl(ShooterControlIO io) {
   }
 
   public Command runDualShooterSpeedIDLE() {
-    return this.run(
+    return this.runOnce(
       () -> { 
         setDualShooterSpeedControl( SuperStructureConstants.runDualShooterSpeedIDLE_SPEED); // idle system
       });
@@ -102,28 +102,28 @@ private ShooterControl(ShooterControlIO io) {
   }
 
     public Command setShooterONESpeed() {
-    return this.run(
+    return this.runOnce(
       () -> { 
         setShooterSpeedConstant(SuperStructureConstants.ShooterONESpeed);
       });
    }
 
   public Command setShooterTWOSpeed() {
-    return this.run(
+    return this.runOnce(
       () -> { 
         setShooterSpeedConstant(SuperStructureConstants.ShooterTWOSpeed);
       });
    }
 
      public Command setShooterTHREESpeed() {
-    return this.run(
+    return this.runOnce(
       () -> { 
         setShooterSpeedConstant(SuperStructureConstants.ShooterTHREESpeed);
       });
    }
 
      public Command setShooterFOURSpeed() {
-    return this.run(
+    return this.runOnce(
       () -> { 
         setShooterSpeedConstant(SuperStructureConstants.ShooterFOURSpeed);
       });

@@ -1,0 +1,91 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Lstart-LTHub"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TurretCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootFromTrench"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 4.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LTHub-LNZ"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "DeployIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "IOCP-LNZ"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RetractIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LNZ-LTHub"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TurretCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootFromTrench"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 10.0
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

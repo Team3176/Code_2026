@@ -15,6 +15,24 @@
           "data": {
             "name": "ShootFromClose"
           }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 4.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "DeployIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Cmid-Crl"
+          }
         }
       ]
     }

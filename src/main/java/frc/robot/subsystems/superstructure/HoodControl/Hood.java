@@ -113,28 +113,28 @@ public class Hood extends SubsystemBase {
 
 
   public Command setHoodONEPos() {
-    return this.run(
+    return this.runOnce(
       () -> { 
         setHoodVoltagePos(SuperStructureConstants.HoodONERot);
       });
    }
 
   public Command setHoodTWOPos() {
-    return this.run(
+    return this.runOnce(
       () -> { 
         setHoodVoltagePos(SuperStructureConstants.HoodTWORot);
       });
    }
 
      public Command setHoodTHREEPos() {
-    return this.run(
+    return this.runOnce(
       () -> { 
         setHoodVoltagePos(SuperStructureConstants.HoodTHREERot);
       });
    }
 
      public Command setHoodFOURPos() {
-    return this.run(
+    return this.runOnce(
       () -> { 
         setHoodVoltagePos(SuperStructureConstants.HoodFOURRot);
       });
