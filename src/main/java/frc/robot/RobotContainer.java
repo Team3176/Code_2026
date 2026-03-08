@@ -245,7 +245,7 @@ public class RobotContainer {
     RobotModeTriggers.disabled().whileTrue(
         drivetrain.applyRequest(() -> idle).ignoringDisable(true));
 
-    controller.transStick.button(0).whileTrue(drivetrain.applyRequest(() -> brake));
+    controller.transStick.button(2).whileTrue(drivetrain.applyRequest(() -> brake));
     controller.transStick.button(10).whileTrue(drivetrain
         .applyRequest(() -> point.withModuleDirection(new Rotation2d(-controller.transStick.getX(), -controller.transStick.getY()))));
 

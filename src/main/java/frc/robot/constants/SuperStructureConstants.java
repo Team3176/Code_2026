@@ -222,7 +222,7 @@ public class SuperStructureConstants {
   public static final double Climb_kD = 0; 
   public static final double ClimbUpIncrement = 0.1; 
   public static final double ClimbDownIncrement = 0.1; 
-  public static final double ClimbMaxExtend = 250;
+  public static final double ClimbMaxExtend = 160; // Measured on 3_8 at mish
 
 
   /// Spindexer
