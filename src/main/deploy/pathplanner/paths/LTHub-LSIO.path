@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.604429460580913,
-        "y": 7.364688796680498
+        "x": 4.558215767634855,
+        "y": 7.564834024896266
       },
       "isLocked": false,
       "linkedName": "LTHub"
     },
     {
       "anchor": {
-        "x": 6.359522821576763,
-        "y": 7.037178423236514
+        "x": 6.814398340248963,
+        "y": 7.3010062240663895
       },
       "prevControl": {
-        "x": 5.749989626556016,
-        "y": 7.55573651452282
+        "x": 5.814398340248963,
+        "y": 7.3010062240663895
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LIOCP"
+      "linkedName": "LSIO"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 88.87866531033913
+    "rotation": -44.92446256216742
   },
   "reversed": false,
   "folder": null,

@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.534,
-        "y": 7.41845934379458
+        "x": 6.87808091286307,
+        "y": 0.8144813278008292
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.604429460580913,
-        "y": 7.364688796680498
+        "x": 7.551296680497925,
+        "y": 1.6423547717842326
       },
       "isLocked": false,
-      "linkedName": "LTHub"
+      "linkedName": "RSIO"
     },
     {
       "anchor": {
-        "x": 6.359522821576763,
-        "y": 7.037178423236514
+        "x": 7.1873962655601655,
+        "y": 3.4800518672199177
       },
       "prevControl": {
-        "x": 5.749989626556016,
-        "y": 7.55573651452282
+        "x": 7.915197095435683,
+        "y": 3.46185684647303
+      },
+      "nextControl": {
+        "x": 6.63769524573379,
+        "y": 3.493794392715577
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.0775,
+        "y": 1.1692842323651451
+      },
+      "prevControl": {
+        "x": 6.6233506224066385,
+        "y": 1.5513796680497933
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LIOCP"
+      "linkedName": "RPT"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 88.87866531033913
+    "rotation": -121.15930450834453
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 108.49628196386425
+    "rotation": 65.32313682966289
   },
   "useDefaultConstraints": true
 }

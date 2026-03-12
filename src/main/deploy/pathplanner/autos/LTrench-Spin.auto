@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Rstart-RTHub"
+            "pathName": "Lstart-LTHub"
           }
         },
         {
@@ -37,7 +37,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RTHub-RIOCP"
+            "pathName": "LTHub-LSIO"
           }
         },
         {
@@ -49,13 +49,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RIOCP-RNZ"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "RNZ-RIOCP"
+            "pathName": "LSIO-LPT"
           }
         },
         {
@@ -67,7 +61,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RIOCP-RTHub"
+            "pathName": "LPT-LTHub"
           }
         },
         {

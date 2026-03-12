@@ -37,7 +37,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RTHub-RIOCP"
+            "pathName": "RTHub-RSIO"
           }
         },
         {
@@ -49,13 +49,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RIOCP-RNZ"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "RNZ-RIOCP"
+            "pathName": "RSIO-RPT"
           }
         },
         {
@@ -67,7 +61,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RIOCP-RTHub"
+            "pathName": "RPT-RTHub"
           }
         },
         {
