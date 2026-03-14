@@ -223,6 +223,10 @@ public class Superstructure {
     return (turretRotation.runTurretRotationFromVision(() -> positionError.getAsDouble(), () -> isTargetLocked.getAsBoolean(), leds));
   }
 
+  public Command runTurretRotFromVisionLocation(DoubleSupplier turretRotRaidianToPoint){
+    return (turretRotation.runTurretRotationFromVisionLocation(() -> turretRotRaidianToPoint.getAsDouble()));
+  }
+
   public Command runHoodPositionFromVision(DoubleSupplier distance, BooleanSupplier isTargetLocked) {
     return (hood.runHoodFromDistance(distance, isTargetLocked));
   }

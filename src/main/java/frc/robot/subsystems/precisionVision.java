@@ -413,7 +413,7 @@ public class precisionVision {
             IsValid = false;
 
         }
-    
+    }
     class chassisSolution{
         double distance;
         double angle;
@@ -653,6 +653,62 @@ public class precisionVision {
 
         }
 
+    public double estimateGoalRotationFromChassis(){
+       
+        double chassisLocX=0;
+        double chassisLocY=0;
+        double chassisLocRot=0;
+
+        chassisSolution aChassisSolution = new chassisSolution();
+
+        double [] ourGoalLocation;
+
+      
+                if(weAreBlueAlliance) ourGoalLocation = blueGoalLocation;
+                else ourGoalLocation = redGoalLocation;
+                
+                chassisLocX = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
+                chassisLocY =  thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getY();
+                chassisLocRot = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getRotation().getRadians();
+
+                //calcualte the distance
+                aChassisSolution.distance = Math.sqrt( Math.pow(chassisLocX - ourGoalLocation[0],2) + Math.pow(chassisLocX - ourGoalLocation[1],2));
+
+                //calculate the angle
+                aChassisSolution.angle = Math.atan((ourGoalLocation[1]-chassisLocY) / (ourGoalLocation[0]-chassisLocX)) - chassisLocRot;
+        
+           return aChassisSolution.angle;
+
+        }
+
+    public double estimateGoalDistanceFromChassis(){
+       
+        double chassisLocX=0;
+        double chassisLocY=0;
+        double chassisLocRot=0;
+
+        chassisSolution aChassisSolution = new chassisSolution();
+
+        double [] ourGoalLocation;
+
+      
+                if(weAreBlueAlliance) ourGoalLocation = blueGoalLocation;
+                else ourGoalLocation = redGoalLocation;
+                
+                chassisLocX = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
+                chassisLocY =  thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getY();
+                chassisLocRot = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getRotation().getRadians();
+
+                //calcualte the distance
+                aChassisSolution.distance = Math.sqrt( Math.pow(chassisLocX - ourGoalLocation[0],2) + Math.pow(chassisLocX - ourGoalLocation[1],2));
+
+                //calculate the angle
+                aChassisSolution.angle = Math.atan((ourGoalLocation[1]-chassisLocY) / (ourGoalLocation[0]-chassisLocX)) - chassisLocRot;
+        
+           return aChassisSolution.distance;
+
+        }
+
 
 
        
@@ -661,4 +717,4 @@ public class precisionVision {
 
 
 
-}
+

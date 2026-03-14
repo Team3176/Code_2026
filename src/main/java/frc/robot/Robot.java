@@ -126,7 +126,7 @@ public class Robot extends LoggedRobot {
 
 
     //attach precision vision to robot container
-    thisRobotVisionHandler.attachDriveTrain(m_robotContainer.drivetrain);
+    m_robotContainer.thisRobotVisionHandler.attachDriveTrain(m_robotContainer.drivetrain);
 
   }
   /**

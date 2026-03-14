@@ -87,8 +87,7 @@ public class RobotContainer {
   private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
 
   private final Telemetry logger = new Telemetry(MaxSpeed);
-  private precisionVision visionHandler; 
-
+  
   private boolean shooterLockon = false; 
   private double shooterDistance = 0.0;
 
@@ -324,7 +323,7 @@ public class RobotContainer {
     controller.transStick.button(1).onTrue((superstructure.ShooterOn().andThen(Commands.waitSeconds(.5)).andThen(superstructure.KickerOn().andThen(Commands.waitSeconds(.1))).andThen(superstructure.SpindexerOn())));
     controller.transStick.button(1).onFalse((superstructure.SpindexerOff().andThen(Commands.waitSeconds(.2)).andThen(superstructure.KickerOff().andThen(Commands.waitSeconds(.2))).andThen(superstructure.shooterMotorSpeedIDLE())));
 
-    controller.rotStick.button(2).onTrue(superstructure.toggleShooterStatus());
+    controller.rotStick.button(2).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimateGoalRotationFromChassis())));
     controller.rotStick.button(1).onTrue(superstructure.IntakeRollerReverse()).onFalse(superstructure.IntakeRollerResume());
 
 
