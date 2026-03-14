@@ -39,6 +39,9 @@ public class TurretRotation extends SubsystemBase {
  // private LEDSubsystem leds;
   private double homePos = 0;
   private double currentPosRot = 0;
+  private double deltaRot = 0;
+  private double centerRot = 0;
+  private double commandedRot = 0;
 
 
   private TurretRotation(TurretRotationIO io) {
@@ -200,12 +203,14 @@ public class TurretRotation extends SubsystemBase {
   private void turrentToCenterPoint(){
     setCurrentPosToIncrementFrom();
     
+    
     double goToPosRot =  (SuperStructureConstants.TurrentCenterPosPot - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt;
     setTurretRotationVoltagePos(goToPosRot + this.currentPosRot);
      SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
      desiredRotations = goToPosRot + this.currentPosRot;
 
-
+      //This should be used as the home position update each time it is centered
+      this.homePos = desiredRotations; 
   }
 
     public Command moveTurretToMaxClockwise() {
@@ -241,6 +246,70 @@ public class TurretRotation extends SubsystemBase {
      desiredRotations = goToPosRot + this.currentPosRot;
   }
 
+
+/* Scoring Table                (0,0)
+    _______________________________
+          |                       |
+          |            {_*  robot |  robotRotationVsFeild - get angle offset from robot front to blue wall 
+          |           /  | (1,1)  |
+          |         /             |
+          |       /      |        |
+          |     /                 |
+          |___ /_}_ _ _ _|        |  robotAngleToHub - use the coordinates of robot to get an angle to the robot     
+          |  |                    |
+(4.6,8.0)  x | hub                |
+          |  |                    |
+ */
+  //Use this command for target tracking - 
+  public Command runTurretRotationFromVisionLocation(DoubleSupplier turretRotRaidianToPoint) {
+  //  double turretRotAbsolute =   turretRotToPoint.getAsDouble(); // SuperStructureConstants.TurretDegreesToRotations; //convert degrees of error into rotations
+    
+    return this.run(
+      () -> { 
+        turretRotationFromLocation(turretRotRaidianToPoint.getAsDouble());
+      });
+  }
+
+  private void turretRotationFromLocation(double turretRotRaidianAbsolute){
+      // curret position in rotations
+      double curretPosition = inputs.turretRotationPositionRot;
+      //io.setTurretRotationError( positionErrorRotations, isTargetLocked);
+      double goToPosRot = curretPosition;
+      //Identify the rotations of center point
+      double centerPosRot =  ((SuperStructureConstants.TurrentCenterPosPot - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + this.currentPosRot;
+      double maxLeftPosRot =  ((SuperStructureConstants.TurretPotCounterClockOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + this.currentPosRot;
+      double maxRightPosRot =  ((SuperStructureConstants.TurretPotClockwiseOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + this.currentPosRot;
+      
+      double deltaRotations = turretRotRaidianAbsolute * SuperStructureConstants.TurretRadianToRotations;
+      
+      
+      
+      goToPosRot = centerPosRot + deltaRotations;
+      desiredRotations = centerPosRot + deltaRotations;
+
+      if( goToPosRot < maxLeftPosRot){
+        goToPosRot = maxLeftPosRot;
+      }
+      if (goToPosRot > maxRightPosRot) {
+        goToPosRot = maxRightPosRot;
+      }
+
+      commandedRot = goToPosRot;
+
+      
+      //Used to update the Smart Dashboard;
+      desiredRotations = goToPosRot;
+      deltaRot = deltaRotations;
+      centerRot = centerPosRot;
+
+
+
+      //setTurretRotationVoltagePos(goToPosRot);
+      
+
+  }
+ 
+
   @Override
   public void periodic() {
     
@@ -254,7 +323,11 @@ public class TurretRotation extends SubsystemBase {
     SmartDashboard.putBoolean("Turret LimitSwitch Counter Clockwise", inputs.turretCounterclockwiselimitswitch);
     SmartDashboard.putNumber("Turret Current Rotation", inputs.turretRotationPositionRot);
     SmartDashboard.putNumber("Turret Desired Rotation", desiredRotations);
+    SmartDashboard.putNumber("Turret Delta Rotations", deltaRot);
+    SmartDashboard.putNumber("Turret Center Rotations", centerRot); 
+    SmartDashboard.putNumber("Turret Commanded Rotations", commandedRot);
     SmartDashboard.putNumber("Turret POT Volgate", inputs.turretAnalogPOT_Value);
+   
    // Use Limit Switches not to break anything - May be double dipping on limit switches based on method call. - safe than sorry
 
     if (inputs.turretClockwiselimitswitch && inputs.turretRotationAppliedVolts > 0) {

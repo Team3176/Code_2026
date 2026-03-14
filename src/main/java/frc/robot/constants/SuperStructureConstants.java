@@ -64,13 +64,13 @@ public class SuperStructureConstants {
   public static final double Kicker_kg = 0.2;
   public static final double Kicker_ZERO_POS = 0.39;  
   public static final double Kicker_ENCODER_OFFSET = 0;
-  public static final double Kicker_Speed_On = 60;
+  public static final double Kicker_Speed_On = 80;
   public static final double Kicker_Speed_Reverse = -30;
   public static final double Kicker_Speed_Off = 0;
 
   public static final double KickerSpeed_MAX_OUTPUT_VOLTS = 3; //Sets Max forward Speed
   public static final double KickerSpeed_MAXNeg_OUTPUT_VOLTS = -3; //Sets Max Reverse Speed
-  public static final double KickerSpeed_Max_RPS = 30;
+  public static final double KickerSpeed_Max_RPS = 60;
 
 
   public static final double Hood_ZERO_POS = 0.39;
@@ -236,14 +236,14 @@ public class SuperStructureConstants {
   public static final double Spindexer_kg = 0.2;
   public static final double Spindexer_ZERO_POS = 0.39;
   public static final double Spindexer_ENCODER_OFFSET = 0;
-  public static final double Spindexer_Speed_On = 30;
+  public static final double Spindexer_Speed_On = 60;
   public static final double Spindexer_Speed_Reverse = -10;
   public static final double Spindexer_Speed_Off = 0;
 
 
   public static final double SpindexerSpeed_MAX_OUTPUT_VOLTS = 4; //Sets Max forward Speed
   public static final double SpindexerSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
-  public static final double SpindexerSpeed_Max_RPS = 40;
+  public static final double SpindexerSpeed_Max_RPS = 60;
   
 
 }

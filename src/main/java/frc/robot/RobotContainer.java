@@ -95,7 +95,7 @@ public class RobotContainer {
  // private final CommandJoystick rotStick = new CommandJoystick(0);
  // private final CommandJoystick transStick = new CommandJoystick(1);
  
-  //public precisionVision thisPrecePrecisionVision;
+  public precisionVision thisRobotVisionHandler;
   public precisionPigeon thisRobotIMUHandler;
 
   public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
@@ -128,7 +128,7 @@ public class RobotContainer {
   public RobotContainer() {
     
     thisRobotIMUHandler = new precisionPigeon();
-   // thisPrecePrecisionVision = new precisionVision();
+    thisRobotVisionHandler = new precisionVision();
     //private Trigger ShooterIsLockedON = new Trigger (()-> thisPrecePrecisionVision.getTurretLockOn());
      Commands.runOnce(()->thisRobotIMUHandler.setIMUYawToDriverZero());
     
