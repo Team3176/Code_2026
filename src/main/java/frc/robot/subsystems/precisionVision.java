@@ -8,6 +8,8 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.util.Units;
+
 //Imports for Network Tables Functions
 import edu.wpi.first.networktables.BooleanArrayPublisher;
 import edu.wpi.first.networktables.BooleanPublisher;
@@ -30,7 +32,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.photonvision.EstimatedRobotPose;
+
+import edu.wpi.first.math.MatBuilder;
 import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.VecBuilder;
 
 public class precisionVision {
@@ -89,16 +94,16 @@ public class precisionVision {
             //From that calculator we are using the Axis-Angle in radians
 
             public static final Transform3d kSledToFrontLeftCam = new Transform3d(new Translation3d(0.0508, 0.254, 0.52),
-            new Rotation3d(0.191830, -0.463118, 0.865288));
+            new Rotation3d(Units.degreesToRadians(0),Units.degreesToRadians(-25),Units.degreesToRadians(45)));
 
             public static final Transform3d kSledToLeftRearCam = new Transform3d(new Translation3d(-0.0508, 0.254, 0.52),
-            new Rotation3d(0.215575, -0.089294, 0.972396)); 
+            new Rotation3d(Units.degreesToRadians(0),Units.degreesToRadians(-25),Units.degreesToRadians(135))); 
 
             public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.0508, -0.254, 0.52),
-            new Rotation3d(0.215575,0.089294,0.97236));
-    
-    public static final Transform3d kSledToFrontRightCam = new Transform3d(new Translation3d(0.0508, -0.254, 0.52),
-        new Rotation3d (-0.191830,-0.463118,-0.465288));
+            new Rotation3d(Units.degreesToRadians(0),Units.degreesToRadians(-25),Units.degreesToRadians(-135)));
+
+            public static final Transform3d kSledToFrontRightCam = new Transform3d(new Translation3d(0.0508, -0.254, 0.52),
+            new Rotation3d(Units.degreesToRadians(0),Units.degreesToRadians(-25),Units.degreesToRadians(-45)));
 
 
     public static final Transform3d kSledToTurret = new Transform3d(new Translation3d(0, 0, 0.203),
@@ -111,6 +116,11 @@ public class precisionVision {
     private PhotonPoseEstimator rightRearPoseEstimator;
     private PhotonPoseEstimator leftFrontPoseEstimator;
     private PhotonPoseEstimator rightFrontPoseEstimator;
+
+    private cameraContainer frLeftContainer;
+    private cameraContainer BaLeftContainer;
+    private cameraContainer FrRightContainer;
+    private cameraContainer BaRightContainer;
 
     class cameraContainer{
         PhotonCamera thisCamera;
@@ -185,28 +195,37 @@ public class precisionVision {
         //private Matrix<N3, N1> curStdDevs;
 
         //Temporary Container for chassisCameras
-        cameraContainer frLeftContainer = new cameraContainer();
+        frLeftContainer = new cameraContainer();
         frLeftContainer.thisCamera = leftFrontCamera;
         frLeftContainer.thisPoseEstimator = leftFrontPoseEstimator;
         frLeftContainer.arrayIndex = 0;
+        //chassisCameras.add(frLeftContainer);
 
 
-        cameraContainer BaLeftContainer = new cameraContainer();
+        BaLeftContainer = new cameraContainer();
         BaLeftContainer.thisCamera = leftRearCamera;
         BaLeftContainer.thisPoseEstimator = leftRearPoseEstimator;
         BaLeftContainer.arrayIndex = 1;
+        //chassisCameras.add(BaLeftContainer);
 
-        cameraContainer BaRightContainer = new cameraContainer();
+        BaRightContainer = new cameraContainer();
         BaRightContainer.thisCamera = rightRearCamera;
         BaRightContainer.thisPoseEstimator = rightRearPoseEstimator;
         BaRightContainer.arrayIndex = 2;
+        //chassisCameras.add(BaRightContainer);
 
-        cameraContainer FrRightContainer = new cameraContainer();
+        FrRightContainer = new cameraContainer();
         FrRightContainer.thisCamera = rightFrontCamera;
         FrRightContainer.thisPoseEstimator = rightFrontPoseEstimator;
         FrRightContainer.arrayIndex = 3;
+        //chassisCameras.add(FrRightContainer);
 
-         chassisCameras = Arrays.asList(frLeftContainer,BaLeftContainer,BaRightContainer,FrRightContainer);
+        chassisCameras = Arrays.asList(
+            frLeftContainer,
+            BaLeftContainer,
+            BaRightContainer,
+            FrRightContainer);
+
 
          visionXest = new double[4];
          VisionYest = new double[4];
@@ -216,8 +235,8 @@ public class precisionVision {
 
     public boolean periodicUpdate() {
         // Call this periodically to service cameras and update position estimates
-
-        /// ************ THIS SECTION DEALS WITH THE TURRET ONLY ********************/
+/*
+        /// ************ THIS SECTION DEALS WITH THE TURRET ONLY ******************** /
         // Initialize all tags to fase so that as we iterate through tags we can check
         /// which ones are true
         for (int i = 0; i < MAX_TAGS; i++) {
@@ -293,8 +312,8 @@ public class precisionVision {
 
         turretDistanceTogoal = avgDist;
         turretAngleToGoal = avgAngle;
-
-        // ************** THIS SECTION DEALS WITH LOCALIZATION ESTIMATES */
+*/
+        // ************** THIS SECTION DEALS WITH LOCALIZATION ESTIMATES * /
 
        
 
@@ -303,7 +322,7 @@ public class precisionVision {
 
             Optional<EstimatedRobotPose> visionEst = Optional.empty();
             
-            
+            //cameraContainer aCameraContainer = BaRightContainer;
 
                 for (var result : aCameraContainer.thisCamera.getAllUnreadResults()) {
                     visionEst = aCameraContainer.thisPoseEstimator.estimateCoprocMultiTagPose(result);
@@ -316,15 +335,17 @@ public class precisionVision {
                         visionXest[aCameraContainer.arrayIndex] = visionEst.get().estimatedPose.getX();
                         VisionYest[aCameraContainer.arrayIndex] = visionEst.get().estimatedPose.getY();
                         VisionRest[aCameraContainer.arrayIndex] = visionEst.get().estimatedPose.getRotation().getZ()*180/3.14;
+
+
                     }
 
             }
-        
-    }
-        fieldLocX.set(visionXest);
-        fieldLocX.set(VisionYest);
-        fieldLocRot.set(VisionRest);
 
+
+    }
+                        fieldLocX.set(visionXest);
+                        fieldLocY.set(VisionYest);
+                        fieldLocRot.set(VisionRest);
         return true;
     }
 
@@ -345,12 +366,6 @@ public class precisionVision {
     public double getTurretAngleToGoalRad() {
 
         return turretAngleToGoal;
-
-    }
-
-    public boolean getTurretLockOn() {
-
-        return turretGoodLock;
 
     }
 
@@ -489,7 +504,7 @@ public class precisionVision {
         return aTurretSolution;
 
     }
-    
+ /*   
     private turretSolution calculateGoalLocationFromTurretPose(PhotonTrackedTarget target){
         turretSolution aTurretSolution= new turretSolution();
         double turretLocX=0;
@@ -530,7 +545,7 @@ public class precisionVision {
 
         return aTurretSolution;
     }
-
+*/
         private  Matrix<N3, N1> curStdDevs;    
         private  Matrix<N3, N1> kSingleTagStdDevs;//TODO: Where are these supposed to come from?
         private Matrix<N3, N1> kMultiTagStdDevs; //TODO: Where are these supposed to come from?
