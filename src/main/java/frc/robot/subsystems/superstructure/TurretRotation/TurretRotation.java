@@ -2,6 +2,7 @@ package frc.robot.subsystems.superstructure.TurretRotation;
 
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -42,6 +43,10 @@ public class TurretRotation extends SubsystemBase {
   private double deltaRot = 0;
   private double centerRot = 0;
   private double commandedRot = 0;
+  private double goToPosRotation = 0;
+  private double demandedRotAbsoluteDeg = 0;
+  private double demandedRotAbsoluteRad = 0;
+  private double demandedDistance = 0;
 
 
   private TurretRotation(TurretRotationIO io) {
@@ -261,32 +266,31 @@ public class TurretRotation extends SubsystemBase {
           |  |                    |
  */
   //Use this command for target tracking - 
-  public Command runTurretRotationFromVisionLocation(DoubleSupplier turretRotRaidianToPoint) {
+  public Command runTurretRotationFromVisionLocation(DoubleSupplier turretRotRaidianToPoint, DoubleSupplier turretDistanceToPoint) {
   //  double turretRotAbsolute =   turretRotToPoint.getAsDouble(); // SuperStructureConstants.TurretDegreesToRotations; //convert degrees of error into rotations
     
     return this.run(
       () -> { 
-        turretRotationFromLocation(turretRotRaidianToPoint.getAsDouble());
+        turretRotationFromLocation(turretRotRaidianToPoint.getAsDouble(), turretDistanceToPoint.getAsDouble());
       });
   }
 
-  private void turretRotationFromLocation(double turretRotRaidianAbsolute){
+  private void turretRotationFromLocation(double turretRotRaidianAbsolute, double turretDistanceToPoint ){
       // curret position in rotations
       double curretPosition = inputs.turretRotationPositionRot;
       //io.setTurretRotationError( positionErrorRotations, isTargetLocked);
       double goToPosRot = curretPosition;
       //Identify the rotations of center point
-      double centerPosRot =  ((SuperStructureConstants.TurrentCenterPosPot - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + this.currentPosRot;
-      double maxLeftPosRot =  ((SuperStructureConstants.TurretPotCounterClockOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + this.currentPosRot;
-      double maxRightPosRot =  ((SuperStructureConstants.TurretPotClockwiseOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + this.currentPosRot;
+      double centerPosRot =  ((SuperStructureConstants.TurrentCenterPosPot - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + curretPosition;
+      double maxLeftPosRot =  ((SuperStructureConstants.TurretPotCounterClockOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + curretPosition;
+      double maxRightPosRot =  ((SuperStructureConstants.TurretPotClockwiseOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + curretPosition;
       
       double deltaRotations = turretRotRaidianAbsolute * SuperStructureConstants.TurretRadianToRotations;
       
       
       
-      goToPosRot = centerPosRot + deltaRotations;
-      desiredRotations = centerPosRot + deltaRotations;
-
+      goToPosRot = centerPosRot - deltaRotations;
+      
       if( goToPosRot < maxLeftPosRot){
         goToPosRot = maxLeftPosRot;
       }
@@ -298,13 +302,16 @@ public class TurretRotation extends SubsystemBase {
 
       
       //Used to update the Smart Dashboard;
-      desiredRotations = goToPosRot;
+      desiredRotations = centerPosRot - deltaRotations;
       deltaRot = deltaRotations;
       centerRot = centerPosRot;
+      goToPosRotation = goToPosRot;
+      demandedRotAbsoluteDeg = Units.radiansToDegrees(turretRotRaidianAbsolute);
+      demandedRotAbsoluteRad = turretRotRaidianAbsolute;
+      demandedDistance = turretDistanceToPoint;
 
 
-
-      //setTurretRotationVoltagePos(goToPosRot);
+      setTurretRotationVoltagePos(goToPosRot);
       
 
   }
@@ -326,6 +333,12 @@ public class TurretRotation extends SubsystemBase {
     SmartDashboard.putNumber("Turret Delta Rotations", deltaRot);
     SmartDashboard.putNumber("Turret Center Rotations", centerRot); 
     SmartDashboard.putNumber("Turret Commanded Rotations", commandedRot);
+    SmartDashboard.putNumber("Turret GoTO Rotations", goToPosRotation);
+    
+    SmartDashboard.putNumber("Turret demand Degrees", demandedRotAbsoluteDeg);
+    SmartDashboard.putNumber("Turret demand Rad", demandedRotAbsoluteRad);
+    SmartDashboard.putNumber("Turret distance To Point", demandedDistance);
+    
     SmartDashboard.putNumber("Turret POT Volgate", inputs.turretAnalogPOT_Value);
    
    // Use Limit Switches not to break anything - May be double dipping on limit switches based on method call. - safe than sorry

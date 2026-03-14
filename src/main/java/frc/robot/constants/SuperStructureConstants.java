@@ -194,7 +194,7 @@ public class SuperStructureConstants {
 
   public static final double TurretPotCounterClock = 1.405;// Min Measured Volts
   public static final double TurretPotClockwise = 3.44;// Max measured
-  public static final double TurrentCenterPosPot = 2.429; //This is measured vs computed ->  //((TurretPotClockwise - TurretPotCounterClock) / 2) + TurretPotCounterClock;
+  public static final double TurrentCenterPosPot = 2.451; //This is measured vs computed ->  //((TurretPotClockwise - TurretPotCounterClock) / 2) + TurretPotCounterClock;
   public static final double TurretPotCounterClockOffset = 1.46; //1.405 Min Measured
   public static final double TurretPotClockwiseOffset = 3.37;// 3.38 Max measured
 
