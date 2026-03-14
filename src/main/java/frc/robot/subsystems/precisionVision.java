@@ -235,7 +235,7 @@ public class precisionVision {
 
     public boolean periodicUpdate() {
         // Call this periodically to service cameras and update position estimates
-/*
+try{
         /// ************ THIS SECTION DEALS WITH THE TURRET ONLY ******************** /
         // Initialize all tags to fase so that as we iterate through tags we can check
         /// which ones are true
@@ -312,7 +312,10 @@ public class precisionVision {
 
         turretDistanceTogoal = avgDist;
         turretAngleToGoal = avgAngle;
-*/
+    }catch(Exception e){
+
+        
+    }
         // ************** THIS SECTION DEALS WITH LOCALIZATION ESTIMATES * /
 
        
@@ -504,7 +507,7 @@ public class precisionVision {
         return aTurretSolution;
 
     }
- /*   
+   
     private turretSolution calculateGoalLocationFromTurretPose(PhotonTrackedTarget target){
         turretSolution aTurretSolution= new turretSolution();
         double turretLocX=0;
@@ -545,7 +548,7 @@ public class precisionVision {
 
         return aTurretSolution;
     }
-*/
+
         private  Matrix<N3, N1> curStdDevs;    
         private  Matrix<N3, N1> kSingleTagStdDevs;//TODO: Where are these supposed to come from?
         private Matrix<N3, N1> kMultiTagStdDevs; //TODO: Where are these supposed to come from?
