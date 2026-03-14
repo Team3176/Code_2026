@@ -124,9 +124,9 @@ public class Robot extends LoggedRobot {
    // thisRobotIMUHandler = new precisionPigeon();
     //thisRobotLocalizationHandler = new precisionLocalization();
 
-        /* log and replay timestamp and joystick data */
+
     //attach precision vision to robot container
-   // m_robotContainer.thisPrecePrecisionVision = thisRobotVisionHandler;
+    thisRobotVisionHandler.attachDriveTrain(m_robotContainer.drivetrain);
 
   }
   /**
