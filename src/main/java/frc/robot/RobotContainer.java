@@ -108,7 +108,7 @@ public class RobotContainer {
   // Controllers
   private final Controller controller = Controller.getInstance();
   
-  // Superstructure
+  // Superstructure0
   private final Superstructure superstructure = Superstructure.getInstance();
 
   private Trigger visionOverride; 
@@ -232,9 +232,9 @@ public class RobotContainer {
     // Swerve Drive Command Bindings
     drivetrain.setDefaultCommand(
         // Drivetrain will execute this command periodically
-        drivetrain.applyRequest(() -> drive.withVelocityX(controller.transStick.getY() * MaxSpeed) // Drive forward with negative Y
+        drivetrain.applyRequest(() -> drive.withVelocityX(-1*controller.transStick.getY() * MaxSpeed) // Drive forward with negative Y
                                                                                         // (forward)
-            .withVelocityY(controller.transStick.getX() * MaxSpeed) // Drive left with negative X (left)
+            .withVelocityY(-1*controller.transStick.getX() * MaxSpeed) // Drive left with negative X (left)
             .withRotationalRate(-controller.rotStick.getX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
         ));
 
@@ -254,6 +254,7 @@ public class RobotContainer {
     
 
     controller.transStick.button(8).whileTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+    //controller.transStick.button(9).whileTrue(drivetrain).runOnce(drivetrain.runonce(()->drivetrain.seedFieldCentric(Rotation2d.kPi));
     //    transStick.button(8).whileTrue(drivetrain.runonce(()->drivetrain.seedFieldCentric(Rotation2d.kPi)));
 
     // Note that each routine should be run exactly once in a single log.
