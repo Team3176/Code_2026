@@ -92,10 +92,10 @@ public class Hood extends SubsystemBase {
       });
   }
 
-    public Command runHoodFromDistance(DoubleSupplier distance, BooleanSupplier isTargetLocked) {
+    public Command runHoodFromDistance(DoubleSupplier distance) {
     return this.run(
       () -> { 
-        hoodRotationsFromVision(distance.getAsDouble(), isTargetLocked.getAsBoolean());
+        hoodRotationsFromVision(distance.getAsDouble());
       });
   }
 
@@ -210,14 +210,14 @@ public class Hood extends SubsystemBase {
 
 
 //Use this method when shooting at the goal
-  private void hoodRotationsFromVision(Double distance, Boolean isTargetLocked){
+  private void hoodRotationsFromVision(Double distance){
     // current position in rotations
     double currentPosition = inputs.HoodPositionRot;
     //double hoodPositionFromHoop = (Math.pow (4.25, distance)) - .0797; // update this based on table data for hood distance
     double hoodPositionFromHoop = distanceToHoodPosLUT.interpolate(distance); // update this based on table data for hood distance
     double hoodPositionRequest = currentPosition;
 
-    if (isTargetLocked){
+   // if (isTargetLocked){
     
       if (inputs.hoodToplimitswitch || hoodPositionFromHoop < SuperStructureConstants.Hood_ZERO_POS){
         hoodPositionRequest = hoodPositionFromHoop;
@@ -228,7 +228,7 @@ public class Hood extends SubsystemBase {
 
       io.setHoodVisionPos(hoodPositionRequest);
     
-    }
+  //  }
 
   }
 

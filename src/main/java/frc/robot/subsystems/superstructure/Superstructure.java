@@ -227,9 +227,14 @@ public class Superstructure {
     return (turretRotation.runTurretRotationFromVisionLocation(() -> turretRotRaidianToPoint.getAsDouble(), () -> turretDistanceToPoint.getAsDouble()));
   }
 
-  public Command runHoodPositionFromVision(DoubleSupplier distance, BooleanSupplier isTargetLocked) {
-    return (hood.runHoodFromDistance(distance, isTargetLocked));
+  public Command runHoodPositionFromVision(DoubleSupplier distance) {
+    return (hood.runHoodFromDistance(distance));
   }
+
+    public Command runShooterSpeedFromVision(DoubleSupplier distance) {
+    return (shooter.runDualShooterGoalVision(distance));
+  }
+  
   
   public static Superstructure getInstance() {
     if (instance == null) {

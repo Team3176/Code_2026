@@ -133,22 +133,22 @@ private ShooterControl(ShooterControlIO io) {
      currentShootRequst = ShootSpeed;
   }
 
-  public Command runDualShooterGoalVision(DoubleSupplier distance, BooleanSupplier isTargetLocked) {
+  public Command runDualShooterGoalVision(DoubleSupplier distance) {
     return this.run(
       () -> { 
-        shooterSpeedFromVision(distance.getAsDouble(), isTargetLocked.getAsBoolean() ); // idle system
+        shooterSpeedFromVision(distance.getAsDouble() ); // idle system
       });
   }
 
   //Use this method when shooting at the goal
-  private void shooterSpeedFromVision(Double distance, Boolean isTargetLocked){
+  private void shooterSpeedFromVision(Double distance){
     // current position in rotations
     double currentSpeed = inputs.shooterVelocityRadPerSec;
     //double hoodPositionFromHoop = (Math.pow (4.25, distance)) - .0797; // update this based on table data for hood distance
     double shooterSpeedFromDistance = distanceToGoalShooterLUT.interpolate(distance); // update this based on table data for hood distance
     double shooterSpeedRequest = currentSpeed;
 
-    if (isTargetLocked){
+    //if (isTargetLocked){
     
       if (shooterIsShutDown || shooterSpeedFromDistance < SuperStructureConstants.runDualShooterSpeedIDLE_SPEED){
         shooterSpeedRequest = SuperStructureConstants.runDualShooterSpeedIDLE_SPEED;
@@ -159,7 +159,7 @@ private ShooterControl(ShooterControlIO io) {
 
       setDualShooterSpeedControl(shooterSpeedRequest);
     
-    }
+   // }
 
   }
   
