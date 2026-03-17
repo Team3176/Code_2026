@@ -185,13 +185,22 @@ private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAu
     SmartDashboard.putNumber("climb volt command left", deltaLeft);
     SmartDashboard.putNumber("climb volt command right", deltaRight);
 
-     if((inputs.ClimbPositionRotLeft >= SuperStructureConstants.ClimbMaxExtend && deltaLeft < 0) ){
+    // Boolean should check for if the climber is over the limit we set for it, prevent over extending
+    boolean isLeftClimberBeyondMaxHeight = inputs.ClimbPositionRotLeft >= SuperStructureConstants.ClimbMaxExtend;
+
+    boolean isLeftClimberAttemptingToMoveUp = deltaLeft > 0;
+
+    boolean isRightClimberBeyondMaxHeight = inputs.ClimbPositionRotRight >= SuperStructureConstants.ClimbMaxExtend;
+
+    boolean isRightClimberAttemptingToMoveUp = deltaRight > 0;
+
+     if((isLeftClimberBeyondMaxHeight && isLeftClimberAttemptingToMoveUp) ){
       io.setLeftVoltage(0.0);
     }
     else{
       io.setLeftVoltage(-deltaLeft);
     }
-     if((inputs.ClimbPositionRotRight >= SuperStructureConstants.ClimbMaxExtend && deltaRight < 0 )){
+     if((isRightClimberBeyondMaxHeight && isRightClimberAttemptingToMoveUp)){
         io.setRightVoltage(0);
     }
     else{
