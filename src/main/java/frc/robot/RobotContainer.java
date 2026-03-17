@@ -51,6 +51,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import edu.wpi.first.math.geometry.Rotation2d;
 
 
 import frc.robot.generated.TunerConstants;
@@ -232,10 +233,9 @@ public class RobotContainer {
     // Swerve Drive Command Bindings
     drivetrain.setDefaultCommand(
         // Drivetrain will execute this command periodically
-        drivetrain.applyRequest(() -> drive.withVelocityX(-1*controller.transStick.getY() * MaxSpeed) // Drive forward with negative Y
-                                                                                        // (forward)
-            .withVelocityY(-1*controller.transStick.getX() * MaxSpeed) // Drive left with negative X (left)
-            .withRotationalRate(-controller.rotStick.getX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+        drivetrain.applyRequest(() -> drive .withVelocityX(-controller.transStick.getY() * MaxSpeed) // Drive forward with negative Y (forward)
+                                            .withVelocityY(-controller.transStick.getX() * MaxSpeed) // Drive left with negative X (left)
+                                            .withRotationalRate(-controller.rotStick.getX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
         ));
 
     // Idle while the robot is disabled. This ensures the configured
@@ -253,9 +253,8 @@ public class RobotContainer {
     //transStick.button(8).whileTrue(Commands.runOnce(()->thisRobotIMUHandler.setIMUYawToDriverZero()));t
     
 
-    controller.transStick.button(8).whileTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
-    //controller.transStick.button(9).whileTrue(drivetrain).runOnce(drivetrain.runonce(()->drivetrain.seedFieldCentric(Rotation2d.kPi));
-    //    transStick.button(8).whileTrue(drivetrain.runonce(()->drivetrain.seedFieldCentric(Rotation2d.kPi)));
+    controller.transStick.button(8).whileTrue(drivetrain.runOnce(()->drivetrain.seedFieldCentric(Rotation2d.kPi))); //This command resets the robot to front (intake) towards DS
+
 
     // Note that each routine should be run exactly once in a single log.
     // transStick.back().and(transStick.button(5)).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));

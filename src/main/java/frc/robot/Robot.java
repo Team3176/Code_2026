@@ -145,7 +145,7 @@ public class Robot extends LoggedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     m_robotContainer.thisRobotVisionHandler.setWeAreBlueAliance();
-    
+
     try{
       m_robotContainer.thisRobotVisionHandler.periodicUpdate();
 
@@ -199,7 +199,7 @@ public class Robot extends LoggedRobot {
       m_autonomousCommand.cancel();
     }
     //***** TODO: Does this screw things up??  *****  
-    //m_robotContainer.drivetrain.seedFieldCentric();
+    m_robotContainer.drivetrain.seedFieldCentric();
   }
 
   /** This function is called periodically during operator control. */
