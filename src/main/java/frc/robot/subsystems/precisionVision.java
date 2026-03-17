@@ -9,6 +9,8 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
+
 
 //Imports for Network Tables Functions
 import edu.wpi.first.networktables.BooleanArrayPublisher;
@@ -19,6 +21,7 @@ import edu.wpi.first.networktables.IntegerArrayPublisher;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 //Imports for photonVision Functions
@@ -365,8 +368,15 @@ public class precisionVision {
 
     /********* External Functions */
 
-    public void setWeAreBlueAliance(boolean areWeBlueAlliance) {
-        weAreBlueAlliance = areWeBlueAlliance;
+    public void setWeAreBlueAliance() {
+        Optional<Alliance> ally = DriverStation.getAlliance();
+
+        if (ally.get() == Alliance.Red) {
+            weAreBlueAlliance = false;
+        }else{
+            weAreBlueAlliance = true;
+        }
+        
     }
 
     ///// ******** Turret Getters ********/
@@ -671,11 +681,8 @@ public class precisionVision {
                 chassisLocY =  thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getY();
                 chassisLocRot = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getRotation().getRadians();
 
-                //calcualte the distance
-                aChassisSolution.distance = Math.sqrt( Math.pow(chassisLocX - ourGoalLocation[0],2) + Math.pow(chassisLocY - ourGoalLocation[1],2));
-
                 //calculate the angle
-                aChassisSolution.angle = Math.atan((ourGoalLocation[1]-chassisLocY) / (ourGoalLocation[0]-chassisLocX)) - chassisLocRot;
+                aChassisSolution.angle = Math.atan2((ourGoalLocation[1]-chassisLocY) , (ourGoalLocation[0]-chassisLocX)) - chassisLocRot;
         
            return aChassisSolution.angle;
 
@@ -700,11 +707,8 @@ public class precisionVision {
                 chassisLocRot = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getRotation().getRadians();
 
                 //calcualte the distance
-                aChassisSolution.distance = Math.sqrt( Math.pow(chassisLocX - ourGoalLocation[0],2) + Math.pow(chassisLocX - ourGoalLocation[1],2));
-
-                //calculate the angle
-                aChassisSolution.angle = Math.atan((ourGoalLocation[1]-chassisLocY) / (ourGoalLocation[0]-chassisLocX)) - chassisLocRot;
-        
+                aChassisSolution.distance = Math.sqrt( Math.pow(chassisLocX - ourGoalLocation[0],2) + Math.pow(chassisLocY - ourGoalLocation[1],2));
+                
            return aChassisSolution.distance;
 
         }

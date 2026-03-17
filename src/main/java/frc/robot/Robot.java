@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -120,7 +121,7 @@ public class Robot extends LoggedRobot {
 
 
     //thisRobotVisionHandler = new precisionVision();
-    m_robotContainer.thisRobotVisionHandler.setWeAreBlueAliance(false);
+    
    // thisRobotIMUHandler = new precisionPigeon();
     //thisRobotLocalizationHandler = new precisionLocalization();
 
@@ -143,6 +144,7 @@ public class Robot extends LoggedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    m_robotContainer.thisRobotVisionHandler.setWeAreBlueAliance();
 
     try{
       m_robotContainer.thisRobotVisionHandler.periodicUpdate();
@@ -153,24 +155,12 @@ public class Robot extends LoggedRobot {
 
     }
 
-    try{
-      m_robotContainer.thisRobotIMUHandler.PeriodicUpdate();
-    }catch(Exception e){
-        System.out.println("IMU Update Failed");
-        //Update the net tables faults Table to show that IMU crashed.
-    }
-
-    try{
-  
-    //thisRobotLocalizationHandler.currentPose();
-
-    }catch(Exception e){
-
-    }
 
     //Update Hoot Stuff for swerve
     m_timeAndJoystickReplay.update();
-      
+
+    //Run this periodically to update operator pose. 
+      m_robotContainer.drivetrain.periodic();
 
 
   }
@@ -208,6 +198,7 @@ public class Robot extends LoggedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    //***** TODO: Does this screw things up??  *****  
     m_robotContainer.drivetrain.seedFieldCentric();
   }
 
