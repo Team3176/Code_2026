@@ -207,6 +207,7 @@ public class RobotContainer {
 
     // Configure the trigger bindings
     configureBindings();
+       // SmartDashboard.putNumber("Distance to hub", thisRobotVisionHandler.estimateGoalDistanceFromChassis());
     
 
   }
@@ -323,10 +324,10 @@ public class RobotContainer {
     controller.transStick.button(1).onTrue((superstructure.ShooterOn().andThen(Commands.waitSeconds(.5)).andThen(superstructure.KickerOn().andThen(Commands.waitSeconds(.1))).andThen(superstructure.SpindexerOn())));
     controller.transStick.button(1).onFalse((superstructure.SpindexerOff().andThen(Commands.waitSeconds(.2)).andThen(superstructure.KickerOff().andThen(Commands.waitSeconds(.2))).andThen(superstructure.shooterMotorSpeedIDLE())));
 
-    controller.rotStick.button(2).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimateGoalRotationFromChassis()), () ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
-    controller.rotStick.button(2).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
-    controller.rotStick.button(2).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
-    controller.rotStick.button(1).onTrue(superstructure.IntakeRollerReverse()).onFalse(superstructure.IntakeRollerResume());
+   // controller.rotStick.button(3).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimateGoalRotationFromChassis()), () ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
+    //controller.rotStick.button(2).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
+    //controller.rotStick.button(2).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
+   // controller.rotStick.button(1).onTrue(superstructure.IntakeRollerReverse()).onFalse(superstructure.IntakeRollerResume());
 
 
       /// Swtich box Commands

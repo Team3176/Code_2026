@@ -64,7 +64,7 @@ public class SuperStructureConstants {
   public static final double Kicker_kg = 0.2;
   public static final double Kicker_ZERO_POS = 0.39;  
   public static final double Kicker_ENCODER_OFFSET = 0;
-  public static final double Kicker_Speed_On = 80;
+  public static final double Kicker_Speed_On = 320;
   public static final double Kicker_Speed_Reverse = -30;
   public static final double Kicker_Speed_Off = 0;
 
@@ -110,9 +110,9 @@ public class SuperStructureConstants {
   ///Distance to Postion Look up table
   /// Must be the same length
   
-  public static final double[] botDistanceLUT     = { 0.00, 0.50, 1.00, 1.50, 2.00, 2.50, 2.92, 3.30, 5.30};  //must be ordered as increaseing
-  public static final double[] botShootHoodPosLUT = { 0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 2.50, 2.47, 4.40};  //Hood in rotations - 0-12
-  public static final double[] botShooterSpeedLUT = { 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 40.0, 47.0, 52.0};  //Speed in RPM
+  public static final double[] botDistanceLUT     = { 0.00, 0.50, 1.00, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 4.50, 5.00, 5.50, 6.00, 6.50};  //must be ordered as increaseing
+  public static final double[] botShootHoodPosLUT = { 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.88, 1.80, 2.40, 2.45, 2.78, 2.78, 3.10};  //Hood in rotations - 0-12
+  public static final double[] botShooterSpeedLUT = { 32.5, 32.5, 32.5, 32.5, 38.0, 40.0, 43.0, 45.0, 47.0, 47.0, 49.5, 51.5, 53.0, 56.0};  //Speed in RPM
 
   public static final double[] botPassHoodPosLUT  = { 0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 5.30};  //Hood in rotations - 0-12
   public static final double[] botPassSpeedLUT    = { 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0, 70.0, 85.0};  //Speed in RPM
@@ -236,7 +236,8 @@ public class SuperStructureConstants {
   public static final double Spindexer_kg = 0.2;
   public static final double Spindexer_ZERO_POS = 0.39;
   public static final double Spindexer_ENCODER_OFFSET = 0;
-  public static final double Spindexer_Speed_On = 60;
+   
+  public static final double Spindexer_Speed_On = 260;
   public static final double Spindexer_Speed_Reverse = -10;
   public static final double Spindexer_Speed_Off = 0;
 
