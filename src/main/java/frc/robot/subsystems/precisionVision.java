@@ -29,6 +29,9 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
+
+//import com.reduxrobotics.sensors.canandcolor.DigoutSlotBuilder.DigoutChainBuilder;
+
 import org.photonvision.PhotonPoseEstimator;
 
 import java.util.Arrays;
@@ -77,7 +80,11 @@ public class precisionVision {
     private DoubleArrayPublisher fieldLocX;
     private DoubleArrayPublisher fieldLocY;
     private DoubleArrayPublisher fieldLocRot;
-    private Field2d field2DDisplay;
+    private DoublePublisher ChassisDistancetoGoalDisp;
+    private DoublePublisher chassisGoalAngleToChasDisp;
+    private DoublePublisher chassisGoalAngleToFiledDisp;
+    private DoublePublisher chassisChassisAngleToFiledDisp;
+    private DoublePublisher chassisChassisErrorDisp;
 
     private NetworkTable aprilTagList;
     private BooleanPublisher[] isTagDetectedDisplay;
@@ -164,6 +171,14 @@ public class precisionVision {
         fieldLocY = visionLocalizationData.getDoubleArrayTopic("fieldLocY").publish();
         fieldLocRot = visionLocalizationData.getDoubleArrayTopic("fieldLocRot").publish();
         // field2DDisplay = new Field2d("2026Field");
+
+
+        ChassisDistancetoGoalDisp           =   visionLocalizationData.getDoubleTopic("POSE Distance to Goal").publish();;
+        chassisGoalAngleToChasDisp          =   visionLocalizationData.getDoubleTopic("POSE Angle From Chassis to Goal").publish(); 
+        chassisGoalAngleToFiledDisp         =   visionLocalizationData.getDoubleTopic("POSE Angle From Field to Goal").publish();
+        chassisChassisAngleToFiledDisp      =   visionLocalizationData.getDoubleTopic("POSE Chassis Angle to Field").publish();
+        chassisChassisErrorDisp             =   visionLocalizationData.getDoubleTopic("POSE Chassis to Goal Error").publish();
+
 
         aprilTagList = NetworkTableInstance.getDefault().getTable("AprilTagList");
 
@@ -634,7 +649,7 @@ public class precisionVision {
     }
 
 
-
+/*
     public chassisSolution estimateGoalLocationFromChassis(){
        
         double chassisLocX=0;
@@ -663,13 +678,20 @@ public class precisionVision {
 
         }
 
+        */
+
     public double estimateGoalRotationFromChassis(){
        
         double chassisLocX=0;
         double chassisLocY=0;
         double chassisLocRot=0;
 
-        chassisSolution aChassisSolution = new chassisSolution();
+
+        double goalAngleField;  //The angle of the goal based on 0-orientation
+
+        double goalAngleToBot;
+        double goalErrorToBot;
+        
 
         double [] ourGoalLocation;
 
@@ -682,9 +704,20 @@ public class precisionVision {
                 chassisLocRot = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getRotation().getRadians();
 
                 //calculate the angle
-                aChassisSolution.angle = Math.atan2((ourGoalLocation[1]-chassisLocY) , (ourGoalLocation[0]-chassisLocX)) - chassisLocRot;
-        
-           return aChassisSolution.angle;
+
+                //goalAngleToBot = Math.atan2((ourGoalLocation[1]-chassisLocY) , (ourGoalLocation[0]-chassisLocX)) - chassisLocRot;
+                goalAngleField = Math.atan2((ourGoalLocation[1]-chassisLocY) , (ourGoalLocation[0]-chassisLocX));
+                goalAngleToBot = goalAngleField -chassisLocRot;
+                goalErrorToBot = - goalAngleToBot;
+
+
+                chassisChassisAngleToFiledDisp.set(Units.radiansToDegrees(chassisLocRot));
+                chassisGoalAngleToFiledDisp.set(Units.radiansToDegrees(goalAngleField));
+                chassisGoalAngleToChasDisp.set(Units.radiansToDegrees(goalAngleToBot));
+                chassisChassisErrorDisp.set(Units.radiansToDegrees(goalErrorToBot));
+
+
+           return   goalErrorToBot;
 
         }
 
@@ -692,9 +725,9 @@ public class precisionVision {
        
         double chassisLocX=0;
         double chassisLocY=0;
-        double chassisLocRot=0;
+        //double chassisLocRot=0;
 
-        chassisSolution aChassisSolution = new chassisSolution();
+        double distance;
 
         double [] ourGoalLocation;
 
@@ -704,12 +737,14 @@ public class precisionVision {
                 
                 chassisLocX = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
                 chassisLocY =  thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getY();
-                chassisLocRot = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getRotation().getRadians();
+                //chassisLocRot = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getRotation().getRadians();
 
                 //calcualte the distance
-                aChassisSolution.distance = Math.sqrt( Math.pow(chassisLocX - ourGoalLocation[0],2) + Math.pow(chassisLocY - ourGoalLocation[1],2));
+                distance = Math.sqrt( Math.pow(chassisLocX - ourGoalLocation[0],2) + Math.pow(chassisLocY - ourGoalLocation[1],2));
                 
-           return aChassisSolution.distance;
+                ChassisDistancetoGoalDisp.set(distance);
+
+           return distance;
 
         }
 
