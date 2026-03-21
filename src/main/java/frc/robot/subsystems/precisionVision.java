@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 
 
@@ -712,7 +713,7 @@ public class precisionVision {
                 //goalAngleToBot = Math.atan2((ourGoalLocation[1]-chassisLocY) , (ourGoalLocation[0]-chassisLocX)) - chassisLocRot;
                 goalAngleField = Math.atan2((ourGoalLocation[1]-chassisLocY) , (ourGoalLocation[0]-chassisLocX));
                 goalAngleToBot = goalAngleField -chassisLocRot;
-                goalErrorToBot = - goalAngleToBot;
+                goalErrorToBot = MathUtil.angleModulus(goalAngleToBot + Math.PI); 
 
 
                 chassisChassisAngleToFiledDisp.set(Units.radiansToDegrees(chassisLocRot));

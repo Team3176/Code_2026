@@ -282,8 +282,8 @@ public class TurretRotation extends SubsystemBase {
       double goToPosRot = curretPosition;
       //Identify the rotations of center point
       double centerPosRot =  ((SuperStructureConstants.TurrentCenterPosPot - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + curretPosition;
-      double maxLeftPosRot =  ((SuperStructureConstants.TurretPotCounterClockOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + curretPosition;
-      double maxRightPosRot =  ((SuperStructureConstants.TurretPotClockwiseOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + curretPosition;
+      double maxLeftPosRot =  ((SuperStructureConstants.TurretPotCounterClock - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + curretPosition;
+      double maxRightPosRot =  ((SuperStructureConstants.TurretPotClockwise - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt) + curretPosition;
       
       double deltaRotations = turretRotRaidianAbsolute * SuperStructureConstants.TurretRadianToRotations;
       
