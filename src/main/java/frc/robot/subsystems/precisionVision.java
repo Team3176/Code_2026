@@ -89,6 +89,9 @@ public class precisionVision {
     private DoublePublisher chassisGoalAngleToFiledDisp;
     private DoublePublisher chassisChassisAngleToFiledDisp;
     private DoublePublisher chassisChassisErrorDisp;
+    private DoublePublisher fieldXDotDisp;
+    private DoublePublisher fieldYDotDisp;
+
 
     private NetworkTable aprilTagList;
     private BooleanPublisher[] isTagDetectedDisplay;
@@ -151,9 +154,31 @@ public class precisionVision {
     double[] visionXest;
     double[] VisionYest;
     double[] VisionRest;
+    
+    
+    private double lastX;
+    private double lastY;
+    private double lastTime;
+
+    private double [] xDotRollingAve;
+    private double [] yDotRollingAve;
+    
+    private int rollingAveIndex;
+    private int rollingAvgWindows;
+
+    public double xDotField;
+    public double yDotField;
+
+
+
 
     public precisionVision() {
         // This is the default constructor
+
+        rollingAvgWindows = 10;
+        rollingAveIndex = 0;
+        xDotRollingAve = new double[rollingAvgWindows];
+        yDotRollingAve = new double[rollingAvgWindows];
 
         // Initialize the visionnetwork tables
         visionTurretData = NetworkTableInstance.getDefault().getTable("VisionTurretData");
@@ -184,6 +209,8 @@ public class precisionVision {
         chassisGoalAngleToFiledDisp         =   visionLocalizationData.getDoubleTopic("POSE Angle From Field to Goal").publish();
         chassisChassisAngleToFiledDisp      =   visionLocalizationData.getDoubleTopic("POSE Chassis Angle to Field").publish();
         chassisChassisErrorDisp             =   visionLocalizationData.getDoubleTopic("POSE Chassis to Goal Error").publish();
+        fieldXDotDisp            =   visionLocalizationData.getDoubleTopic("XDotField").publish();
+        fieldYDotDisp            =   visionLocalizationData.getDoubleTopic("yDotField").publish();
 
 
         aprilTagList = NetworkTableInstance.getDefault().getTable("AprilTagList");
@@ -383,6 +410,42 @@ public class precisionVision {
         fieldLocX.set(visionXest);
         fieldLocY.set(VisionYest);
         fieldLocRot.set(VisionRest);
+
+        
+        // *** calculate a rolling average of X and Y velocities (relative to the field)
+        double sampleTime = Timer.getFPGATimestamp();
+
+        double currentX = thisCommandSwerveDrivetrain.samplePoseAt(sampleTime).get().getX();
+        double currentY = thisCommandSwerveDrivetrain.samplePoseAt(sampleTime).get().getY();
+
+        double xDotThisCycle = (currentX - lastX) / (sampleTime - lastTime);
+        double yDotThisCycle = (currentY - lastY) / (sampleTime - lastTime);
+
+        xDotRollingAve[rollingAveIndex] = xDotThisCycle;
+        yDotRollingAve[rollingAveIndex] = yDotThisCycle;
+
+        double xDotTot = 0;
+        double yDotTot = 0;
+
+        for (int i=0;  i<rollingAvgWindows; i++) {
+            xDotTot = xDotTot + xDotRollingAve[i];
+            yDotTot = yDotTot + xDotRollingAve[i];
+        }
+
+        xDotField = xDotTot/rollingAvgWindows;
+        yDotField = yDotTot/rollingAvgWindows;
+
+        fieldXDotDisp.set(xDotField);
+        fieldYDotDisp.set(yDotField);
+        
+        //Make Updates For Next Cycle
+        rollingAveIndex = (rollingAveIndex+1) % rollingAvgWindows;
+        lastTime = sampleTime;
+        lastX = currentX;
+        lastY = currentY;
+
+        
+        
 
         return true;
     }
@@ -658,36 +721,7 @@ public class precisionVision {
     }
 
 
-/*
-    public chassisSolution estimateGoalLocationFromChassis(){
-       
-        double chassisLocX=0;
-        double chassisLocY=0;
-        double chassisLocRot=0;
 
-        chassisSolution aChassisSolution = new chassisSolution();
-
-        double [] ourGoalLocation;
-
-      
-                if(weAreBlueAlliance) ourGoalLocation = blueGoalLocation;
-                else ourGoalLocation = redGoalLocation;
-                
-                chassisLocX = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
-                chassisLocY =  thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getY();
-                chassisLocRot = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getRotation().getRadians();
-
-                //calcualte the distance
-                aChassisSolution.distance = Math.sqrt( Math.pow(chassisLocX - ourGoalLocation[0],2) + Math.pow(chassisLocX - ourGoalLocation[1],2));
-
-                //calculate the angle
-                aChassisSolution.angle = Math.atan((ourGoalLocation[1]-chassisLocY) / (ourGoalLocation[0]-chassisLocX)) - chassisLocRot;
-        
-           return aChassisSolution;
-
-        }
-
-        */
 
     public double estimateGoalRotationFromChassis(){
        
