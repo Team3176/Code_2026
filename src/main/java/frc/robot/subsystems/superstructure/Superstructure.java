@@ -209,6 +209,9 @@ public class Superstructure {
   public Command SpindexerOn() {
     return (spindexer.runSpindexerOn());
   }
+   public Command SpindexerAutoOnOff(BooleanSupplier isInTerrain) {
+    return (spindexer.runSpindexerAutoOnOff(isInTerrain));
+  }
 
   public Command SpindexerReverse() {
     return (spindexer.runSpindexerReverse());

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import yams.mechanisms.positional.Arm;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import org.littletonrobotics.junction.Logger;
@@ -89,6 +90,13 @@ public class Spindexer extends SubsystemBase {
       }); 
     }
 
+    public Command runSpindexerAutoOnOff(BooleanSupplier isInTerrain) {
+    return this.runOnce(
+      () -> {
+        setSpindexerOnOffComand(isInTerrain.getAsBoolean());
+      }); 
+    }
+
     public Command runSpindexerReverse() {
     return this.runOnce(
       () -> {
@@ -114,6 +122,15 @@ public class Spindexer extends SubsystemBase {
 
   private void setSpindexerComand(double Speed_RPS) {
     io.setSpindexerSpeedVelocity(Speed_RPS);
+  }
+
+  private void setSpindexerOnOffComand(boolean isInTerrain) {
+    if(isInTerrain){
+      io.setSpindexerSpeedVelocity(SuperStructureConstants.Spindexer_Speed_Off);
+    }
+    else{
+      io.setSpindexerSpeedVelocity(SuperStructureConstants.Spindexer_Speed_On);
+    }
   }
 
 

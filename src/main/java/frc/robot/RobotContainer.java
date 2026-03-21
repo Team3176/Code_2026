@@ -356,9 +356,9 @@ public class RobotContainer {
       /// Swtich box Commands
       // Go look at Controller Cosntants for Euro Truck Bindings
     controller.switchBox.button(19).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimatRotationFromChassisToPointOfInterest())));
-    controller.switchBox.button(17).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest()));
+    controller.switchBox.button(17).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest())).onFalse(superstructure.shooterMotorSpeedIDLE());
     controller.switchBox.button(15).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench()));
-    
+    controller.switchBox.button(11).onTrue(superstructure.KickerOn().andThen(superstructure.SpindexerAutoOnOff(() -> thisRobotVisionHandler.botIsInTerrain()))).onFalse(superstructure.SpindexerOff().andThen(superstructure.KickerOff()));
   }
 
   /**
