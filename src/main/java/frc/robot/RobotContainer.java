@@ -200,8 +200,8 @@ public class RobotContainer {
         .andThen(superstructure.SpindexerOff()
         .andThen(superstructure.KickerOff())).withTimeout(.2));
     NamedCommands.registerCommand("VisionShootToHub",
-        superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis())
-        .alongWith(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis(), () -> thisRobotVisionHandler.botIsInTrench()))
+        superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis(), () -> thisRobotVisionHandler.botIsPassing())
+        .alongWith(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()))
         .alongWith(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimateGoalRotationFromChassis()))
         .andThen(Commands.waitSeconds(.5))
         .andThen(superstructure.KickerOn()
@@ -210,8 +210,8 @@ public class RobotContainer {
     );
 
     NamedCommands.registerCommand("VisionPassAndShoot",
-        superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest())
-        .alongWith(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench()))
+        superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing())
+        .alongWith(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()))
         .alongWith(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimatRotationFromChassisToPointOfInterest()))
         .andThen(Commands.waitSeconds(.5))
         .andThen(superstructure.KickerOn()
@@ -339,8 +339,8 @@ public class RobotContainer {
     controller.transStick.button(1).onFalse((superstructure.SpindexerOff().andThen(Commands.waitSeconds(.2)).andThen(superstructure.KickerOff().andThen(Commands.waitSeconds(.2))).andThen(superstructure.shooterMotorSpeedIDLE())));
 
     controller.rotStick.button(2).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimateGoalRotationFromChassis())));
-    controller.rotStick.button(2).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
-    controller.rotStick.button(2).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis(),() -> thisRobotVisionHandler.botIsInTrench()));
+    controller.rotStick.button(2).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis(), () -> thisRobotVisionHandler.botIsPassing()));
+    controller.rotStick.button(2).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis(),() -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()));
     
     //controller.rotStick.button(2).onTrue(supers tructure.toggleShooterStatus());
     // controller.rotStick.button(1).onTrue(superstructure.IntakeRollerReverse()).onFalse(superstructure.IntakeRollerResume());
@@ -355,10 +355,10 @@ public class RobotContainer {
 
       /// Swtich box Commands
       // Go look at Controller Cosntants for Euro Truck Bindings
-    controller.switchBox.button(19).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimatRotationFromChassisToPointOfInterest())));
-    controller.switchBox.button(17).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest())).onFalse(superstructure.shooterMotorSpeedIDLE());
-    controller.switchBox.button(15).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench()));
-    controller.switchBox.button(11).onTrue(superstructure.KickerOn().andThen(superstructure.SpindexerAutoOnOff(() -> thisRobotVisionHandler.botIsInTerrain()))).onFalse(superstructure.SpindexerOff().andThen(superstructure.KickerOff()));
+    controller.switchBox.button(20).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimatRotationFromChassisToPointOfInterest()))).onFalse(superstructure.TurretCenter());
+    controller.switchBox.button(18).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing())).onFalse(superstructure.shooterMotorSpeedIDLE());
+    controller.switchBox.button(16).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()));
+    controller.switchBox.button(12).onTrue(superstructure.KickerOn().andThen(superstructure.SpindexerAutoOnOff(() -> thisRobotVisionHandler.botIsInTerrain()))).onFalse(superstructure.SpindexerOff().andThen(superstructure.KickerOff()));
   }
 
   /**

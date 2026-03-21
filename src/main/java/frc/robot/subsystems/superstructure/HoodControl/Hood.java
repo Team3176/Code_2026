@@ -40,7 +40,10 @@ public class Hood extends SubsystemBase {
   private double positionHome = SuperStructureConstants.Hood_ZERO_POS;
   private double currentPosRot = 0;
   private double[][] hoodShootLUT = {SuperStructureConstants.botDistanceLUT, SuperStructureConstants.botShootHoodPosLUT};
-  private LinearInterpolationTable distanceToHoodPosLUT = new LinearInterpolationTable(hoodShootLUT);
+  private double[][] hoodPassLUT = {SuperStructureConstants.botDistanceLUT, SuperStructureConstants.botPassHoodPosLUT};
+  
+  private LinearInterpolationTable distanceToHoodGoalLUT = new LinearInterpolationTable(hoodShootLUT);
+  private LinearInterpolationTable distanceToHoodPassLUT = new LinearInterpolationTable(hoodPassLUT);
 
 
   private Hood(HoodIO io) {
@@ -92,10 +95,10 @@ public class Hood extends SubsystemBase {
       });
   }
 
-    public Command runHoodFromDistance(DoubleSupplier distance, BooleanSupplier isInTrench) {
+    public Command runHoodFromDistance(DoubleSupplier distance, BooleanSupplier isInTrench, BooleanSupplier isPass) {
     return this.run(
       () -> { 
-        hoodRotationsFromVision(distance.getAsDouble(), isInTrench.getAsBoolean());
+        hoodRotationsFromVision(distance.getAsDouble(), isInTrench.getAsBoolean(), isPass.getAsBoolean());
       });
   }
 
@@ -210,22 +213,28 @@ public class Hood extends SubsystemBase {
 
 
 //Use this method when shooting at the goal
-  private void hoodRotationsFromVision(Double distance, Boolean isInTrench){
+  private void hoodRotationsFromVision(Double distance, Boolean isInTrench, Boolean isPass){
     // current position in rotations
     double currentPosition = inputs.HoodPositionRot;
     //double hoodPositionFromHoop = (Math.pow (4.25, distance)) - .0797; // update this based on table data for hood distance
-    double hoodPositionFromHoop = distanceToHoodPosLUT.interpolate(distance); // update this based on table data for hood distance
+    double hoodPositionFromPOI = 0;
+    if (isPass){
+      hoodPositionFromPOI = distanceToHoodPassLUT.interpolate(distance); // update this based on table data for hood distance
+    }
+    else {
+      hoodPositionFromPOI = distanceToHoodGoalLUT.interpolate(distance); // update this based on table data for hood distance
+    }
     double hoodPositionRequest = currentPosition;
 
     if (isInTrench){ //Drop the hood
       hoodPositionRequest = SuperStructureConstants.Hood_ZERO_POS;
     }
     else {
-      if (inputs.hoodToplimitswitch || hoodPositionFromHoop < SuperStructureConstants.Hood_MaxPosition){
-        hoodPositionRequest = hoodPositionFromHoop;
+      if (inputs.hoodToplimitswitch || hoodPositionFromPOI < SuperStructureConstants.Hood_MaxPosition){
+        hoodPositionRequest = hoodPositionFromPOI;
       }
-      else if (inputs.hoodBottomlimitswitch || hoodPositionFromHoop >= SuperStructureConstants.Hood_ZERO_POS){
-        hoodPositionRequest = hoodPositionFromHoop;
+      else if (inputs.hoodBottomlimitswitch || hoodPositionFromPOI >= SuperStructureConstants.Hood_ZERO_POS){
+        hoodPositionRequest = hoodPositionFromPOI;
       }
     }
     

@@ -28,7 +28,9 @@ private static ShooterControl instance;
 private final ShooterControlIO io;
 private final ShooterControlIOInputsAutoLogged inputs = new ShooterControlIOInputsAutoLogged();
 private double[][] shootSpeedGoalLUT = {SuperStructureConstants.botDistanceLUT, SuperStructureConstants.botShooterSpeedLUT};
+private double[][] shootSpeedPassLUT = {SuperStructureConstants.botDistanceLUT, SuperStructureConstants.botPassSpeedLUT};
 private LinearInterpolationTable distanceToGoalShooterLUT = new LinearInterpolationTable(shootSpeedGoalLUT);
+private LinearInterpolationTable distanceToPassShooterLUT = new LinearInterpolationTable(shootSpeedPassLUT);
 private boolean shooterIsShutDown;
 
 private double currentShootRequst = SuperStructureConstants.Shooter_Speed_On;
@@ -131,23 +133,29 @@ private ShooterControl(ShooterControlIO io) {
      currentShootRequst = ShootSpeed;
   }
 
-  public Command runDualShooterGoalVision(DoubleSupplier distance) {
+  public Command runDualShooterGoalVision(DoubleSupplier distance, BooleanSupplier isPassing) {
     return this.run(
       () -> { 
-        shooterSpeedFromVision(distance.getAsDouble() ); // idle system
+        shooterSpeedFromVision(distance.getAsDouble() , isPassing.getAsBoolean()); // idle system
       });
   }
 
   //Use this method when shooting at the goal
-  private void shooterSpeedFromVision(Double distance){
+  private void shooterSpeedFromVision(Double distance, boolean ispassing){
     // current position in rotations
     SmartDashboard.putNumber("Shooter distance", distance);
+    double shooterSpeedFromDistance = SuperStructureConstants.runDualShooterSpeedIDLE_SPEED;
+    if (ispassing){ 
+      shooterSpeedFromDistance = distanceToPassShooterLUT.interpolate(distance); // update this based on table data for hood distance
+    }
+    else{ //shooting lookup
+      shooterSpeedFromDistance = distanceToGoalShooterLUT.interpolate(distance); // update this based on table data for hood distance
+    }
 
-    //double hoodPositionFromHoop = (Math.pow (4.25, distance)) - .0797; // update this based on table data for hood distance
-     double shooterSpeedFromDistance = distanceToGoalShooterLUT.interpolate(distance); // update this based on table data for hood distance
+     
     double shooterSpeedRequest = shooterSpeedFromDistance;
 
-    //if (isTargetLocked){
+    
     
       if (shooterSpeedFromDistance < SuperStructureConstants.runDualShooterSpeedIDLE_SPEED){
         shooterSpeedRequest = SuperStructureConstants.runDualShooterSpeedIDLE_SPEED;

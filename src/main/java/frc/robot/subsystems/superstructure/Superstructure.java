@@ -230,12 +230,12 @@ public class Superstructure {
     return (turretRotation.runTurretRotationFromVisionLocation(() -> turretRotRaidianToPoint.getAsDouble()));
   }
 
-  public Command runHoodPositionFromVision(DoubleSupplier distance, BooleanSupplier isInTrench) {
-    return (hood.runHoodFromDistance(distance, isInTrench));
+  public Command runHoodPositionFromVision(DoubleSupplier distance, BooleanSupplier isInTrench, BooleanSupplier isPassing) {
+    return (hood.runHoodFromDistance(distance, isInTrench, isPassing));
   }
 
-    public Command runShooterSpeedFromVision(DoubleSupplier distance_shooter) {
-    return (shooter.runDualShooterGoalVision(distance_shooter));
+    public Command runShooterSpeedFromVision(DoubleSupplier distance_shooter, BooleanSupplier isPassing) {
+    return (shooter.runDualShooterGoalVision(distance_shooter, isPassing));
   }
   
   

@@ -897,6 +897,26 @@ public class precisionVision {
     }
 
     //Use this to Stop Shooting (likey via spindexer) - Bot in trench or on a ramp
+    public boolean botIsPassing(){
+       
+        double chassisLocX=0;
+       
+               
+        chassisLocX = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
+       
+        if (weAreBlueAlliance && chassisLocX > MatchConstants.hoodDownBlueSideEnter_X){
+            return true;
+        }
+        else if (!weAreBlueAlliance && chassisLocX < MatchConstants.hoodDownRedSideEnter_X){
+            return true;
+        }
+        else {
+            return false;
+        } 
+       
+    }
+
+        //Use this to Stop Shooting (likey via spindexer) - Bot in trench or on a ramp
     public boolean botIsInTerrain(){
        
         double chassisLocX=0;

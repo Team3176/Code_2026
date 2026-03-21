@@ -22,10 +22,10 @@ public class MatchConstants {
     public static final double[] redGoalLocation = { 11.901, 4.021 }; // (x,y)redGoal is at (468.56,158.32) inches
 
     // AndyMark Field Location of "Passing Zones"
-    public static final double[] bluePassLocationNearSide = {  2.286, 2.091 }; // 
-    public static final double[] bluePassLocationFarSide  = {  2.286, 5.952 }; // 
-    public static final double[] redPassLocationNearSide  = { 14.227, 2.091 }; // 
-    public static final double[] redPassLocationFarSide   = { 14.227, 5.952 }; // 
+    public static final double[] bluePassLocationNearSide = {  0.000, 2.091 }; // 
+    public static final double[] bluePassLocationFarSide  = {  0.000, 5.952 }; // 
+    public static final double[] redPassLocationNearSide  = { 16.513, 2.091 }; // 
+    public static final double[] redPassLocationFarSide   = { 16.513, 5.952 }; // 
 
     //AndyMark Field Locations of "Hood Down Zones"
     //Keep It Simple 
