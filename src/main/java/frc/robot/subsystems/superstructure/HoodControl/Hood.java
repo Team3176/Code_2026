@@ -219,14 +219,17 @@ public class Hood extends SubsystemBase {
 
    // if (isTargetLocked){
     
-      if (inputs.hoodToplimitswitch || hoodPositionFromHoop < SuperStructureConstants.Hood_ZERO_POS){
+      if (inputs.hoodToplimitswitch || hoodPositionFromHoop < SuperStructureConstants.Hood_MaxPosition){
         hoodPositionRequest = hoodPositionFromHoop;
       }
-      else if (inputs.hoodBottomlimitswitch || hoodPositionFromHoop >= SuperStructureConstants.Hood_MaxPosition){
+      else if (inputs.hoodBottomlimitswitch || hoodPositionFromHoop >= SuperStructureConstants.Hood_ZERO_POS){
         hoodPositionRequest = hoodPositionFromHoop;
       }
 
       io.setHoodVisionPos(hoodPositionRequest);
+
+      SmartDashboard.putNumber("HoodPosition Request", hoodPositionRequest);
+      SmartDashboard.putNumber("Hood Distance Command", distance);
     
   //  }
 

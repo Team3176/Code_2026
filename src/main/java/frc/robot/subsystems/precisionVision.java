@@ -43,6 +43,7 @@ import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.VecBuilder;
 
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.constants.MatchConstants;
 
 public class precisionVision {
 
@@ -537,9 +538,12 @@ public class precisionVision {
         return aTurretSolution;
 
     }
-
+    // AndyMark Field Location of Blue and Red HUBs
     private double[] blueGoalLocation = { 4.611, 4.021 }; // (x,y) blueGoal is at (181.56,158.32) inches
     private double[] redGoalLocation = { 11.901, 4.021 }; // (x,y)redGoal is at (468.56,158.32) inches
+
+
+
 
     private turretSolution calculateGoalLocationFromTurretPose(PhotonTrackedTarget target) {
         turretSolution aTurretSolution = new turretSolution();

@@ -143,14 +143,15 @@ private ShooterControl(ShooterControlIO io) {
   //Use this method when shooting at the goal
   private void shooterSpeedFromVision(Double distance){
     // current position in rotations
-    double currentSpeed = inputs.shooterVelocityRadPerSec;
+    SmartDashboard.putNumber("Shooter distance", distance);
+   // double currentSpeed = inputs.shooterVelocityRadPerSec;
     //double hoodPositionFromHoop = (Math.pow (4.25, distance)) - .0797; // update this based on table data for hood distance
     double shooterSpeedFromDistance = distanceToGoalShooterLUT.interpolate(distance); // update this based on table data for hood distance
-    double shooterSpeedRequest = currentSpeed;
+    double shooterSpeedRequest = shooterSpeedFromDistance;
 
     //if (isTargetLocked){
     
-      if (shooterIsShutDown || shooterSpeedFromDistance < SuperStructureConstants.runDualShooterSpeedIDLE_SPEED){
+      if (shooterSpeedFromDistance < SuperStructureConstants.runDualShooterSpeedIDLE_SPEED){
         shooterSpeedRequest = SuperStructureConstants.runDualShooterSpeedIDLE_SPEED;
       }
       else if ( shooterSpeedFromDistance >= SuperStructureConstants.ShooterDualSpeed_Max_RPS){
@@ -158,6 +159,10 @@ private ShooterControl(ShooterControlIO io) {
       }
 
       setDualShooterSpeedControl(shooterSpeedRequest);
+
+      SmartDashboard.putNumber("Shooter Requested Speed", shooterSpeedRequest);
+      SmartDashboard.putNumber("Shooter Requested SpeedVia Distance", shooterSpeedFromDistance);
+      
     
    // }
 
@@ -193,7 +198,8 @@ private ShooterControl(ShooterControlIO io) {
 
     Logger.processInputs("Shooter", inputs);
      
-    SmartDashboard.putNumber("Shooter Speed", inputs.shooterVelocityRot);    
+    SmartDashboard.putNumber("Shooter Speed", inputs.shooterVelocityRot); 
+    SmartDashboard.putBoolean("Shooter Is Shutdown", shooterIsShutDown);   
   }
   
 

@@ -73,7 +73,7 @@ public class SuperStructureConstants {
   public static final double KickerSpeed_Max_RPS = 60;
 
 
-  public static final double Hood_ZERO_POS = 0.39;
+  public static final double Hood_ZERO_POS = 0.0;
   public static final double Hood_MaxPosition = 12; // ten tooth pinion 23 tooth rack, 1 to 1 gear ratio, input is from -1 to 1
   
   public static final double Hood_ENCODER_OFFSET = 0;
@@ -111,7 +111,7 @@ public class SuperStructureConstants {
   /// Must be the same length
   
   public static final double[] botDistanceLUT     = { 0.00, 0.50, 1.00, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 4.50, 5.00, 5.50, 6.00, 6.50};  //must be ordered as increaseing
-  public static final double[] botShootHoodPosLUT = { 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.88, 1.80, 2.40, 2.45, 2.78, 2.78, 3.10};  //Hood in rotations - 0-12
+  public static final double[] botShootHoodPosLUT = { 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.88, 1.80, 2.40, 2.45, 2.78, 2.79, 3.10};  //Hood in rotations - 0-12
   public static final double[] botShooterSpeedLUT = { 32.5, 32.5, 32.5, 32.5, 38.0, 40.0, 43.0, 45.0, 47.0, 47.0, 49.5, 51.5, 53.0, 56.0};  //Speed in RPM
 
   public static final double[] botPassHoodPosLUT  = { 0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 5.30};  //Hood in rotations - 0-12
@@ -149,7 +149,7 @@ public class SuperStructureConstants {
 
   public static final double ShooterDualSpeed_MAX_OUTPUT_VOLTS = 12 ; //Sets Max forward Speed
   public static final double ShooterDualSpeed_MAXNeg_OUTPUT_VOLTS = -12; //Sets Max Reverse Speed
-  public static final double ShooterDualSpeed_Max_RPS = 35; // speed is multiplied by two due to joystick so currently this equals 50 * 2 = 100
+  public static final double ShooterDualSpeed_Max_RPS = 70; // speed is multiplied by two due to joystick so currently this equals 50 * 2 = 100
   public static final double Shooter_Speed_On = 25;
   public static final double Shooter_Speed_Reverse = -25; // This should be the only negative speed. 
   public static final double Shooter_Speed_Off = 0;
