@@ -92,10 +92,10 @@ public class Hood extends SubsystemBase {
       });
   }
 
-    public Command runHoodFromDistance(DoubleSupplier distance) {
+    public Command runHoodFromDistance(DoubleSupplier distance, BooleanSupplier isInTrench) {
     return this.run(
       () -> { 
-        hoodRotationsFromVision(distance.getAsDouble());
+        hoodRotationsFromVision(distance.getAsDouble(), isInTrench.getAsBoolean());
       });
   }
 
@@ -210,29 +210,29 @@ public class Hood extends SubsystemBase {
 
 
 //Use this method when shooting at the goal
-  private void hoodRotationsFromVision(Double distance){
+  private void hoodRotationsFromVision(Double distance, Boolean isInTrench){
     // current position in rotations
     double currentPosition = inputs.HoodPositionRot;
     //double hoodPositionFromHoop = (Math.pow (4.25, distance)) - .0797; // update this based on table data for hood distance
     double hoodPositionFromHoop = distanceToHoodPosLUT.interpolate(distance); // update this based on table data for hood distance
     double hoodPositionRequest = currentPosition;
 
-   // if (isTargetLocked){
-    
+    if (isInTrench){ //Drop the hood
+      hoodPositionRequest = SuperStructureConstants.Hood_ZERO_POS;
+    }
+    else {
       if (inputs.hoodToplimitswitch || hoodPositionFromHoop < SuperStructureConstants.Hood_MaxPosition){
         hoodPositionRequest = hoodPositionFromHoop;
       }
       else if (inputs.hoodBottomlimitswitch || hoodPositionFromHoop >= SuperStructureConstants.Hood_ZERO_POS){
         hoodPositionRequest = hoodPositionFromHoop;
       }
-
-      io.setHoodVisionPos(hoodPositionRequest);
-
-      SmartDashboard.putNumber("HoodPosition Request", hoodPositionRequest);
-      SmartDashboard.putNumber("Hood Distance Command", distance);
+    }
     
-  //  }
+    io.setHoodVisionPos(hoodPositionRequest);
 
+    SmartDashboard.putNumber("HoodPosition Request", hoodPositionRequest);
+    SmartDashboard.putNumber("Hood Distance Command", distance);
   }
 
 

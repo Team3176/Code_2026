@@ -83,6 +83,8 @@ public class precisionVision {
     private DoubleArrayPublisher fieldLocY;
     private DoubleArrayPublisher fieldLocRot;
     private DoublePublisher ChassisDistancetoGoalDisp;
+    private DoublePublisher ChassisDistancetoPOIDisp;
+    
     private DoublePublisher chassisGoalAngleToChasDisp;
     private DoublePublisher chassisGoalAngleToFiledDisp;
     private DoublePublisher chassisChassisAngleToFiledDisp;
@@ -176,6 +178,8 @@ public class precisionVision {
 
 
         ChassisDistancetoGoalDisp           =   visionLocalizationData.getDoubleTopic("POSE Distance to Goal").publish();;
+        ChassisDistancetoPOIDisp           =   visionLocalizationData.getDoubleTopic("POSE Distance to Point of Interest").publish();;
+      
         chassisGoalAngleToChasDisp          =   visionLocalizationData.getDoubleTopic("POSE Angle From Chassis to Goal").publish(); 
         chassisGoalAngleToFiledDisp         =   visionLocalizationData.getDoubleTopic("POSE Angle From Field to Goal").publish();
         chassisChassisAngleToFiledDisp      =   visionLocalizationData.getDoubleTopic("POSE Chassis Angle to Field").publish();
@@ -754,9 +758,166 @@ public class precisionVision {
         }
 
 
+ public double estimatRotationFromChassisToPointOfInterest(){
+       
+        double chassisLocX=0;
+        double chassisLocY=0;
+        double chassisLocRot=0;
 
+
+        double goalAngleField;  //The angle of the goal based on 0-orientation
+
+        double goalAngleToBot;
+        double goalErrorToBot;
+        
+
+        double [] ourPOILocation;
+                
+                chassisLocX = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
+                chassisLocY =  thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getY();
+                chassisLocRot = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getRotation().getRadians();
+
+                
+                 if(weAreBlueAlliance) {
+                    if (chassisLocX > MatchConstants.autoShootBlueLessThan_X){
+                         if(chassisLocY < MatchConstants.centerLine_Y)  {  // Beyond the socring line start passing
+                             ourPOILocation = MatchConstants.bluePassLocationNearSide;
+                         }  
+                         else {
+                            ourPOILocation = MatchConstants.bluePassLocationFarSide;
+                         }
+                    }
+                    else {
+                        ourPOILocation = blueGoalLocation; // Shoot at Blue Hub
+                    }
+                }
+                else {
+                     if (chassisLocX < MatchConstants.autoShootRedGreaterThan_X){
+                         if(chassisLocY < MatchConstants.centerLine_Y)  {  // Beyond scoring line start passing 
+                             ourPOILocation = MatchConstants.redPassLocationNearSide;
+                         }  
+                         else {
+                            ourPOILocation = MatchConstants.redPassLocationFarSide;
+                         }
+                    }
+                    else {
+                        ourPOILocation = redGoalLocation; // Shoot at Red Hub
+                    }
+                } 
+                //calculate the angle
+
+                //goalAngleToBot = Math.atan2((ourGoalLocation[1]-chassisLocY) , (ourGoalLocation[0]-chassisLocX)) - chassisLocRot;
+                goalAngleField = Math.atan2((ourPOILocation[1]-chassisLocY) , (ourPOILocation[0]-chassisLocX));
+                goalAngleToBot = goalAngleField -chassisLocRot;
+                goalErrorToBot = MathUtil.angleModulus(goalAngleToBot + Math.PI); 
+
+
+                chassisChassisAngleToFiledDisp.set(Units.radiansToDegrees(chassisLocRot));
+                chassisGoalAngleToFiledDisp.set(Units.radiansToDegrees(goalAngleField));
+                chassisGoalAngleToChasDisp.set(Units.radiansToDegrees(goalAngleToBot));
+                chassisChassisErrorDisp.set(Units.radiansToDegrees(goalErrorToBot));
+
+
+           return   goalErrorToBot;
+
+        }
+
+    public double estimateDistanceFromChassisToPointOfInterest(){
+       
+        double chassisLocX=0;
+        double chassisLocY=0;
+        //double chassisLocRot=0;
+
+        double distance;
+
+        double [] ourPOILocation;
+     
+                //Where is the Robot
+                chassisLocX = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
+                chassisLocY =  thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getY();
+            
+                //Where do we want to put the Ball
+                if(weAreBlueAlliance) {
+                    if (chassisLocX > MatchConstants.autoShootBlueLessThan_X){
+                         if(chassisLocY < MatchConstants.centerLine_Y)  {  // Beyond the socring line start passing
+                             ourPOILocation = MatchConstants.bluePassLocationNearSide;
+                         }  
+                         else {
+                            ourPOILocation = MatchConstants.bluePassLocationFarSide;
+                         }
+                    }
+                    else {
+                        ourPOILocation = blueGoalLocation; // Shoot at Blue Hub
+                    }
+                }
+                else {
+                     if (chassisLocX < MatchConstants.autoShootRedGreaterThan_X){
+                         if(chassisLocY < MatchConstants.centerLine_Y)  {  // Beyond scoring line start passing 
+                             ourPOILocation = MatchConstants.redPassLocationNearSide;
+                         }  
+                         else {
+                            ourPOILocation = MatchConstants.redPassLocationFarSide;
+                         }
+                    }
+                    else {
+                        ourPOILocation = redGoalLocation; // Shoot at Red Hub
+                    }
+                } 
+
+                //calcualte the distance to Point of Interest
+                distance = Math.sqrt( Math.pow(chassisLocX - ourPOILocation[0],2) + Math.pow(chassisLocY - ourPOILocation[1],2));
+                
+                ChassisDistancetoPOIDisp.set(distance);
+
+           return distance;
+
+        }
+
+    // use this to drop the hood 
+    public boolean botIsInTrench(){
+       
+        double chassisLocX=0;
+        double chassisLocY=0;
+               
+        chassisLocX = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
+        chassisLocY =  thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getY();
+       
+        if (chassisLocX > MatchConstants.hoodDownBlueSideEnter_X && chassisLocX < MatchConstants.hoodDownBlueSideExit_X && 
+            (chassisLocY < MatchConstants.hoodDownScoringTableSide_Y || chassisLocY > MatchConstants.hoodDownOppositeSide_Y)){
+            return true;
+        }
+        else if (chassisLocX > MatchConstants.hoodDownRedSideEnter_X && chassisLocX < MatchConstants.hoodDownRedSideExit_X && 
+            (chassisLocY < MatchConstants.hoodDownScoringTableSide_Y || chassisLocY > MatchConstants.hoodDownOppositeSide_Y)){
+            return true;
+        }
+        else {
+            return false;
+        } 
        
     }
+
+    //Use this to Stop Shooting (likey via spindexer) - Bot in trench or on a ramp
+    public boolean botIsInTerrain(){
+       
+        double chassisLocX=0;
+       
+               
+        chassisLocX = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
+       
+        if (chassisLocX > MatchConstants.hoodDownBlueSideEnter_X && chassisLocX < MatchConstants.hoodDownBlueSideExit_X){
+            return true;
+        }
+        else if (chassisLocX > MatchConstants.hoodDownRedSideEnter_X && chassisLocX < MatchConstants.hoodDownRedSideExit_X){
+            return true;
+        }
+        else {
+            return false;
+        } 
+       
+    }
+
+       
+}
 
 
 

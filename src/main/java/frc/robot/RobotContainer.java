@@ -199,6 +199,25 @@ public class RobotContainer {
         superstructure.ShooterOff()
         .andThen(superstructure.SpindexerOff()
         .andThen(superstructure.KickerOff())).withTimeout(.2));
+    NamedCommands.registerCommand("VisionShootToHub",
+        superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis())
+        .alongWith(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis(), () -> thisRobotVisionHandler.botIsInTrench()))
+        .alongWith(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimateGoalRotationFromChassis()))
+        .andThen(Commands.waitSeconds(.5))
+        .andThen(superstructure.KickerOn()
+        .andThen(Commands.waitSeconds(.1)))
+        .andThen(superstructure.SpindexerOn())
+    );
+
+    NamedCommands.registerCommand("VisionPassAndShoot",
+        superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest())
+        .alongWith(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench()))
+        .alongWith(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimatRotationFromChassisToPointOfInterest()))
+        .andThen(Commands.waitSeconds(.5))
+        .andThen(superstructure.KickerOn()
+        .andThen(Commands.waitSeconds(.1)))
+        .andThen(superstructure.SpindexerOn())
+    );
 
     autoChooser = AutoBuilder.buildAutoChooser("Tests");
     SmartDashboard.putData("Auto Mode", autoChooser);
@@ -319,11 +338,11 @@ public class RobotContainer {
     controller.transStick.button(1).onTrue((superstructure.ShooterOn().andThen(Commands.waitSeconds(.5)).andThen(superstructure.KickerOn().andThen(Commands.waitSeconds(.1))).andThen(superstructure.SpindexerOn())));
     controller.transStick.button(1).onFalse((superstructure.SpindexerOff().andThen(Commands.waitSeconds(.2)).andThen(superstructure.KickerOff().andThen(Commands.waitSeconds(.2))).andThen(superstructure.shooterMotorSpeedIDLE())));
 
-    controller.rotStick.button(2).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimateGoalRotationFromChassis()), () ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
+    controller.rotStick.button(2).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimateGoalRotationFromChassis())));
     controller.rotStick.button(2).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
-   controller.rotStick.button(2).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
+    controller.rotStick.button(2).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis(),() -> thisRobotVisionHandler.botIsInTrench()));
     
-    //controller.rotStick.button(2).onTrue(superstructure.toggleShooterStatus());
+    //controller.rotStick.button(2).onTrue(supers tructure.toggleShooterStatus());
     // controller.rotStick.button(1).onTrue(superstructure.IntakeRollerReverse()).onFalse(superstructure.IntakeRollerResume());
 
     ///Test Commands 
@@ -335,9 +354,11 @@ public class RobotContainer {
 
 
       /// Swtich box Commands
-      // TODO do we need anything here?.
-      //controller.switchBox.button(4).onTrue(drive.setVisionOverride(true)).onFalse(drive.setVisionOverride(false));
-
+      // Go look at Controller Cosntants for Euro Truck Bindings
+    controller.switchBox.button(19).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimatRotationFromChassisToPointOfInterest())));
+    controller.switchBox.button(17).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest()));
+    controller.switchBox.button(15).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench()));
+    
   }
 
   /**

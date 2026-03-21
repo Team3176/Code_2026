@@ -266,16 +266,16 @@ public class TurretRotation extends SubsystemBase {
           |  |                    |
  */
   //Use this command for target tracking - 
-  public Command runTurretRotationFromVisionLocation(DoubleSupplier turretRotRaidianToPoint, DoubleSupplier turretDistanceToPoint) {
+  public Command runTurretRotationFromVisionLocation(DoubleSupplier turretRotRaidianToPoint) {
   //  double turretRotAbsolute =   turretRotToPoint.getAsDouble(); // SuperStructureConstants.TurretDegreesToRotations; //convert degrees of error into rotations
     
     return this.run(
       () -> { 
-        turretRotationFromLocation(turretRotRaidianToPoint.getAsDouble(), turretDistanceToPoint.getAsDouble());
+        turretRotationFromLocation(turretRotRaidianToPoint.getAsDouble());
       });
   }
 
-  private void turretRotationFromLocation(double turretRotRaidianAbsolute, double turretDistanceToPoint ){
+  private void turretRotationFromLocation(double turretRotRaidianAbsolute){
       // curret position in rotations
       double curretPosition = inputs.turretRotationPositionRot;
       //io.setTurretRotationError( positionErrorRotations, isTargetLocked);
@@ -308,7 +308,7 @@ public class TurretRotation extends SubsystemBase {
       goToPosRotation = goToPosRot;
       demandedRotAbsoluteDeg = Units.radiansToDegrees(turretRotRaidianAbsolute);
       demandedRotAbsoluteRad = turretRotRaidianAbsolute;
-      demandedDistance = turretDistanceToPoint;
+     
 
 
       setTurretRotationVoltagePos(goToPosRot);
@@ -337,7 +337,6 @@ public class TurretRotation extends SubsystemBase {
     
     SmartDashboard.putNumber("Turret demand Degrees", demandedRotAbsoluteDeg);
     SmartDashboard.putNumber("Turret demand Rad", demandedRotAbsoluteRad);
-    SmartDashboard.putNumber("Turret distance To Point", demandedDistance);
     
     SmartDashboard.putNumber("Turret POT Volgate", inputs.turretAnalogPOT_Value);
    
