@@ -321,9 +321,9 @@ public class RobotContainer {
 
     controller.rotStick.button(2).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimateGoalRotationFromChassis()), () ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
     controller.rotStick.button(2).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
-    controller.rotStick.button(2).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
+   controller.rotStick.button(2).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis()));
     
-    controller.rotStick.button(2).onTrue(superstructure.toggleShooterStatus());
+    //controller.rotStick.button(2).onTrue(superstructure.toggleShooterStatus());
     // controller.rotStick.button(1).onTrue(superstructure.IntakeRollerReverse()).onFalse(superstructure.IntakeRollerResume());
 
     ///Test Commands 

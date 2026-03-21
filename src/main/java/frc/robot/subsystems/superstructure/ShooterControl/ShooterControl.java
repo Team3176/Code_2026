@@ -59,11 +59,9 @@ private ShooterControl(ShooterControlIO io) {
   // USE THESE COMMANDS FOR Dual Motor SPEED CONTROL
 
   private void setDualShooterSpeedControl(double Speed_RPS) {
-    if( shooterIsShutDown == true) {
-       io.setDualShooterSpeedVelocity(0);
-    } else {
+
       io.setDualShooterSpeedVelocity(Speed_RPS);
-    }
+  
   }
 
 
@@ -144,9 +142,9 @@ private ShooterControl(ShooterControlIO io) {
   private void shooterSpeedFromVision(Double distance){
     // current position in rotations
     SmartDashboard.putNumber("Shooter distance", distance);
-   // double currentSpeed = inputs.shooterVelocityRadPerSec;
+
     //double hoodPositionFromHoop = (Math.pow (4.25, distance)) - .0797; // update this based on table data for hood distance
-    double shooterSpeedFromDistance = distanceToGoalShooterLUT.interpolate(distance); // update this based on table data for hood distance
+     double shooterSpeedFromDistance = distanceToGoalShooterLUT.interpolate(distance); // update this based on table data for hood distance
     double shooterSpeedRequest = shooterSpeedFromDistance;
 
     //if (isTargetLocked){
@@ -163,7 +161,7 @@ private ShooterControl(ShooterControlIO io) {
       SmartDashboard.putNumber("Shooter Requested Speed", shooterSpeedRequest);
       SmartDashboard.putNumber("Shooter Requested SpeedVia Distance", shooterSpeedFromDistance);
       
-    
+     
    // }
 
   }

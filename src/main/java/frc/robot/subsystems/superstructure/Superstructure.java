@@ -231,8 +231,8 @@ public class Superstructure {
     return (hood.runHoodFromDistance(distance));
   }
 
-    public Command runShooterSpeedFromVision(DoubleSupplier distance) {
-    return (shooter.runDualShooterGoalVision(distance));
+    public Command runShooterSpeedFromVision(DoubleSupplier distance_shooter) {
+    return (shooter.runDualShooterGoalVision(distance_shooter));
   }
   
   
