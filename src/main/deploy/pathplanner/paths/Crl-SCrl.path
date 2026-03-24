@@ -8,49 +8,43 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.0036931818181816,
-        "y": 5.797465909090908
+        "x": 1.0417850575814684,
+        "y": 5.9308385533666845
       },
       "isLocked": false,
       "linkedName": "Crl"
     },
     {
       "anchor": {
-        "x": 2.3538863636363634,
-        "y": 5.0450681818181815
+        "x": 1.3313472417167602,
+        "y": 5.936379668049792
       },
       "prevControl": {
-        "x": 2.1512165565363937,
-        "y": 5.191440820279271
+        "x": 1.0814408016226391,
+        "y": 5.943218615299442
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LOmid"
+      "linkedName": "SCrl"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.9243379571248421,
+      "rotationDegrees": 179.1856766673812
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
       "name": "RetractIntake",
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.3529411764705887,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
           "name": "RetractIntake"
-        }
-      }
-    },
-    {
-      "name": "TurretCenter",
-      "waypointRelativePos": 0.5,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "TurretCenter"
         }
       }
     }
@@ -65,7 +59,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 154.0256060375687
+    "rotation": 149.4102523499525
   },
   "reversed": false,
   "folder": null,

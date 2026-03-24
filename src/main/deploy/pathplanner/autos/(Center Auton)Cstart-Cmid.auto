@@ -7,25 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LBstart-Crl"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Crl-LOmid"
+            "pathName": "Cstart-Cmid"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": null
+            "name": "TurretCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootFromClose"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 10.0
+            "waitTime": 20.0
           }
         },
         {
