@@ -39,7 +39,7 @@ import frc.robot.util.TalonUtils;
 public class ClimbControlIOTalon implements ClimbControlIO {
 
   private TalonFX ClimbLeftController;
-  private TalonFX ClimbRightController;
+  //private TalonFX ClimbRightController;
   
   PositionVoltage voltPosition = new PositionVoltage(0);
 
@@ -59,7 +59,7 @@ public class ClimbControlIOTalon implements ClimbControlIO {
     TalonFXConfiguration ClimbRightConfigs = new TalonFXConfiguration();
     
     ClimbLeftController = new TalonFX(Hardwaremap.ClimbLeft_CID, Hardwaremap.Climb_CBN);
-    ClimbRightController = new TalonFX(Hardwaremap.ClimbRight_CID, Hardwaremap.Climb_CBN);
+   // ClimbRightController = new TalonFX(Hardwaremap.ClimbRight_CID, Hardwaremap.Climb_CBN);
 
     ClimbLeftConfigs.Slot0.kP = 3; // An error of 1 rotation results in 2.4 V output
     ClimbLeftConfigs.Slot0.kI = 0.1; // No output for integrated error
@@ -103,7 +103,7 @@ public class ClimbControlIOTalon implements ClimbControlIO {
 
     TalonUtils.applyTalonFxConfigs(ClimbLeftController, ClimbLeftConfigs);
 
-    TalonUtils.applyTalonFxConfigs(ClimbRightController, ClimbRightConfigs);
+   // TalonUtils.applyTalonFxConfigs(ClimbRightController, ClimbRightConfigs);
 
 
     
@@ -153,7 +153,7 @@ public class ClimbControlIOTalon implements ClimbControlIO {
     inputs.ClimbPositionDeg = Units.rotationsToDegrees(ClimbPosition.getValueAsDouble());
     //inputs.Climb_pos_offset = Climb_pos_offset;
     inputs.ClimbPositionRotLeft = -ClimbLeftController.getPosition().getValueAsDouble();
-    inputs.ClimbPositionRotRight = -ClimbRightController.getPosition().getValueAsDouble();
+   // inputs.ClimbPositionRotRight = -ClimbRightController.getPosition().getValueAsDouble();
     //Use if using cancoder
     //inputs.ClimbPositionRot = ClimbEncoder.getPosition().getValueAsDouble() - Climb_pos_offset;
     inputs.ClimbPositionRotREAL = ClimbLeftController.getPosition().getValueAsDouble(); 
@@ -174,7 +174,7 @@ public class ClimbControlIOTalon implements ClimbControlIO {
   @Override
   public void setClimbBothPos(double position) {
     ClimbLeftController.setControl(voltPosition.withPosition(position  + SuperStructureConstants.ClimbLeft_pos_offset));
-    ClimbRightController.setControl(voltPosition.withPosition(position + SuperStructureConstants.ClimbRight_pos_offset));
+ //   ClimbRightController.setControl(voltPosition.withPosition(position + SuperStructureConstants.ClimbRight_pos_offset));
   } 
 
   @Override
@@ -184,7 +184,7 @@ public class ClimbControlIOTalon implements ClimbControlIO {
 
   @Override
   public void setRightVoltage(double voltage) {
-    ClimbRightController.setVoltage(voltage);
+  //  ClimbRightController.setVoltage(voltage);
   }
 
   @Override
