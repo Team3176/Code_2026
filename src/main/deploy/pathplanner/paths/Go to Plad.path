@@ -1,0 +1,86 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.521,
+        "y": 0.651
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.157579545451471,
+        "y": 0.6234431818222708
+      },
+      "isLocked": false,
+      "linkedName": "Rstart"
+    },
+    {
+      "anchor": {
+        "x": 5.992193181815106,
+        "y": 0.651
+      },
+      "prevControl": {
+        "x": 5.528386363633287,
+        "y": 0.5100681818222699
+      },
+      "nextControl": {
+        "x": 8.416583799761266,
+        "y": 1.3876726067106708
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.002261363633288,
+        "y": 6.920909090913179
+      },
+      "prevControl": {
+        "x": 7.424840909087834,
+        "y": 6.560170454549543
+      },
+      "nextControl": {
+        "x": 6.2308065749909485,
+        "y": 7.57946805682737
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.534,
+        "y": 7.41845934379458
+      },
+      "prevControl": {
+        "x": 4.858443181815106,
+        "y": 7.4362500000040885
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "LTHub"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 108.49628196386425
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -179.95686937436045
+  },
+  "useDefaultConstraints": true
+}

@@ -155,6 +155,17 @@ public class RobotContainer {
      .andThen(superstructure.KickerOn()
      .andThen(Commands.waitSeconds(.1)))
      .andThen(superstructure.SpindexerOn()));   
+/*
+    NamedCommands.registerCommand("ShootFromAnywhere", 
+    superstructure.ShotThreeShooter().withTimeout(.1)
+     .andThen(superstructure.ShotThreeHood())
+     .andThen(Commands.waitSeconds(.2))
+     .andThen(superstructure.ShooterOn())
+     .andThen(Commands.waitSeconds(.5))
+     .andThen(superstructure.KickerOn()
+     .andThen(Commands.waitSeconds(.1)))
+     .andThen(superstructure.SpindexerOn()));
+*/
 
     NamedCommands.registerCommand("ShootFromTrench", 
     superstructure.ShotThreeShooter().withTimeout(.1)

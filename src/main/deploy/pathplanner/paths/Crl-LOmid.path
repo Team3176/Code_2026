@@ -1,0 +1,67 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7918464730290455,
+        "y": 5.936379668049792
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.0036931818181816,
+        "y": 5.797465909090908
+      },
+      "isLocked": false,
+      "linkedName": "Crl"
+    },
+    {
+      "anchor": {
+        "x": 2.3538863636363634,
+        "y": 5.0450681818181815
+      },
+      "prevControl": {
+        "x": 2.1512165565363937,
+        "y": 5.191440820279271
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "LOmid"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "RetractIntake",
+      "waypointRelativePos": 0.5,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "TurretCenter",
+      "waypointRelativePos": 0.5,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 154.0256060375687
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}
