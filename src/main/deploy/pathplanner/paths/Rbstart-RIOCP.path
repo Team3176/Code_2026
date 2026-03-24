@@ -3,16 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.521,
-        "y": 0.651
+        "x": 3.6113181818181816,
+        "y": 2.695113636363636
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.249626556016597,
-        "y": 0.5415560165975102
+        "x": 2.498181818181818,
+        "y": 1.9942500000000005
       },
       "isLocked": false,
-      "linkedName": "RTHub"
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.05475,
+        "y": 0.9120340909090907
+      },
+      "prevControl": {
+        "x": 2.3999459143685216,
+        "y": 1.1543631619695591
+      },
+      "nextControl": {
+        "x": 4.363715909090908,
+        "y": 0.4276136363636362
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,8 +36,8 @@
         "y": 0.8690663900414939
       },
       "prevControl": {
-        "x": 6.2412551867219905,
-        "y": 0.6871161825726142
+        "x": 5.912923330818558,
+        "y": 0.6010891173142214
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +64,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -108.41091952300245
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

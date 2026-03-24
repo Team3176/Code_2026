@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3261998430402593,
-        "y": 4.487348640042035
+        "x": 2.5909431818181816,
+        "y": 4.581261363636363
       },
       "isLocked": false,
       "linkedName": "Cmid"
@@ -20,8 +20,8 @@
         "y": 5.936379668049792
       },
       "prevControl": {
-        "x": 2.593153526970954,
-        "y": 5.918184647302906
+        "x": 2.8279999999999994,
+        "y": 5.931454545454546
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,19 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "DeployIntake",
+      "waypointRelativePos": 0.25,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "DeployIntake"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.5,
     "maxAcceleration": 3.5,
