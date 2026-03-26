@@ -7,19 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "IOPATH"
+            "pathName": "ROstart-RTHub"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "DeployIntake"
+            "name": "TurretCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootFromTrench"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 20.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShot"
           }
         }
       ]
