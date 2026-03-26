@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7918464730290455,
-        "y": 5.936379668049792
+        "x": 3.5185568181818176,
+        "y": 5.581022727272727
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.0036931818181816,
-        "y": 5.797465909090908
+        "x": 2.9207613636363625,
+        "y": 5.8180795454545455
       },
       "isLocked": false,
-      "linkedName": "Crl"
+      "linkedName": "LBstart"
     },
     {
       "anchor": {
-        "x": 2.3538863636363634,
-        "y": 5.0450681818181815
+        "x": 0.921238636363636,
+        "y": 5.921147727272728
       },
       "prevControl": {
-        "x": 2.151216556536393,
-        "y": 5.191440820279271
+        "x": 2.287448981516408,
+        "y": 5.926529422859299
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LOmid"
+      "linkedName": "Crl"
     }
   ],
   "rotationTargets": [],
@@ -33,24 +33,13 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "RetractIntake",
-      "waypointRelativePos": 0.5,
+      "name": "DeployIntake",
+      "waypointRelativePos": 0.44518716577540196,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "RetractIntake"
-        }
-      }
-    },
-    {
-      "name": "TurretCenter",
-      "waypointRelativePos": 0.5,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "TurretCenter"
+          "name": "DeployIntake"
         }
       }
     }
@@ -65,7 +54,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 154.0256060375687
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": null,

@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.534,
+        "x": 4.466784090909091,
         "y": 7.41845934379458
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.002977272727272,
+        "x": 4.935761363636363,
         "y": 7.3537954545454545
       },
       "isLocked": false,
-      "linkedName": "LTHub"
+      "linkedName": "LOstart"
     },
     {
       "anchor": {
@@ -80,9 +80,27 @@
     {
       "waypointRelativePos": 0.7389937106918238,
       "rotationDegrees": -76.82715665847125
+    },
+    {
+      "waypointRelativePos": 3.289308176100634,
+      "rotationDegrees": 112.37626208228528
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 2.614003590664274,
+      "maxWaypointRelativePos": 3.475763016157987,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 3.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
@@ -124,7 +142,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 108.49628196386425
+    "rotation": -0.17436607553382683
   },
   "useDefaultConstraints": true
 }

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5185568181818176,
-        "y": 5.581022727272727
+        "x": 2.745192582025677,
+        "y": 4.041469329529244
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9207613636363625,
-        "y": 5.8180795454545455
+        "x": 1.8524251069926745,
+        "y": 4.662524964333898
       },
       "isLocked": false,
-      "linkedName": "LBstart"
+      "linkedName": "Cmid"
     },
     {
       "anchor": {
-        "x": 0.7918464730290455,
-        "y": 5.936379668049792
+        "x": 0.921238636363636,
+        "y": 5.921147727272728
       },
       "prevControl": {
-        "x": 2.1580568181818176,
-        "y": 5.941761363636363
+        "x": 3.34076788030353,
+        "y": 5.972902363503916
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,19 +31,7 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "DeployIntake",
-      "waypointRelativePos": 0.44518716577540196,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "DeployIntake"
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.5,
     "maxAcceleration": 3.5,

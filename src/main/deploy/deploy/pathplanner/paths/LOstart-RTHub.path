@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.534,
+        "x": 4.466784090909091,
         "y": 7.41845934379458
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.827542168674698,
-        "y": 7.400734939759036
+        "x": 7.301159090909091,
+        "y": 7.384715909090909
       },
       "isLocked": false,
-      "linkedName": "Lstart"
+      "linkedName": "LOstart"
     },
     {
       "anchor": {
@@ -20,12 +20,12 @@
         "y": 4.054407988587732
       },
       "prevControl": {
-        "x": 7.644209167272708,
-        "y": 8.049341331396384
+        "x": 7.7669122031663616,
+        "y": 6.520195836648993
       },
       "nextControl": {
-        "x": 7.700699001426532,
-        "y": 0.6774179743223976
+        "x": 7.538215909090908,
+        "y": 0.3966931818181818
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 0.651
       },
       "prevControl": {
-        "x": 6.911440798858774,
-        "y": 0.6774179743223976
+        "x": 6.930113636363636,
+        "y": 0.6646704545454554
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,14 +47,28 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5027932960893846,
-      "rotationDegrees": -90.75154290357699
+      "rotationDegrees": -77.4737938172873
     },
     {
-      "waypointRelativePos": 1.6488427773343834,
-      "rotationDegrees": -65.83008771124048
+      "waypointRelativePos": 1.7012578616352185,
+      "rotationDegrees": -95.07639098330051
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 1.3895870736086169,
+      "maxWaypointRelativePos": 1.7091561938958693,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 3.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
@@ -86,7 +100,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.64733976857485
+    "rotation": -0.17436607553382683
   },
   "useDefaultConstraints": true
 }
