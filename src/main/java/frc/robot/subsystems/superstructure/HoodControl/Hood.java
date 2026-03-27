@@ -8,9 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import edu.wpi.first.wpilibj.smartdashboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -258,9 +256,9 @@ public class Hood extends SubsystemBase {
     positionMotorPID.checkParemeterUpdate();
 
     SmartDashboard.putNumber("Hood Position", inputs.HoodPositionRot);
-    SmartDashboard.putNumber("Hood Volts", inputs.HoodAppliedVolts);
-    SmartDashboard.putBoolean("Hood Top Switch", inputs.hoodToplimitswitch);
-    SmartDashboard.putBoolean("Hood Bottom Switch", inputs.hoodBottomlimitswitch);
+   // SmartDashboard.putNumber("Hood Volts", inputs.HoodAppliedVolts);
+   // SmartDashboard.putBoolean("Hood Top Switch", inputs.hoodToplimitswitch);
+   // SmartDashboard.putBoolean("Hood Bottom Switch", inputs.hoodBottomlimitswitch);
     
        // Use Limit Switches not to break anything - May be double dipping on limit switches based on method call. - safe than sorry
 
@@ -273,6 +271,6 @@ public class Hood extends SubsystemBase {
     }
   
     
-    SmartDashboard.putNumber("Hood Position", inputs.HoodPositionRot);
+    //SmartDashboard.putNumber("Hood Position", inputs.HoodPositionRot);
   }
 }

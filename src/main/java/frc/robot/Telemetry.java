@@ -32,9 +32,9 @@ public class Telemetry {
         MaxSpeed = maxSpeed;
         SignalLogger.start();
 
-        /* Set up the module state Mechanism2d telemetry */
+        /* Set up the module state Mechanism2d telemetry TODO do we need to see pod data in smart dashboard */
         for (int i = 0; i < 4; ++i) {
-            SmartDashboard.putData("Module " + i, m_moduleMechanisms[i]);
+      //      SmartDashboard.putData("Module " + i, m_moduleMechanisms[i]);
         }
     }
 

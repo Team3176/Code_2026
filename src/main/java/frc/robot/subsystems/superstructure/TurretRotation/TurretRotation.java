@@ -211,7 +211,7 @@ public class TurretRotation extends SubsystemBase {
     
     double goToPosRot =  (SuperStructureConstants.TurrentCenterPosPot - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt;
     setTurretRotationVoltagePos(goToPosRot + this.currentPosRot);
-     SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
+   //  SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
      desiredRotations = goToPosRot + this.currentPosRot;
 
       //This should be used as the home position update each time it is centered
@@ -231,7 +231,7 @@ public class TurretRotation extends SubsystemBase {
     
     double goToPosRot =  (SuperStructureConstants.TurretPotClockwiseOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt;
     setTurretRotationVoltagePos(goToPosRot + this.currentPosRot);
-     SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
+ //    SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
      desiredRotations = goToPosRot + this.currentPosRot;
   }
     public Command moveTurretToMaxCounterClockwise() {
@@ -247,7 +247,7 @@ public class TurretRotation extends SubsystemBase {
     
     double goToPosRot =  (SuperStructureConstants.TurretPotCounterClockOffset - inputs.turretAnalogPOT_Value) * SuperStructureConstants.TurretRotPerVolt;
     setTurretRotationVoltagePos(goToPosRot + this.currentPosRot);
-     SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
+  //   SmartDashboard.putNumber("Turret Move Rotations", goToPosRot + this.currentPosRot);
      desiredRotations = goToPosRot + this.currentPosRot;
   }
 
@@ -326,17 +326,17 @@ public class TurretRotation extends SubsystemBase {
      
     Logger.recordOutput("TurretRotation/setpoint", this.positionSetpoint);
    
-    SmartDashboard.putBoolean("Turret LimitSwitch Clockwise", inputs.turretClockwiselimitswitch);
-    SmartDashboard.putBoolean("Turret LimitSwitch Counter Clockwise", inputs.turretCounterclockwiselimitswitch);
+   // SmartDashboard.putBoolean("Turret LimitSwitch Clockwise", inputs.turretClockwiselimitswitch);
+   // SmartDashboard.putBoolean("Turret LimitSwitch Counter Clockwise", inputs.turretCounterclockwiselimitswitch);
     SmartDashboard.putNumber("Turret Current Rotation", inputs.turretRotationPositionRot);
-    SmartDashboard.putNumber("Turret Desired Rotation", desiredRotations);
-    SmartDashboard.putNumber("Turret Delta Rotations", deltaRot);
-    SmartDashboard.putNumber("Turret Center Rotations", centerRot); 
-    SmartDashboard.putNumber("Turret Commanded Rotations", commandedRot);
-    SmartDashboard.putNumber("Turret GoTO Rotations", goToPosRotation);
+   // SmartDashboard.putNumber("Turret Desired Rotation", desiredRotations);
+   // SmartDashboard.putNumber("Turret Delta Rotations", deltaRot);
+   // SmartDashboard.putNumber("Turret Center Rotations", centerRot); 
+   // SmartDashboard.putNumber("Turret Commanded Rotations", commandedRot);
+  //  SmartDashboard.putNumber("Turret GoTO Rotations", goToPosRotation);
     
     SmartDashboard.putNumber("Turret demand Degrees", demandedRotAbsoluteDeg);
-    SmartDashboard.putNumber("Turret demand Rad", demandedRotAbsoluteRad);
+   // SmartDashboard.putNumber("Turret demand Rad", demandedRotAbsoluteRad);
     
     SmartDashboard.putNumber("Turret POT Volgate", inputs.turretAnalogPOT_Value);
    

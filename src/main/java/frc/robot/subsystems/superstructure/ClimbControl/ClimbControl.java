@@ -182,8 +182,8 @@ private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAu
   }
 
   public void deltaLeftRightClimb(double deltaLeft, double deltaRight) {
-    SmartDashboard.putNumber("climb volt command left", deltaLeft);
-    SmartDashboard.putNumber("climb volt command right", deltaRight);
+   // SmartDashboard.putNumber("climb volt command left", deltaLeft);
+  //  SmartDashboard.putNumber("climb volt command right", deltaRight);
 
     // Boolean should check for if the climber is over the limit we set for it, prevent over extending
     boolean isLeftClimberBeyondMaxHeight = inputs.ClimbPositionRotLeft >= SuperStructureConstants.ClimbMaxExtend;
@@ -233,8 +233,8 @@ private final ClimbControlIOInputsAutoLogged inputs = new ClimbControlIOInputsAu
    
     positionMotorPID.checkParemeterUpdate();
     
-    SmartDashboard.putNumber("Climb Position Right", inputs.ClimbPositionRotRight);
-    SmartDashboard.putNumber("Climb Position Left", inputs.ClimbPositionRotLeft);
+   // SmartDashboard.putNumber("Climb Position Right", inputs.ClimbPositionRotRight);
+   // SmartDashboard.putNumber("Climb Position Left", inputs.ClimbPositionRotLeft);
 
 
   }

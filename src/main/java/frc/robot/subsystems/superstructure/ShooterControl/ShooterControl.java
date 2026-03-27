@@ -166,8 +166,8 @@ private ShooterControl(ShooterControlIO io) {
 
       setDualShooterSpeedControl(shooterSpeedRequest);
 
-      SmartDashboard.putNumber("Shooter Requested Speed", shooterSpeedRequest);
-      SmartDashboard.putNumber("Shooter Requested SpeedVia Distance", shooterSpeedFromDistance);
+     // SmartDashboard.putNumber("Shooter Requested Speed", shooterSpeedRequest);
+     // SmartDashboard.putNumber("Shooter Requested SpeedVia Distance", shooterSpeedFromDistance);
       
      
    // }
@@ -205,7 +205,7 @@ private ShooterControl(ShooterControlIO io) {
     Logger.processInputs("Shooter", inputs);
      
     SmartDashboard.putNumber("Shooter Speed", inputs.shooterVelocityRot); 
-    SmartDashboard.putBoolean("Shooter Is Shutdown", shooterIsShutDown);   
+   // SmartDashboard.putBoolean("Shooter Is Shutdown", shooterIsShutDown);   
   }
   
 

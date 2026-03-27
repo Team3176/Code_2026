@@ -84,6 +84,7 @@ public class precisionVision {
     private DoubleArrayPublisher fieldLocRot;
     private DoublePublisher ChassisDistancetoGoalDisp;
     private DoublePublisher ChassisDistancetoPOIDisp;
+    private BooleanPublisher MultiTagLockDisp;
     
     private DoublePublisher chassisGoalAngleToChasDisp;
     private DoublePublisher chassisGoalAngleToFiledDisp;
@@ -169,6 +170,12 @@ public class precisionVision {
     public double xDotField;
     public double yDotField;
 
+    public double xVelocityBot; 
+    public double yVelocityBot;
+    public double rotVelocityBot;
+    private DoublePublisher botXVelDisp;
+    private DoublePublisher botYVelDisp;
+    private DoublePublisher botRotVelDisp;
 
 
 
@@ -199,6 +206,8 @@ public class precisionVision {
         fieldLocX = visionLocalizationData.getDoubleArrayTopic("fieldLocX").publish();
         fieldLocY = visionLocalizationData.getDoubleArrayTopic("fieldLocY").publish();
         fieldLocRot = visionLocalizationData.getDoubleArrayTopic("fieldLocRot").publish();
+        MultiTagLockDisp = visionLocalizationData.getBooleanTopic("MULTITAG UPDATE").publish();
+
         // field2DDisplay = new Field2d("2026Field");
 
 
@@ -211,6 +220,9 @@ public class precisionVision {
         chassisChassisErrorDisp             =   visionLocalizationData.getDoubleTopic("POSE Chassis to Goal Error").publish();
         fieldXDotDisp            =   visionLocalizationData.getDoubleTopic("XDotField").publish();
         fieldYDotDisp            =   visionLocalizationData.getDoubleTopic("yDotField").publish();
+        botXVelDisp             =   visionLocalizationData.getDoubleTopic("BotX_Velocity").publish();
+        botYVelDisp             =   visionLocalizationData.getDoubleTopic("BotY_Velocity").publish();
+        botRotVelDisp           =   visionLocalizationData.getDoubleTopic("BotRot_Velocity").publish();
 
 
         aprilTagList = NetworkTableInstance.getDefault().getTable("AprilTagList");
@@ -269,10 +281,10 @@ public class precisionVision {
         // chassisCameras.add(FrRightContainer);
 
         chassisCameras = Arrays.asList(
-                frLeftContainer,
+                //frLeftContainer,
                 BaLeftContainer,
-                BaRightContainer,
-                FrRightContainer);
+                BaRightContainer);
+                //FrRightContainer);
 
         visionXest = new double[5];
         VisionYest = new double[5];
@@ -288,7 +300,7 @@ public class precisionVision {
 
     public boolean periodicUpdate() {
         // Call this periodically to service cameras and update position estimates
-        try {
+/*         try {
             /// ************ THIS SECTION DEALS WITH THE TURRET ONLY ******************** /
             // Initialize all tags to fase so that as we iterate through tags we can check
             /// which ones are true
@@ -367,8 +379,10 @@ public class precisionVision {
             turretAngleToGoal = avgAngle;
         } catch (Exception e) {
 
-        }
+        } */
         // ************** THIS SECTION DEALS WITH LOCALIZATION ESTIMATES * /
+
+        boolean weSawMultiTag = false;
 
         for (cameraContainer aCameraContainer : chassisCameras) {
 
@@ -378,6 +392,7 @@ public class precisionVision {
 
             for (var result : aCameraContainer.thisCamera.getAllUnreadResults()) {
                 visionEst = aCameraContainer.thisPoseEstimator.estimateCoprocMultiTagPose(result);
+                
                 if (visionEst.isEmpty()) {
                     //visionEst = aCameraContainer.thisPoseEstimator.estimateLowestAmbiguityPose(result); // default to 2d
                                                                                                         // localization
@@ -388,6 +403,7 @@ public class precisionVision {
                 }
                 // updateEstimationStdDevs(visionEst, result.getTargets());
                 if (!visionEst.isEmpty()) {
+                    weSawMultiTag = true;
                     visionXest[aCameraContainer.arrayIndex] = visionEst.get().estimatedPose.getX();
                     VisionYest[aCameraContainer.arrayIndex] = visionEst.get().estimatedPose.getY();
                     VisionRest[aCameraContainer.arrayIndex] = visionEst.get().estimatedPose.getRotation().getZ() * 180
@@ -401,7 +417,7 @@ public class precisionVision {
             }
 
         }
-
+        MultiTagLockDisp.set(weSawMultiTag);
         visionXest[4] = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
         VisionYest[4] = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getY();
         VisionRest[4] = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getRotation()
@@ -429,14 +445,23 @@ public class precisionVision {
 
         for (int i=0;  i<rollingAvgWindows; i++) {
             xDotTot = xDotTot + xDotRollingAve[i];
-            yDotTot = yDotTot + xDotRollingAve[i];
+            yDotTot = yDotTot + yDotRollingAve[i];
         }
 
         xDotField = xDotTot/rollingAvgWindows;
         yDotField = yDotTot/rollingAvgWindows;
 
+        xVelocityBot= thisCommandSwerveDrivetrain.getState().Speeds.vxMetersPerSecond;
+        yVelocityBot=  thisCommandSwerveDrivetrain.getState().Speeds.vyMetersPerSecond;
+        rotVelocityBot =  thisCommandSwerveDrivetrain.getState().Speeds.omegaRadiansPerSecond;
+
         fieldXDotDisp.set(xDotField);
         fieldYDotDisp.set(yDotField);
+
+        botXVelDisp.set(xVelocityBot);
+        botYVelDisp.set(yVelocityBot);  
+        botRotVelDisp.set(rotVelocityBot);
+
         
         //Make Updates For Next Cycle
         rollingAveIndex = (rollingAveIndex+1) % rollingAvgWindows;
@@ -903,8 +928,7 @@ public class precisionVision {
                 
                 ChassisDistancetoPOIDisp.set(distance);
 
-           return distance;
-
+           return (distance); 
         }
 
     // use this to drop the hood 
