@@ -121,8 +121,8 @@ public class SuperStructureConstants {
 
   // Intake Control Constants 
   public static final double IntakeRollerMaxDutyCycle = 1; // This is 20% max duty cycle 
-  public static final double Intake_ZERO_POS = 0.36;
-  public static final double Intake_Extend_POS = -5.8;
+  public static final double Intake_ZERO_POS = 0.0;
+  public static final double Intake_Extend_POS = -6.25;
   public static final double IntakePosition_ENCODER_OFFSET = 0;
   public static final double Intake_Position_MULTIPLIER = 5; // use half power - see if that works in manual mode
   public static final double Intake_pos_offset = 0;

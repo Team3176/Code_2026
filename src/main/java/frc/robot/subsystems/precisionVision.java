@@ -379,7 +379,7 @@ public class precisionVision {
             for (var result : aCameraContainer.thisCamera.getAllUnreadResults()) {
                 visionEst = aCameraContainer.thisPoseEstimator.estimateCoprocMultiTagPose(result);
                 if (visionEst.isEmpty()) {
-                    visionEst = aCameraContainer.thisPoseEstimator.estimateLowestAmbiguityPose(result); // default to 2d
+                    //visionEst = aCameraContainer.thisPoseEstimator.estimateLowestAmbiguityPose(result); // default to 2d
                                                                                                         // localization
                                                                                                         // if we can't
                                                                                                         // get multi-tag
