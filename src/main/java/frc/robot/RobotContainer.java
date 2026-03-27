@@ -209,14 +209,15 @@ public class RobotContainer {
     NamedCommands.registerCommand("StopShot",
         superstructure.ShooterOff()
         .andThen(superstructure.SpindexerOff()
-        .andThen(superstructure.KickerOff())).withTimeout(.2));
+        .andThen(superstructure.KickerOff())).withTimeout(.2)
+        .andThen(superstructure.ShotTwoHood()));
     NamedCommands.registerCommand("VisionShootToHub",
         superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis(), () -> thisRobotVisionHandler.botIsPassing())
         .alongWith(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()))
         .alongWith(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimateGoalRotationFromChassis()))
-        .andThen(Commands.waitSeconds(.5))
+        .alongWith(Commands.waitSeconds(.5))
         .andThen(superstructure.KickerOn()
-        .andThen(Commands.waitSeconds(.1)))
+        .alongWith(Commands.waitSeconds(.1)))
         .andThen(superstructure.SpindexerOn())
     );
 
@@ -227,6 +228,11 @@ public class RobotContainer {
         .andThen(Commands.waitSeconds(.5))
         .andThen(superstructure.KickerOn()
         .andThen(Commands.waitSeconds(.1)))
+        .andThen(superstructure.SpindexerOn())
+    );
+    NamedCommands.registerCommand("KickerSpindexerON",
+        (superstructure.KickerOn()
+        .alongWith(Commands.waitSeconds(.1)))
         .andThen(superstructure.SpindexerOn())
     );
 
@@ -346,9 +352,9 @@ public class RobotContainer {
 
 
     /// Driver Commands 
-    controller.transStick.button(4).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing())
-    .andThen( superstructure.KickerOn().andThen(superstructure.SpindexerAutoOnOff(() -> thisRobotVisionHandler.botIsInTerrain()))))
-        .onFalse(superstructure.HoodDown().andThen(superstructure.SpindexerOff().andThen(superstructure.KickerOff())));
+    controller.transStick.button(4).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()));
+    controller.transStick.button(4).onTrue( superstructure.KickerOn().andThen(superstructure.SpindexerAutoOnOff(() -> thisRobotVisionHandler.botIsInTerrain())))
+        .onFalse(superstructure.ShotTwoHood().andThen(superstructure.SpindexerOff().andThen(superstructure.KickerOff())));
   
      controller.transStick.button(1).onTrue((superstructure.ShooterOn().andThen(Commands.waitSeconds(.5)).andThen(superstructure.KickerOn().andThen(Commands.waitSeconds(.1))).andThen(superstructure.SpindexerOn())));
      controller.transStick.button(1).onFalse((superstructure.SpindexerOff().andThen(Commands.waitSeconds(.2)).andThen(superstructure.KickerOff().andThen(Commands.waitSeconds(.2)))));
