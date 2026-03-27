@@ -38,8 +38,8 @@ import frc.robot.util.TalonUtils;
 /** Template hardware interface for a closed loop subsystem. */
 public class ClimbControlIOTalon implements ClimbControlIO {
 
-  private TalonFX ClimbLeftController;
-  //private TalonFX ClimbRightController;
+  //private TalonFX ClimbLeftController;
+  private TalonFX ClimbRightController;
   
   PositionVoltage voltPosition = new PositionVoltage(0);
 
@@ -58,10 +58,10 @@ public class ClimbControlIOTalon implements ClimbControlIO {
     TalonFXConfiguration ClimbLeftConfigs = new TalonFXConfiguration();
     TalonFXConfiguration ClimbRightConfigs = new TalonFXConfiguration();
     
-    ClimbLeftController = new TalonFX(Hardwaremap.ClimbLeft_CID, Hardwaremap.Climb_CBN);
-   // ClimbRightController = new TalonFX(Hardwaremap.ClimbRight_CID, Hardwaremap.Climb_CBN);
+   // ClimbLeftController = new TalonFX(Hardwaremap.ClimbLeft_CID, Hardwaremap.Climb_CBN);
+    ClimbRightController = new TalonFX(Hardwaremap.ClimbRight_CID, Hardwaremap.Climb_CBN);
 
-    ClimbLeftConfigs.Slot0.kP = 3; // An error of 1 rotation results in 2.4 V output
+/*     ClimbLeftConfigs.Slot0.kP = 3; // An error of 1 rotation results in 2.4 V output
     ClimbLeftConfigs.Slot0.kI = 0.1; // No output for integrated error
     ClimbLeftConfigs.Slot0.kD = 0; // A velocity of 1 rps results in 0.1 V output
 
@@ -80,7 +80,7 @@ public class ClimbControlIOTalon implements ClimbControlIO {
     ClimbLeftConfigs.SoftwareLimitSwitch.ReverseSoftLimitThreshold = 0.0;
     ClimbLeftConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = false; 
 
-
+ */
 
     ClimbRightConfigs.Slot0.kP = 3; // An error of 1 rotation results in 2.4 V output
     ClimbRightConfigs.Slot0.kI = 0.1; // No output for integrated error
@@ -101,21 +101,21 @@ public class ClimbControlIOTalon implements ClimbControlIO {
     ClimbRightConfigs.SoftwareLimitSwitch.ReverseSoftLimitThreshold = 0.0;
     ClimbRightConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = false; 
 
-    TalonUtils.applyTalonFxConfigs(ClimbLeftController, ClimbLeftConfigs);
+   // TalonUtils.applyTalonFxConfigs(ClimbLeftController, ClimbLeftConfigs);
 
-   // TalonUtils.applyTalonFxConfigs(ClimbRightController, ClimbRightConfigs);
+    TalonUtils.applyTalonFxConfigs(ClimbRightController, ClimbRightConfigs);
 
 
     
 
 
-    ClimbAppliedVolts = ClimbLeftController.getMotorVoltage();
-    ClimbCurrentAmpsStator = ClimbLeftController.getStatorCurrent();
-    ClimbCurrentAmpsSupply = ClimbLeftController.getSupplyCurrent();
-    ClimbVelocity = ClimbLeftController.getVelocity();
-    ClimbPosition = ClimbLeftController.getPosition();
-    ClimbTemp = ClimbLeftController.getDeviceTemp();
-    ClimbAbsolutePosition = ClimbLeftController.getPosition();
+    ClimbAppliedVolts = ClimbRightController.getMotorVoltage();
+    ClimbCurrentAmpsStator = ClimbRightController.getStatorCurrent();
+    ClimbCurrentAmpsSupply = ClimbRightController.getSupplyCurrent();
+    ClimbVelocity = ClimbRightController.getVelocity();
+    ClimbPosition = ClimbRightController.getPosition();
+    ClimbTemp = ClimbRightController.getDeviceTemp();
+    ClimbAbsolutePosition = ClimbRightController.getPosition();
 
 
     BaseStatusSignal.setUpdateFrequencyForAll(
@@ -127,7 +127,7 @@ public class ClimbControlIOTalon implements ClimbControlIO {
         ClimbTemp,
         ClimbCurrentAmpsSupply);
 
-    ClimbLeftController.optimizeBusUtilization();
+    ClimbRightController.optimizeBusUtilization();
     
   }
 
@@ -152,16 +152,16 @@ public class ClimbControlIOTalon implements ClimbControlIO {
     inputs.ClimbTempCelcius = ClimbTemp.getValueAsDouble();
     inputs.ClimbPositionDeg = Units.rotationsToDegrees(ClimbPosition.getValueAsDouble());
     //inputs.Climb_pos_offset = Climb_pos_offset;
-    inputs.ClimbPositionRotLeft = -ClimbLeftController.getPosition().getValueAsDouble();
-   // inputs.ClimbPositionRotRight = -ClimbRightController.getPosition().getValueAsDouble();
+    //inputs.ClimbPositionRotLeft = -ClimbLeftController.getPosition().getValueAsDouble();
+    inputs.ClimbPositionRotRight = -ClimbRightController.getPosition().getValueAsDouble();
     //Use if using cancoder
     //inputs.ClimbPositionRot = ClimbEncoder.getPosition().getValueAsDouble() - Climb_pos_offset;
-    inputs.ClimbPositionRotREAL = ClimbLeftController.getPosition().getValueAsDouble(); 
+    inputs.ClimbPositionRotREAL = ClimbRightController.getPosition().getValueAsDouble(); 
     inputs.ClimbVelocityRadPerSec = Units.rotationsToRadians(ClimbVelocity.getValueAsDouble());
 
     inputs.ClimbAbsolutePositionDegrees =
         MathUtil.inputModulus(
-            Rotation2d.fromRotations(ClimbLeftController.getPosition().getValueAsDouble())
+            Rotation2d.fromRotations(ClimbRightController.getPosition().getValueAsDouble())
                 .getDegrees(),
             -180,
             180);
@@ -173,28 +173,28 @@ public class ClimbControlIOTalon implements ClimbControlIO {
   //Offset would be used when we need 
   @Override
   public void setClimbBothPos(double position) {
-    ClimbLeftController.setControl(voltPosition.withPosition(position  + SuperStructureConstants.ClimbLeft_pos_offset));
- //   ClimbRightController.setControl(voltPosition.withPosition(position + SuperStructureConstants.ClimbRight_pos_offset));
+   // ClimbLeftController.setControl(voltPosition.withPosition(position  + SuperStructureConstants.ClimbLeft_pos_offset));
+    ClimbRightController.setControl(voltPosition.withPosition(position + SuperStructureConstants.ClimbRight_pos_offset));
   } 
 
   @Override
   public void setClimbLeftPos(double position) {
-    ClimbLeftController.setControl(voltPosition.withPosition(position * SuperStructureConstants.Climb_Position_MULTIPLIER + SuperStructureConstants.ClimbLeft_pos_offset));
+   // ClimbLeftController.setControl(voltPosition.withPosition(position * SuperStructureConstants.Climb_Position_MULTIPLIER + SuperStructureConstants.ClimbLeft_pos_offset));
    } 
 
   @Override
   public void setRightVoltage(double voltage) {
-  //  ClimbRightController.setVoltage(voltage);
+    ClimbRightController.setVoltage(voltage);
   }
 
   @Override
   public void setLeftVoltage(double voltage) {
-    ClimbLeftController.setVoltage(voltage);
+  //  ClimbLeftController.setVoltage(voltage);
   }
 //Used to be overridden
     //@Override
-  //public void setClimbRightPos(double position) {
-    //ClimbRightController.setControl(voltPosition.withPosition(position * SuperStructureConstants.Climb_Position_MULTIPLIER + SuperStructureConstants.ClimbRight_pos_offset));
-  //} 
+  public void setClimbRightPos(double position) {
+    ClimbRightController.setControl(voltPosition.withPosition(position * SuperStructureConstants.Climb_Position_MULTIPLIER + SuperStructureConstants.ClimbRight_pos_offset));
+  } 
  
 }

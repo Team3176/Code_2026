@@ -346,9 +346,9 @@ public class RobotContainer {
 
 
     /// Driver Commands 
-    controller.transStick.button(4).onTrue(
-        superstructure.KickerOn().andThen(superstructure.SpindexerAutoOnOff(() -> thisRobotVisionHandler.botIsInTerrain())))
-        .onFalse(superstructure.SpindexerOff().andThen(superstructure.KickerOff()));
+    controller.transStick.button(4).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing())
+    .andThen( superstructure.KickerOn().andThen(superstructure.SpindexerAutoOnOff(() -> thisRobotVisionHandler.botIsInTerrain()))))
+        .onFalse(superstructure.HoodDown().andThen(superstructure.SpindexerOff().andThen(superstructure.KickerOff())));
   
      controller.transStick.button(1).onTrue((superstructure.ShooterOn().andThen(Commands.waitSeconds(.5)).andThen(superstructure.KickerOn().andThen(Commands.waitSeconds(.1))).andThen(superstructure.SpindexerOn())));
      controller.transStick.button(1).onFalse((superstructure.SpindexerOff().andThen(Commands.waitSeconds(.2)).andThen(superstructure.KickerOff().andThen(Commands.waitSeconds(.2)))));
