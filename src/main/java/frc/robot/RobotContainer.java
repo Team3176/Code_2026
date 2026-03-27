@@ -354,6 +354,7 @@ public class RobotContainer {
     /// Driver Commands 
     controller.transStick.button(4).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()));
     controller.transStick.button(4).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimatRotationFromChassisToPointOfInterest())));
+    controller.transStick.button(4).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing()));
     controller.transStick.button(4).onTrue( superstructure.KickerOn().andThen(superstructure.SpindexerAutoOnOff(() -> thisRobotVisionHandler.botIsInTerrain())))
         .onFalse(superstructure.ShotTwoHood().andThen(superstructure.SpindexerOff().andThen(superstructure.KickerOff())));
   
