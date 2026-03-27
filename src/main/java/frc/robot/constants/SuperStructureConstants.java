@@ -110,12 +110,12 @@ public class SuperStructureConstants {
   ///Distance to Postion Look up table
   /// Must be the same length
   
-  public static final double[] botDistanceLUT     = { 0.00, 0.50, 1.00, 1.50, 2.00, 2.50, 3.00, 3.50, 3.85, 4.00, 4.50, 5.00, 5.50, 6.00, 6.50, 7.00, 8.00, 9.00, 10.00, 11.00, 12.00, 13.00, 14.00, 15.00, 16.00};  //must be ordered as increaseing
-  public static final double[] botShootHoodPosLUT = { 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.88, 2.467, 1.10, 1.90, 2.45, 2.78, 2.79, 3.10, 3.10, 3.10, 3.10,  3.10,  3.10,  3.10,  3.10,  3.10,  3.10,  3.10};  //Hood in rotations - 0-12
-  public static final double[] botShooterSpeedLUT = { 32.5, 32.5, 32.5, 32.5, 38.0, 40.0, 43.0, 47.0, 40.0 ,47.0, 47.0, 49.5, 51.5, 53.0, 56.0, 56.0, 56.0, 56.0,  56.0,  56.0,  56.0,  56.0,  56.0,  56.0,  56.0};  //Speed in RPM
+  public static final double[] botDistanceLUT     = { 0.00, 0.50, 1.00, 1.50, 2.00, 2.50, 3.00, 3.50,  4.00, 4.50, 5.00, 5.50, 6.00, 6.50, 7.00, 8.00, 9.00, 10.00, 11.00, 12.00, 13.00, 14.00, 15.00, 16.00};  //must be ordered as increaseing
+  public static final double[] botShootHoodPosLUT = { 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.88,  1.10, 1.90, 2.45, 2.78, 2.79, 3.10, 3.10, 3.10, 3.10,  3.10,  3.10,  3.10,  3.10,  3.10,  3.10,  3.10};  //Hood in rotations - 0-12
+  public static final double[] botShooterSpeedLUT = { 32.5, 32.5, 32.5, 32.5, 38.0, 40.0, 43.0, 47.0,  47.0, 47.0, 49.5, 51.5, 53.0, 56.0, 56.0, 56.0, 56.0,  56.0,  56.0,  56.0,  56.0,  56.0,  56.0,  56.0};  //Speed in RPM
 
-  public static final double[] botPassHoodPosLUT  = { 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.88, 3.00, 3.80, 4.40, 4.45, 4.78, 4.79, 5.10, 5.10, 5.50, 6.00,  6.50,  7.00,  7.00,  7.00,  7.50,  8.00,  8.50};  //Hood in rotations - 0-12
-  public static final double[] botPassSpeedLUT    = { 32.5, 32.5, 32.5, 32.5, 38.0, 40.0, 43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 46.0, 48.0, 50.0,  55.0,  56.0,  58.0,  66.0,  70.0,  75.0,  80.0};  //Speed in RPM
+  public static final double[] botPassHoodPosLUT  = { 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.88,  3.80, 4.40, 4.45, 4.78, 4.79, 5.10, 5.10, 5.50, 6.00,  6.50,  7.00,  7.00,  7.00,  7.50,  8.00,  8.50};  //Hood in rotations - 0-12
+  public static final double[] botPassSpeedLUT    = { 32.5, 32.5, 32.5, 32.5, 38.0, 40.0, 43.0, 43.0,  43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 46.0, 48.0, 50.0,  55.0,  56.0,  58.0,  66.0,  70.0,  75.0,  80.0};  //Speed in RPM
 
 
 
