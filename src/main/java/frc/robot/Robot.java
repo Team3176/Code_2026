@@ -67,7 +67,7 @@ public class Robot extends LoggedRobot {
    * initialization code.
    */
   public Robot() {
-    DataLogManager.start();
+  //  DataLogManager.start();
     // Record metadata
     Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
     Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
