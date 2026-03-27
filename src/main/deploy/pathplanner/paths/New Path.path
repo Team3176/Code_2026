@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.745192582025677,
-        "y": 4.041469329529244
+        "x": 3.534,
+        "y": 7.41845934379458
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5909431818181816,
-        "y": 4.581261363636363
+        "x": 2.704318181818181,
+        "y": 6.714772727272727
       },
       "isLocked": false,
-      "linkedName": "Cmid"
+      "linkedName": "LTHub"
     },
     {
       "anchor": {
@@ -20,23 +20,28 @@
         "y": 5.921147727272728
       },
       "prevControl": {
-        "x": 3.1990454545454545,
-        "y": 5.921147727272728
+        "x": 2.8176931818181816,
+        "y": 5.952068181818181
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Crl"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -179.96241184393583
+    }
+  ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.8330341113105932,
+      "minWaypointRelativePos": 0.8545780969479349,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
-        "maxAcceleration": 3.0,
+        "maxAcceleration": 3.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -45,19 +50,7 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "DeployIntake",
-      "waypointRelativePos": 0.25,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "DeployIntake"
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.5,
     "maxAcceleration": 3.5,
@@ -74,7 +67,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 108.49628196386425
   },
   "useDefaultConstraints": true
 }

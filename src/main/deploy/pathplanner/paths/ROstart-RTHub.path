@@ -52,8 +52,8 @@
         "y": 0.651
       },
       "prevControl": {
-        "x": 7.589749999999999,
-        "y": 0.21117045454545513
+        "x": 8.496749999999999,
+        "y": 0.3142386363636366
       },
       "nextControl": null,
       "isLocked": false,
@@ -64,10 +64,25 @@
     {
       "waypointRelativePos": 1.0141509433962268,
       "rotationDegrees": 90.0
+    },
+    {
+      "waypointRelativePos": 2.8018867924528417,
+      "rotationDegrees": -90.1
     }
   ],
   "constraintZones": [],
-  "pointTowardsZones": [],
+  "pointTowardsZones": [
+    {
+      "fieldPosition": {
+        "x": 4.625,
+        "y": 4.025
+      },
+      "rotationOffset": 180.0,
+      "minWaypointRelativePos": 2.8976660682226134,
+      "maxWaypointRelativePos": 3.0,
+      "name": "Point Towards Zone"
+    }
+  ],
   "eventMarkers": [
     {
       "name": "DeployIntake",

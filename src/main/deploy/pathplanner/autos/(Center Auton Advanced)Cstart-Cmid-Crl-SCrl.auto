@@ -61,6 +61,12 @@
         {
           "type": "named",
           "data": {
+            "name": "KickerSpindexerON"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "VisionShootToHub"
           }
         },
