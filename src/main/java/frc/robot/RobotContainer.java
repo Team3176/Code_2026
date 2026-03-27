@@ -92,6 +92,8 @@ public class RobotContainer {
   private boolean shooterLockon = false; 
   private double shooterDistance = 0.0;
 
+  private double driveTrainSpeedScaler = 0.9;  
+
  // private final CommandJoystick rotStick = new CommandJoystick(0);
  // private final CommandJoystick transStick = new CommandJoystick(1);
  
@@ -270,9 +272,9 @@ public class RobotContainer {
     // Swerve Drive Command Bindings
     drivetrain.setDefaultCommand(
         // Drivetrain will execute this command periodically
-        drivetrain.applyRequest(() -> drive .withVelocityX(-controller.transStick.getY() * MaxSpeed) // Drive forward with negative Y (forward)
-                                            .withVelocityY(-controller.transStick.getX() * MaxSpeed) // Drive left with negative X (left)
-                                            .withRotationalRate(-controller.rotStick.getX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+        drivetrain.applyRequest(() -> drive .withVelocityX(-controller.transStick.getY() * MaxSpeed * driveTrainSpeedScaler) // Drive forward with negative Y (forward)
+                                            .withVelocityY(-controller.transStick.getX() * MaxSpeed * driveTrainSpeedScaler) // Drive left with negative X (left)
+                                            .withRotationalRate(-controller.rotStick.getX() * MaxAngularRate * driveTrainSpeedScaler) // Drive counterclockwise with negative X (left)
         ));
 
     // Idle while the robot is disabled. This ensures the configured
@@ -354,7 +356,7 @@ public class RobotContainer {
     /// Driver Commands 
     controller.transStick.button(4).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()));
     controller.transStick.button(4).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimatRotationFromChassisToPointOfInterest())));
-    controller.transStick.button(4).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing()));
+   // controller.transStick.button(4).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing())).onFalse(superstructure.shooterMotorSpeedIDLE());
     controller.transStick.button(4).onTrue( superstructure.KickerOn().andThen(superstructure.SpindexerAutoOnOff(() -> thisRobotVisionHandler.botIsInTerrain())))
         .onFalse(superstructure.ShotTwoHood().andThen(superstructure.SpindexerOff().andThen(superstructure.KickerOff())));
   
