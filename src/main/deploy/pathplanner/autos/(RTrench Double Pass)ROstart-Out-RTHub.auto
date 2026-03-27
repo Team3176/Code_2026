@@ -3,7 +3,68 @@
   "command": {
     "type": "sequential",
     "data": {
-      "commands": []
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ROstart-RTHub"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TurretCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootFromTrench"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 12.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RTHub-Out-RTHub"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TurretCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootFromTrench"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 10.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShot"
+          }
+        }
+      ]
     }
   },
   "resetOdom": true,
