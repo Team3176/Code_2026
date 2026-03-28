@@ -120,15 +120,18 @@ public class precisionVision {
 
     public static final Transform3d kSledToLeftRearCam = new Transform3d(new Translation3d(-0.0508, 0.254, 0.52),
             new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(135)));
-
-    public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.0508, -0.254, 0.52),
-            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(-135)));
+    //Constants for Day 2 Laf
+    public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.0508, -0.244, 0.52),
+            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-15), Units.degreesToRadians(-135)));
+    //Previous Constants
+            // public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.0508, -0.254, 0.52),
+  //          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(-135)));
 
     //This was the previous configuration
    // public static final Transform3d kSledToFrontRightCam = new Transform3d(new Translation3d(0.0508, -0.254, 0.52),
      //       new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(-45)));
     //Constants for updates to point shooter direction 
-    public static final Transform3d kSledToFrontRightCam = new Transform3d(new Translation3d(-0.265, -0.254, 0.20),
+    public static final Transform3d kSledToFrontRightCam = new Transform3d(new Translation3d(-0.0758, -0.184, 0.52),
             new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(180)));
 
     public static final Transform3d kSledToTurret = new Transform3d(new Translation3d(0, 0, 0.203),
