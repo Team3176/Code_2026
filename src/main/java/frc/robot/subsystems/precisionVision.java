@@ -124,8 +124,12 @@ public class precisionVision {
     public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.0508, -0.254, 0.52),
             new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(-135)));
 
-    public static final Transform3d kSledToFrontRightCam = new Transform3d(new Translation3d(0.0508, -0.254, 0.52),
-            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(-45)));
+    //This was the previous configuration
+   // public static final Transform3d kSledToFrontRightCam = new Transform3d(new Translation3d(0.0508, -0.254, 0.52),
+     //       new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(-45)));
+    //Constants for updates to point shooter direction 
+    public static final Transform3d kSledToFrontRightCam = new Transform3d(new Translation3d(-0.265, -0.254, 0.20),
+            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(180)));
 
     public static final Transform3d kSledToTurret = new Transform3d(new Translation3d(0, 0, 0.203),
             new Rotation3d(0, -0.436, 0)); // Turret is in camera coordinate system and no transformation is applied.
@@ -283,8 +287,8 @@ public class precisionVision {
         chassisCameras = Arrays.asList(
                 //frLeftContainer,
                 BaLeftContainer,
-                BaRightContainer);
-                //FrRightContainer);
+                BaRightContainer,
+                FrRightContainer);// This is now Shooter pointing backwards
 
         visionXest = new double[5];
         VisionYest = new double[5];
