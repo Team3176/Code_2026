@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.534,
+        "y": 7.41845934379458
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.558215767634855,
+        "y": 7.564834024896266
+      },
+      "isLocked": false,
+      "linkedName": "LTHub"
+    },
+    {
+      "anchor": {
+        "x": 6.814398340248963,
+        "y": 7.3010062240663895
+      },
+      "prevControl": {
+        "x": 5.814398340248963,
+        "y": 7.3010062240663895
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "LSIO"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -44.92446256216742
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 111.90900000000002
+  },
+  "useDefaultConstraints": true
+}

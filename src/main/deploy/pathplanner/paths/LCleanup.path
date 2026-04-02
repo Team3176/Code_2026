@@ -1,0 +1,132 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.466784090909091,
+        "y": 7.41845934379458
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.90682572614108,
+        "y": 7.755881742738589
+      },
+      "isLocked": false,
+      "linkedName": "LOstart"
+    },
+    {
+      "anchor": {
+        "x": 8.124439834024896,
+        "y": 1.6969398340248962
+      },
+      "prevControl": {
+        "x": 9.08877593360996,
+        "y": 1.9425726141078838
+      },
+      "nextControl": {
+        "x": 6.732842150401705,
+        "y": 1.3424762731020083
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.959958506224066,
+        "y": 6.118329875518672
+      },
+      "prevControl": {
+        "x": 7.213395243016117,
+        "y": 4.611048230386982
+      },
+      "nextControl": {
+        "x": 6.787105809128632,
+        "y": 7.146348547717842
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.534,
+        "y": 7.41845934379458
+      },
+      "prevControl": {
+        "x": 6.432302904564315,
+        "y": 7.60122406639004
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "LTHub"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.6522735957202906,
+      "rotationDegrees": -90.51057452157623
+    },
+    {
+      "waypointRelativePos": 1.2575468093236406,
+      "rotationDegrees": 91.33420788941073
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 2.1723672367236686,
+      "maxWaypointRelativePos": 3.0,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 3.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "DeployIntake",
+      "waypointRelativePos": 0.1687668766876746,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "DeployIntake"
+        }
+      }
+    },
+    {
+      "name": "RetractIntake",
+      "waypointRelativePos": 1.9887488748874926,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "RetractIntake"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": true
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 111.90900000000002
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -0.17436607553382683
+  },
+  "useDefaultConstraints": true
+}
