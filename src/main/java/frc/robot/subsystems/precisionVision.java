@@ -3,9 +3,12 @@ package frc.robot.subsystems;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
@@ -21,6 +24,8 @@ import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.IntegerArrayPublisher;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -48,6 +53,8 @@ import edu.wpi.first.math.VecBuilder;
 
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.constants.MatchConstants;
+import frc.robot.constants.SuperStructureConstants;
+import frc.robot.mathUtil.LinearInterpolationTable;
 
 public class precisionVision {
 
@@ -84,6 +91,7 @@ public class precisionVision {
     private DoubleArrayPublisher fieldLocRot;
     private DoublePublisher ChassisDistancetoGoalDisp;
     private DoublePublisher ChassisDistancetoPOIDisp;
+    private DoublePublisher ChassisDistancetoSoFPOIDisp;
     private BooleanPublisher MultiTagLockDisp;
     
     private DoublePublisher chassisGoalAngleToChasDisp;
@@ -220,6 +228,7 @@ public class precisionVision {
 
         ChassisDistancetoGoalDisp           =   visionLocalizationData.getDoubleTopic("POSE Distance to Goal").publish();;
         ChassisDistancetoPOIDisp           =   visionLocalizationData.getDoubleTopic("POSE Distance to Point of Interest").publish();;
+        ChassisDistancetoSoFPOIDisp           =   visionLocalizationData.getDoubleTopic("Estimated POSE Distance to Sof POI").publish();;
       
         chassisGoalAngleToChasDisp          =   visionLocalizationData.getDoubleTopic("POSE Angle From Chassis to Goal").publish(); 
         chassisGoalAngleToFiledDisp         =   visionLocalizationData.getDoubleTopic("POSE Angle From Field to Goal").publish();
@@ -1001,6 +1010,202 @@ public class precisionVision {
        
     }
 
+    /// Shoot on the move corrections 
+    /// This assumes we can transpose the point of interest based on Time of Flight of the Fuel compared to chasiss velocity 
+
+    // Return the offset in radians to a point of interested transposed by the speed of the chasis times time of flight
+    public double estimatMovingRotationFromChassisToPointOfInterest(){
+       
+        double chassisLocX=0;
+        double chassisLocY=0;
+        double chassisLocRot=0;
+        double goalAngleField;  //The angle of the goal based on 0-orientation
+        double distance;
+
+        double goalAngleToBot;
+        double goalErrorToBot;
+        
+
+        double [] ourPOILocation;
+                
+        chassisLocX = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
+        chassisLocY =  thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getY();
+        chassisLocRot = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getRotation().getRadians();
+
+        
+        if(weAreBlueAlliance) {
+            if (chassisLocX > MatchConstants.autoShootBlueLessThan_X){
+                    if(chassisLocY < MatchConstants.centerLine_Y)  {  // Beyond the socring line start passing
+                        ourPOILocation = MatchConstants.bluePassLocationNearSide;
+                    }  
+                    else {
+                    ourPOILocation = MatchConstants.bluePassLocationFarSide;
+                    }
+            }
+            else {
+                ourPOILocation = blueGoalLocation; // Shoot at Blue Hub
+            }
+        }
+        else {
+                if (chassisLocX < MatchConstants.autoShootRedGreaterThan_X){
+                    if(chassisLocY < MatchConstants.centerLine_Y)  {  // Beyond scoring line start passing 
+                        ourPOILocation = MatchConstants.redPassLocationNearSide;
+                    }  
+                    else {
+                    ourPOILocation = MatchConstants.redPassLocationFarSide;
+                    }
+            }
+            else {
+                ourPOILocation = redGoalLocation; // Shoot at Red Hub
+            }
+        } 
+        //calculate the angle
+
+        //goalAngleToBot = Math.atan2((ourGoalLocation[1]-chassisLocY) , (ourGoalLocation[0]-chassisLocX)) - chassisLocRot;
+        goalAngleField = Math.atan2((ourPOILocation[1]-chassisLocY) , (ourPOILocation[0]-chassisLocX));
+        goalAngleToBot = goalAngleField -chassisLocRot;
+        goalErrorToBot = MathUtil.angleModulus(goalAngleToBot + Math.PI); 
+
+
+        chassisChassisAngleToFiledDisp.set(Units.radiansToDegrees(chassisLocRot));
+        chassisGoalAngleToFiledDisp.set(Units.radiansToDegrees(goalAngleField));
+        chassisGoalAngleToChasDisp.set(Units.radiansToDegrees(goalAngleToBot));
+        
+
+
+        //calcualte the distance to Point of Interest
+        distance = Math.sqrt( Math.pow(chassisLocX - ourPOILocation[0],2) + Math.pow(chassisLocY - ourPOILocation[1],2));
+
+        //Shoot on the move distance updates
+        double timeOfFlight = getFlightTime(distance);
+
+        //Where is the shooter in relation to center of drive train
+        //var shooterLocation = thisCommandSwerveDrivetrain.getState().Pose.getTranslation()
+          //  .plus(superstructure.getShooterPose().toPose2d().getTranslation());
+                    
+        // Calculate corrective vector based on our current velocity multiplied by time
+        // of flight.
+        // If we're stationary, this should be zero. If we're backing up, this will be
+        // "ahead" of the target, etc.
+        var updatedPosition = ChassisSpeeds
+            .fromRobotRelativeSpeeds(thisCommandSwerveDrivetrain.getState().Speeds, thisCommandSwerveDrivetrain.getState().Pose.getRotation())
+            .times(timeOfFlight);
+        var correctionVector = new Translation2d(updatedPosition.vxMetersPerSecond, updatedPosition.vyMetersPerSecond)
+            .unaryMinus(); // TODO Confirm this is moving the way we want it to 
+                
+        Translation2d target = new Translation2d(ourPOILocation[0],ourPOILocation[1]);
+                
+        //Move the target reference based on correction vector
+        var correctedTarget = target.plus(correctionVector);
+                
+        //TODO do we need to correct for the turret loction 
+        //var vectorToTarget = shooterLocation.minus(correctedTarget);
+                
+        //double correctedDistance = correctedTarget.getNorm();
+        double turretdirection = (correctedTarget.getAngle()
+            .rotateBy(thisCommandSwerveDrivetrain.getState().Pose.getRotation().unaryMinus())
+            .getRadians());
+
+   
+        chassisChassisErrorDisp.set(Units.radiansToDegrees(turretdirection));
+      
+                
+
+
+        return   goalErrorToBot;
+
+    }
+
+    // Return the distance in Meters to a point of interested transposed by the speed of the chasis times time of flight
+    public double estimateMovingDistanceFromChassisToPointOfInterest(){
+        double chassisLocX=0;
+        double chassisLocY=0;
+        //double chassisLocRot=0;
+
+        double distance;
+
+        double [] ourPOILocation;
+     
+        //Where is the Robot
+        chassisLocX = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
+        chassisLocY =  thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getY();
+    
+        //Where do we want to put the Ball
+        if(weAreBlueAlliance) {
+            if (chassisLocX > MatchConstants.autoShootBlueLessThan_X){
+                    if(chassisLocY < MatchConstants.centerLine_Y)  {  // Beyond the socring line start passing
+                        ourPOILocation = MatchConstants.bluePassLocationNearSide;
+                    }  
+                    else {
+                    ourPOILocation = MatchConstants.bluePassLocationFarSide;
+                    }
+            }
+            else {
+                ourPOILocation = blueGoalLocation; // Shoot at Blue Hub
+            }
+        }
+        else {// red alliance
+                if (chassisLocX < MatchConstants.autoShootRedGreaterThan_X){
+                    if(chassisLocY < MatchConstants.centerLine_Y)  {  // Beyond scoring line start passing 
+                        ourPOILocation = MatchConstants.redPassLocationNearSide;
+                    }  
+                    else {
+                    ourPOILocation = MatchConstants.redPassLocationFarSide;
+                    }
+            }
+            else {
+                ourPOILocation = redGoalLocation; // Shoot at Red Hub
+            }
+        } 
+
+        //calcualte the distance to Point of Interest
+        distance = Math.sqrt( Math.pow(chassisLocX - ourPOILocation[0],2) + Math.pow(chassisLocY - ourPOILocation[1],2));
+
+        //Shoot on the move distance updates
+        double timeOfFlight = getFlightTime(distance);
+
+        //Where is the shooter in relation to center of drive train
+        //var shooterLocation = thisCommandSwerveDrivetrain.getState().Pose.getTranslation()
+          //  .plus(superstructure.getShooterPose().toPose2d().getTranslation());
+                    
+        // Calculate corrective vector based on our current velocity multiplied by time
+        // of flight.
+        // If we're stationary, this should be zero. If we're backing up, this will be
+        // "ahead" of the target, etc.
+        var updatedPosition = ChassisSpeeds
+            .fromRobotRelativeSpeeds(thisCommandSwerveDrivetrain.getState().Speeds, thisCommandSwerveDrivetrain.getState().Pose.getRotation())
+            .times(timeOfFlight);
+        var correctionVector = new Translation2d(updatedPosition.vxMetersPerSecond, updatedPosition.vyMetersPerSecond)
+            .unaryMinus(); // TODO Confirm this is moving the way we want it to 
+                
+        Translation2d target = new Translation2d(ourPOILocation[0],ourPOILocation[1]);
+                
+        //Move the target reference based on correction vector
+        var correctedTarget = target.plus(correctionVector);
+                
+        //TODO do we need to correct for the turret loction 
+        //var vectorToTarget = shooterLocation.minus(correctedTarget);
+                
+        double correctedDistance = correctedTarget.getNorm();
+        Angle turretdirection = correctedTarget.getAngle()
+            .rotateBy(thisCommandSwerveDrivetrain.getState().Pose.getRotation().unaryMinus())
+            .getMeasure();
+
+        ChassisDistancetoSoFPOIDisp.set(correctedDistance);
+
+      
+
+
+        return (correctedDistance); 
+    }
+
+        private double[][] shootSpeedGoalLUT = {SuperStructureConstants.botDistanceLUT, SuperStructureConstants.botTimeOfFlightHub};
+        private LinearInterpolationTable distanceToGoalShooterLUT = new LinearInterpolationTable(shootSpeedGoalLUT);
+        
+        private double getFlightTime(double distanceToTarget) {
+            // Simple linear approximation based on empirical data.
+            return distanceToGoalShooterLUT.interpolate(distanceToTarget);
+  }
        
 }
 
