@@ -89,6 +89,9 @@ public class ShooterControlIOTalon implements ShooterControlIO {
     // Peak output of 8 volts
     shooterDualSpeedConfigs.Voltage.withPeakForwardVoltage (SuperStructureConstants.ShooterDualSpeed_MAX_OUTPUT_VOLTS)
       .withPeakReverseVoltage(SuperStructureConstants.ShooterDualSpeed_MAXNeg_OUTPUT_VOLTS);
+   // shooterDualSpeedConfigs.CurrentLimits.SupplyCurrentLimit = 60;
+   // shooterDualSpeedConfigs.CurrentLimits.StatorCurrentLimit = 50;    
+  
 
     TalonUtils.applyTalonFxConfigs(shooterLeaderSpeedController, shooterDualSpeedConfigs);
     TalonUtils.applyTalonFxConfigs(shooterFollowerSpeedController, shooterDualSpeedConfigs);

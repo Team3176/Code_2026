@@ -56,20 +56,20 @@ public class SuperStructureConstants {
   public static final double GenericSparkDualSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
   public static final double GenericSparkDualSpeed_Max_RPM = 20;
 
-  public static final double Kicker_MAX_OUTPUT_VOLTS = 3; //Sets Max forward Speed
-  public static final double Kicker_MAXNeg_OUTPUT_VOLTS = -3; //Sets Max Reverse Speed
+  public static final double Kicker_MAX_OUTPUT_VOLTS = 12; //Sets Max forward Speed
+  public static final double Kicker_MAXNeg_OUTPUT_VOLTS = -12; //Sets Max Reverse Speed
   public static final double Kicker_kP = .5;
   public static final double Kicker_kI = 0; 
   public static final double Kicker_kD = 0; 
   public static final double Kicker_kg = 0.2;
   public static final double Kicker_ZERO_POS = 0.39;  
   public static final double Kicker_ENCODER_OFFSET = 0;
-  public static final double Kicker_Speed_On = 320;
+
   public static final double Kicker_Speed_Reverse = -30;
   public static final double Kicker_Speed_Off = 0;
 
-  public static final double KickerSpeed_MAX_OUTPUT_VOLTS = 3; //Sets Max forward Speed
-  public static final double KickerSpeed_MAXNeg_OUTPUT_VOLTS = -3; //Sets Max Reverse Speed
+  public static final double KickerSpeed_MAX_OUTPUT_VOLTS = 12; //Sets Max forward Speed
+  public static final double KickerSpeed_MAXNeg_OUTPUT_VOLTS = -12; //Sets Max Reverse Speed
   public static final double KickerSpeed_Max_RPS = 60;
 
 
@@ -113,6 +113,7 @@ public class SuperStructureConstants {
   public static final double[] botDistanceLUT     = { 0.00, 0.50, 1.00, 1.50, 2.00, 2.50, 3.00, 3.50,  4.00, 4.50, 5.00, 5.50, 6.00, 6.50, 7.00, 8.00, 9.00, 10.00, 11.00, 12.00, 13.00, 14.00, 15.00, 16.00};  //must be ordered as increaseing
   public static final double[] botShootHoodPosLUT = { 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.88,  1.10, 1.90, 2.45, 2.78, 2.79, 3.10, 3.10, 3.10, 3.10,  3.10,  3.10,  3.10,  3.10,  3.10,  3.10,  3.10};  //Hood in rotations - 0-12
   public static final double[] botShooterSpeedLUT = { 32.5, 32.5, 32.5, 32.5, 38.0, 38.0, 41.0, 45.0,  45.0, 45.0, 46.5, 48.5, 50.0, 53.0, 53.0, 54.0, 54.0,  56.0,  56.0,  56.0,  56.0,  56.0,  56.0,  56.0};  //Speed in RPM
+  public static final double[] timeOfFlightHub    = { 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,  1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,  1.00,  1.00,  1.00,  1.00,  1.00,  1.00,  1.00 };
 
   public static final double[] botPassHoodPosLUT  = { 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.88,  3.80, 4.40, 4.45, 4.78, 4.79, 5.10, 5.10, 5.50, 6.00,  6.50,  7.00,  7.00,  7.00,  7.50,  8.00,  8.50};  //Hood in rotations - 0-12
   public static final double[] botPassSpeedLUT    = { 32.5, 32.5, 32.5, 32.5, 38.0, 40.0, 43.0, 43.0,  43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 46.0, 48.0, 50.0,  55.0,  56.0,  58.0,  66.0,  70.0,  75.0,  80.0};  //Speed in RPM
@@ -229,8 +230,8 @@ public class SuperStructureConstants {
 
   /// Spindexer
   
-  public static final double Spindexer_MAX_OUTPUT_VOLTS = 2 ; //Sets Max forward Speed
-  public static final double Spindexer_MAXNeg_OUTPUT_VOLTS = -2; //Sets Max Reverse Speed
+  public static final double Spindexer_MAX_OUTPUT_VOLTS = 12 ; //Sets Max forward Speed
+  public static final double Spindexer_MAXNeg_OUTPUT_VOLTS = -12; //Sets Max Reverse Speed
   public static final double Spindexer_kP = .5;
   public static final double Spindexer_kI = 0; 
   public static final double Spindexer_kD = 0; 
@@ -239,14 +240,17 @@ public class SuperStructureConstants {
   public static final double Spindexer_ZERO_POS = 0.39;
   public static final double Spindexer_ENCODER_OFFSET = 0;
    
-  public static final double Spindexer_Speed_On = 260;
+
   public static final double Spindexer_Speed_Reverse = -10;
   public static final double Spindexer_Speed_Off = 0;
 
 
-  public static final double SpindexerSpeed_MAX_OUTPUT_VOLTS = 4; //Sets Max forward Speed
-  public static final double SpindexerSpeed_MAXNeg_OUTPUT_VOLTS = -4; //Sets Max Reverse Speed
+  public static final double SpindexerSpeed_MAX_OUTPUT_VOLTS = 12; //Sets Max forward Speed
+  public static final double SpindexerSpeed_MAXNeg_OUTPUT_VOLTS = -12; //Sets Max Reverse Speed
   public static final double SpindexerSpeed_Max_RPS = 60;
+  
+  public static final double Kicker_Speed_On = 360;
+  public static final double Spindexer_Speed_On = 280;
   
 
 }

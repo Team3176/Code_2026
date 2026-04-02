@@ -84,6 +84,9 @@ public class KickerIOTalon implements KickerIO {
     kickerConfigs.Voltage.PeakForwardVoltage = SuperStructureConstants.Kicker_MAX_OUTPUT_VOLTS; 
     kickerConfigs.Voltage.PeakReverseVoltage = SuperStructureConstants.Kicker_MAXNeg_OUTPUT_VOLTS;
 
+    kickerConfigs.CurrentLimits.SupplyCurrentLimit = 37;
+    kickerConfigs.CurrentLimits.StatorCurrentLimit = 50;  
+
     kickerConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     //TODO if position from Cancoder define which CanCoder / remote sensor to use for position feedback
    
