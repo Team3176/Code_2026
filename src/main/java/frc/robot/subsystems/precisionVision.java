@@ -29,6 +29,7 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //Imports for photonVision Functions
 import org.photonvision.PhotonCamera;
@@ -1089,7 +1090,7 @@ public class precisionVision {
         // "ahead" of the target, etc.
         var updatedPosition = ChassisSpeeds
             .fromRobotRelativeSpeeds(thisCommandSwerveDrivetrain.getState().Speeds, thisCommandSwerveDrivetrain.getState().Pose.getRotation())
-            .times(timeOfFlight);
+            .times(timeOfFlight +.4 );
         var correctionVector = new Translation2d(updatedPosition.vxMetersPerSecond, updatedPosition.vyMetersPerSecond)
             .unaryMinus(); // TODO Confirm this is moving the way we want it to 
                 
@@ -1109,7 +1110,10 @@ public class precisionVision {
    
         chassisChassisErrorDisp.set(Units.radiansToDegrees(turretdirection));
       
-                
+         //goalAngleToBot = Math.atan2((ourGoalLocation[1]-chassisLocY) , (ourGoalLocation[0]-chassisLocX)) - chassisLocRot;
+        goalAngleField = Math.atan2((correctedTarget.getY()-chassisLocY) , (correctedTarget.getX()-chassisLocX));
+        goalAngleToBot = goalAngleField -chassisLocRot;
+        goalErrorToBot = MathUtil.angleModulus(goalAngleToBot + Math.PI);       
 
 
         return   goalErrorToBot;
@@ -1161,8 +1165,14 @@ public class precisionVision {
         //calcualte the distance to Point of Interest
         distance = Math.sqrt( Math.pow(chassisLocX - ourPOILocation[0],2) + Math.pow(chassisLocY - ourPOILocation[1],2));
 
+        SmartDashboard.putNumber("Shoot on Move Robot Distance", distance);
+   
+
         //Shoot on the move distance updates
         double timeOfFlight = getFlightTime(distance);
+
+        SmartDashboard.putNumber("Shoot on Move Time of Flight", timeOfFlight);
+   
 
         //Where is the shooter in relation to center of drive train
         //var shooterLocation = thisCommandSwerveDrivetrain.getState().Pose.getTranslation()
@@ -1174,7 +1184,7 @@ public class precisionVision {
         // "ahead" of the target, etc.
         var updatedPosition = ChassisSpeeds
             .fromRobotRelativeSpeeds(thisCommandSwerveDrivetrain.getState().Speeds, thisCommandSwerveDrivetrain.getState().Pose.getRotation())
-            .times(timeOfFlight);
+            .times(timeOfFlight + .4 );
         var correctionVector = new Translation2d(updatedPosition.vxMetersPerSecond, updatedPosition.vyMetersPerSecond)
             .unaryMinus(); // TODO Confirm this is moving the way we want it to 
                 
@@ -1186,14 +1196,25 @@ public class precisionVision {
         //TODO do we need to correct for the turret loction 
         //var vectorToTarget = shooterLocation.minus(correctedTarget);
                 
-        double correctedDistance = correctedTarget.getNorm();
+        double correctedDistance =  distance = Math.sqrt( Math.pow(chassisLocX - correctedTarget.getX(),2) + Math.pow(chassisLocY - correctedTarget.getY(),2));
+
+        //correctedTarget.getNorm();
+        
+
         Angle turretdirection = correctedTarget.getAngle()
-            .rotateBy(thisCommandSwerveDrivetrain.getState().Pose.getRotation().unaryMinus())
+            .rotateBy(thisCommandSwerveDrivetrain.getState().Pose.getRotation())//.unaryMinus())
             .getMeasure();
 
         ChassisDistancetoSoFPOIDisp.set(correctedDistance);
 
-      
+    SmartDashboard.putNumber("Shoot on Move Target Nominal X", target.getX());
+    SmartDashboard.putNumber("Shoot on Move Target Nominal Y", target.getY());
+    SmartDashboard.putNumber("Shoot on Move Robot Velocity X", updatedPosition.vxMetersPerSecond);
+    SmartDashboard.putNumber("Shoot on Move Robot Velocity Y", updatedPosition.vyMetersPerSecond);
+    SmartDashboard.putNumber("Shoot on Move Target Corrected X", correctedTarget.getX());
+    SmartDashboard.putNumber("Shoot on Move Target Corrected Y", correctedTarget.getY());
+    SmartDashboard.putNumber("Shoot on Move Corrected Distance", correctedDistance);
+   
 
 
         return (correctedDistance); 
