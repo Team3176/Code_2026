@@ -39,6 +39,13 @@ public class LEDSubsystem extends SubsystemBase {
     blinkin.setMode(BlinkinLedMode.FIXED_STROBE_RED);
   }
 
+  
+
+    private void LedRedCommand() {
+    // Flashing Blue
+    blinkin.setMode(BlinkinLedMode.FIXED_SHOT_WHITE);
+  }
+
   private void hasNote() {
     // Solid Orange
     blinkin.setMode(BlinkinLedMode.SOLID_ORANGE);
@@ -87,6 +94,12 @@ public class LEDSubsystem extends SubsystemBase {
     return this.run(() -> blinkin.setMode(BlinkinLedMode.SOLID_VIOLET));
   }
 
+  public Command RedLED() {
+    return this.run(() -> blinkin.setMode(BlinkinLedMode.SOLID_RED));
+  }
+  public Command GreenLED() {
+    return this.run(() -> blinkin.setMode(BlinkinLedMode.SOLID_GREEN));
+  }
   public Command GreenFlash(double secs) {
     return this.run(() -> blinkin.setMode(BlinkinLedMode.SOLID_GREEN))
         .withTimeout(secs)

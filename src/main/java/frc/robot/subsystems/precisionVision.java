@@ -14,6 +14,8 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.subsystems.leds.LEDSubsystem;
+import frc.robot.subsystems.leds.BlinkinLedDriver.BlinkinLedMode;
 
 
 //Imports for Network Tables Functions
@@ -51,8 +53,10 @@ import edu.wpi.first.math.MatBuilder;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.VecBuilder;
+import frc.robot.subsystems.leds.LEDSubsystem;
 
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.leds.BlinkinLedDriver.BlinkinLedMode;
 import frc.robot.constants.MatchConstants;
 import frc.robot.constants.SuperStructureConstants;
 import frc.robot.mathUtil.LinearInterpolationTable;
@@ -94,6 +98,9 @@ public class precisionVision {
     private DoublePublisher ChassisDistancetoPOIDisp;
     private DoublePublisher ChassisDistancetoSoFPOIDisp;
     private BooleanPublisher MultiTagLockDisp;
+
+    
+    private LEDSubsystem leds = LEDSubsystem.getInstance();
     
     private DoublePublisher chassisGoalAngleToChasDisp;
     private DoublePublisher chassisGoalAngleToFiledDisp;
@@ -399,7 +406,7 @@ public class precisionVision {
         } */
         // ************** THIS SECTION DEALS WITH LOCALIZATION ESTIMATES * /
 
-        boolean weSawMultiTag = false;
+         boolean weSawMultiTag = false;
 
         for (cameraContainer aCameraContainer : chassisCameras) {
 
@@ -432,6 +439,13 @@ public class precisionVision {
                 }
 
             }
+            if (weSawMultiTag == true) {
+                leds.GreenLED();
+            } else {
+                leds.RedLED();
+            }
+            
+
 
         }
         MultiTagLockDisp.set(weSawMultiTag);
