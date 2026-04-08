@@ -225,9 +225,9 @@ public class RobotContainer {
     );
 
     NamedCommands.registerCommand("VisionPassAndShoot",
-        superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing())
-        .alongWith(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()))
-        .alongWith(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimatRotationFromChassisToPointOfInterest()))
+        superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing())
+        .alongWith(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()))
+        .alongWith(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimatMovingRotationFromChassisToPointOfInterest()))
         .andThen(Commands.waitSeconds(.5))
         .andThen(superstructure.KickerOn()
         .andThen(Commands.waitSeconds(.1)))
