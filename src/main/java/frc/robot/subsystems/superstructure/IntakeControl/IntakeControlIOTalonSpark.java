@@ -53,7 +53,8 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
   private TalonFX IntakePositionController;
   //private CANcoder IntakePositionEncoder;
   
-  private SparkFlex IntakeRollerMotor;
+  //private SparkFlex IntakeRollerMotor;
+  private TalonFX IntakeRollerMotor;
   private SparkClosedLoopController IntakeRollerController;
   private RelativeEncoder IntakeRollerEncoder;
   
@@ -79,9 +80,9 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
  
     TalonFXConfiguration IntakePositionConfigs = new TalonFXConfiguration();
     
-    SparkFlexConfig IntakeRollerConfigs = new SparkFlexConfig();
-    IntakeRollerMotor = new SparkFlex(Hardwaremap.IntakeRoller_CID, MotorType.kBrushless);
-    IntakeRollerEncoder = IntakeRollerMotor.getEncoder();
+    TalonFXConfiguration IntakeRollerConfigs = new TalonFXConfiguration();
+    IntakeRollerMotor = new TalonFX(Hardwaremap.IntakeRoller_CID);
+    //IntakeRollerEncoder = IntakeRollerMotor.getEncoder();
 
     // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     // voltPosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
@@ -128,22 +129,31 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
     // Intake Roller Configuartion 
      //SETUP SPEED CONTROL CONFIGS
         /* Voltage-based velocity requires a velocity feed forward to account for the back-emf of the motor */
-    IntakeRollerConfigs.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
-    IntakeRollerConfigs.closedLoop.p(0.003); 
-    IntakeRollerConfigs.closedLoop.i(0.002);
-    IntakeRollerConfigs.closedLoop.d(0.001); 
+    //IntakeRollerConfigs.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
+    //IntakeRollerConfigs.closedLoop.p(0.003); 
+    //IntakeRollerConfigs.closedLoop.i(0.002);
+    //IntakeRollerConfigs.closedLoop.d(0.001); 
+    IntakeRollerConfigs.Slot0.kP = 0.003;
+    IntakeRollerConfigs.Slot0.kI = 0.002;
+    IntakeRollerConfigs.Slot0.kD = 0.001;
+    //IntakeRollerConfigs.Feedback.FeedbackSensorSource
+    IntakeRollerConfigs.CurrentLimits.StatorCurrentLimit = 60;
+    IntakeRollerConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
+    IntakeRollerConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    IntakeRollerConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
   
     // set max output current limits TODO check stall current of speed / roller
-    IntakeRollerConfigs.smartCurrentLimit(60);
+    //IntakeRollerConfigs.smartCurrentLimit(60);
 
-    IntakeRollerConfigs.inverted(false);
-    IntakeRollerConfigs.idleMode(IdleMode.kCoast);
-    IntakeRollerConfigs.encoder.velocityConversionFactor(1);
+    //IntakeRollerConfigs.inverted(false);
+    //IntakeRollerConfigs.idleMode(IdleMode.kCoast);
+    //IntakeRollerConfigs.encoder.velocityConversionFactor(1);
 
     //Apply the configuration to the Spark Flex Controller
-    IntakeRollerMotor.configure(IntakeRollerConfigs, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    //IntakeRollerMotor.configure(IntakeRollerConfigs, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    TalonUtils.applyTalonFxConfigs(IntakeRollerMotor,IntakeRollerConfigs);
 
-    IntakeRollerController = IntakeRollerMotor.getClosedLoopController();
+    //IntakeRollerController = IntakeRollerMotor.getClosedLoopController();
 
 
 
@@ -198,11 +208,11 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
     inputs.IntakePositionRot = IntakePositionController.getPosition().getValueAsDouble();
     //Use if using cancoder
     //inputs.HoodPositionRot = HoodEncoder.getPosition().getValueAsDouble() - Hood_pos_offset;
-    inputs.IntakePositionRotREAL = IntakeRollerMotor.getEncoder().getPosition(); 
-    inputs.IntakeVelocityRadPerSec = IntakeRollerMotor.getEncoder().getVelocity();
+    inputs.IntakePositionRotREAL = IntakeRollerMotor.getPosition().getValueAsDouble();
+    inputs.IntakeVelocityRadPerSec = IntakeRollerMotor.getVelocity().getValueAsDouble();
     inputs.IntakeAbsolutePositionDegrees =
         MathUtil.inputModulus(
-            Rotation2d.fromRotations(IntakeRollerMotor.getEncoder().getPosition())
+            Rotation2d.fromRotations(IntakeRollerMotor.getPosition().getValueAsDouble())
                 .minus(encoderOffset)
                 .getDegrees(),
             -180,
