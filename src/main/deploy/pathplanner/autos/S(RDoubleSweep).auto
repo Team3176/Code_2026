@@ -29,6 +29,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "StopShot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "INWARD RTHub-Out-RTHub"

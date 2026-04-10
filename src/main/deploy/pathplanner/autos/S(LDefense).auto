@@ -3,7 +3,62 @@
   "command": {
     "type": "sequential",
     "data": {
-      "commands": []
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LGTP"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TurretCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootFromTrench"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "INWARD LTHub-Out-LTHub"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TurretCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootFromTrench"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 10.0
+          }
+        }
+      ]
     }
   },
   "resetOdom": true,

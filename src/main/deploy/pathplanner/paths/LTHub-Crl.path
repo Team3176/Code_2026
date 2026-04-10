@@ -50,7 +50,41 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "KickerSpindexerON",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "KickerSpindexerON"
+        }
+      }
+    },
+    {
+      "name": "VisionShootToHub",
+      "waypointRelativePos": 0.1400359066427289,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "VisionShootToHub"
+        }
+      }
+    },
+    {
+      "name": "DeployIntake",
+      "waypointRelativePos": 0.14542190305206448,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "DeployIntake"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.5,
     "maxAcceleration": 3.5,

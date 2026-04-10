@@ -13,13 +13,13 @@
         {
           "type": "named",
           "data": {
-            "name": "KickerSpindexerON"
+            "name": "VisionShootToHub"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "VisionShootToHub"
+            "name": "KickerSpindexerON"
           }
         },
         {
