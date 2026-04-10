@@ -62,8 +62,8 @@ public class precisionVision {
     private PhotonCamera turretCamera;
     private PhotonCamera leftRearCamera;
     private PhotonCamera rightRearCamera;
-    private PhotonCamera leftFrontCamera;
-    private PhotonCamera rightFrontCamera;
+    private PhotonCamera leftSideCamera;
+    private PhotonCamera rightSideCamera;
 
     private NetworkTable visionTurretData;
     private BooleanPublisher isOurGoalDetectedDisplay;
@@ -124,14 +124,18 @@ public class precisionVision {
     // These assume a Y(pitch) of -25
     // From that calculator we are using the Axis-Angle in radians
 
-    public static final Transform3d kSledToFrontLeftCam = new Transform3d(new Translation3d(0.0508, 0.254, 0.52),
-            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(45)));
+    public static final Transform3d kSledLeftRearCam = new Transform3d(new Translation3d(-0.055, 0.263, 0.557),
+            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(165)));
 
-    public static final Transform3d kSledToLeftRearCam = new Transform3d(new Translation3d(-0.0508, 0.254, 0.52),
-            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(135)));
-    //Constants for Day 2 Laf
-    public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.0508, -0.244, 0.52),
-            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-15), Units.degreesToRadians(-135)));
+    public static final Transform3d kSledToLeftSideCam = new Transform3d(new Translation3d(-0.078, 0.313, 0.50),
+            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-15), Units.degreesToRadians(72.5)));
+    
+    public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.055, -0.263, 0.557),
+            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(-165)));
+
+    public static final Transform3d kSledToRightSideCam = new Transform3d(new Translation3d(-0.078, -0.313, 0.50),
+            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-15), Units.degreesToRadians(-72.5)));
+
     //Previous Constants
             // public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.0508, -0.254, 0.52),
   //          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(-135)));
@@ -140,8 +144,7 @@ public class precisionVision {
    // public static final Transform3d kSledToFrontRightCam = new Transform3d(new Translation3d(0.0508, -0.254, 0.52),
      //       new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(-45)));
     //Constants for updates to point shooter direction 
-    public static final Transform3d kSledToFrontRightCam = new Transform3d(new Translation3d(-0.0758, -0.184, 0.52),
-            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(180)));
+
 
     public static final Transform3d kSledToTurret = new Transform3d(new Translation3d(0, 0, 0.203),
             new Rotation3d(0, -0.436, 0)); // Turret is in camera coordinate system and no transformation is applied.
@@ -151,8 +154,8 @@ public class precisionVision {
     private PhotonPoseEstimator turretPoseEstimator;
     private PhotonPoseEstimator leftRearPoseEstimator;
     private PhotonPoseEstimator rightRearPoseEstimator;
-    private PhotonPoseEstimator leftFrontPoseEstimator;
-    private PhotonPoseEstimator rightFrontPoseEstimator;
+    private PhotonPoseEstimator leftSidePoseEstimator;
+    private PhotonPoseEstimator rightSidePoseEstimator;
 
     private cameraContainer frLeftContainer;
     private cameraContainer BaLeftContainer;
@@ -260,22 +263,22 @@ public class precisionVision {
         turretCamera = new PhotonCamera("TurretCamera");
         leftRearCamera = new PhotonCamera("LeftRearCamera");
         rightRearCamera = new PhotonCamera("RightRearCamera");
-        leftFrontCamera = new PhotonCamera("LeftFrontCamera");
-        rightFrontCamera = new PhotonCamera("RightFrontCamera");
+        leftSideCamera = new PhotonCamera("LeftSideCamera");
+        rightSideCamera = new PhotonCamera("RightSideCamera");
 
         // Construct things for localization
         turretPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToTurret);
-        leftRearPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToLeftRearCam);
+        leftRearPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledLeftRearCam);
         rightRearPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToRightRearCam);
-        leftFrontPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToFrontLeftCam);
-        rightFrontPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToFrontRightCam);
+        leftSidePoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToLeftSideCam);
+        rightSidePoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToRightSideCam);
 
         // private Matrix<N3, N1> curStdDevs;
 
         // Temporary Container for chassisCameras
         frLeftContainer = new cameraContainer();
-        frLeftContainer.thisCamera = leftFrontCamera;
-        frLeftContainer.thisPoseEstimator = leftFrontPoseEstimator;
+        frLeftContainer.thisCamera = leftSideCamera;
+        frLeftContainer.thisPoseEstimator = leftSidePoseEstimator;
         frLeftContainer.arrayIndex = 0;
         // chassisCameras.add(frLeftContainer);
 
@@ -292,8 +295,8 @@ public class precisionVision {
         // chassisCameras.add(BaRightContainer);
 
         FrRightContainer = new cameraContainer();
-        FrRightContainer.thisCamera = rightFrontCamera;
-        FrRightContainer.thisPoseEstimator = rightFrontPoseEstimator;
+        FrRightContainer.thisCamera = rightSideCamera;
+        FrRightContainer.thisPoseEstimator = rightSidePoseEstimator;
         FrRightContainer.arrayIndex = 3;
         // chassisCameras.add(FrRightContainer);
 
