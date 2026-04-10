@@ -119,7 +119,7 @@ public class RobotContainer {
   private Trigger endMatchAlert = new Trigger(() -> DriverStation.getMatchTime() < MatchConstants.ENDGAMEALERT_Time);
   private Trigger autoAlert = new Trigger (() -> DriverStation.isAutonomous());
   private Trigger ShootingTime = new Trigger(()-> isHubActive());
-  
+  private Trigger weSawMultiTag = new Trigger(()-> isHubActive());  
   
   // Implement LEDs
   private LEDSubsystem leds = LEDSubsystem.getInstance();
@@ -143,12 +143,14 @@ public class RobotContainer {
 
     /// Team 3176 2026
   //Leds default commands
-    leds.setDefaultCommand(leds.DefaultLED()); //purple
+    //leds.setDefaultCommand(leds.DefaultLED()); //purple
     autoAlert.onTrue(leds.AutoDriveStart());  //rainbow
     endMatchAlert.onTrue(leds.EndgameStart()); // blue
     ShootingTime.onTrue(leds.GoalShiftActive());  //SOLID_LAWN_GREEN
     ShootingTime.onFalse(leds.turretVisonLost()); // red 
-   // ShooterIsLockedON.onTrue(leds.turretLockedOn());  // FIXED_TWINKLES_LAVA
+    weSawMultiTag.onTrue(leds.GreenLED()); //green if locked...theoretically
+    weSawMultiTag.onFalse(leds.RedLED()); // red if unlocked... theoretically 
+    //ShooterIsLockedON.onTrue(leds.turretLockedOn());  // FIXED_TWINKLES_LAVA
    // ShooterIsLockedON.onFalse(leds.DefaultLED());  // purple
     SmartDashboard.putBoolean("Is Hub Active", isHubActive());
 

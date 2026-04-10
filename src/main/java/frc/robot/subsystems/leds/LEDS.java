@@ -168,7 +168,6 @@ public class LEDS extends SubsystemBase {
         // Low battery
         solid(Color.kOrangeRed);
       } else if (prideLeds) {
-        // Pride stripes
         stripes(
             List.of(
                 Color.kBlack,
@@ -310,4 +309,6 @@ public class LEDS extends SubsystemBase {
       buffer.setLED(i, colors.get(colorIndex));
     }
   }
+
+
 }

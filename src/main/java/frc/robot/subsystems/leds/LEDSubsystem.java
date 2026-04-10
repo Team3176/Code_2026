@@ -8,7 +8,7 @@ import frc.robot.subsystems.leds.BlinkinLedDriver.BlinkinLedMode;
 
 public class LEDSubsystem extends SubsystemBase {
   /** Creates a new LED. */
-  private final BlinkinLedDriver blinkin;
+  public final BlinkinLedDriver blinkin;
 
   private static LEDSubsystem instance;
 

@@ -16,8 +16,8 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.subsystems.leds.LEDSubsystem;
 import frc.robot.subsystems.leds.BlinkinLedDriver.BlinkinLedMode;
-
-
+import frc.robot.subsystems.leds.BlinkinLedDriver;
+import frc.robot.subsystems.leds.LEDS;
 //Imports for Network Tables Functions
 import edu.wpi.first.networktables.BooleanArrayPublisher;
 import edu.wpi.first.networktables.BooleanPublisher;
@@ -52,8 +52,9 @@ import org.photonvision.EstimatedRobotPose;
 import edu.wpi.first.math.MatBuilder;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
-import edu.wpi.first.math.VecBuilder;
-import frc.robot.subsystems.leds.LEDSubsystem;
+import edu.wpi.first.math.VecBuilder;  
+
+
 
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.leds.BlinkinLedDriver.BlinkinLedMode;
@@ -62,6 +63,7 @@ import frc.robot.constants.SuperStructureConstants;
 import frc.robot.mathUtil.LinearInterpolationTable;
 
 public class precisionVision {
+    
 
     private PhotonCamera turretCamera;
     private PhotonCamera leftRearCamera;
@@ -99,8 +101,7 @@ public class precisionVision {
     private DoublePublisher ChassisDistancetoSoFPOIDisp;
     private BooleanPublisher MultiTagLockDisp;
 
-    
-    private LEDSubsystem leds = LEDSubsystem.getInstance();
+
     
     private DoublePublisher chassisGoalAngleToChasDisp;
     private DoublePublisher chassisGoalAngleToFiledDisp;
@@ -204,6 +205,8 @@ public class precisionVision {
 
     public precisionVision() {
         // This is the default constructor
+
+        
 
         rollingAvgWindows = 10;
         rollingAveIndex = 0;
@@ -439,15 +442,16 @@ public class precisionVision {
                 }
 
             }
-            if (weSawMultiTag == true) {
-                leds.GreenLED();
-            } else {
-                leds.RedLED();
-            }
-            
 
 
         }
+
+        if (weSawMultiTag == true) {
+            BlinkinLedMode mode = BlinkinLedMode.SOLID_GREEN;
+        } else {
+            BlinkinLedMode mode = BlinkinLedMode.SOLID_RED;
+        }
+            
         MultiTagLockDisp.set(weSawMultiTag);
         visionXest[4] = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
         VisionYest[4] = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getY();
