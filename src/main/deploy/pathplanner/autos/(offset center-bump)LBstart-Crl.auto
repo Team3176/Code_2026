@@ -7,19 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "ROstart-Farout-RTHub"
+            "pathName": "LBStart-Crl"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "TurretCenter"
+            "name": "KickerSpindexerON"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ShootFromTrench"
+            "name": "VisionShootToHub"
           }
         },
         {

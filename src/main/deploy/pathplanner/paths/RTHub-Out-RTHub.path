@@ -3,39 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-<<<<<<< Updated upstream
-        "x": 0.921238636363636,
-        "y": 5.921147727272728
+        "x": 3.521,
+        "y": 0.651
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0812709255343433,
-        "y": 5.985981094697192
-=======
-        "x": 1.0658285714285713,
-        "y": 5.9397
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 3.225860860599279,
-        "y": 6.0045333674244645
->>>>>>> Stashed changes
+        "x": 4.521,
+        "y": 0.6509999999999998
       },
       "isLocked": false,
-      "linkedName": "Crl"
+      "linkedName": "RTHub"
     },
     {
       "anchor": {
-        "x": 2.745192582025677,
-        "y": 4.041469329529244
+        "x": 3.7605,
+        "y": 3.3255
       },
       "prevControl": {
-        "x": 2.1652410336789365,
-        "y": 4.628227034094992
+        "x": 4.14075,
+        "y": 1.9882499999999999
+      },
+      "nextControl": {
+        "x": 3.38025,
+        "y": 4.66275
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.521,
+        "y": 0.651
+      },
+      "prevControl": {
+        "x": 2.521,
+        "y": 0.6509999999999998
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Cmid"
+      "linkedName": "RTHub"
     }
   ],
   "rotationTargets": [],
@@ -52,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -106.411
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -106.411
   },
   "useDefaultConstraints": true
 }

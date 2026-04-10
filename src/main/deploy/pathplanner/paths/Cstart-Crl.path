@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5597840909090905,
-        "y": 5.62225
+        "x": 3.508573466476462,
+        "y": 4.041469329529244
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.7249318181818176,
-        "y": 5.797465909090908
+        "x": 2.9619886363636363,
+        "y": 5.003840909090909
       },
       "isLocked": false,
-      "linkedName": "LBstart"
+      "linkedName": "Cstart"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 5.921147727272728
       },
       "prevControl": {
-        "x": 2.312659090909091,
-        "y": 5.849000000000001
+        "x": 3.3227272727272723,
+        "y": 5.890227272727272
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.7037701974865348,
+      "minWaypointRelativePos": 0.7289048473967685,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
@@ -48,12 +48,34 @@
   "eventMarkers": [
     {
       "name": "DeployIntake",
-      "waypointRelativePos": 0.5368043087971277,
+      "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
           "name": "DeployIntake"
+        }
+      }
+    },
+    {
+      "name": "KickerSpindexerON",
+      "waypointRelativePos": 0.0,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "KickerSpindexerON"
+        }
+      }
+    },
+    {
+      "name": "VisionShootToHub",
+      "waypointRelativePos": 0.22082585278276418,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "VisionShootToHub"
         }
       }
     }
@@ -64,7 +86,7 @@
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
-    "unlimited": false
+    "unlimited": true
   },
   "goalEndState": {
     "velocity": 0,

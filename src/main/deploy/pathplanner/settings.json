@@ -3,7 +3,10 @@
   "robotLength": 0.889,
   "holonomicMode": true,
   "pathFolders": [],
-  "autoFolders": [],
+  "autoFolders": [
+    "Laf Autos",
+    "State Autos"
+  ],
   "defaultMaxVel": 3.5,
   "defaultMaxAccel": 3.5,
   "defaultMaxAngVel": 540.0,
@@ -17,7 +20,7 @@
   "maxDriveSpeed": 4.752,
   "driveMotorType": "krakenX60",
   "driveCurrentLimit": 60.0,
-  "wheelCOF": 1.2,
+  "wheelCOF": 1.4,
   "flModuleX": 0.276,
   "flModuleY": 0.276,
   "frModuleX": 0.276,

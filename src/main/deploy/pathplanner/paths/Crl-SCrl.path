@@ -3,6 +3,7 @@
   "waypoints": [
     {
       "anchor": {
+<<<<<<< Updated upstream
         "x": 0.921238636363636,
         "y": 5.921147727272728
       },
@@ -10,17 +11,26 @@
       "nextControl": {
         "x": 1.171177220916059,
         "y": 5.91560661258962
+=======
+        "x": 1.0658285714285713,
+        "y": 5.9397
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.3157671559809943,
+        "y": 5.934158885316893
+>>>>>>> Stashed changes
       },
       "isLocked": false,
       "linkedName": "Crl"
     },
     {
       "anchor": {
-        "x": 1.3313472417167602,
+        "x": 1.7784714285714283,
         "y": 5.936379668049792
       },
       "prevControl": {
-        "x": 1.0814408016226391,
+        "x": 1.5285649884773072,
         "y": 5.943218615299442
       },
       "nextControl": null,
@@ -70,7 +80,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 149.4102523499525
+    "rotation": 144.32378119528985
   },
   "reversed": false,
   "folder": null,
