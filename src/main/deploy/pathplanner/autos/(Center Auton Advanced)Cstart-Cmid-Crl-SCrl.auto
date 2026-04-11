@@ -13,13 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "TurretCenter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootFromClose"
+            "name": "VisionPassAndShoot"
           }
         },
         {
@@ -49,19 +43,7 @@
         {
           "type": "named",
           "data": {
-            "name": "TurretCenter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "KickerSpindexerON"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "VisionShootToHub"
+            "name": "VisionPassAndShoot"
           }
         },
         {

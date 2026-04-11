@@ -13,13 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "TurretCenter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootFromTrench"
+            "name": "VisionPassAndShoot"
           }
         },
         {
@@ -43,19 +37,19 @@
         {
           "type": "named",
           "data": {
-            "name": "TurretCenter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootFromTrench"
+            "name": "VisionPassAndShoot"
           }
         },
         {
           "type": "wait",
           "data": {
             "waitTime": 10.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShot"
           }
         }
       ]

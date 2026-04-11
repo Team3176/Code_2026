@@ -13,13 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "TurretCenter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootFromTrench"
+            "name": "VisionPassAndShoot"
           }
         },
         {
@@ -43,13 +37,7 @@
         {
           "type": "named",
           "data": {
-            "name": "TurretCenter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootFromTrench"
+            "name": "VisionPassAndShoot"
           }
         },
         {

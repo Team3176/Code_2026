@@ -13,13 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "TurretCenter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootFromClose"
+            "name": "VisionPassAndShoot"
           }
         },
         {
