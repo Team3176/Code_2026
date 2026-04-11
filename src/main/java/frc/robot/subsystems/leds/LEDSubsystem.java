@@ -59,6 +59,7 @@ public class LEDSubsystem extends SubsystemBase {
   private void isAuton() {
     // Rainbow
     blinkin.setMode(BlinkinLedMode.FIXED_RAINBOW_PARTY);
+   // blinkin.setMode(BlinkinLedMode.)
   }
 
   private void off() {

@@ -136,6 +136,7 @@ public class SuperStructureConstants {
   public static final double IntakeControl_kD = 0; 
 
   public static final double IntakeRollerIntakeSpeed = .75; //50% duty cycle
+  public static final double IntakeRollerIntakeMaxPower = 1.0; //100% duty cycle
   public static final double IntakeRollerIdleSpeed = .2; //20% duty cycle 
   public static final double IntakeRollerIntakeReverse = -.5; //reverse speed 
 
