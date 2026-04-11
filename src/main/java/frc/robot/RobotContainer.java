@@ -219,18 +219,18 @@ public class RobotContainer {
         .andThen(superstructure.ShotTwoHood()));
     NamedCommands.registerCommand("VisionShootToHub",
         superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis(), () -> thisRobotVisionHandler.botIsPassing())
-        .alongWith(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()))
-        .alongWith(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimateGoalRotationFromChassis()))
-        .alongWith(Commands.waitSeconds(.5))
+        .andThen(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateGoalDistanceFromChassis(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()))
+        .andThen(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimateGoalRotationFromChassis()))
+        .andThen(Commands.waitSeconds(.5))
         .andThen(superstructure.KickerOn()
-        .alongWith(Commands.waitSeconds(.1)))
+        .andThen(Commands.waitSeconds(.1)))
         .andThen(superstructure.SpindexerOn())
     );
 
     NamedCommands.registerCommand("VisionPassAndShoot",
         superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing())
-        .alongWith(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()))
-        .alongWith(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimatMovingRotationFromChassisToPointOfInterest()))
+        .andThen(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()))
+        .andThen(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimatMovingRotationFromChassisToPointOfInterest()))
         .andThen(Commands.waitSeconds(.5))
         .andThen(superstructure.KickerOn()
         .andThen(Commands.waitSeconds(.1)))
@@ -238,7 +238,7 @@ public class RobotContainer {
     );
     NamedCommands.registerCommand("KickerSpindexerON",
         (superstructure.KickerOn()
-        .alongWith(Commands.waitSeconds(.1)))
+        .andThen(Commands.waitSeconds(.1)))
         .andThen(superstructure.SpindexerOn())
     );
 
