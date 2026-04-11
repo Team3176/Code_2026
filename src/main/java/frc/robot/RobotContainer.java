@@ -228,13 +228,11 @@ public class RobotContainer {
     );
 
     NamedCommands.registerCommand("VisionPassAndShoot",
-        superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing())
-        .andThen(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()))
-        .andThen(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimatMovingRotationFromChassisToPointOfInterest()))
-        .andThen(Commands.waitSeconds(.5))
-        .andThen(superstructure.KickerOn()
-        .andThen(Commands.waitSeconds(.1)))
-        .andThen(superstructure.SpindexerOn())
+        superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing()).withTimeout(4)
+        .alongWith(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing())).withTimeout(4)
+        .alongWith(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimatMovingRotationFromChassisToPointOfInterest())).withTimeout(4)
+        .alongWith(superstructure.KickerOn())
+        .alongWith(superstructure.SpindexerOn())
     );
     NamedCommands.registerCommand("KickerSpindexerON",
         (superstructure.KickerOn()
