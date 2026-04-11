@@ -127,16 +127,16 @@ public class precisionVision {
     // These assume a Y(pitch) of -25
     // From that calculator we are using the Axis-Angle in radians
 
-    public static final Transform3d kSledLeftRearCam = new Transform3d(new Translation3d(-0.055, 0.263, 0.557),
+    public static final Transform3d kSledLeftRearCam = new Transform3d(new Translation3d(-0.055, 0.265, 0.54),
             new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(165)));
 
-    public static final Transform3d kSledToLeftSideCam = new Transform3d(new Translation3d(-0.078, 0.313, 0.50),
+    public static final Transform3d kSledToLeftSideCam = new Transform3d(new Translation3d(-0.078, 0.31, 0.49),
             new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-15), Units.degreesToRadians(107)));
     
-    public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.055, -0.263, 0.557),
+    public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.055, -0.265, 0.54),
             new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(-165)));
 
-    public static final Transform3d kSledToRightSideCam = new Transform3d(new Translation3d(-0.078, -0.313, 0.50),
+    public static final Transform3d kSledToRightSideCam = new Transform3d(new Translation3d(-0.078, -0.31, 0.49),
             new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-15), Units.degreesToRadians(-107)));
 
     //Previous Constants

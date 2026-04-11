@@ -196,20 +196,20 @@ public class SuperStructureConstants {
   
   public static final double TurrentIncrement = .2; //When manually controlling the Turret use drive it this many rotations
 
-  public static final double TurretPotCounterClockCompensator = 1.405;// Left Measured Volts to setup volt to Rot Compensator
-  public static final double TurretPotClockwiseCompensator = 3.44;// Right Measured Volts to setup volt to Rot Compensator
-  public static final double TurrentCenterPosPot = 2.479; //This is measured vs computed ->  //((TurretPotClockwise - TurretPotCounterClock) / 2) + TurretPotCounterClock;
-  public static final double TurretPotCounterClockOffset = 1.422; //1.405 Min Measured
-  public static final double TurretPotClockwiseOffset = 3.419;// 3.38 Max measured
-  public static final double TurretPOTCounterClockMax = 1.135;
-  public static final double TurretPOTClockwiseMax =    3.681;
+  public static final double TurretPotCounterClockCompensator = 1.475;// Left Measured Volts to setup volt to Rot Compensator
+  public static final double TurretPotClockwiseCompensator = 3.468;// Right Measured Volts to setup volt to Rot Compensator
+  public static final double TurrentCenterPosPot = 2.486; //This is measured vs computed ->  //((TurretPotClockwise - TurretPotCounterClock) / 2) + TurretPotCounterClock;
+  public static final double TurretPotCounterClockOffset = 1.475; //1.405 Min Measured
+  public static final double TurretPotClockwiseOffset = 3.468;// 3.38 Max measured
+  public static final double TurretPOTCounterClockMax = 1.198;
+  public static final double TurretPOTClockwiseMax =    3.71;
 
 
-  public static final double TurretClockwiseRotHome = -7.36; // Min Meausred will change based on motor power up
-  public static final double TurretCounterClockwiseRot = 8.15; // Max measured will change based on motor power up
+  public static final double TurretClockwiseRot = -7.4495; // Min Meausred will change based on motor power up
+  public static final double TurretCounterClockwiseRot = 7.570; // Max measured will change based on motor power up
   
 
-  public static final double TurretRotPerVolt = (TurretCounterClockwiseRot - TurretClockwiseRotHome) / (TurretPotClockwiseCompensator - TurretPotCounterClockCompensator);
+  public static final double TurretRotPerVolt = (TurretCounterClockwiseRot - TurretClockwiseRot) / (TurretPotClockwiseCompensator - TurretPotCounterClockCompensator);
   public static final double TurretVoltPerRot = 1 / TurretRotPerVolt;
   public static final double TurrentCenterRotFromHome = (TurrentCenterPosPot -  TurretPotCounterClockCompensator) * TurretRotPerVolt;
 

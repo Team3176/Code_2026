@@ -138,8 +138,11 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
     IntakeRollerConfigs.Slot0.kI = 0.002;
     IntakeRollerConfigs.Slot0.kD = 0.001;
     //IntakeRollerConfigs.Feedback.FeedbackSensorSource
-    IntakeRollerConfigs.CurrentLimits.StatorCurrentLimit = 80; //60 before update
+    IntakeRollerConfigs.CurrentLimits.StatorCurrentLimit = 70; //60 before update
+    IntakeRollerConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
+     IntakeRollerConfigs.CurrentLimits.SupplyCurrentLimit = 40; //60 before update
     IntakeRollerConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
+    
     IntakeRollerConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     IntakeRollerConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
   
