@@ -139,7 +139,7 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
     //IntakeRollerConfigs.Feedback.FeedbackSensorSource
     IntakeRollerConfigs.CurrentLimits.StatorCurrentLimit = 60;
     IntakeRollerConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
-    IntakeRollerConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    IntakeRollerConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     IntakeRollerConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
   
     // set max output current limits TODO check stall current of speed / roller

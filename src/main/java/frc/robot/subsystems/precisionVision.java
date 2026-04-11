@@ -86,6 +86,9 @@ public class precisionVision {
     public double turretAngleToGoal;
     public double turretDistanceTogoal;
 
+    public boolean multiTagLocked;
+    private double lastTargetTime;
+
     private NetworkTable visionLocalizationData;
     private DoubleArrayPublisher fieldLocX;
     private DoubleArrayPublisher fieldLocY;
@@ -205,6 +208,7 @@ public class precisionVision {
         rollingAveIndex = 0;
         xDotRollingAve = new double[rollingAvgWindows];
         yDotRollingAve = new double[rollingAvgWindows];
+        lastTargetTime = 0;
 
         // Initialize the visionnetwork tables
         visionTurretData = NetworkTableInstance.getDefault().getTable("VisionTurretData");
@@ -403,14 +407,16 @@ public class precisionVision {
         // ************** THIS SECTION DEALS WITH LOCALIZATION ESTIMATES * /
 
         boolean weSawMultiTag = false;
+        
 
         for (cameraContainer aCameraContainer : chassisCameras) {
 
             Optional<EstimatedRobotPose> visionEst = Optional.empty();
 
             // cameraContainer aCameraContainer = BaRightContainer;
-
+            
             for (var result : aCameraContainer.thisCamera.getAllUnreadResults()) {
+                
                 visionEst = aCameraContainer.thisPoseEstimator.estimateCoprocMultiTagPose(result);
                 
                 if (visionEst.isEmpty()) {
@@ -424,6 +430,7 @@ public class precisionVision {
                 // updateEstimationStdDevs(visionEst, result.getTargets());
                 if (!visionEst.isEmpty()) {
                     weSawMultiTag = true;
+                    
                     visionXest[aCameraContainer.arrayIndex] = visionEst.get().estimatedPose.getX();
                     VisionYest[aCameraContainer.arrayIndex] = visionEst.get().estimatedPose.getY();
                     VisionRest[aCameraContainer.arrayIndex] = visionEst.get().estimatedPose.getRotation().getZ() * 180
@@ -432,12 +439,19 @@ public class precisionVision {
                     thisCommandSwerveDrivetrain.addVisionMeasurement(visionEst.get().estimatedPose.toPose2d(),
                             visionEst.get().timestampSeconds);
 
+                    lastTargetTime = visionEst.get().timestampSeconds;
+
                 }
 
             }
 
         }
         MultiTagLockDisp.set(weSawMultiTag);
+        if(Timer.getFPGATimestamp() - lastTargetTime > 0.25 ){
+            multiTagLocked = false;
+         }else{
+            multiTagLocked = true;
+        }
         visionXest[4] = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getX();
         VisionYest[4] = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getY();
         VisionRest[4] = thisCommandSwerveDrivetrain.samplePoseAt(Timer.getFPGATimestamp()).get().getRotation()

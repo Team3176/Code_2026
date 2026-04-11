@@ -87,6 +87,13 @@ public class LEDSubsystem extends SubsystemBase {
     return this.run(() -> blinkin.setMode(BlinkinLedMode.SOLID_VIOLET));
   }
 
+  public Command RedLED() {
+    return this.run(() -> blinkin.setMode(BlinkinLedMode.SOLID_RED));
+  }
+  public Command GreenLED() {
+    return this.run(() -> blinkin.setMode(BlinkinLedMode.SOLID_GREEN));
+  }
+
   public Command GreenFlash(double secs) {
     return this.run(() -> blinkin.setMode(BlinkinLedMode.SOLID_GREEN))
         .withTimeout(secs)
