@@ -131,13 +131,13 @@ public class precisionVision {
             new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(165)));
 
     public static final Transform3d kSledToLeftSideCam = new Transform3d(new Translation3d(-0.078, 0.313, 0.50),
-            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-15), Units.degreesToRadians(73)));
+            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-15), Units.degreesToRadians(107)));
     
     public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.055, -0.263, 0.557),
             new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-25), Units.degreesToRadians(-165)));
 
     public static final Transform3d kSledToRightSideCam = new Transform3d(new Translation3d(-0.078, -0.313, 0.50),
-            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-15), Units.degreesToRadians(-73)));
+            new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(-15), Units.degreesToRadians(-107)));
 
     //Previous Constants
             // public static final Transform3d kSledToRightRearCam = new Transform3d(new Translation3d(-0.0508, -0.254, 0.52),

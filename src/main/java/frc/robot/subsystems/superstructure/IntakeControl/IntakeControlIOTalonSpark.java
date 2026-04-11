@@ -82,6 +82,7 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
     
     TalonFXConfiguration IntakeRollerConfigs = new TalonFXConfiguration();
     IntakeRollerMotor = new TalonFX(Hardwaremap.IntakeRoller_CID);
+
     //IntakeRollerEncoder = IntakeRollerMotor.getEncoder();
 
     // voltVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
@@ -137,7 +138,7 @@ public class IntakeControlIOTalonSpark implements IntakeControlIO {
     IntakeRollerConfigs.Slot0.kI = 0.002;
     IntakeRollerConfigs.Slot0.kD = 0.001;
     //IntakeRollerConfigs.Feedback.FeedbackSensorSource
-    IntakeRollerConfigs.CurrentLimits.StatorCurrentLimit = 60;
+    IntakeRollerConfigs.CurrentLimits.StatorCurrentLimit = 80; //60 before update
     IntakeRollerConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
     IntakeRollerConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     IntakeRollerConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
