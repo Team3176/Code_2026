@@ -217,7 +217,7 @@ public class IntakeControl extends SubsystemBase {
       Status = rollerSpeedStatus.IDLE;
   }
 
-  public Command intakeRollerMaxOverride() {
+  public Command setIntakeRollerMaxOverride() {
     return this.runEnd(
       () -> {
         setIntakeRollerMax();
@@ -229,7 +229,7 @@ public class IntakeControl extends SubsystemBase {
 
   public void setIntakeRollerMax() {
  
-    io.setIntakeRollerVelocity(SuperStructureConstants.IntakeRollerIdleSpeed); 
+    io.setIntakeRollerVelocity(SuperStructureConstants.IntakeRollerIntakeMaxPower); 
   }
 
  

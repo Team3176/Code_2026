@@ -375,6 +375,7 @@ public class RobotContainer {
     
     //controller.rotStick.button(2).onTrue(supers tructure.toggleShooterStatus());
      controller.rotStick.button(1).onTrue(superstructure.IntakeRollerReverse()).onFalse(superstructure.IntakeRollerResume());
+     controller.rotStick.button(2).whileTrue(superstructure.IntakeRollerMaxOverride());
 
     ///Test Commands 
     //TODO Remove these following testing

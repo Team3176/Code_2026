@@ -89,6 +89,10 @@ public class Superstructure {
     return (intake.runIntakeRollerIdle());
   }
 
+    public Command IntakeRollerMaxOverride(){
+    return (intake.setIntakeRollerMaxOverride());
+  }
+
   public Command SpindexerMotor(DoubleSupplier speed) {
     return (spindexer.runSpindexerSpeed(() -> speed.getAsDouble()));
   }
