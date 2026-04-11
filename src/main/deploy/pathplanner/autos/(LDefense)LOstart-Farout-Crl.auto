@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RINstart-RTHub"
+            "pathName": "LOstart-Farout-Crl"
           }
         },
         {
@@ -19,43 +19,19 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootFromTrench"
+            "name": "KickerSpindexerON"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "VisionShootToHub"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 4.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "INWARD RTHub-Out-RTHub"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "TurretCenter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootFromTrench"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 10.0
+            "waitTime": 20.0
           }
         },
         {

@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RINstart-RTHub"
+            "pathName": "RGTP"
           }
         },
         {
@@ -25,7 +25,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 4.0
+            "waitTime": 5.0
           }
         },
         {
@@ -68,6 +68,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Laf Autos",
+  "folder": "State Autos",
   "choreoAuto": false
 }

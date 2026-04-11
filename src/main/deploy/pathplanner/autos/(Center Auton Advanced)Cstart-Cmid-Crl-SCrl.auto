@@ -47,12 +47,6 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Crl-SCrl"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "TurretCenter"
@@ -86,6 +80,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Laf Autos",
   "choreoAuto": false
 }

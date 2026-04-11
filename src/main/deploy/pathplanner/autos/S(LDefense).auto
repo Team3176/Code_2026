@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RINstart-RTHub"
+            "pathName": "LGTP"
           }
         },
         {
@@ -25,7 +25,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 4.0
+            "waitTime": 5.0
           }
         },
         {
@@ -37,7 +37,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "INWARD RTHub-Out-RTHub"
+            "pathName": "INWARD LTHub-Out-LTHub"
           }
         },
         {
@@ -57,17 +57,11 @@
           "data": {
             "waitTime": 10.0
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopShot"
-          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Laf Autos",
+  "folder": "State Autos",
   "choreoAuto": false
 }

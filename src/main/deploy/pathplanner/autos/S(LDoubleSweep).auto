@@ -7,13 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LOstart-Farout-Crl"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Crl-SCrl"
+            "pathName": "LINstart-LTHub"
           }
         },
         {
@@ -25,19 +19,43 @@
         {
           "type": "named",
           "data": {
-            "name": "KickerSpindexerON"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "VisionShootToHub"
+            "name": "ShootFromTrench"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 20.0
+            "waitTime": 4.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "INWARD LTHub-Out-LTHub"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TurretCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootFromTrench"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 10.0
           }
         },
         {
@@ -50,6 +68,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "State Autos",
   "choreoAuto": false
 }

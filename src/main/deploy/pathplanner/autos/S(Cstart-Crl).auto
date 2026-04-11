@@ -7,25 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LBstart-Crl"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Crl-LOmid"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "KickerSpindexerON"
+            "pathName": "Cstart-Crl"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "VisionShootToHub"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "KickerSpindexerON"
           }
         },
         {
@@ -44,6 +38,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "State Autos",
   "choreoAuto": false
 }

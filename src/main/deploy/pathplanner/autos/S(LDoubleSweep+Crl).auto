@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RINstart-RTHub"
+            "pathName": "LINstart-LTHub"
           }
         },
         {
@@ -37,7 +37,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "INWARD RTHub-Out-RTHub"
+            "pathName": "INWARD LTHub-Out-LTHub"
           }
         },
         {
@@ -55,7 +55,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 10.0
+            "waitTime": 4.0
           }
         },
         {
@@ -63,11 +63,29 @@
           "data": {
             "name": "StopShot"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LTHub-Crl"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "VisionShootToHub"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "KickerSpindexerON"
+          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Laf Autos",
+  "folder": "State Autos",
   "choreoAuto": false
 }
