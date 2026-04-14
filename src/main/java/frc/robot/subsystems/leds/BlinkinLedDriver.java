@@ -5,15 +5,16 @@
 package frc.robot.subsystems.leds;
 
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.PWM;
 import org.littletonrobotics.junction.Logger;
 
 /** REV Robotics Blinkin LED Driver. */
 public class BlinkinLedDriver {
-  // private final PWM pwm;
+  private final PWM pwm;
   private Spark spark;
 
   public BlinkinLedDriver(int channel) {
-    // pwm = new PWM(channel);
+     pwm = new PWM(channel);
     spark = new Spark(channel);
     // pwm.setBoundsMicroseconds(2.003, 1.50, 1.50, 1.50, 0.999);
     // pwm.setPeriodMultiplier(PWM.PeriodMultiplier.k1X);
@@ -27,6 +28,11 @@ public class BlinkinLedDriver {
   public void setMode(BlinkinLedMode mode) {
     Logger.recordOutput("LEDS/mode", mode);
     spark.set(mode.value);
+  }
+
+  public void set12VMode() {
+    
+    pwm.setPulseTimeMicroseconds(2145);
   }
 
   public static enum BlinkinLedMode {

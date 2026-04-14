@@ -388,18 +388,20 @@ public class RobotContainer {
 
       /// Swtich box Commands
       // Go look at Controller Cosntants for Euro Truck Bindings need to add 1 to each number based on 0 vs 1 index
-    controller.switchBox.button(20).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimatRotationFromChassisToPointOfInterest()))).onFalse(superstructure.TurretCenter());
-    controller.switchBox.button(18).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing())).onFalse(superstructure.shooterMotorSpeedIDLE());
-    controller.switchBox.button(16).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()));
-    controller.switchBox.button(12).onTrue(superstructure.KickerOn().andThen(superstructure.SpindexerAutoOnOff(() -> thisRobotVisionHandler.botIsInTerrain()))).onFalse(superstructure.SpindexerOff().andThen(superstructure.KickerOff()));
+    controller.switchBox.button(30).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimatRotationFromChassisToPointOfInterest()))).onFalse(superstructure.TurretCenter());
+    controller.switchBox.button(2).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing())).onFalse(superstructure.shooterMotorSpeedIDLE());
+    controller.switchBox.button(4).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()));
+    controller.switchBox.button(6).onTrue(superstructure.KickerOn().andThen(superstructure.SpindexerAutoOnOff(() -> thisRobotVisionHandler.botIsInTerrain()))).onFalse(superstructure.SpindexerOff().andThen(superstructure.KickerOff()));
   
     // Develop the Shoot on the move commands
     // Go look at Controller Cosntants for Euro Truck Bindings need to add 1 to each number based on 0 vs 1 index
-    controller.switchBox.button(30).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimatMovingRotationFromChassisToPointOfInterest()))).onFalse(superstructure.TurretCenter());
-    controller.switchBox.button(2).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing())).onFalse(superstructure.shooterMotorSpeedIDLE());
-    controller.switchBox.button(4).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()));
-    controller.switchBox.button(6).onTrue(superstructure.KickerOn().andThen(superstructure.SpindexerAutoOnOff(() -> thisRobotVisionHandler.botIsInTerrain()))).onFalse(superstructure.SpindexerOff().andThen(superstructure.KickerOff()));
-  
+    controller.switchBox.button(20).onTrue(superstructure.runTurretRotFromVisionLocation(() -> (thisRobotVisionHandler.estimatMovingRotationFromChassisToPointOfInterest()))).onFalse(superstructure.TurretCenter());
+    controller.switchBox.button(18).onTrue(superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing())).onFalse(superstructure.shooterMotorSpeedIDLE());
+    controller.switchBox.button(16).onTrue(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing()));
+    controller.switchBox.button(12).onTrue(superstructure.KickerOn().andThen(superstructure.SpindexerAutoOnOff(() -> thisRobotVisionHandler.botIsInTerrain()))).onFalse(superstructure.SpindexerOff().andThen(superstructure.KickerOff()));
+    
+    //LED Reset? 
+    controller.switchBox.button(11).onTrue(leds.Set12VMode());
 }
 
   /**
