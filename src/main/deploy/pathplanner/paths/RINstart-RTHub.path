@@ -57,7 +57,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "SRTHub"
+      "linkedName": "RTHub"
     }
   ],
   "rotationTargets": [
@@ -131,7 +131,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -29.999999999999996
+    "rotation": -106.411
   },
   "reversed": false,
   "folder": null,

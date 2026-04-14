@@ -135,5 +135,9 @@ public class LEDSubsystem extends SubsystemBase {
   public Command GoalShiftNonActive(){
     return this.run(() ->blinkin.setMode(BlinkinLedMode.SOLID_DARK_RED));
   }
+
+  public Command Set12VMode(){
+     return this.run(() ->blinkin.set12VMode());
+  }
   
 }
