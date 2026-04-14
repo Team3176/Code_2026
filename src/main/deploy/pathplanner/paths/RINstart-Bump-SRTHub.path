@@ -8,56 +8,56 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.507295454545453,
-        "y": 0.39669318181818203
+        "x": 6.2875571428571435,
+        "y": 0.5236142857142851
       },
       "isLocked": false,
       "linkedName": "RINstart"
     },
     {
       "anchor": {
-        "x": 8.21846590909091,
-        "y": 3.5093522727272726
+        "x": 7.790585714285715,
+        "y": 0.9900714285714276
       },
       "prevControl": {
-        "x": 8.66123733905624,
-        "y": 2.9208585999885406
+        "x": 7.429122897268931,
+        "y": 0.4579178368522724
       },
       "nextControl": {
-        "x": 7.404227272727272,
-        "y": 4.591568181818182
+        "x": 9.656414285714288,
+        "y": 3.736985714285715
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.301397727272726,
-        "y": 3.2929090909090917
+        "x": 6.1838999999999995,
+        "y": 2.713371428571428
       },
       "prevControl": {
-        "x": 6.697820308077825,
-        "y": 3.968588557739184
+        "x": 7.116824981311502,
+        "y": 3.2079340692666816
       },
       "nextControl": {
-        "x": 5.976585714285715,
-        "y": 2.7392857142857134
+        "x": 5.108457142857143,
+        "y": 2.1432571428571427
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.528147727272727,
-        "y": 1.4892159090909092
+        "x": 1.8821285714285714,
+        "y": 1.9877714285714272
       },
       "prevControl": {
-        "x": 5.9118,
-        "y": 2.0007285714285707
+        "x": 2.2543530783395025,
+        "y": 2.925777185986973
       },
       "nextControl": {
-        "x": 7.503814054608796,
-        "y": 0.6795014272071297
+        "x": 1.5581999999999998,
+        "y": 1.1714714285714274
       },
       "isLocked": false,
       "linkedName": null
@@ -68,8 +68,8 @@
         "y": 0.651
       },
       "prevControl": {
-        "x": 7.298214285714287,
-        "y": 0.6531857142857131
+        "x": 2.526409090909091,
+        "y": 0.6481770198417829
       },
       "nextControl": null,
       "isLocked": false,
@@ -78,21 +78,25 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 2.3773584905660443,
-      "rotationDegrees": -119.16900000000001
+      "waypointRelativePos": 0.7389937106918238,
+      "rotationDegrees": 91.77139608545346
     },
     {
-      "waypointRelativePos": 3.6666666666666683,
-      "rotationDegrees": -90.0
+      "waypointRelativePos": 2.081761006289311,
+      "rotationDegrees": 178.9674723527678
+    },
+    {
+      "waypointRelativePos": 2.6226415094339584,
+      "rotationDegrees": -138.52755039437133
     }
   ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 1.1633752244165165,
-      "maxWaypointRelativePos": 3.2,
+      "minWaypointRelativePos": 0.8833034111310599,
+      "maxWaypointRelativePos": 2.163170163170161,
       "constraints": {
-        "maxVelocity": 3.5,
+        "maxVelocity": 3.0,
         "maxAcceleration": 3.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -102,10 +106,10 @@
     },
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 3.01615798922801,
-      "maxWaypointRelativePos": 3.877917414721724,
+      "minWaypointRelativePos": 2.6293706293706283,
+      "maxWaypointRelativePos": 4.0,
       "constraints": {
-        "maxVelocity": 2.5,
+        "maxVelocity": 0.8,
         "maxAcceleration": 3.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -118,7 +122,7 @@
   "eventMarkers": [
     {
       "name": "DeployIntake",
-      "waypointRelativePos": 0.25852782764811466,
+      "waypointRelativePos": 0.6104129263913827,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -128,13 +132,35 @@
       }
     },
     {
+      "name": "VisionPassAndShoot",
+      "waypointRelativePos": 2.5134649910233393,
+      "endWaypointRelativePos": 3.669658886894075,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "VisionPassAndShoot"
+        }
+      }
+    },
+    {
       "name": "RetractIntake",
-      "waypointRelativePos": 2.886894075403952,
+      "waypointRelativePos": 3.3752913752913827,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
           "name": "RetractIntake"
+        }
+      }
+    },
+    {
+      "name": "StopShot",
+      "waypointRelativePos": 4.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "StopShot"
         }
       }
     }
