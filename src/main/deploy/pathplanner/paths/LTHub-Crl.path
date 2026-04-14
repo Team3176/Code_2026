@@ -52,18 +52,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "KickerSpindexerON",
-      "waypointRelativePos": 0,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "KickerSpindexerON"
-        }
-      }
-    },
-    {
-      "name": "VisionShootToHub",
+      "name": "VisionPassAndShoot",
       "waypointRelativePos": 0.1400359066427289,
       "endWaypointRelativePos": 1.0,
       "command": {

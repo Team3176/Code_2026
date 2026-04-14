@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.466784090909091,
-        "y": 0.63375
+        "x": 3.521,
+        "y": 0.651
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.39415909090909,
-        "y": 0.5719090909090914
+        "x": 6.494871428571429,
+        "y": 0.6143142857142845
       },
       "isLocked": false,
-      "linkedName": "RINstart"
+      "linkedName": "SRTHub"
     },
     {
       "anchor": {
-        "x": 7.929874999999999,
-        "y": 0.7780454545454552
+        "x": 8.257042857142858,
+        "y": 0.9900714285714276
       },
       "prevControl": {
-        "x": 7.413879776014555,
-        "y": 0.2304586862343715
+        "x": 7.7410476331574145,
+        "y": 0.44248466026034394
       },
       "nextControl": {
-        "x": 8.43490909090909,
-        "y": 1.3140000000000007
+        "x": 8.762076948051948,
+        "y": 1.5260259740259732
       },
       "isLocked": false,
       "linkedName": null
@@ -52,22 +52,30 @@
         "y": 0.651
       },
       "prevControl": {
-        "x": 10.053079545454546,
-        "y": 0.39669318181818203
+        "x": 10.084,
+        "y": 0.303931818181818
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RTHub"
+      "linkedName": "SRTHub"
     }
   ],
   "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0.1475832539424925
+    },
     {
       "waypointRelativePos": 1.0141509433962268,
       "rotationDegrees": 90.0
     },
     {
+      "waypointRelativePos": 2.297169811320763,
+      "rotationDegrees": -99.33962452099114
+    },
+    {
       "waypointRelativePos": 2.8018867924528417,
-      "rotationDegrees": -90.1
+      "rotationDegrees": -2.897153093534564
     }
   ],
   "constraintZones": [
@@ -98,18 +106,7 @@
       }
     }
   ],
-  "pointTowardsZones": [
-    {
-      "fieldPosition": {
-        "x": 4.625,
-        "y": 4.025
-      },
-      "rotationOffset": 180.0,
-      "minWaypointRelativePos": 2.8976660682226134,
-      "maxWaypointRelativePos": 3.0,
-      "name": "Point Towards Zone"
-    }
-  ],
+  "pointTowardsZones": [],
   "eventMarkers": [
     {
       "name": "DeployIntake",
@@ -144,13 +141,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -106.411
+    "rotation": -29.999999999999996
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 89.06080905426442
+    "rotation": -29.999999999999996
   },
   "useDefaultConstraints": true
 }

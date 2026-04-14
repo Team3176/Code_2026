@@ -7,31 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LGTP"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "VisionPassAndShoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 5.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopShot"
+            "pathName": "LINstart-Bump-SLTHub"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "INWARD SLTHub-Out-SLTHub"
+            "pathName": "SLTHub-Out-SLTHub"
           }
         },
         {
@@ -43,7 +25,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 10.0
+            "waitTime": 20.0
           }
         },
         {

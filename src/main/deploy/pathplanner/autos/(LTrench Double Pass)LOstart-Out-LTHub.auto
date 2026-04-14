@@ -13,7 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "VisionPassAndShoot"
+            "name": "ShootFromTrench"
           }
         },
         {
@@ -37,7 +37,7 @@
         {
           "type": "named",
           "data": {
-            "name": "VisionPassAndShoot"
+            "name": "ShootFromTrench"
           }
         },
         {
