@@ -231,7 +231,16 @@ public class RobotContainer {
         superstructure.runShooterSpeedFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsPassing()).withTimeout(.5)
         .alongWith(superstructure.runHoodPositionFromVision(() ->thisRobotVisionHandler.estimateMovingDistanceFromChassisToPointOfInterest(), () -> thisRobotVisionHandler.botIsInTrench(), () -> thisRobotVisionHandler.botIsPassing())).withTimeout(.3)
         .alongWith(superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimatMovingRotationFromChassisToPointOfInterest())).withTimeout(.3)
+        .alongWith(superstructure.KickerOn())
+        .alongWith(superstructure.SpindexerOn())
     );
+    
+    NamedCommands.registerCommand("ShooterSpinUp", 
+    superstructure.ShotTwoShooter().withTimeout(.1)   
+     .andThen(superstructure.ShooterOn())
+    );
+
+
     NamedCommands.registerCommand("KickerSpindexerON",
         (superstructure.KickerOn()
         .andThen(Commands.waitSeconds(.1)))

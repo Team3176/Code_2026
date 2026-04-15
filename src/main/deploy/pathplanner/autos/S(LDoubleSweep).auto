@@ -13,6 +13,18 @@
         {
           "type": "named",
           "data": {
+            "name": "ShooterSpinUp"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "VisionPassAndShoot"
           }
         },
@@ -32,6 +44,18 @@
           "type": "path",
           "data": {
             "pathName": "INWARD SLTHub-Out-SLTHub"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShooterSpinUp"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {

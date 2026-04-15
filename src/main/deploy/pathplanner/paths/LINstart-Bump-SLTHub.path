@@ -132,7 +132,7 @@
       }
     },
     {
-      "name": "KickerSpindexerON",
+      "name": "VisionPassAndShoot",
       "waypointRelativePos": 2.5134649910233393,
       "endWaypointRelativePos": 3.6885688568857056,
       "command": {
