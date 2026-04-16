@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 6.31626248216833,
-        "y": 2.4888302425106996
+        "x": 6.363238636363636,
+        "y": 2.3756022727272725
       },
       "prevControl": {
-        "x": 7.249187463479832,
-        "y": 2.983392883205953
+        "x": 7.2961636176751385,
+        "y": 2.870164913422526
       },
       "nextControl": {
-        "x": 5.240819625025473,
-        "y": 1.9187159567964143
+        "x": 5.2877957792207795,
+        "y": 1.8054879870129872
       },
       "isLocked": false,
       "linkedName": null
@@ -96,7 +96,7 @@
       "minWaypointRelativePos": 0.8833034111310599,
       "maxWaypointRelativePos": 2.163170163170161,
       "constraints": {
-        "maxVelocity": 3.0,
+        "maxVelocity": 2.0,
         "maxAcceleration": 3.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -107,9 +107,9 @@
     {
       "name": "Constraints Zone",
       "minWaypointRelativePos": 2.6293706293706283,
-      "maxWaypointRelativePos": 3.7029702970297182,
+      "maxWaypointRelativePos": 3.55,
       "constraints": {
-        "maxVelocity": 0.6,
+        "maxVelocity": 0.8,
         "maxAcceleration": 3.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -134,7 +134,7 @@
     {
       "name": "VisionPassAndShoot",
       "waypointRelativePos": 2.5134649910233393,
-      "endWaypointRelativePos": 3.6957695769577037,
+      "endWaypointRelativePos": 3.669658886894075,
       "command": {
         "type": "named",
         "data": {
@@ -155,7 +155,7 @@
     },
     {
       "name": "StopShot",
-      "waypointRelativePos": 4.0,
+      "waypointRelativePos": 3.5547576301615837,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -175,7 +175,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -29.999999999999996
+    "rotation": -75.14869795333371
   },
   "reversed": false,
   "folder": null,

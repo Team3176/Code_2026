@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 6.639728958630526,
-        "y": 5.4647218259629105
+        "x": 6.631215909090908,
+        "y": 5.539795454545454
       },
       "prevControl": {
-        "x": 7.1728526367638965,
-        "y": 4.7368029577423485
+        "x": 7.164339587224279,
+        "y": 4.8118765863248925
       },
       "nextControl": {
-        "x": 5.965957530059097,
-        "y": 6.384678968820053
+        "x": 5.957444480519479,
+        "y": 6.459752597402597
       },
       "isLocked": false,
       "linkedName": null
@@ -87,16 +87,16 @@
     },
     {
       "waypointRelativePos": 2.6226415094339584,
-      "rotationDegrees": 131.554
+      "rotationDegrees": 176.94179028823402
     }
   ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.8833034111310599,
-      "maxWaypointRelativePos": 2.163170163170161,
+      "minWaypointRelativePos": 0.8761220825852781,
+      "maxWaypointRelativePos": 2.3339317773788135,
       "constraints": {
-        "maxVelocity": 3.0,
+        "maxVelocity": 2.0,
         "maxAcceleration": 3.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -107,9 +107,9 @@
     {
       "name": "Constraints Zone",
       "minWaypointRelativePos": 2.6293706293706283,
-      "maxWaypointRelativePos": 3.69576957695771,
+      "maxWaypointRelativePos": 3.36804308797128,
       "constraints": {
-        "maxVelocity": 0.6,
+        "maxVelocity": 0.8,
         "maxAcceleration": 3.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -134,11 +134,22 @@
     {
       "name": "VisionPassAndShoot",
       "waypointRelativePos": 2.5134649910233393,
-      "endWaypointRelativePos": 3.6885688568857056,
+      "endWaypointRelativePos": 3.411131059245962,
       "command": {
         "type": "named",
         "data": {
           "name": "VisionPassAndShoot"
+        }
+      }
+    },
+    {
+      "name": "StopShot",
+      "waypointRelativePos": 3.3608617594254993,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "StopShot"
         }
       }
     },

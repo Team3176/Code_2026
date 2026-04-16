@@ -12,7 +12,7 @@
         "y": 0.6337499999971647
       },
       "isLocked": false,
-      "linkedName": "SRTHub"
+      "linkedName": "SSRTHub"
     },
     {
       "anchor": {
@@ -68,12 +68,12 @@
         "y": 0.651
       },
       "prevControl": {
-        "x": 8.929636363634307,
-        "y": 0.5512954545403692
+        "x": 8.92963651892698,
+        "y": 0.5513038790019025
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "SRTHub"
+      "linkedName": "SSRTHub"
     }
   ],
   "rotationTargets": [
@@ -140,13 +140,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -29.999999999999996
+    "rotation": -65.15027452825305
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -29.999999999999996
+    "rotation": -65.15027452825305
   },
   "useDefaultConstraints": true
 }

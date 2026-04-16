@@ -64,16 +64,16 @@
     },
     {
       "anchor": {
-        "x": 3.534,
+        "x": 3.188738636363636,
         "y": 7.41845934379458
       },
       "prevControl": {
-        "x": 5.3675999999999995,
-        "y": 7.364985714285714
+        "x": 5.022339060372263,
+        "y": 7.36500025543502
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "SLTHub"
+      "linkedName": "SSLTHub"
     }
   ],
   "rotationTargets": [
@@ -136,7 +136,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 29.999999999999996
+    "rotation": 68.3598906159813
   },
   "reversed": false,
   "folder": null,

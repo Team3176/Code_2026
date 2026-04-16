@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.534,
+        "x": 3.188738636363636,
         "y": 7.41845934379458
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.270477272727273,
+        "x": 5.925215909090909,
         "y": 7.425943181818181
       },
       "isLocked": false,
-      "linkedName": "SLTHub"
+      "linkedName": "SSLTHub"
     },
     {
       "anchor": {
@@ -64,16 +64,16 @@
     },
     {
       "anchor": {
-        "x": 3.534,
+        "x": 3.188738636363636,
         "y": 7.41845934379458
       },
       "prevControl": {
-        "x": 8.166931818181817,
+        "x": 7.821670454545453,
         "y": 7.529011363636364
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "SLTHub"
+      "linkedName": "SSLTHub"
     }
   ],
   "rotationTargets": [
@@ -144,13 +144,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 29.999999999999996
+    "rotation": 68.36
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 29.999999999999996
+    "rotation": 68.3598906159813
   },
   "useDefaultConstraints": true
 }
