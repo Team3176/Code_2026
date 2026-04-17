@@ -64,16 +64,16 @@
     },
     {
       "anchor": {
-        "x": 3.534,
+        "x": 3.188738636363636,
         "y": 7.41845934379458
       },
       "prevControl": {
-        "x": 5.240529045643154,
+        "x": 4.895267682006789,
         "y": 7.291908713692947
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LTHub"
+      "linkedName": "SLTHub"
     }
   ],
   "rotationTargets": [
@@ -153,7 +153,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 111.90900000000002
+    "rotation": 68.36
   },
   "reversed": false,
   "folder": null,

@@ -53,11 +53,11 @@
       },
       "prevControl": {
         "x": 10.084,
-        "y": 0.3039318181818181
+        "y": 0.30393181818181814
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "SRTHub"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -147,7 +147,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -75.14869795333371
+    "rotation": -65.15027452825305
   },
   "useDefaultConstraints": true
 }

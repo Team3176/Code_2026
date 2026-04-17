@@ -20,12 +20,12 @@
         "y": 0.7780454545454552
       },
       "prevControl": {
-        "x": 7.413879776014555,
-        "y": 0.2304586862343715
+        "x": 7.661897727272727,
+        "y": 0.4585340909090917
       },
       "nextControl": {
-        "x": 8.43490909090909,
-        "y": 1.3140000000000007
+        "x": 8.403104158615438,
+        "y": 1.342280220586941
       },
       "isLocked": false,
       "linkedName": null
@@ -52,12 +52,12 @@
         "y": 0.651
       },
       "prevControl": {
-        "x": 10.053079545454546,
-        "y": 0.39669318181818203
+        "x": 10.042772727272727,
+        "y": 0.6749772727272727
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "SSRTHub"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -74,7 +74,7 @@
     {
       "name": "Constraints Zone",
       "minWaypointRelativePos": 1.0017953321364452,
-      "maxWaypointRelativePos": 3.0,
+      "maxWaypointRelativePos": 2.6876122082585305,
       "constraints": {
         "maxVelocity": 2.0,
         "maxAcceleration": 3.5,
@@ -83,20 +83,22 @@
         "nominalVoltage": 12.0,
         "unlimited": false
       }
-    }
-  ],
-  "pointTowardsZones": [
+    },
     {
-      "fieldPosition": {
-        "x": 4.625,
-        "y": 4.025
-      },
-      "rotationOffset": 180.0,
-      "minWaypointRelativePos": 2.8976660682226134,
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 2.6983842010771975,
       "maxWaypointRelativePos": 3.0,
-      "name": "Point Towards Zone"
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 3.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
     }
   ],
+  "pointTowardsZones": [],
   "eventMarkers": [
     {
       "name": "DeployIntake",

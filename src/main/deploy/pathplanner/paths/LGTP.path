@@ -73,7 +73,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "SSLTHub"
+      "linkedName": "SLTHub"
     }
   ],
   "rotationTargets": [
@@ -136,7 +136,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 68.3598906159813
+    "rotation": 68.36
   },
   "reversed": false,
   "folder": null,
