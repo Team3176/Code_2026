@@ -139,6 +139,6 @@ public class Kicker extends SubsystemBase {
 
     Logger.processInputs("kicker", inputs);
 
-    SmartDashboard.putNumber("Kicker Speed", inputs.kickerVelocityRadPerSec);
+  //  SmartDashboard.putNumber("Kicker Speed", inputs.kickerVelocityRadPerSec);
   }
 }

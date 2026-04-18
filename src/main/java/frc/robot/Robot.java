@@ -92,7 +92,7 @@ public class Robot extends LoggedRobot {
         // Running on a real robot, log to a USB stick ("/U/logs")
         Logger.addDataReceiver(new WPILOGWriter("/home/lvuser/logs/"));
         //Logger.addDataReceiver(new WPILOGWriter("/media/sda1"));
-        Logger.addDataReceiver(new NT4Publisher());
+      //  Logger.addDataReceiver(new NT4Publisher());
         break;
 
       case SIM:
@@ -129,6 +129,7 @@ public class Robot extends LoggedRobot {
 
     //attach precision vision to robot container
     m_robotContainer.thisRobotVisionHandler.attachDriveTrain(m_robotContainer.drivetrain);
+   
 
   }
   /**
@@ -145,16 +146,9 @@ public class Robot extends LoggedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    m_robotContainer.thisRobotVisionHandler.setWeAreBlueAliance();
+  
 
-    try{
-      m_robotContainer.thisRobotVisionHandler.periodicUpdate();
 
-    } catch (Exception e){
-      System.out.println("Vision Update Failed");
-      //Update the net tables faults Table to show that vision crashed. 
-
-    }
 
 
     //Update Hoot Stuff for swerve
@@ -177,7 +171,7 @@ public class Robot extends LoggedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    
+     m_robotContainer.thisRobotVisionHandler.setWeAreBlueAliance();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -188,7 +182,16 @@ public class Robot extends LoggedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    try{
+      m_robotContainer.thisRobotVisionHandler.periodicUpdate();
+
+    } catch (Exception e){
+      System.out.println("Vision Update Failed");
+      //Update the net tables faults Table to show that vision crashed. 
+
+    }
+  }
 
   @Override
   public void teleopInit() {
@@ -196,6 +199,7 @@ public class Robot extends LoggedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+     m_robotContainer.thisRobotVisionHandler.setWeAreBlueAliance();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -206,7 +210,14 @@ public class Robot extends LoggedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    try{
+      m_robotContainer.thisRobotVisionHandler.periodicUpdate();
 
+    } catch (Exception e){
+      System.out.println("Vision Update Failed");
+      //Update the net tables faults Table to show that vision crashed. 
+
+    }
   }
 
   @Override

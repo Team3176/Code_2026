@@ -905,10 +905,10 @@ public class precisionVision {
                 goalErrorToBot = MathUtil.angleModulus(goalAngleToBot + Math.PI); 
 
 
-                chassisChassisAngleToFiledDisp.set(Units.radiansToDegrees(chassisLocRot));
-                chassisGoalAngleToFiledDisp.set(Units.radiansToDegrees(goalAngleField));
-                chassisGoalAngleToChasDisp.set(Units.radiansToDegrees(goalAngleToBot));
-                chassisChassisErrorDisp.set(Units.radiansToDegrees(goalErrorToBot));
+               // chassisChassisAngleToFiledDisp.set(Units.radiansToDegrees(chassisLocRot));
+               // chassisGoalAngleToFiledDisp.set(Units.radiansToDegrees(goalAngleField));
+               // chassisGoalAngleToChasDisp.set(Units.radiansToDegrees(goalAngleToBot));
+               // chassisChassisErrorDisp.set(Units.radiansToDegrees(goalErrorToBot));
 
 
            return   goalErrorToBot;
@@ -1085,9 +1085,9 @@ public class precisionVision {
         goalErrorToBot = MathUtil.angleModulus(goalAngleToBot + Math.PI); 
 
 
-        chassisChassisAngleToFiledDisp.set(Units.radiansToDegrees(chassisLocRot));
-        chassisGoalAngleToFiledDisp.set(Units.radiansToDegrees(goalAngleField));
-        chassisGoalAngleToChasDisp.set(Units.radiansToDegrees(goalAngleToBot));
+      //  chassisChassisAngleToFiledDisp.set(Units.radiansToDegrees(chassisLocRot));
+      //  chassisGoalAngleToFiledDisp.set(Units.radiansToDegrees(goalAngleField));
+      //  chassisGoalAngleToChasDisp.set(Units.radiansToDegrees(goalAngleToBot));
         
 
 
@@ -1125,7 +1125,7 @@ public class precisionVision {
             .getRadians());
 
    
-        chassisChassisErrorDisp.set(Units.radiansToDegrees(turretdirection));
+       // chassisChassisErrorDisp.set(Units.radiansToDegrees(turretdirection));
       
          //goalAngleToBot = Math.atan2((ourGoalLocation[1]-chassisLocY) , (ourGoalLocation[0]-chassisLocX)) - chassisLocRot;
         goalAngleField = Math.atan2((correctedTarget.getY()-chassisLocY) , (correctedTarget.getX()-chassisLocX));
@@ -1182,13 +1182,13 @@ public class precisionVision {
         //calcualte the distance to Point of Interest
         distance = Math.sqrt( Math.pow(chassisLocX - ourPOILocation[0],2) + Math.pow(chassisLocY - ourPOILocation[1],2));
 
-        SmartDashboard.putNumber("Shoot on Move Robot Distance", distance);
+      //  SmartDashboard.putNumber("Shoot on Move Robot Distance", distance);
    
 
         //Shoot on the move distance updates
         double timeOfFlight = getFlightTime(distance);
 
-        SmartDashboard.putNumber("Shoot on Move Time of Flight", timeOfFlight);
+       // SmartDashboard.putNumber("Shoot on Move Time of Flight", timeOfFlight);
    
 
         //Where is the shooter in relation to center of drive train
@@ -1224,13 +1224,13 @@ public class precisionVision {
 
         ChassisDistancetoSoFPOIDisp.set(correctedDistance);
 
-    SmartDashboard.putNumber("Shoot on Move Target Nominal X", target.getX());
-    SmartDashboard.putNumber("Shoot on Move Target Nominal Y", target.getY());
-    SmartDashboard.putNumber("Shoot on Move Robot Velocity X", updatedPosition.vxMetersPerSecond);
-    SmartDashboard.putNumber("Shoot on Move Robot Velocity Y", updatedPosition.vyMetersPerSecond);
-    SmartDashboard.putNumber("Shoot on Move Target Corrected X", correctedTarget.getX());
-    SmartDashboard.putNumber("Shoot on Move Target Corrected Y", correctedTarget.getY());
-    SmartDashboard.putNumber("Shoot on Move Corrected Distance", correctedDistance);
+   // SmartDashboard.putNumber("Shoot on Move Target Nominal X", target.getX());
+   // SmartDashboard.putNumber("Shoot on Move Target Nominal Y", target.getY());
+   // SmartDashboard.putNumber("Shoot on Move Robot Velocity X", updatedPosition.vxMetersPerSecond);
+   // SmartDashboard.putNumber("Shoot on Move Robot Velocity Y", updatedPosition.vyMetersPerSecond);
+   // SmartDashboard.putNumber("Shoot on Move Target Corrected X", correctedTarget.getX());
+   // SmartDashboard.putNumber("Shoot on Move Target Corrected Y", correctedTarget.getY());
+   // SmartDashboard.putNumber("Shoot on Move Corrected Distance", correctedDistance);
    
 
 

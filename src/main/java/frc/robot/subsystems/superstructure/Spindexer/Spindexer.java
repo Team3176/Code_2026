@@ -154,6 +154,6 @@ public class Spindexer extends SubsystemBase {
    
     positionMotorPID.checkParemeterUpdate();
 
-    SmartDashboard.putNumber("Spindexer Speed", inputs.SpindexerVelocity);
+   // SmartDashboard.putNumber("Spindexer Speed", inputs.SpindexerVelocity);
   }
 }

@@ -328,14 +328,14 @@ public class TurretRotation extends SubsystemBase {
    
    // SmartDashboard.putBoolean("Turret LimitSwitch Clockwise", inputs.turretClockwiselimitswitch);
    // SmartDashboard.putBoolean("Turret LimitSwitch Counter Clockwise", inputs.turretCounterclockwiselimitswitch);
-    SmartDashboard.putNumber("Turret Current Rotation", inputs.turretRotationPositionRot);
+ //   SmartDashboard.putNumber("Turret Current Rotation", inputs.turretRotationPositionRot);
    // SmartDashboard.putNumber("Turret Desired Rotation", desiredRotations);
    // SmartDashboard.putNumber("Turret Delta Rotations", deltaRot);
    // SmartDashboard.putNumber("Turret Center Rotations", centerRot); 
    // SmartDashboard.putNumber("Turret Commanded Rotations", commandedRot);
   //  SmartDashboard.putNumber("Turret GoTO Rotations", goToPosRotation);
     
-    SmartDashboard.putNumber("Turret demand Degrees", demandedRotAbsoluteDeg);
+   // SmartDashboard.putNumber("Turret demand Degrees", demandedRotAbsoluteDeg);
    // SmartDashboard.putNumber("Turret demand Rad", demandedRotAbsoluteRad);
     
     SmartDashboard.putNumber("Turret POT Volgate", inputs.turretAnalogPOT_Value);

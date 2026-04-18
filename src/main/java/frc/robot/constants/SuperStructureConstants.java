@@ -199,7 +199,7 @@ public class SuperStructureConstants {
 
   public static final double TurretPotCounterClockCompensator = 1.475;// Left Measured Volts to setup volt to Rot Compensator
   public static final double TurretPotClockwiseCompensator = 3.468;// Right Measured Volts to setup volt to Rot Compensator
-  public static final double TurrentCenterPosPot = 2.486; //This is measured vs computed ->  //((TurretPotClockwise - TurretPotCounterClock) / 2) + TurretPotCounterClock;
+  public static final double TurrentCenterPosPot = 2.478; //This is measured vs computed ->  //((TurretPotClockwise - TurretPotCounterClock) / 2) + TurretPotCounterClock;
   public static final double TurretPotCounterClockOffset = 1.475; //1.405 Min Measured
   public static final double TurretPotClockwiseOffset = 3.468;// 3.38 Max measured
   public static final double TurretPOTCounterClockMax = 1.198;

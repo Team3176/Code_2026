@@ -238,7 +238,7 @@ public class Hood extends SubsystemBase {
     
     io.setHoodVisionPos(hoodPositionRequest);
 
-    SmartDashboard.putNumber("HoodPosition Request", hoodPositionRequest);
+   // SmartDashboard.putNumber("HoodPosition Request", hoodPositionRequest);
     SmartDashboard.putNumber("Hood Distance Command", distance);
   }
 
