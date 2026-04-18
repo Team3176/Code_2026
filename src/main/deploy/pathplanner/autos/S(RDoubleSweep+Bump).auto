@@ -7,13 +7,62 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RINstart-Bump-SRTHub"
+            "pathName": "RINstart-Bump-RAB"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RAB-SRTHub"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShooterSpinUp"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "VisionPassAndShoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "StopShot"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "INWARD SRTHub-Out-SRTHub"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShooterSpinUp"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {

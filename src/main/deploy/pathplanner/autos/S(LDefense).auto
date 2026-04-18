@@ -19,6 +19,18 @@
         {
           "type": "wait",
           "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShooterSpinUp"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
             "waitTime": 5.0
           }
         },
@@ -38,6 +50,18 @@
           "type": "named",
           "data": {
             "name": "VisionPassAndShoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShooterSpinUp"
           }
         },
         {

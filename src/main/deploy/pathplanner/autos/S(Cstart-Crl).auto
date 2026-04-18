@@ -13,13 +13,19 @@
         {
           "type": "named",
           "data": {
+            "name": "ShooterSpinUp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "VisionPassAndShoot"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 20.0
+            "waitTime": 0.5
           }
         },
         {

@@ -13,6 +13,18 @@
         {
           "type": "named",
           "data": {
+            "name": "ShooterSpinUp"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "VisionPassAndShoot"
           }
         },
@@ -37,6 +49,18 @@
         {
           "type": "named",
           "data": {
+            "name": "ShooterSpinUp"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "VisionPassAndShoot"
           }
         },
@@ -56,6 +80,18 @@
           "type": "path",
           "data": {
             "pathName": "SLTHub-Crl"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShooterSpinUp"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {

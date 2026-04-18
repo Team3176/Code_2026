@@ -19,6 +19,18 @@
         {
           "type": "wait",
           "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShooterSpinUp"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
             "waitTime": 4.0
           }
         },
@@ -43,13 +55,19 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 10.0
+            "waitTime": 0.5
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "StopShot"
+            "name": "ShooterSpinUp"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 10.0
           }
         }
       ]

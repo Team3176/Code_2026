@@ -7,7 +7,44 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LINstart-Bump-SLTHub"
+            "pathName": "LINstart-Bump-LAB"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "LAB-SLTHub"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShooterSpinUp"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "VisionPassAndShoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "StopShot"
+                }
+              }
+            ]
           }
         },
         {
