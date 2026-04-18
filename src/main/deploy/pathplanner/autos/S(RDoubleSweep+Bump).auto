@@ -21,12 +21,6 @@
                 }
               },
               {
-                "type": "named",
-                "data": {
-                  "name": "ShooterSpinUp"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
                   "waitTime": 0.5
@@ -37,14 +31,14 @@
                 "data": {
                   "name": "VisionPassAndShoot"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "StopShot"
-                }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShot"
           }
         },
         {

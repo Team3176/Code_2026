@@ -116,6 +116,17 @@
       }
     },
     {
+      "name": "ShooterSpinUp",
+      "waypointRelativePos": 2.003590664272891,
+      "endWaypointRelativePos": 3.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ShooterSpinUp"
+        }
+      }
+    },
+    {
       "name": "RetractIntake",
       "waypointRelativePos": 2.7,
       "endWaypointRelativePos": null,

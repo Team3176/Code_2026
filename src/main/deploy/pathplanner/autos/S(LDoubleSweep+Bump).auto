@@ -11,6 +11,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ShooterSpinUp"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -18,12 +24,6 @@
                 "type": "path",
                 "data": {
                   "pathName": "LAB-SLTHub"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ShooterSpinUp"
                 }
               },
               {
@@ -37,14 +37,14 @@
                 "data": {
                   "name": "VisionPassAndShoot"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "StopShot"
-                }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShot"
           }
         },
         {

@@ -112,13 +112,13 @@
       }
     },
     {
-      "name": "VisionPassAndShoot",
-      "waypointRelativePos": 2.25,
-      "endWaypointRelativePos": 4.0,
+      "name": "ShooterSpinUp",
+      "waypointRelativePos": 1.9928186714542195,
+      "endWaypointRelativePos": 3.0,
       "command": {
         "type": "named",
         "data": {
-          "name": "VisionPassAndShoot"
+          "name": "ShooterSpinUp"
         }
       }
     },
@@ -130,17 +130,6 @@
         "type": "named",
         "data": {
           "name": "RetractIntake"
-        }
-      }
-    },
-    {
-      "name": "StopShot",
-      "waypointRelativePos": 2.8,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "StopShot"
         }
       }
     }

@@ -34,7 +34,7 @@ public class Superstructure {
   private ShooterControl shooter;
   private TurretRotation turretRotation;
   private IntakeControl intake;
-  private ClimbControl climb;
+  //private ClimbControl climb;
   private Spindexer spindexer;
 
   private Kicker kicker;
@@ -47,7 +47,7 @@ public class Superstructure {
     intake = IntakeControl.getInstance();
     kicker = Kicker.getInstance();
     hood = Hood.getInstance();
-    climb = ClimbControl.getInstance();
+    //climb = ClimbControl.getInstance();
     spindexer = Spindexer.getInstance();
   }
 
@@ -124,7 +124,7 @@ public class Superstructure {
     return (turretRotation.moveTurretToMaxClockwise());
   }
 
-  public Command ClimbPositionMotor(DoubleSupplier position) {
+ /*  public Command ClimbPositionMotor(DoubleSupplier position) {
     return (climb.runClimb(() -> position.getAsDouble()));
   }
 
@@ -142,7 +142,7 @@ public class Superstructure {
 
   public Command stopClimbLeftRight() {
     return climb.stopLeftRight();
-  }
+  } */
 
   public Command shooterMotorSpeed(DoubleSupplier Speed_RPS) {
     return (shooter.runDualShooterSpeed(() -> Speed_RPS.getAsDouble()));
