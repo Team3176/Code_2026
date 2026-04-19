@@ -13,6 +13,12 @@
         {
           "type": "named",
           "data": {
+            "name": "TurretVisionEnable"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "ShooterSpinUp"
           }
         },
@@ -92,6 +98,12 @@
           "type": "path",
           "data": {
             "pathName": "INWARD SRTHub-Out-SRTHub"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TurretVisionEnable"
           }
         },
         {
