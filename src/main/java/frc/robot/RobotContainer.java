@@ -240,6 +240,9 @@ public class RobotContainer {
      .andThen(superstructure.ShooterOn())
     );
 
+    NamedCommands.registerCommand("TurretVisionEnable",
+     superstructure.runTurretRotFromVisionLocation(() ->thisRobotVisionHandler.estimatMovingRotationFromChassisToPointOfInterest()).withTimeout(.3)
+     );
 
     NamedCommands.registerCommand("KickerSpindexerON",
         (superstructure.KickerOn()
