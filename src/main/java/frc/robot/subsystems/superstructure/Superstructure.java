@@ -23,6 +23,7 @@ import com.ctre.phoenix6.StatusSignal;
 import frc.robot.constants.SuperStructureConstants;
 import frc.robot.util.LoggedTunableNumber;
 import frc.robot.util.TunablePID;
+import lombok.With;
 public class Superstructure {
   
 
@@ -240,6 +241,10 @@ public class Superstructure {
 
     public Command runShooterSpeedFromVision(DoubleSupplier distance_shooter, BooleanSupplier isPassing) {
     return (shooter.runDualShooterGoalVision(distance_shooter, isPassing));
+  }
+
+  public Command runShooterHoodFromVision(DoubleSupplier distance, BooleanSupplier isInTrench, BooleanSupplier isPassing, DoubleSupplier turretRotRaidianToPoint ){
+    return(hood.runHoodFromDistance(distance, isInTrench, isPassing).alongWith(shooter.runDualShooterGoalVision(distance, isPassing)));
   }
   
   

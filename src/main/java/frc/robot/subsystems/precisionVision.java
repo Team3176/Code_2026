@@ -59,7 +59,7 @@ import frc.robot.mathUtil.LinearInterpolationTable;
 
 public class precisionVision {
 
-    private PhotonCamera turretCamera;
+   // private PhotonCamera turretCamera;
     private PhotonCamera leftRearCamera;
     private PhotonCamera rightRearCamera;
     private PhotonCamera leftSideCamera;
@@ -264,14 +264,14 @@ public class precisionVision {
         isTagDetected = new boolean[MAX_TAGS];
 
         // Connect to the cameras
-        turretCamera = new PhotonCamera("TurretCamera");
+       // turretCamera = new PhotonCamera("TurretCamera");
         leftRearCamera = new PhotonCamera("LeftRearCamera");
         rightRearCamera = new PhotonCamera("RightRearCamera");
         leftSideCamera = new PhotonCamera("LeftSideCamera");
         rightSideCamera = new PhotonCamera("RightSideCamera");
 
         // Construct things for localization
-        turretPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToTurret);
+       // turretPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToTurret);
         leftRearPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledLeftRearCam);
         rightRearPoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToRightRearCam);
         leftSidePoseEstimator = new PhotonPoseEstimator(kTagLayout, kSledToLeftSideCam);
@@ -696,36 +696,36 @@ public class precisionVision {
         double[] ourGoalLocation;
 
         Optional<EstimatedRobotPose> thisVisionEst = Optional.empty();
-        for (var result : turretCamera.getAllUnreadResults()) {
-            thisVisionEst = turretPoseEstimator.estimateCoprocMultiTagPose(result);
-            if (thisVisionEst.isEmpty()) {
-                thisVisionEst = turretPoseEstimator.estimateLowestAmbiguityPose(result); // default to 2d localization
-                                                                                         // if we can't get multi-tag
-                                                                                         // results
+        // for (var result : turretCamera.getAllUnreadResults()) {
+        //     thisVisionEst = turretPoseEstimator.estimateCoprocMultiTagPose(result);
+        //     if (thisVisionEst.isEmpty()) {
+        //         thisVisionEst = turretPoseEstimator.estimateLowestAmbiguityPose(result); // default to 2d localization
+        //                                                                                  // if we can't get multi-tag
+        //                                                                                  // results
 
-            }
+        //     }
 
-            turretLocX = thisVisionEst.get().estimatedPose.getX();
-            turretLocY = thisVisionEst.get().estimatedPose.getY();
-            turretLocRot = thisVisionEst.get().estimatedPose.getRotation().getZ();
+        //     turretLocX = thisVisionEst.get().estimatedPose.getX();
+        //     turretLocY = thisVisionEst.get().estimatedPose.getY();
+        //     turretLocRot = thisVisionEst.get().estimatedPose.getRotation().getZ();
 
-            if (weAreBlueAlliance)
-                ourGoalLocation = blueGoalLocation;
-            else
-                ourGoalLocation = redGoalLocation;
+        //     if (weAreBlueAlliance)
+        //         ourGoalLocation = blueGoalLocation;
+        //     else
+        //         ourGoalLocation = redGoalLocation;
 
-            // calcualte the distance
-            aTurretSolution.distance = Math
-                    .sqrt(Math.pow(turretLocX - ourGoalLocation[0], 2) + Math.pow(turretLocY - ourGoalLocation[1], 2));
+        //     // calcualte the distance
+        //     aTurretSolution.distance = Math
+        //             .sqrt(Math.pow(turretLocX - ourGoalLocation[0], 2) + Math.pow(turretLocY - ourGoalLocation[1], 2));
 
-            // calculate the angle
-            aTurretSolution.angle = Math.atan((ourGoalLocation[1] - turretLocY) / (ourGoalLocation[0] - turretLocX))
-                    - turretLocRot;
+        //     // calculate the angle
+        //     aTurretSolution.angle = Math.atan((ourGoalLocation[1] - turretLocY) / (ourGoalLocation[0] - turretLocX))
+        //             - turretLocRot;
 
-            double[] solutiotDisplayVector = { aTurretSolution.distance, aTurretSolution.angle * 180 / 3.1416,
-                    turretLocX, turretLocY, turretLocRot };
-            turretPoseDisplay.set(solutiotDisplayVector);
-        }
+        //     double[] solutiotDisplayVector = { aTurretSolution.distance, aTurretSolution.angle * 180 / 3.1416,
+        //             turretLocX, turretLocY, turretLocRot };
+        //     turretPoseDisplay.set(solutiotDisplayVector);
+        // }
 
         return aTurretSolution;
     }
