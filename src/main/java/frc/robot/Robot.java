@@ -128,8 +128,9 @@ public class Robot extends LoggedRobot {
 
 
     //attach precision vision to robot container
+    m_robotContainer.thisRobotVisionHandler.setWeAreBlueAliance();
     m_robotContainer.thisRobotVisionHandler.attachDriveTrain(m_robotContainer.drivetrain);
-   
+     
 
   }
   /**
@@ -147,7 +148,14 @@ public class Robot extends LoggedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
   
+    try{
+      m_robotContainer.thisRobotVisionHandler.periodicUpdate();
 
+    } catch (Exception e){
+      System.out.println("Vision Update Failed");
+      //Update the net tables faults Table to show that vision crashed. 
+
+    }
 
 
 
@@ -183,14 +191,7 @@ public class Robot extends LoggedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    try{
-      m_robotContainer.thisRobotVisionHandler.periodicUpdate();
 
-    } catch (Exception e){
-      System.out.println("Vision Update Failed");
-      //Update the net tables faults Table to show that vision crashed. 
-
-    }
   }
 
   @Override
@@ -210,14 +211,7 @@ public class Robot extends LoggedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    try{
-      m_robotContainer.thisRobotVisionHandler.periodicUpdate();
 
-    } catch (Exception e){
-      System.out.println("Vision Update Failed");
-      //Update the net tables faults Table to show that vision crashed. 
-
-    }
   }
 
   @Override

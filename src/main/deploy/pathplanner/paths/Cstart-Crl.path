@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9619886363636363,
-        "y": 5.003840909090909
+        "x": 0.5914204545454544,
+        "y": 5.055375
       },
       "isLocked": false,
       "linkedName": "Cstart"
     },
     {
       "anchor": {
-        "x": 0.921238636363636,
-        "y": 5.921147727272728
+        "x": 0.8697045454545451,
+        "y": 7.157965909090909
       },
       "prevControl": {
-        "x": 3.3227272727272723,
-        "y": 5.890227272727272
+        "x": 0.4162045454545453,
+        "y": 5.550102272727272
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,11 +32,11 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.2538825118163453,
+      "minWaypointRelativePos": 0.0,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
-        "maxAcceleration": 3.5,
+        "maxAcceleration": 2.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -56,28 +56,6 @@
           "name": "DeployIntake"
         }
       }
-    },
-    {
-      "name": "KickerSpindexerON",
-      "waypointRelativePos": 0.0,
-      "endWaypointRelativePos": 1.0,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "KickerSpindexerON"
-        }
-      }
-    },
-    {
-      "name": "VisionPassAndShoot",
-      "waypointRelativePos": 0.22082585278276418,
-      "endWaypointRelativePos": 1.0,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "VisionShootToHub"
-        }
-      }
     }
   ],
   "globalConstraints": {
@@ -90,7 +68,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 134.02897806892088
   },
   "reversed": false,
   "folder": null,
