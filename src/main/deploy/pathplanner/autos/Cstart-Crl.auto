@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RINstart-SRTHub"
+            "pathName": "Cstart-Crl"
           }
         },
         {
@@ -35,12 +35,6 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "DeployIntake"
@@ -49,7 +43,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.2
+            "waitTime": 0.3
           }
         },
         {
@@ -61,7 +55,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.2
+            "waitTime": 0.5
           }
         },
         {
@@ -73,7 +67,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.2
+            "waitTime": 0.3
           }
         },
         {
@@ -85,67 +79,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.4
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "INWARD SRTHub-Out-SRTHub"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "TurretVisionEnable"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShooterSpinUp"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "DeployIntake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "VisionPassAndShoot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.2
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "RetractIntake"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.2
+            "waitTime": 0.5
           }
         },
         {
@@ -157,7 +91,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.2
+            "waitTime": 0.3
           }
         },
         {
@@ -169,7 +103,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 9.0
+            "waitTime": 20.0
           }
         },
         {
@@ -182,6 +116,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "State Autos",
+  "folder": "IRI Autos",
   "choreoAuto": false
 }

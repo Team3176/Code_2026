@@ -1,0 +1,25 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Cstart-Ltower"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "VisionShootToHub"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "IRI Autos",
+  "choreoAuto": false
+}

@@ -3,44 +3,44 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.2815,
-        "y": 7.137352272727274
+        "x": 2.745192582025677,
+        "y": 4.041469329529244
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4518181818181812,
-        "y": 6.433665656205421
+        "x": 1.735477272727273,
+        "y": 2.7878749999999997
       },
       "isLocked": false,
-      "linkedName": "SLTHub"
+      "linkedName": "Cmid"
     },
     {
       "anchor": {
-        "x": 0.921238636363636,
-        "y": 5.921147727272728
+        "x": 3.5185568181818176,
+        "y": 0.4894545454545459
       },
       "prevControl": {
-        "x": 2.8176931818181816,
-        "y": 5.952068181818181
+        "x": 2.5185568181818176,
+        "y": 0.48945454545454603
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RIPT"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": -179.96241184393583
+      "rotationDegrees": -140.26375681650129
     }
   ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.8545780969479349,
-      "maxWaypointRelativePos": 1.0,
+      "minWaypointRelativePos": 0.2,
+      "maxWaypointRelativePos": 0.75,
       "constraints": {
-        "maxVelocity": 1.0,
+        "maxVelocity": 1.5,
         "maxAcceleration": 3.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -50,30 +50,7 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "VisionPassAndShoot",
-      "waypointRelativePos": 0.1400359066427289,
-      "endWaypointRelativePos": 1.0,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "VisionShootToHub"
-        }
-      }
-    },
-    {
-      "name": "DeployIntake",
-      "waypointRelativePos": 0.14542190305206448,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "DeployIntake"
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.5,
     "maxAcceleration": 3.5,
@@ -84,13 +61,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.49741833327897
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 68.36
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

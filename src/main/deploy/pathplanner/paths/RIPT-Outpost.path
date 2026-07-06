@@ -3,41 +3,36 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.2815,
-        "y": 7.137352272727274
+        "x": 3.5185568181818176,
+        "y": 0.4894545454545459
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4518181818181812,
-        "y": 6.433665656205421
+        "x": 2.8873977272727265,
+        "y": 0.4928181818181827
       },
       "isLocked": false,
-      "linkedName": "SLTHub"
+      "linkedName": "RIPT"
     },
     {
       "anchor": {
-        "x": 0.921238636363636,
-        "y": 5.921147727272728
+        "x": 0.47804545454545433,
+        "y": 0.4894545454545459
       },
       "prevControl": {
-        "x": 2.8176931818181816,
-        "y": 5.952068181818181
+        "x": 0.746022727272727,
+        "y": 0.5031250000000013
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Outpost"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": -179.96241184393583
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.8545780969479349,
+      "minWaypointRelativePos": 0.12387791741472183,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
@@ -52,24 +47,24 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "VisionPassAndShoot",
-      "waypointRelativePos": 0.1400359066427289,
-      "endWaypointRelativePos": 1.0,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "VisionShootToHub"
-        }
-      }
-    },
-    {
       "name": "DeployIntake",
-      "waypointRelativePos": 0.14542190305206448,
+      "waypointRelativePos": 0.0789946140035906,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
           "name": "DeployIntake"
+        }
+      }
+    },
+    {
+      "name": "",
+      "waypointRelativePos": 0.786355475763017,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "RetractIntake"
         }
       }
     }
@@ -84,13 +79,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.49741833327897
+    "rotation": -179.62243222363583
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 68.36
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
